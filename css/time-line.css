@@ -1,0 +1,188 @@
+/* -------------------------------- 
+
+Primary style
+
+-------------------------------- */
+.horizontal-timeline a {
+  text-decoration: none;
+}
+
+.footer {
+  opacity: .6;
+  position: absolute;
+  bottom: 31px;
+  width: 98%;
+  height: 41px;
+  /* line-height: 60px; */
+  background-color: rgba(245, 245, 245, 0.8313725490196079);
+  z-index: 20;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.horizontal-timeline.loaded {
+	/* show the timeline after events position has been set (using JavaScript) */
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    z-index: 50;
+    bottom: 40px;
+    left: -8px;
+}
+.footer:hover {
+	/* show the timeline after events position has been set (using JavaScript) */
+	  opacity: 1;
+}
+.horizontal-timeline .timeline {
+    background: #dcdcdc none repeat scroll 0 0;
+    height: 2px;
+    left: 10px;
+	  bottom: 5px;
+    position: absolute;
+}
+
+.horizontal-timeline .events {
+  /* this is the grey line/timeline */
+  position: absolute;
+  height: 2px;
+  /*margin left for autoplay buttons */
+  margin: 0 45px; 
+}
+
+.horizontal-timeline .filling-line {
+  /* this is used to create the green line filling the timeline */
+  position: absolute;
+  z-index: 1;
+  left: 15px;
+  bottom: 5px;
+  height: 100%;
+  background-color: #32afaf;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  -o-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -ms-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+.horizontal-timeline .events a {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  padding-bottom: 10px;
+  color: #32afaf;
+  /* fix bug on Safari - text flickering while timeline translates */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.horizontal-timeline .events a::after {
+  /* this is used to create the event spot */
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: auto;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: 0;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  border: 2px solid #32afaf;
+  background-color: #f8f8f8;
+  -webkit-transition: background-color 0.3s, border-color 0.3s;
+  -moz-transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.horizontal-timeline .events a:hover::after {
+  background-color: #32afaf;
+  border: 2px solid #32afaf;
+  width : 8px;
+  height : 8px;
+  bottom:0;
+}
+.horizontal-timeline .events a.selected {
+  pointer-events: none;
+  font-weight: bolder;
+  font-size: larger;
+
+}
+.horizontal-timeline .events a.selected::after {
+  background-color: #32afaf;
+  border-color: #32afaf;
+}
+.horizontal-timeline .events a.older-event::after {
+  border-color: 2973eb;
+}
+
+.horizontal-timeline .events-content {
+  position: relative;
+  width: 100%;
+  margin: 2em 0;
+  overflow: hidden;
+  -webkit-transition: height 0.4s;
+  -moz-transition: height 0.4s;
+  transition: height 0.4s;
+}
+.horizontal-timeline .events-content li {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+  padding: 0 5%;
+  opacity: 0;
+  -webkit-animation-duration: 0.4s;
+  -moz-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.horizontal-timeline .events-content li.selected {
+  /* visible event content */
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.horizontal-timeline .events ol {
+  font-family: 'Roboto', sans-serif;
+	list-style: none;
+	margin:0;
+	padding:0;
+	font-size : 12px;
+}
+
+.horizontal-timeline .events a.disabled::after {
+    background-color: #dcdcdc;
+    border: 2px solid #dcdcdc;
+}
+
+.horizontal-timeline a.disabled {
+	pointer-events: none;
+}
+

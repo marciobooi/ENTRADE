@@ -1,0 +1,22 @@
+﻿{
+    "START_TOUR_TITLE": "Tutoriel",
+    "START_TOUR_TEXT": "Bienvenue dans le didacticiel de l'outil de visualisation du commerce de l'énergie d'Eurostat. Cette visite guidée vous montrera les principales façons d'interagir avec l'outil.",
+    "STEP1_TITLE": "Menu",
+    "STEP1_TEXT": "En plus des options graphiques, l'outil contient un menu pour des fonctionnalités supplémentaires. Survolez-le avec votre souris pour le développer. Cliquez sur Suivant pour en savoir plus sur les options du menu.",
+    "STEP2_TITLE": "Fonctionnalité commerciale",
+    "STEP2_TEXT": "Utilisez cette option pour basculer entre les importations et les exportations.",
+    "STEP3_TITLE": "Sélectionnez le type de carburant",
+    "STEP3_TEXT": "Utilisez cette option pour basculer entre différents types de combustibles, charbon, gaz, pétrole, électricité/chaleur et biocarburants.",
+    "STEP4_TITLE": "Sélectionner l'unité",
+    "STEP4_TEXT": "Utilisez cette option pour passer d'une unité à l'autre.",
+    "STEP5_TITLE": "Filtre la fonctionnalité",
+    "STEP5_TEXT": "Utilisez cette option pour filtrer les pays, le top 5, le top 10, le top 25 ou tous les pays.",
+    "STEP6_TITLE": "Définitions",
+    "STEP6_TEXT" : "Chaque fois que vous voyez cette icône, cliquez dessus pour en savoir plus. L'outil de visualisation d'Eurostat pour le commerce de l'énergie est lié à des définitions, des métadonnées et des ensembles de données.",
+    "STEP7_TITLE": "Chronologie",
+    "STEP7_TEXT": "Cliquez sur une année dans la chronologie interactive pour changer l'année affichée.",
+    "STEP8_TITLE": "Sélectionner la langue",
+    "STEP8_TEXT": "Utilisez cette option pour sélectionner le français, l'anglais ou l'allemand.",
+    "STEP9_TITLE": "C'est tout pour notre tournée.",
+    "STEP9_TEXT": "Si vous trouvez cet outil de visualisation utile, veuillez montrer votre soutien en le partageant avec d'autres sur Twitter, Facebook et LinkedIn. Merci!"
+}

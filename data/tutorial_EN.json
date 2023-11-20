@@ -1,0 +1,24 @@
+{
+	"START_TOUR_TITLE": "Tutorial",
+	"START_TOUR_TEXT": "Welcome to the tutorial of Eurostat's Energy trade visualization tool. This guided tour will show you the main ways of interacting with the tool.",
+	"STEP1_TITLE": "Menu",
+	"STEP1_TEXT": "In addition to graphic options, the tool contains a menu for additional features. Hover over it with your mouse to expand it. Click next to learn about the menu options.",
+	"STEP2_TITLE": "Trade feature",
+	"STEP2_TEXT": "Use this option to change between imports and exports.",
+	"STEP3_TITLE": "Select the fuel type",
+	"STEP3_TEXT": "Use this option to change between different fuel types, coal, gas, oil, electricity/heat and biofuels.",
+	"STEP4_TITLE": "Select unit",
+	"STEP4_TEXT": "Use this option to change between different units.",	
+	"STEP5_TITLE": "Filter feature",
+	"STEP5_TEXT": "Use this option to filter the countries, top 5, top 10, top 25 or all countries.",	
+	"STEP6_TITLE": "Definitions",
+	"STEP6_TEXT" : "Whenever you see this icon, click on it to learn more. The Eurostat visualization tool for the energy trade is linked to definitions, metadata and data sets.",    
+	"STEP7_TITLE": "Timeline",
+	"STEP7_TEXT": "Click on a year in the interactive time line to change the year on display.",
+	"STEP8_TITLE": "Select Language",
+	"STEP8_TEXT": "Use this option to select French, English or German.",
+	"STEP9_TITLE": "That is it for our tour.",
+	"STEP9_TEXT": "If you find this visualisation tool useful, please show your support by sharing it with others on Twitter, Facebook, and LinkedIn. Thank you!"
+
+	
+}

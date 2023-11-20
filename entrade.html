@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Energy trade visualisation tool</title>
+  <meta charset="utf-8" />
+  <meta name='viewport' content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>Energy trade flows</title>
+
+  <meta property="og:image:width" content="200">
+  <meta property="og:image:height" content="200">
+  <meta property="og:description"
+    content="By using the Energy Trade tool, created by Eurostat, you can easily visualise energy trade flows between countries and see how much energy and from/to which countries it is imported or exported.">
+  <meta property="og:title" content="Energy trade flows">
+  <meta property="og:url" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/entrade.html">
+  <meta property="og:image" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/shareico.jpg">
+
+  <meta property="og:type" content="Chart">
+  <meta property="og:image:secure_url"
+    content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/shareico.jpg">
+  <meta property="og:image:type" content="image/png">
+  <meta name="og:site_name" content="Energy Trade">
+  <meta property="og:type" content="website">
+
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:title" content="Energy trade map">
+  <meta property="twitter:description"
+    content="By using the Energy Trade tool, created by Eurostat, you can easily visualise energy trade flows between countries and see how much energy and from/to which countries it is imported or exported.">
+
+  <meta property="twitter:url" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/entrade.html">
+  <meta property="twitter:image" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/shareico.jpg">
+
+  <meta name="keywords"
+    content="Energy, trade, imports, exports, Energy Union, European Union, energy map, energy flows, energy flow chart, energy carrier, energy market, energy commodities, energy products, fuels, energy sector, energy data, data, statistics">
+  <meta name="description"
+    content="By using the Energy Trade tool, created by Eurostat, you can easily visualise energy trade flows between countries and see how much energy and from/to which countries it is imported or exported.">
+  <meta name="subject" content="Energy trade flows, energy trade map, energy">
+  <meta name="copyright" content="European Union">
+  <meta name="author" content="Eurostat, ESTAT-ENERGY@ec.europa.eu">
+  <meta name="owner" content="Eurostat">
+  <meta name="url" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/entrade.html">
+  <meta name="identifier-URL" content="https://ec.europa.eu/eurostat/cache/infographs/energy_trade/entrade.html">
+
+
+
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=latin-ext"
+    rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css">
+  <!-- External css Libraries needed -->
+  <link href="css/jBox.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hopscotch/0.3.1/css/hopscotch.min.css"> -->
+  <link rel="stylesheet" href="css/font-awesome-animation.css">
+  <!-- Local css Libraries needed -->
+  <link rel="stylesheet" href="css/entrade.css">
+  <link rel="stylesheet" href="css/time-line.css">
+  <link rel="stylesheet" href="css/infoModal.css">
+  <link rel="stylesheet" href="css/appIntro.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/introjs.css"
+    integrity="sha512-i+WzzATeaDcwcfi5CfLn63qBxrKqiQvDLC+IChU1zVlaPguPgJlddOR07nU28XOoIOno9WPmJ+3ccUInpmHxBg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/introjs-modern.css">
+
+  <!-- External js Libraries needed -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.0.6/dist/jBox.all.min.js"></script>
+  <script defer src="https://europa.eu/webtools/load.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hopscotch/0.3.1/js/hopscotch.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/intro.min.js"
+    integrity="sha512-QWPjvFqgUJv5X6Sq5NXmwJQSEzUEBxmCCcgqJd5/5luZnS6llRbshsChUNKrFlZ4bshKZEJxAHDB+WWdMsGvUA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.1/css/all.css">
+  <script src="js/exportMap.js"></script>
+
+  <!-- <script defer src="//europa.eu/webtools/load.js" type="text/javascript"></script>     -->
+
+  <!-- Internal js Libraries needed -->
+  <script src="js/basics.js"></script>
+  <script src="js/language.js"></script>
+  <script src="js/json-stat.js"></script>
+  <script src="js/apiCall.js"></script>
+  <script src="js/codes.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/pageDown.js"></script>
+  <script src="js/entrade.js"></script>
+  <script src="js/apiCall.js"></script>
+
+  <script src="js/social.js" type="text/javascript"></script>
+
+  <script src="js/time-line.js"></script>
+  <script src="js/puymodals.js"></script>
+  <script src="js/trade-dialog-box.js"></script>
+  <script src="js/unit-dialog-box.js"></script>
+  <script src="js/fuel-dialog-box.js"></script>
+  <script src="js/more-dialog-box.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/filter-dialog-box.js"></script>
+  <script src="js/mainfuel-dialog-box.js"></script>
+  <script src="js/tableInfo.js"></script>
+  <script src="js/piechart.js"></script>
+  <script src="js/barChart.js"></script>
+  <script src="js/lineChart.js"></script>
+  <script src="js/partners.js"></script>
+  <script src="js/renderMap.js"></script>
+  <script src="js/table.js"></script>
+  <script src="js/info.js"></script>
+  <script src="js/loader.js"></script>
+  <!-- <script src="js/polylinePopup.js"></script> -->
+  <!-- <script src="js/menu-footer.js"></script> -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/timelineTable.js"></script>
+  <script src="js/errorHandler.js"></script>
+  <link rel="stylesheet" href="css/mediaqueries.css">
+
+</head>
+
+<body>
+
+
+  <div id="hiddenFormDiv"></div>
+
+  <input type="hidden" id="showTour" value="0">
+
+  <div class="iconContainer">
+    <div class="phone"><i class="fas fa-redo"></i></div>
+    <p>Please rotate your device!</p>
+  </div>
+
+  <div class="master" style="display: none;">
+    <div id="wrapper" class="loader d-flex flex-column">
+      <div id="words">
+      </div>
+      <div class="center">
+        <div class="d-flex">
+          <div class="image"></div>
+          <div class="image2"></div>
+          <div class="image3"></div>
+        </div>
+        <p id="hi"></p>
+        <span class="text-white"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="page" style="display: none;">
+    <div id="allContainer">
+      <nav class="navbar navbar-expand-lg m-0 p-0 d-flex justify-content-between costom">
+        <div class="d-flex">
+          <div>
+            <img id="eurostatLogo" alt="eurostat Logo" src="img/eurostat_logo_260.png"
+              onclick="window.open('https://ec.europa.eu/eurostat/web/energy/overview', '_self');">
+          </div>
+          <div class="ml-3 mt-2">
+            <div id="countryHeader">
+              <div id="header-title" class="text-white">
+                <h4 id="header-title-Label"></h4>
+              </div>
+              <h6 id="subHeader-title" class="countryNameChartArea"></h6>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div id="social-media" class="mr-2">
+            <span title="Twitter" onclick="socialNameSpace.twitter();"><img class="social-media-icon"
+                src="img/social-media/twitter_icon.png" alt="Twitter" /></span>
+            <span title="Facebook" onclick="socialNameSpace.facebook();"><img class="social-media-icon"
+                src="img/social-media/facebook_icon.png" alt="Facebook" /></span>
+            <span title="LinkedIn" onclick="socialNameSpace.linkedIn()"><img class="social-media-icon"
+                src="img/social-media/linkedin_icon.png" alt="Linkedin" /></span>
+            <span title="Email" onclick="findmoreboxNameSpace.openContact()"><img class="social-media-icon"
+                src="img/mail.png" alt="Email" /></span>
+            <!-- <span title="Links" class="Links" data-toggle="modal" data-target="#modalLinks" ><img class="social-media-icon" src="img/euro.png" alt="Links"/></span> -->
+          </div>
+
+          <div id="lang-section" class="select-style mr-2">
+            <select id="lang-selection" onchange="languageNameSpace.myFunction(this.value)">
+              <option value="EN">English (EN)</option>
+              <option value="DE">Deutsch (DE)</option>
+              <option value="FR">Francais (FR)</option>
+            </select>
+          </div>
+        </div>
+        <!-- </div> -->
+      </nav>
+
+      <div id="menu">
+        <div id="menu-container">
+          <nav class="main-menu menu-normal-size">
+            <ul>
+              <li class="element" onclick="tradeboxNameSpace.drawTradeDialogBox();">
+                <span>
+                  <img id="country-selection-menu-icon" alt="country selection menu icon" class="menu-icon"
+                    src="img/INOUT.png" style="background: rgb(31, 73, 125); height: 50px;">
+                  <span id="menu-country-title" class="nav-text" style="border-top:none;">Select trade</span>
+                </span>
+              </li>
+              <li class="element" onclick="unitboxNameSpace.drawUnitDialogBox();">
+                <span>
+                  <img id="unit-selection-menu-icon" alt="unit selection menu icon" class="menu-icon"
+                    src="img/unit-selection.png" style="background: rgb(250, 165, 25); height: 50px;">
+                  <span id="menu-unit-title" class="nav-text">Select unit</span>
+                </span>
+              </li>
+              <li class="element" onclick="mainfuelboxNameSpace.drawmainFuelDialogBox();">
+                <span>
+                  <img id="product-selection-menu-icon" alt="product selection menu icon" class="menu-icon"
+                    src="img/list.png" style="background: rgb(50, 175, 175); height: 50px;">
+                  <span id="menu-product-title" class="nav-text">Select fuel</span>
+                </span>
+              </li>
+              <!-- <li class="element" onclick="testprint()">
+                            <span>
+									<img id="save" class="menu-icon" src="img/save.png" style="background: rgb(95, 180, 65); height: 50px;">
+									<span id="menu-country-sorting-title" class="nav-text">Print</span>
+                            </span>
+                        </li> -->
+              <li class="element" onclick="filterboxNameSpace.drawfilterDialogBox()">
+                <span>
+                  <img id="country-filter" alt="country filter" class="menu-icon" src="img/filter.png"
+                    style="background: rgb(231, 74, 74); height: 50px;">
+                  <span id="menu-filter" class="nav-text" style="border-bottom:none;">Filter geo</span>
+                </span>
+              </li>
+              <li class="element" onclick="findmoreboxNameSpace.drawFindMoreDialogBox();">
+                <span>
+                  <img id="find-more-menu-icon" alt="find more menu icon" class="menu-icon"
+                    src="img/dialogbox/definitions.png" style="background: rgb(40, 110, 180); height: 50px;">
+                  <span id="menu-more-title" class="nav-text" style="border-bottom:none;">Find out more</span>
+                </span>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="map" class="container-fluid p-0 ">
+        <!-- remove of miniglobe plugin
+            "custom" : ["./js/MapSmoothZoom.js","./js/ControlGlobeMiniMap.min.js", "./js/leaflet.curve.js", "js/countries.js"] -->
+        <script type="application/json">{
+                "service" : "map",
+                "version" : "2.0",
+                "custom" : ["./js/MapSmoothZoom.js", "./js/leaflet.curve.js", "js/countries.js"]
+            }</script>
+      </div>
+      <!-- code to see in real time the coordinates on screen -->
+      <!-- <div style="position: absolute;
+        top: 100px;
+        left: 350px;
+        z-index: 99999;
+        background-color: white;
+    ">
+        <p>Coordinates of map click: <span id="mapcoords"></span>
+            
+         
+                </div> -->
+
+      <div id="containerLoader">
+        <img id="loader" src="img/spinner.gif" alt="">
+      </div>
+
+      <button id="playanimation" title="Play animation" class="btn blue" style="display:none" onclick=animation()><i
+          class="fas fa-play"></i></button>
+      <button id="stopanimation" title="Stop animation" class="btn blue" style="display:none" onclick=stopanimation()><i
+          class="fas fa-stop"></i></button>
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="energyModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div id="modalContent" class="modal-body">
+            <div id="info" class=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="warningMobileModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="warning-modal-content">
+          <div class="modal-body">
+            <p id="modalWarningText"></p>
+          </div>
+          <div class="warning-modal-footer">
+            <button type="button" class="warning-btn warning-btn-outline-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <footer class="footer">
+      <div class="container">
+        <section id="timeline-section" class="horizontal-timeline">
+          <div class="events-wrapper">
+            <div class="events">
+              <ol id="list-years"></ol>
+              <span class="filling-line" aria-hidden="true"></span>
+              <span class="timeline"></span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </footer>
+
+
+    <div class="modal fade" id="modalLinks" tabindex="-1" aria-labelledby="modalLinks" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content modal-sm">
+          <div class="modal-body">
+            <div id="links"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <style>
+      .wtattribution {
+        padding: 9px 10px 0 5px !important;
+        font-size: 12px !important;
+        line-height: 0.6 !important;
+        text-align: end !important;
+        background-color: #32afaf;
+        height: 15px;
+        color: white;
+      }
+
+      .wtattribution a {
+        color: white;
+      }
+
+      .wtattribution a:hover {
+        font-weight: bold;
+      }
+    </style>
+
+
+
+
+
+    <script>
+      $(document).ready(function () {
+
+        //   REF.year = availableTimeInterval().last
+        // read global diagram variables from URL
+        dataNameSpace.getRefURL();
+        languageNameSpace.initLanguage(REF.language);
+        timelineNameSpace.constructTimeline();
+        dataNameSpace.setDataset();
+        $("#lang-selection").val(REF.language);
+        $('#modalWarningText').html(languageNameSpace.labels['mobileWarning'])
+
+
+        if (!sessionStorage.isVisited) {
+          sessionStorage.isVisited = 'true'
+          $('.master').css('display', 'initial')
+          $("body").css("overflow", "hidden");
+          loader()
+          setTimeout(function () {
+            // tutorial()
+          }, 10000);
+
+        } else {
+          $('.master').css('display', 'none')
+          $('#page').css('display', 'initial')
+          setTimeout(function () {
+            // tutorial()
+          }, 3000);
+        }
+
+        function loader() {
+          var counter = 0;
+          setInterval(function () {
+            if (counter == 11) {
+              return
+            }
+            changeImage(counter);
+            counter++;
+          }, 700);
+          loading();
+        }
+
+
+
+
+
+        //   launchTour()
+
+
+
+        $('tbody').scroll(function (e) { //detect a scroll event on the tbody
+          /*
+          Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
+          of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    
+          */
+          $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+          $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+          $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+        });
+
+        $('#energyModal').on('shown.bs.modal', function () {
+          infoModal()
+        })
+
+        // $('#modalLinks').on('shown.bs.modal', function () {
+        //   $("#links").empty();
+    
+        // })
+      }); // dont delete
+    </script>
+
+    <script type="application/json">{
+    "utility": "cck",
+    "url": "http://ec.europa.eu/cookies/index_en.htm",
+    "target": true
+  }</script>
+</body>
+
+</html>

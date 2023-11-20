@@ -1,0 +1,22 @@
+﻿{
+    "START_TOUR_TITLE": "Anleitung",
+    "START_TOUR_TEXT": "Willkommen beim Tutorial des Visualisierungstools für den Energiehandel von Eurostat. Diese Führung zeigt Ihnen die wichtigsten Interaktionsmöglichkeiten mit dem Tool.",
+    "STEP1_TITLE": "Menü",
+    "STEP1_TEXT": "Neben grafischen Optionen enthält das Tool ein Menü für zusätzliche Funktionen. Fahren Sie mit der Maus darüber, um es zu erweitern. Klicken Sie auf Weiter, um mehr über die Menüoptionen zu erfahren.",
+    "STEP2_TITLE": "Handelsmerkmal",
+    "STEP2_TEXT": "Verwenden Sie diese Option, um zwischen Importen und Exporten zu wechseln.",
+    "STEP3_TITLE": "Wählen Sie die Kraftstoffart",
+    "STEP3_TEXT": "Mit dieser Option wechseln Sie zwischen den verschiedenen Brennstoffarten Kohle, Gas, Öl, Strom/Wärme und Biokraftstoffe.",
+    "STEP4_TITLE": "Einheit auswählen",
+    "STEP4_TEXT": "Verwenden Sie diese Option, um zwischen verschiedenen Einheiten zu wechseln.",
+    "STEP5_TITLE": "Filterfunktion",
+    "STEP5_TEXT": "Mit dieser Option filtern Sie die Länder, Top 5, Top 10, Top 25 oder alle Länder.",
+    "STEP6_TITLE": "Definitionen",
+    "STEP6_TEXT" : "Wenn Sie dieses Symbol sehen, klicken Sie darauf, um mehr zu erfahren. Das Visualisierungstool von Eurostat für den Energiehandel ist mit Definitionen, Metadaten und Datensätzen verknüpft.",
+    "STEP7_TITLE": "Zeitleiste",
+    "STEP7_TEXT": "Klicken Sie auf ein Jahr in der interaktiven Zeitleiste, um das angezeigte Jahr zu ändern.",
+    "STEP8_TITLE": "Sprache auswählen",
+    "STEP8_TEXT": "Verwenden Sie diese Option, um Französisch, Englisch oder Deutsch auszuwählen.",
+    "STEP9_TITLE": "Das war's für unsere Tour.",
+    "STEP9_TEXT": "Wenn Sie dieses Visualisierungstool nützlich finden, zeigen Sie Ihre Unterstützung, indem Sie es mit anderen auf Twitter, Facebook und LinkedIn teilen. Vielen Dank!"
+}
