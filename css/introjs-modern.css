@@ -31,10 +31,12 @@ body
   background-color: #ffffffb8;
 }
 
-.introjs-progressbar, .introjs-bullets ul li a.active {
+.introjs-progressbar {
   background-color: #32afaf;
 }
-  
+.introjs-bullets ul li a.active {
+  background-color: #32afaf;
+}
   @media (min-width: 481px) and (max-width: 840px) {
 
     .introjs-tooltipReferenceLayer * {
