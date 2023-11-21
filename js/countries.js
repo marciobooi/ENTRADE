@@ -1,20 +1,4 @@
-$(document).ready(function () {
-  window.addEventListener(
-    "resize",
-    function () {
-      var orientation = getOrientation();
-      if (orientation == "landscape") {
-        var elem = document
-          .querySelectorAll("#list-years li")
-          .forEach(function (a) {
-            a.remove();
-          });
-        timelineNameSpace.constructTimeline();
-      }
-    },
-    false
-  );
-});
+
 
 // global vars
 

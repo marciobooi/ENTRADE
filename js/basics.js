@@ -1,5 +1,7 @@
 var log = console.log.bind(document)
 
+var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
+
 
 const message = (/The ENTRADE tool is down since:     (.*)/)
 
@@ -701,4 +703,34 @@ function ajaxCordsCall(coordinates) {
 		}
 	  });
 	}
+  }
+
+
+  function agregateIcon() {
+	const iconHTML = `
+	<span class="agregates fa-stack fa-rotate-180" style=" position: absolute; top: 8px;">
+	  <i class="fa fa-square fa-stack-1x" style="top: .0em; left: .0em; color: white;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .2em; left: .2em; color: #0a328e;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .2em; left: .2em; color: transparent;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .3em; left: .3em; color: white;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .5em; left: .5em; color: #0a328e;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .5em; left: .5em; color: transparent;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .6em; left: .6em; color: white;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .8em; left: .8em; color: #0a328e;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .8em; left: .8em; color: transparent;"></i>
+	  <i class="fa fa-square fa-stack-1x" style="top: .9em; left: .9em; color: white;"></i>
+	</span>
+  `;
+  return iconHTML;
+  }
+  
+  function nonagregateIcon() {
+	const iconHTML = `
+		<span class="nonAgregates fa-stack fa-rotate-180" style="position: absolute;top: 4px;">
+		  <i class="fa fa-square fa-stack-1x" style="top: .0em;left: .0em;color: white;"></i>
+		  <i class="fa fa-square fa-stack-1x" style="top: .2em;left: .2em;color: #0a328e;"></i>
+		  <i class="fa fa-square fa-stack-1x" style="top: .2em;left: .2em;color: transparent;"></i>
+		  <i class="fa fa-square fa-stack-1x" style="top: .3em;left: .3em;color: white;"></i>
+		</span>`;
+  return iconHTML;
   }

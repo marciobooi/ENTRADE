@@ -1,0 +1,151 @@
+.btn-secondary {
+    background-color: var(--tool-1);
+}
+
+
+
+#menu {
+    position: relative;
+    padding: 0.2rem !important;
+    margin-left: 2rem;
+    width: 3rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btnGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--tool-1);
+}
+
+span.iconText {
+    font-size: 0.7em;
+}
+
+.btnGroup > i {
+    font-size: 1.3em;
+}
+
+#chartBtns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+li > button {
+    background-color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    width: 2.875rem;
+    height: 2.5rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem !important;
+}
+
+#menuSwitch {
+    color: var(--main-color);
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-bottom: 0 !important; */
+}
+
+#menuSwitch label {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+#floatingMenu {
+    display: flex;
+    position: relative;
+}
+
+#floatingMenu > li {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+button:focus,
+.input:focus {
+    box-shadow: var(--bs-btn-focus-box-shadow);
+}
+
+ul.dropdown-menu.dropdown-menu-end.show {
+    z-index: 9999999999;
+}
+
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    text-decoration: none;
+    color: #262626;
+    background-color: lightgray;
+}
+
+
+#menu:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.min-with--nav:hover {
+    box-shadow: 0 0 0 0.15rem rgba(49, 132, 253, 0.3);
+}
+
+.form-switch.form-check-reverse {
+    padding-right: 2.5em;
+    padding-left: 1rem;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+
+span.agregates.fa-stack.fa-rotate-180 {
+    font-size: .9rem;
+}
+
+#infoCard button {
+    margin: 0.2rem;
+    padding: 0.5rem 1rem; /* Add padding for better button sizing */
+    color: #fff; /* Set the text color */
+    border: 1px solid #2196f3; /* Add a border */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Smooth transitions */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    background-color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    border-radius: 0.4rem !important;
+    
+  }
+  
+  /* Hover and focus styles */
+  #infoCard button:hover,
+  #infoCard button:focus {
+    background-color: #2196f3 !important;
+    border-color: #2196f3 !important;
+    color: #fff; /* Change text color on hover/focus for better contrast */
+    outline: none; /* Remove the default focus outline */
+  }
+  
+  /* Optional: Add a transition for box-shadow if desired */
+  #infoCard button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow */
+  }
+  
+  /* Optional: Style the buttons as a group */
+  #infoCard .button-group {
+    display: flex;
+    gap: 0.2rem;
+  }
+  
+  /* Optional: Style the buttons individually if needed */
+  #infoCard .button-group button {
+    flex: 1; /* Make buttons in the group evenly spaced */
+  }
+  
+  /* Optional: Adjust the styling for smaller screens */
+
+
