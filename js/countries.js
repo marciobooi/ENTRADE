@@ -10,7 +10,8 @@ $wt.map.render({
     "smoothFactor": 1,
     "language" : REF.language,
     "background": ["osmec"],
-    "height": "85vh",
+    "height": "84vh",
+    "width": "100%",
     'maxBounds': [
       [-90, -Infinity],
       [90, Infinity]
