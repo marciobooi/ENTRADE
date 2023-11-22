@@ -16,7 +16,8 @@ section#map {
   } 
   .wt-map-panels {
     right: -1rem !important;
-    top: 1rem !important;
+    top: 31.8rem !important;
+    bottom: 0rem !important;
     background-color: transparent !important;
     height: 1rem;
     min-width: 5rem!important;
@@ -59,3 +60,39 @@ section#map {
   .print {
     display:none !important;
   }
+
+  #countryInfo {
+    position: absolute;
+    top: 9.5rem;
+    right: 1rem;
+    z-index: 9;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 0.2rem;   
+    animation: fadeIn 2s;
+    box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+  
+}
+
+#countryInfoHeader {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#countryInfoHeader > img {
+  width: 15%;
+  margin-bottom: 0.5rem;
+}
+
+#countryInfoHeader > h3 {
+  font-size: 0.85rem;
+  font-weight: bold;
+}

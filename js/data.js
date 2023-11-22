@@ -28,7 +28,7 @@ var dataNameSpace = {
 	// reference variables for global diagram setup + default settings
 	ref: {	
 		"geo": "",
-		"year": "", 
+		"year": "2021", 
 		"language": "EN", // language selected 
 		"trade": "imp",
 		"siec": "G3000",	

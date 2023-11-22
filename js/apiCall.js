@@ -1,5 +1,21 @@
 
 
+function globalVars() {
+  countries = [];
+  countriesValue = [];
+  countriesAgregated = [];
+  countriesAgregatedValue = [];
+  pieData = [];
+  totalCountries = [];
+  totalValues = [];
+  otherCountries = [];
+  otherValues = [];
+  tableNames = [];
+  tableValues = [];
+  Names = [];
+  graphNames = [];
+}
+
 function loadData() {
     globalVars();
     //function to detect the availeble partners inside dataset
@@ -23,7 +39,7 @@ function loadData() {
       return acc;
     }, []);
   
-    
+    log(countriesValue)
   
     res.forEach(function (value, i) {
     url[i] = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + dataset + "?";
