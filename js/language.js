@@ -269,8 +269,8 @@ function addCredits() {
 	setTimeout(function(){
 	document.querySelectorAll(".credits").forEach(el => el.remove());
 
-$(".wtattribution")[0].childNodes[8].setAttribute("data-toggle","modal")
-$(".wtattribution")[0].childNodes[8].setAttribute("data-target","#modalLinks")
+// $(".wtattribution")[0].childNodes[8].setAttribute("data-toggle","modal")
+// $(".wtattribution")[0].childNodes[8].setAttribute("data-target","#modalLinks")
 
 
 
