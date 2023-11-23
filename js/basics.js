@@ -476,28 +476,7 @@ function bulkDownlod() {
   });
 
 // function to redraw the lines in the map
-  function renewMapLines(counter) {
-	$(".ui-draggable").addClass("wtinfo");
-	$(".charts-toolbar").hide();
-	var button = '<button id="clean" data-toggle="tooltip" title="'+languageNameSpace.labels["btn7"]+'" type="button" class="btn blue"><i class="fas fa-eraser"></i></button>';
-	$("html").append(button);
-	//renew the map lines everytime that we chose a diferent country
-	counter += 1;
-	if (counter > 1) {
-	  //clean lines
-	  var elem = document.querySelectorAll('.myClass').forEach(function (a) {
-		a.remove();
-	  });
-	  //clean Markers
-	  var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
-		b.remove();
-	  });
-	  var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
-		d.remove();
-	  });
-	}
-	return { elem, counter };
-  }
+
 
   
 // function to make the polylines curve in the map
@@ -553,19 +532,22 @@ function ajaxCordsCall(coordinates) {
   }
 
 // function to set the PolylinesTickness of the polylines on the map acording to the values of the countries
-  function PolylinesTickness() {
-	var maxCountryValue = Math.max(...countriesValue);
-	var minCountryValue = Math.min(...countriesValue);
-	var maxweight = 14;
-	var minweight = 2;
-	var pixelLenght = 2;
-	factor = ((maxweight - minweight) / (maxCountryValue - minCountryValue));
-	var weight = [];
-	for (countryValue of countriesValue) {
-	  var currentPercentage = Math.round((factor * countryValue) + pixelLenght);
-	  weight.push(currentPercentage);
-	  //console.log(currentPercentage);
+function calculateWeight(partners, value) {
+	const values = partners.map(item => item[1]);
+  
+	const minValue = Math.min(...values);
+	const maxValue = Math.max(...values);
+	const maxWeight = 14;
+	const minWeight = 2;
+	const pixelLength = 2;
+  
+	if (minValue === maxValue) {
+	  return minWeight;
 	}
+  
+	const factor = (maxWeight - minWeight) / (maxValue - minValue);
+	const weight = Math.round((factor * value) + pixelLength);
+  
 	return weight;
   }
 

@@ -121,7 +121,7 @@ function loadCountryData(country) {
   url += "&time=" + REF.year;
 
   d = JSONstat(url).Dataset(0);
-   partners = countriesDataHandler(d);
+  partners = countriesDataHandler(d);
   countryInfo(country);
   drawLines(country, partners);
 }
@@ -181,9 +181,9 @@ function drawLines(sourceCountry, partners) {
 
     const line = L.curve([ "M", sourceCoords, "Q", curvePoint, partnerCoords], {
       color: 'red', // Set the desired line color
-      weight: 2,
+      weight: calculateWeight(partners, value),
       opacity: 1,
-      animate: 2000,
+      animate: 1500,
       lineCap: "round",
       smoothFactor: 1,
       noClip: true,
