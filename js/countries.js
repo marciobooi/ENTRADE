@@ -315,9 +315,9 @@ function getCountryCoordinates(countryCode) {
 function lineTooltip(partnerCountry, value , countryNAme) {
 
   const title = languageNameSpace.labels[dataset]
-  const partner = languageNameSpace.labels[partnerCountry]
-  const sourceCountryName = languageNameSpace.labels[countryNAme]
-  const orientation = REF.trade = "imp" ? "&#8594" : "&#8592"
+  const countryOne = REF.trade = "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme]
+  const countryTwo = REF.trade = "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
+  const orientation = "&#8594" 
   const fuel = languageNameSpace.labels[REF.fuel]
   const countryValue = value.toFixed(0)
   const unit = languageNameSpace.labels["abr_"+REF.unit]
@@ -333,7 +333,7 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   <hr class="vertical-hr">
   <div id="sectionTwo">
     <h5 id="popTitle">${title}</h5>
-    <h6 id="popSubtitle">${partner} ${orientation} ${sourceCountryName}</h6>            
+    <h6 id="popSubtitle">${countryOne} ${orientation} ${countryTwo}</h6>            
     <p id="popValue">${countryValue} ${unit}</p>
   </div>
 </div>`
@@ -382,14 +382,14 @@ function calculateWeight(partners, value) {
   }
 
 
-  function poliColorChange(color) {
+  function poliColorChange() {
     const fuelColors = {
-      solid: isEdge ? "#800000" : "#800000ba",
-      oil: isEdge ? "#14375a" : "#14375aba",
-      gas: isEdge ? "#faa519" : "#faa519ba",
-      biofuels: isEdge ? "#5fb441" : "#5fb441ba",
-      electricity: isEdge ? "#d73c41" : "#d73c41ba",
+      solid: 'rgba(128, 0, 0, 0.73)',
+      oil: 'rgba(20, 55, 90, 0.73)',
+      gas: 'rgba(250, 165, 25, 0.73)',
+      biofuels: 'rgba(95, 180, 65, 0.73)',
+      electricity: 'rgba(215, 60, 65, 0.73)',
     };
-    
-    return fuelColors[REF.fuel] || color;
-    }
+  
+    return fuelColors[REF.fuel] || 'rgba(0, 0, 0, 0.73)';
+  }

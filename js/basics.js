@@ -5,64 +5,7 @@ var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 
 
 const message = (/The ENTRADE tool is down since:     (.*)/)
 
-// browser platform support
-// taken from http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-// Opera 8.0+
-var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 
-// Firefox 1.0+
-var isFirefox = typeof InstallTrigger !== 'undefined';
-// At least Safari 3+: "[object HTMLElementConstructor]"
-if (navigator.appVersion.indexOf("Mac") != -1) {
-	var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
-} else {
-	var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-}
-
-var objAgent = navigator.userAgent;
-var safariMajorVersion = parseInt(navigator.appVersion, 10);
-var objOffsetVersion, ix;
-
-//get Safari version
-if (isSafari) {
-	objfullVersion = objAgent.substring(objOffsetVersion + 7);
-
-	if ((objOffsetVersion = objAgent.indexOf("Version")) != -1) objfullVersion = objAgent.substring(objOffsetVersion + 8);
-	if ((ix = objfullVersion.indexOf(";")) != -1) objfullVersion = objfullVersion.substring(0, ix);
-	if ((ix = objfullVersion.indexOf(" ")) != -1) objfullVersion = objfullVersion.substring(0, ix);
-
-	safariMajorVersion = parseInt('' + objfullVersion, 10);
-	if (isNaN(safariMajorVersion)) {
-		objfullVersion = '' + parseFloat(navigator.appVersion);
-		safariMajorVersion = parseInt(navigator.appVersion, 10);
-	}
-	// console.log(objfullVersion); //full version X.xx.xx
-	// console.log(safariMajorVersion); // Major version X
-}
-
-// Internet Explorer 6-11
-var isIEBrowser = /*@cc_on!@*/ false || !!document.documentMode;
-// Edge 20+
-var isEdge = !isIEBrowser && !!window.StyleMedia;
-// Chrome 1+
-var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-// Blink engine detection
-var isBlink = (isChrome || isOpera) && !!window.CSS;
-
-// supported platforms
-var isBrowserSupported = isFirefox || isChrome || isIEBrowser || (isSafari && safariMajorVersion > 9) || isEdge;
-var output = 'Detecting browsers:<hr>';
-output += 'isFirefox: ' + isFirefox + '<br>';
-output += 'isChrome: ' + isChrome + '<br>';
-output += 'isSafari: ' + isSafari + '<br>';
-output += 'isOpera: ' + isOpera + '<br>';
-output += 'isIEBrowser: ' + isIEBrowser + '<br>';
-output += 'isEdge: ' + isEdge + '<br>';
-output += 'isBlink: ' + isBlink + '<br>';
-// console.log(output)
-
-var isMobile = navigator.userAgent.match(/Android/i) != null || navigator.userAgent.match(/webOS/i) != null || navigator.userAgent.match(/iPhone/i) != null || navigator.userAgent.match(/iPad/i) != null ||
-	navigator.userAgent.match(/iPod/i) != null || navigator.userAgent.match(/BlackBerry/i) != null || navigator.userAgent.match(/Windows Phone/i) != null;
 
 	function getOrientation() {
 		if(screen.height > screen.width){	    
@@ -539,17 +482,7 @@ function ajaxCordsCall(coordinates) {
   }
 
 
-  function poliColorChange(color) {
-	const fuelColors = {
-	  solid: isEdge ? "#800000" : "#800000ba",
-	  oil: isEdge ? "#14375a" : "#14375aba",
-	  gas: isEdge ? "#faa519" : "#faa519ba",
-	  biofuels: isEdge ? "#5fb441" : "#5fb441ba",
-	  electricity: isEdge ? "#d73c41" : "#d73c41ba",
-	};
-  
-	return fuelColors[REF.fuel] || color;
-  }
+
 
   function polyPopUpHandler(countries, i, countriesValue, pl) {
 	var customPopup = '<div class="popTitle">' + languageNameSpace.labels[dataNameSpace.dataset].slice(this.length, -19)
