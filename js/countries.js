@@ -180,7 +180,7 @@ function drawLines(sourceCountry, partners) {
     const curvePoint = getMidpoint(sourceCoords, partnerCoords);    
 
     const line = L.curve([ "M", sourceCoords, "Q", curvePoint, partnerCoords], {
-      color: 'red', // Set the desired line color
+      color: poliColorChange(), // Set the desired line color
       weight: calculateWeight(partners, value),
       opacity: 1,
       animate: 1500,
@@ -359,3 +359,37 @@ function countryInfoMenu(country) {
 return countryContent
   
 }
+
+
+// function to set the PolylinesTickness of the polylines on the map acording to the values of the countries
+function calculateWeight(partners, value) {
+	const values = partners.map(item => item[1]);
+  
+	const minValue = Math.min(...values);
+	const maxValue = Math.max(...values);
+	const maxWeight = 14;
+	const minWeight = 2;
+	const pixelLength = 2;
+  
+	if (minValue === maxValue) {
+	  return minWeight;
+	}
+  
+	const factor = (maxWeight - minWeight) / (maxValue - minValue);
+	const weight = Math.round((factor * value) + pixelLength);
+  
+	return weight;
+  }
+
+
+  function poliColorChange(color) {
+    const fuelColors = {
+      solid: isEdge ? "#800000" : "#800000ba",
+      oil: isEdge ? "#14375a" : "#14375aba",
+      gas: isEdge ? "#faa519" : "#faa519ba",
+      biofuels: isEdge ? "#5fb441" : "#5fb441ba",
+      electricity: isEdge ? "#d73c41" : "#d73c41ba",
+    };
+    
+    return fuelColors[REF.fuel] || color;
+    }

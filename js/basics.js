@@ -531,25 +531,6 @@ function ajaxCordsCall(coordinates) {
 	// });
   }
 
-// function to set the PolylinesTickness of the polylines on the map acording to the values of the countries
-function calculateWeight(partners, value) {
-	const values = partners.map(item => item[1]);
-  
-	const minValue = Math.min(...values);
-	const maxValue = Math.max(...values);
-	const maxWeight = 14;
-	const minWeight = 2;
-	const pixelLength = 2;
-  
-	if (minValue === maxValue) {
-	  return minWeight;
-	}
-  
-	const factor = (maxWeight - minWeight) / (maxValue - minValue);
-	const weight = Math.round((factor * value) + pixelLength);
-  
-	return weight;
-  }
 
 // function to change the navbar text according to selected in the map
   function titleManager() {
@@ -559,47 +540,15 @@ function calculateWeight(partners, value) {
 
 
   function poliColorChange(color) {
-	switch (REF.fuel) {
-	  case "solid":
-		if (isEdge) {
-		  color = "#800000";
-		} else {
-		  color = "#800000ba";
-		}
-		break;
-	  case "oil":
-		if (isEdge) {
-		  color = "#14375a";
-		} else {
-		  color = "#14375aba";
-		}
-		break;
-	  case "gas":
-		if (isEdge) {
-		  color = "#faa519";
-		} else {
-		  color = "#faa519ba";
-		}
-		break;
-	  case "biofuels":
-		if (isEdge) {
-		  color = "#5fb441";
-		} else {
-		  color = "#5fb441ba";
-		}
-		break;
-	  case "electricity":
-		if (isEdge) {
-		  color = "#d73c41";
-		} else {
-		  color = "#d73c41ba";
-		}
-		break;
+	const fuelColors = {
+	  solid: isEdge ? "#800000" : "#800000ba",
+	  oil: isEdge ? "#14375a" : "#14375aba",
+	  gas: isEdge ? "#faa519" : "#faa519ba",
+	  biofuels: isEdge ? "#5fb441" : "#5fb441ba",
+	  electricity: isEdge ? "#d73c41" : "#d73c41ba",
+	};
   
-	  default:
-		break;
-	}
-	return color;
+	return fuelColors[REF.fuel] || color;
   }
 
   function polyPopUpHandler(countries, i, countriesValue, pl) {
