@@ -174,3 +174,8 @@ section#map {
 #popValue {
   font-size: .9em;
 }
+
+.custom-label {
+  fill: red !important;
+  color: white !important;
+}

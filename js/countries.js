@@ -34,12 +34,26 @@ function renderMap() {
     },
     layers: {
       countries: [{
-        data: ["EU28", "KS*0"],
+        data: ["all"],
         options: {
           events: {
-            click: function (layer) {
-              const country = layer.feature.properties;
-              loadCountryData(country);
+            click: function (layer) {    
+              if (Object.keys(geoCountries).includes(layer.feature.properties.CNTR_ID)) {
+                log(true)
+                const country = layer.feature.properties;
+                loadCountryData(country);    
+                $('path:has(desc b)').each(function () {
+                  const countryName = $(this).find('desc b').text().trim();
+                  if (countryName === country.CNTR_NAME) {
+                    $(this).css('fill', '#0b39a2'); 
+                    $(this).css('stroke', '#fff'); 
+                  }
+              });
+              layer.setStyle({
+                fillColor: '#0b39a2', 
+                color: 'white', 
+              });
+              }
             },
             tooltip: {
               content: "<b>{CNTR_NAME}</b>",
@@ -54,10 +68,10 @@ function renderMap() {
             language: REF.language
           },
           style: {
-            color: "#4d3d3d",
+            color: "transparent",
             weight: 1,
             opacity: 1,
-            fillColor: "#738ce5",
+            fillColor: "transparent",
             fillOpacity: 1
           },
         }
@@ -65,12 +79,38 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
+    Object.keys(geoCountries).forEach(key => {    
+        $('path:has(desc b)').each(function () {
+          const countryName = $(this).find('desc b').text().trim();
+          if (countryName === languageNameSpace.labels[key]) {
+            $(this).css('fill', '#738ce5'); 
+            $(this).css('stroke', '#444'); 
+          }
+      });
+
+const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+
+      // Iterate through the found elements
+      elementsWithClasses.each(function () {
+        // Check inner text
+        var countryName = $(this).text().trim();
+      
+        // Check if the inner text matches the desired name
+        if (countryName.includes(languageNameSpace.labels[key])) {         
+          // Change the color property of the div element with !important
+          this.style.setProperty('color', '#fff', 'important');
+        }
+      });
+      
+    });    
   });
 }
 
 function loadCountryData(country) {
   dataset = dataNameSpace.dataset;
   REF.geo = country.CNTR_ID;
+
+  log(dataset)
 
   url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + dataset + "?";
   url += "format=JSON";
@@ -134,6 +174,9 @@ function drawLines(sourceCountry, partners) {
     const partnerCoords = getCountryCoordinates(partnerCountry);
     const countryNAme = sourceCountry.CNTR_ID
 
+
+
+
     const line = L.polyline([sourceCoords, partnerCoords], {
       color: 'red', // Set the desired line color
       weight: 2,
@@ -153,8 +196,29 @@ function drawLines(sourceCountry, partners) {
 
     lines.push(line);
     markers.push(marker);
+    styleCountry(partnerCountry)
   });
+
+
+
+
 }
+
+
+function styleCountry(partnerCountry) {
+
+$('path:has(desc b)').each(function () {
+  // Get the text content of the descendant b element
+  var countryName = $(this).find('desc b').text().trim();
+
+  // Check if the countryName matches the desired name (replace 'NAME' with the actual name)
+  if (countryName === languageNameSpace.labels[partnerCountry]) {
+    // Change the fill property of the path element
+    $(this).css('fill', '#17256b'); // Change '#ff0000' to the desired fill color
+  }
+});
+}
+
 
 const lines = [];
 const markers = [];
@@ -171,10 +235,44 @@ function clearMarkers() {
   markers.length = 0; // Clear the markers array
 }
 
+function clearMap() {
+
+  $('path').each(function () {    
+      $(this).css('fill', 'transparent');    
+});
+
+
+  Object.keys(geoCountries).forEach(key => {    
+    $('path:has(desc b)').each(function () {
+      const countryName = $(this).find('desc b').text().trim();
+      if (countryName === languageNameSpace.labels[key]) {
+        $(this).css('fill', '#738ce5'); 
+        $(this).css('stroke', '#444'); 
+      }
+  });
+
+const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+
+  // Iterate through the found elements
+  elementsWithClasses.each(function () {
+    // Check inner text
+    var countryName = $(this).text().trim();
+  
+    // Check if the inner text matches the desired name
+    if (countryName.includes(languageNameSpace.labels[key])) {         
+      // Change the color property of the div element with !important
+      this.style.setProperty('color', '#fff', 'important');
+    }
+  });
+  
+}); 
+}
+
 // Function to clear both lines and markers
 function clearLinesAndMarkers() {
   clearLines();
   clearMarkers();
+  clearMap()
 }
 
 

@@ -2,8 +2,7 @@
 Definition, mapping and handling of Eurobase codes
 */
 
-geoCountries = {
-	"EU28": "",
+geoCountries = {	
 	"EA": "",
 	"BE": "",
 	"BG": "",
