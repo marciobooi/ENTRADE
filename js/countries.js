@@ -177,10 +177,17 @@ function drawLines(sourceCountry, partners) {
 
 
 
-    const line = L.polyline([sourceCoords, partnerCoords], {
+    const curvePoint = getMidpoint(sourceCoords, partnerCoords);    
+
+    const line = L.curve([ "M", sourceCoords, "Q", curvePoint, partnerCoords], {
       color: 'red', // Set the desired line color
       weight: 2,
       opacity: 1,
+      animate: 2000,
+      lineCap: "round",
+      smoothFactor: 1,
+      noClip: true,
+      className: "myClass",
     }).on('mouseover', function (event) {
       const tooltipContent = lineTooltip(partnerCountry, value, countryNAme )  
     this.bindTooltip(tooltipContent, { sticky: true }).openTooltip();
@@ -199,9 +206,23 @@ function drawLines(sourceCountry, partners) {
     styleCountry(partnerCountry)
   });
 
+}
 
+function getMidpoint(sourceCoords, partnerCoords) {
+  const sourceLat = sourceCoords[0];
+  const sourceLng = sourceCoords[1];
+  const partnerLat = partnerCoords[0];
+  const partnerLng = partnerCoords[1];
 
+  // Calculate the midpoint
+  const midLat = (sourceLat + partnerLat) / 2;
+  const midLng = (sourceLng + partnerLng) / 2;
+  curveFactor = 1.1
 
+  // Use the midpoint as the control point for the quadratic Bezier curve
+  const controlPoint = [midLat * curveFactor, midLng * curveFactor];
+
+  return controlPoint;
 }
 
 
