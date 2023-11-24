@@ -1,138 +1,93 @@
+var cache = {};
 
-
-function globalVars() {
-  countries = [];
-  countriesValue = [];
-  countriesAgregated = [];
-  countriesAgregatedValue = [];
-  pieData = [];
-  totalCountries = [];
-  totalValues = [];
-  otherCountries = [];
-  otherValues = [];
-  tableNames = [];
-  tableValues = [];
-  Names = [];
-  graphNames = [];
+function addToCache(query, d) {
+  if (!cache[query]) {
+    cache[query] = [];
+  }
+  
+  cache[query].push(d);
 }
 
-function loadData() {
-    globalVars();
-    //function to detect the availeble partners inside dataset
-    //partners.js
-    availablePartners();
-  
-    const dataset = dataNameSpace.dataset;
-    log(dataset);
-  
-    if (typeof year === "string") year = [year];
-    if (typeof siec === "undefined") siec = "G300";
-    if (typeof unit === "undefined") unit = "TJ_GCV"; 
-  
-    let url = [];
-  
-    const chunckSize = 14;
-    const res = partner.reduce((acc, _curr, i) => {
-      if (!(i % chunckSize)) {
-        acc.push(partner.slice(i, i + chunckSize));
+
+function chartApiCall(query) {
+
+
+  let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
+  url += "format=JSON";
+  url += "&lang=" + REF.language;
+
+
+
+  switch (REF.chartType) {
+    case "lineChart":
+      url += "&unit=" + REF.unit; 
+      url += "&geo=" + REF.geos;  
+      if(REF.indicator.length > 0) {
+        for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
       }
-      return acc;
-    }, []);
+      if(REF.indicator2.length > 0) {
+        for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];  
+      }
+
+      if(REF.chartId === "chart_17" || REF.chartId === "chart-18") {
+        REF.chartId === "chart_17" ? url += "&operator=PRR_AUTO" : url += "&operator=PRR_MAIN"
+        url += "&plants=ELC"
+      }
+      break;
+
+ case "barChart":
+  url += "&unit=" + REF.unit; 
+      if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
+      if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
+      for (let i = 0; i < geos.length; i++) url += "&geo=" + geos[i]; 
+      url += "&time=" + REF.year; 
+
+  break
+
+
+  case "pieChart":
+    url += "&geo=" + REF.geo;
+    url += "&siec=" + REF.siec;
+    url += "&unit=" + REF.unit;
+    url += "&time=" + REF.year;  
+    break
+
+  default:
+    url += "&geo=" + REF.geo;
+    url += "&siec=" + REF.siec;
+    url += "&unit=" + REF.unit;
+    url += "&time=" + REF.year;
+    break;
+
   
-    log(countriesValue)
+ 
+  }
+
+  if (cache[url] && cache[url].length > 0) {  
+    d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);
+    return d;
+  } else {
+   
+
+    const request = new XMLHttpRequest();
+    request.open("GET", url, false); // Setting the third parameter to 'false' makes it synchronous
+    request.send();
   
-    res.forEach(function (value, i) {
-    url[i] = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + dataset + "?";
-    url[i] += "format=JSON";
-    url[i] += "&lang=" + REF.language;
-    url[i] += "&geo=" + REF.geo;
-    url[i] += "&siec=" + REF.siec;
-    url[i] += "&unit=" + REF.unit;
-    url[i] += "&time=" + REF.year;
-    for (let p = 0; p < value.length; p++) {
-      url[i] += "&partner=" + value[p];
+    if (request.status === 500 || request.status === 503) {
+      // submitFormDown();
     }
   
-    });
-    conditionOne = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_OTH", "EX_SU_OTH", "NSP", "TOTAL",]
-    conditionTwo = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_OTH", "EX_SU_OTH", "NSP"]
-  
-    for (i = 0; i < url.length; i++) {
-      let d = JSONstat(url[i]).Dataset(0);
-     
-    if (d !== null) {    
-      for (let item in res[i]) {
-        for (let value in d.value) {
-          if (item === value) {
-            if (d.value[value]) {   
-  
-              const partnerId = d.Dimension("partner").id[item]
-              const partnerValue = d.value[value]
-  
-              if ( conditionOne.includes(partnerId)) {              
-                countriesAgregated.push(partnerId);
-                countriesAgregatedValue.push(partnerValue);
-                totalCountries.push(partnerId);
-                totalValues.push(partnerValue);
-                tableNames.push(partnerId);
-                tableValues.push(partnerValue);
-  
-                  if (conditionTwo.includes(partnerId)) {
-                    otherCountries.push(partnerId);
-                    otherValues.push(partnerValue);
-                  }
-  
-              } else {
-                countries.push(partnerId);
-                countriesValue.push(partnerValue);
-                pieData.push([languageNameSpace.labels[partnerId],partnerValue,]);
-                totalCountries.push(partnerId);
-                totalValues.push(partnerValue);
-                otherCountries.push(partnerId);
-                otherValues.push(partnerValue);
-                tableNames.push(partnerId);
-                tableValues.push(partnerValue);
-              }
-            }
-          }
-        }
-      }
-    }       
+    if (request.status !== 200) {
+      // submitFormDown();
     }
-    return i;
+  
+    const data = JSON.parse(request.responseText);
+    const d = JSONstat(data).Dataset(0);
+
+    addToCache(url, d);
+    
+    return d;
   }
 
 
-  /**
- * function to query Eurobase dataset using the Eurostat JSON web service
- * Query Eurobase for the given dataset, geo, siec, unit, and year. 
- * @param dataset - the dataset to query for. 
- * @param geo - the geo to query for. 
- * @param siec - the siec to query for. 
- * @param unit - the unit to query for. 
- * @param year - the year to query for. 
- * @param partner - the partner to query for. 
- * @returns None
- */
-function EurobaseQueryEntrade(dataset, geo, siec, unit, year, partner) {
-  // array with JSON URLs to download
-  var urlList = [];
-
-  // max. number of cells per URL (JSON web service restriction)
-  var nMax = 50;
-
-  // Ajax calls as proposed by B.3
-  var ajaxCount = 0;
-  $.each(urlList, function (iurl, url) {
-    $.ajax(url, {
-      success: function (data) {
-        // console.log((data));
-        loadAllValues(JSONstat(data));
-        ajaxCount++;
-      },
-      error: function () {
-        ajaxCount++;
-      },
-    });
-  });
 }

@@ -569,6 +569,8 @@ function ajaxCordsCall(coordinates) {
 
 //   new codes
 
+const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_OTH", "EX_SU_OTH", "NSP", "TOTAL"];
+
 	function addChartOptions() {
 		const chartOptions = new ChartControls();
 		chartOptions.addToDOM("#subnavbar-container"); 
@@ -592,6 +594,16 @@ function ajaxCordsCall(coordinates) {
 		$('#chartContainer').removeClass('col-6').addClass('col-0').css('display', 'none')
 
 
+	  }
+
+	  function credits() {
+		const chartCredits = `<span style="font-size: .75rem;">${languageNameSpace.labels["EXPORT_FOOTER_TITLE"]} - </span>
+		<a style="color:blue; text-decoration: underline; font-size: .75rem;"
+		href="https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}">${languageNameSpace.labels['DB']}</a>,
+		<span style="font-size: .875rem;">                           
+	  </span>`;
+	  
+		return chartCredits
 	  }
 
 		function openDataset() {
@@ -639,6 +651,7 @@ function ajaxCordsCall(coordinates) {
 	const geoLabel = languageNameSpace.labels[REF.geo];
 	const time = REF.year;
 	const dataset = languageNameSpace.labels[REF.dataset];
+	const unit = languageNameSpace.labels[REF.unit];
 
 	let title = ""
 	let subtitle = ""
@@ -647,13 +660,13 @@ function ajaxCordsCall(coordinates) {
 	switch (REF.chart) {
 	  case "lineChart":
 		chartTitle = `${dataset}<br><span style="font-size:10px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
-		title = `${dataset}`;
+		title = `${dataset} - ${geoLabel} ${time}`;
 		subtitle = `<span style="font-size:12px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
 		break;
 	  case "pieChart":
-		chartTitle = `${dataset}<br><span style="font-size:10px; padding-top:5px">${geoLabel} - ${time} - ${consoms}</span>`;
+		chartTitle = `${dataset} <br> ${unit} - ${time}`;
 		title = `${dataset}`;
-		subtitle = `<span style="font-size:12px; padding-top:5px">${geoLabel} - ${time} - ${consoms}</span>`;
+		subtitle = "";
 		break;
 	  case "barChart":
 		chartTitle = `${dataset}<br><span style="font-size:12px; padding-top:5px">${barText} - ${geoLabel} - ${time}</span>`;
@@ -669,4 +682,21 @@ function ajaxCordsCall(coordinates) {
 	$("#subtitle").html(subtitle);	
   
 	return chartTitle;
+  }
+
+  function enableScreenREader(params) {
+	const titleElement = document.querySelector("text.highcharts-title")
+	if (titleElement) {
+	  titleElement.setAttribute('aria-hidden', 'false');
+	}
+  
+	// Find and update the subtitle element
+	const subtitleElement = document.querySelector('text.highcharts-subtitle');
+	if (subtitleElement) {
+	  subtitleElement.setAttribute('aria-hidden', 'false');
+	}
+
+	const container = document.querySelector(".highcharts-root")
+
+	container.removeAttribute('aria-hidden');
   }

@@ -111,17 +111,8 @@ function loadCountryData(country) {
   REF.geo = country.CNTR_ID;
   REF.chart = "map"
 
-  log(REF.dataset)
+  d = chartApiCall();
 
-  url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
-  url += "format=JSON";
-  url += "&lang=" + REF.language;
-  url += "&geo=" + REF.geo;
-  url += "&siec=" + REF.siec;
-  url += "&unit=" + REF.unit;
-  url += "&time=" + REF.year;
-
-  d = JSONstat(url).Dataset(0);
   partners = countriesDataHandler(d);
   countryInfo(country);
   drawLines(country, partners);
@@ -129,7 +120,6 @@ function loadCountryData(country) {
 }
 
 function countriesDataHandler(d) {
-  const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_OTH", "EX_SU_OTH", "NSP", "TOTAL"];
 
   if (d === null) {
     return []; // Return an empty array if the input is null
@@ -417,6 +407,7 @@ function calculateWeight(partners, value) {
     $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
 
     addChartOptions()
+    createPieChart()
 
 
 }

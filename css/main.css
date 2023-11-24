@@ -39,7 +39,7 @@ body {
   transform: rotate3d(25.5, -10.5, 6, 127deg);
 }
 
-@media screen {
+/* @media screen {
   .highcharts-title {
     display: none;
   }
@@ -49,4 +49,4 @@ body {
   .highcharts-title {
     display: block;
   }
-}
+} */
