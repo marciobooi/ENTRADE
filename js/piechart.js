@@ -92,18 +92,24 @@ function piechartdata() {
     return null;
   }).filter(partner => partner !== null);
 
-data.sort((a, b) => b.y - a.y);
 
 
-const topCountries = data.slice(0, 5);
-
-const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-
-const finalData = [...topCountries, { name: 'others', y: sumOfOthers }];
-
-piedata.push(...finalData);
+  if (data.length > 5) {
+    data.sort((a, b) => b.y - a.y);
+    const topCountries = data.slice(0, 5);
+  
+    const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
+  
+    const finalData = topCountries.concat([{ name: 'others', y: sumOfOthers }]);
+  
+    piedata.push(...finalData);
+  } else {
+    piedata.push(...data);
+  }
 
 piedata.sort((a, b) => b.y - a.y);
+
+log(piedata)
 
  
 
