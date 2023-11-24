@@ -1,114 +1,93 @@
-function renderBarChart() {
-    $wt.render("columnChart", {
-      service: "charts",
-      provider: "highcharts",
-      version: "2.0",
-      options: {
-        series: "siec",
-        categories: "partner",
-        sheets: "geo",
-        sheets_index: 0,
-      },
-      data: {
-        chart: {
-          type: "column",
-          height: height,
-          style: {
-            animation: true,
-            duration: 1000,
-          },
-          marginRight: 60,
-          marginBottom: 100,
-          height: height,
-        },
-        credits: {
-          href: "https://ec.europa.eu/eurostat/web/energy/data/database",
-          text: "Source: Eurostat",
-          style: {
-            fontFamily: "Verdana, Geneva, sans-serif",
-            fontSize: "0.7em",
-            fontWeight: "200",
-          },
-        },
-        title: {
-          text: languageNameSpace.labels[REF.trade] +
-            " " +
-            languageNameSpace.labels["title6"] +
-            " " +
-            languageNameSpace.labels[REF.siec] +
-            " <br> " +
-            newTitle +
-            " - " +
-            [dataNameSpace.ref.year] +
-            "<br><spam class='pt-1' style='font-size:10px;font-weight: bold;'>" +
-            languageNameSpace.labels[REF.unit] +
-            "</spam>",
-        },
-        tooltip: {
-          headerFormat: "",
-          pointFormat: "<b>{point.name} <b>: {point.y:,.1f}</b> - " +
-            languageNameSpace.labels[abbunit],
-          style: {
-            fontFamily: "Verdana, Geneva, sans-serif",
-            fontSize: "1.2em",
-            fontWeight: "200",
-          },
-        },
-        xAxis: {
-          type: "category",
-          // categories: languageNameSpace.labels[countries],
-          labels: {
-            rotation: 45,
-            align: "top",
-          },
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: languageNameSpace.labels[REF.unit],
-          },
-        },
-        plotOptions: {
-          series: {
-            colorByPoint: true,
-            colors: ["#32afaf"],
-          },
-        },
-        legend: {
-          itemStyle: {
-            fontWeight: "bold",
-          },
-          enabled: false,
-        },
-        series: [
-          {
-            data: pieData,
-          },
-        ],
-        exporting: {
-          chartOptions:{
-            legend:{
-              enabled:true
-            }
-          },
-          buttons: {
-            contextButton: {
-              menuItems: ["printChart",
-                          "separator",
-                          "downloadPNG",
-                          "downloadJPEG",
-                          // "downloadPDF",
-                          "downloadSVG",
-                          "separator",
-                          "downloadCSV",
-                          "downloadXLS",
-                          //"viewData",
-                          // "openInCloud"
-                        ]
-            }
+function handleData() {
+  barChartSeries = [];
+
+  d = chartApiCall();
+
+  const indicator = d.Dimension("partner").id;
+
+  const data = indicator.map((indicator, index) => {
+    if (!excludedPartners.includes(indicator) && d.value[index] > 0) {
+      return { name: languageNameSpace.labels[indicator], y: d.value[index] };
+    }
+    return null;
+  }).filter(partner => partner !== null);
+
+  if (data.length > 5) {
+    data.sort((a, b) => {
+      if (a.name === 'others') return 1; // "others" always comes last
+      if (b.name === 'others') return -1;
+      return b.y - a.y;
+    });
+
+    const topCountries = data.slice(0, 5);
+    const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
+    const finalData = topCountries.concat([{ name: 'others', y: sumOfOthers, color: 'rgb(37 123 228)'}]);
+    barChartSeries.push(...finalData);
+  } else {
+    barChartSeries.push(...data);
+  }
+}
+
+
+function createBarChart() {
+
+  const type = "column"   
+  REF.chart = "barChart"
+
+
+
+  handleData();   
+
+ 
+
+  const yAxisTitle = languageNameSpace.labels[REF.unit]   
+
+  const xAxis =  { type: "category" };
+
+
+
+
+  const tooltipFormatter = function() {
+    return tooltipTable(this.points) ;
+  };
+
+
+  const chartOptions = {
+    containerId: "chartContainer",
+    type: type,
+    title: getTitle(),
+    subtitle: null,
+    xAxis: xAxis,
+    yAxisFormat: '{value:.2f}',
+    yAxisTitle:  yAxisTitle,
+    tooltipFormatter: tooltipFormatter,
+    creditsText: credits(),
+    creditsHref: "",
+    series: [{name:languageNameSpace.labels[REF.dataset],data:barChartSeries}],
+    colors: colors,
+    legend: { enabled: false},
+    columnOptions: {
+        stacking: "normal",
+        connectNulls: true,
+        events: {
+          mouseOver: function () {
+            var point = this;
+            var color = point.color;
+            $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
           }
         }
       },
-      "lang": REF.language.toLowerCase()
-    });
-  }
+      seriesOptions:""
+};
+
+
+const customChart = new Chart(chartOptions);
+barChart = customChart.createChart();
+
+
+
+
+
+}
+
+

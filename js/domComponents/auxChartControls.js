@@ -82,8 +82,8 @@ class ChartControls {
 	  container.insertBefore(this.controls, container.firstChild);
 
 	    // Create the button instances
-		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "true");
-		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "false");
+		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "false");
+		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "true");
 		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "false");
 		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], "Print chart", "false");
 		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
@@ -104,21 +104,17 @@ class ChartControls {
 		// Set click handlers for each button
 		barChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
-		  chartType = "barChart"
-		  REF.chart = chartType;
-		  handleChartAction(chartType, chartBal, chartBalText);
+		  REF.chart = this.value;
+		  createBarChart()
 		});
 		pieChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
-		  chartType = "pieChart"
-		  REF.chart = chartType;
-		  handleChartAction(chartType, chartBal, chartBalText);
+		  REF.chart = this.value;
+		  createPieChart()
 		});
 		lineChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
-		  chartType = "lineChart"
-		  REF.chart = chartType;
-		  handleChartAction(chartType, chartBal, chartBalText);
+		  REF.chart = this.value;
 		});
 		createprintChart.setClickHandler(function() {
 			exportHandling(this.id);
@@ -157,7 +153,7 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
-			barChart.setDisabled(true);
+			pieChart.setDisabled(true);
 	}
   
 	removeFromDOM() {

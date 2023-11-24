@@ -665,13 +665,13 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		break;
 	  case "pieChart":
 		chartTitle = `${dataset} <br> ${unit} - ${time}`;
-		title = `${dataset}`;
+		title = `${dataset} - ${geoLabel} ${time}`;
 		subtitle = "";
 		break;
 	  case "barChart":
-		chartTitle = `${dataset}<br><span style="font-size:12px; padding-top:5px">${barText} - ${geoLabel} - ${time}</span>`;
-		title = `${dataset}`;
-		subtitle = `<span style="font-size:12px; padding-top:5px">${barText} - ${geoLabel} - ${time}</span>`;
+		chartTitle = `${dataset} <br> ${unit} - ${time}`;
+		title = `${dataset} - ${geoLabel} ${time}`;
+		subtitle = "";
 		break;
 	  default:    	 
 	  title = `${dataset} - ${geoLabel} ${time}`;
@@ -699,4 +699,105 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	const container = document.querySelector(".highcharts-root")
 
 	container.removeAttribute('aria-hidden');
+  }
+
+  function chartNormalTooltip(points) {
+	const value = Highcharts.numberFormat(points[0].y, 4);
+	const unit = `${languageNameSpace.labels["S_" + REF.currency]}/${languageNameSpace.labels["S_" + REF.unit]}`;
+	const na = languageNameSpace.labels['FLAG_NA'];
+	const title = REF.chartId==="lineChart" ?  points[0].key : points[0].x
+	return this.y == 0 ? `<b>${title}<br>Total: <b>${na}</b>` : `<b>${title}<br>Total: <b>${value}</b> ${unit}`;
+  }
+  
+  function tooltipTable(points) {
+  
+	const decimals = REF.dataset == "demo_pjan" ? 0 : 3
+  
+	if(REF.percentage == 1 ){
+	  let html = "";
+	  html += `<table id="tooltipTable" class="table">                
+				  <thead>
+					<tr>
+					  <th scope="cols">${points[0].x}</th>                    
+					  <th scope="cols"></th>                    
+					</tr>
+				  </thead>`
+		points.forEach(element => {
+			const value = element.point.percentage.toFixed(0); // Limit decimals to three places
+			const category = element.point.series.name; 
+			const color = element.point.color;              
+			html += `<tr>
+						<td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${color}" /></svg> ${category}</td>
+						<td>${value} %</td>
+					</tr>` 
+		});
+	  html += `</table>`;
+	  return `<div>${html}</div>`;
+	} else {
+	  let html = "";
+	  let totalAdded = false; // Flag to track if the total row has been added
+	  let totalColor = "#7cb5ec";
+	  
+	  // Sort the points so that the "Total" item is at the last place
+	  const sortedPoints = points.sort(function (a, b) {
+		if (a.series.name == languageNameSpace.labels['TOTAL']) return 1;
+		if (b.series.name == languageNameSpace.labels['TOTAL']) return -1;
+		return 0;
+	  });
+	  
+	  html += `<table id="tooltipTable" class="table">                
+		<thead>
+		  <tr>
+			<th scope="cols">${sortedPoints[0].key}</th>                    
+			<th scope="cols"></th>                    
+		  </tr>
+		</thead>`;
+	  
+	  sortedPoints.forEach(function (point) {
+		const color = point.series.color;
+		const value = point.y.toFixed(decimals); // Limit decimals to three places
+		const category = point.series.name;
+	  
+		html += `<tr>
+		  <td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${color}" /></svg> ${category}</td>
+		  <td>${value}</td>
+		</tr>`;
+	  
+		// Check if point is "Total" and set the flag if found
+		if (category == languageNameSpace.labels['TOTAL']) {
+		  totalAdded = true;
+		}
+	  });
+	  
+	  // Check if all values are zero and display a message if they are
+	  const allValuesZero = sortedPoints.every(function (point) {
+		return point.y === 0;
+	  });
+	  
+	  // if (allValuesZero) {
+	  //   html = "<p>All values are zero.</p>"; // Replace the table with the message
+	  // } else {
+		// Add a row for the total if not already added
+		if (!totalAdded) {
+		  // Calculate the total sum of all values
+		  const totalSum = sortedPoints.reduce(function (sum, point) {
+			return sum + point.y;
+		  }, 0);
+	  
+		  // Format the total sum with three decimal places
+		  const totalValue = totalSum.toFixed(decimals);
+	  
+		  // Add a row for the total
+		  html += `<tr>
+			<td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${totalColor}" /></svg> ${languageNameSpace.labels['TOTAL']}</td>
+			<td>${totalValue}</td>
+		  </tr>`;
+		}
+	  // }
+	  
+	  html += `</table>`;
+	  
+	  return `<div>${html}</div>`;
+	  
+	}
   }
