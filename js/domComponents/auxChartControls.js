@@ -133,8 +133,7 @@ class ChartControls {
 			exportHandling(this.id);
 		});
 		closeChart.setClickHandler(function() {
-		  removeAuxiliarBarGraphOptions();
-		  auxiliarBarGraphOptions = undefined
+		  removeChartOptions();
 		});
 
 	  	  // Create the button elements

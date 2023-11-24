@@ -416,5 +416,7 @@ function calculateWeight(partners, value) {
 
     $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
 
+    addChartOptions()
+
 
 }

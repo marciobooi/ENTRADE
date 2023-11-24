@@ -569,6 +569,30 @@ function ajaxCordsCall(coordinates) {
 
 //   new codes
 
+	function addChartOptions() {
+		const chartOptions = new ChartControls();
+		chartOptions.addToDOM("#subnavbar-container"); 
+  	}
+
+	  function removeChartOptions() {
+		const chartOptions = new ChartControls();
+		chartOptions.removeFromDOM(); 
+
+		const mapcontainer = document.querySelector(".wt-map-content");
+    
+		if (mapcontainer) {
+		  mapcontainer.style.width = "100%";
+			map.setView([50, 10], 4);
+			$('#countryInfo').remove();
+			$('#map').removeClass('col-6').addClass('col-12')
+		} else {
+			console.error("Map element not found.");
+		}
+	
+		$('#chartContainer').removeClass('col-6').addClass('col-0').css('display', 'none')
+
+
+	  }
 
 		function openDataset() {
 			window.open(" https://ec.europa.eu/eurostat/databrowser/view/"+ REF.dataset +"/default/table?lang="+ REF.language, "_self");	
