@@ -179,14 +179,18 @@
             <p id="progress" class="sankey-loader"></p>
             <img id="loading-icon" alt="loading..." src="img/block-loader.gif">
         </div>
-        <section id="map" class="container-fluid p-0 ">
-              <script type="application/json">{
-                  "service" : "map",
-                  "version" : "3.0",
-                  "custom" : ["./js/MapSmoothZoom.js", "./js/leaflet.curve.js", "js/countries.js"]
-              }</script>
-        </section>
-        <!-- <div id="componentFooter"></div> -->
+        <div class="d-flex">
+          <section id="map" class="col-12">
+            <script type="application/json">{
+                "service" : "map",
+                "version" : "3.0",
+                "custom" : ["./js/MapSmoothZoom.js", "./js/leaflet.curve.js", "js/countries.js"]
+            }</script>
+          </section>
+          <section id="chartContainer" class="col-0" style="display: none"></section>
+        </div>
+
+   
     </div>    
   </div>
 

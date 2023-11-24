@@ -1,9 +1,13 @@
 
 section#map {
-    /* width: 99vw; */
+    /* width: 100vw; */
     height: 83vh;
   }
-  
+
+
+  .wtmap {
+    width: 100vw !important;
+  }
   .wt-map.leaflet-container.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
     min-height: 78vh !important;
     width: 100vw !important;
@@ -83,7 +87,7 @@ section#map {
   display: flex;
   flex-direction: row;
   align-content: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -95,6 +99,7 @@ section#map {
 #countryInfoHeader > h3 {
   font-size: 0.85rem;
   font-weight: bold;
+  padding-left: 0.5rem;
 }
 
 
@@ -178,4 +183,14 @@ section#map {
 .custom-label {
   fill: red !important;
   color: white !important;
+}
+
+path:focus {
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+#chartContainer {
+  width: 50vw;
+  /* height: 78vh; */
+  border: 1px solid red;
 }

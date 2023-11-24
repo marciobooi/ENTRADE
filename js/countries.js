@@ -47,6 +47,7 @@ function renderMap() {
                   if (countryName === country.CNTR_NAME) {
                     $(this).css('fill', '#0b39a2'); 
                     $(this).css('stroke', '#fff'); 
+                    $(this).css('stroke-width', '2'); 
                   }
               });
               layer.setStyle({
@@ -187,6 +188,7 @@ function drawLines(sourceCountry, partners) {
       lineCap: "round",
       smoothFactor: 1,
       noClip: true,
+      outline: "none",
       className: "myClass",
     }).on('mouseover', function (event) {
       const tooltipContent = lineTooltip(partnerCountry, value, countryNAme )  
@@ -319,7 +321,7 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   const countryTwo = REF.trade = "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
   const orientation = "&#8594" 
   const fuel = languageNameSpace.labels[REF.fuel]
-  const countryValue = value.toFixed(0)
+  const countryValue = value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   const unit = languageNameSpace.labels["abr_"+REF.unit]
   const icon = REF.fuel
   const flag = partnerCountry
@@ -344,16 +346,20 @@ function lineTooltip(partnerCountry, value , countryNAme) {
 function countryInfoMenu(country) {
   const countryContent = `
   <div id="countryInfo">
-    <div style="text-align: center;">
-      <div id="countryInfoHeader">
-        <img src="img/country_flags/${country.CNTR_ID.toLowerCase()}.webp" alt="${country.CNTR_NAME} Flag">
-        <h3>${country.CNTR_NAME}</h3>
-      </div>
-      <p>Total: ${countryTotal} ${languageNameSpace.labels["abr_"+REF.unit]}</p>
-      <button title="factSheet" type="button" onclick="closeInfo()" class="btn btn-primary min-with--nav">Close</button>
-      <button id="factSheet" title="factSheet" type="button" onclick="openFactSheet()" class="btn btn-primary min-with--nav">factsheet</button>
+  <header style="text-align: center;">
+    <div id="countryInfoHeader">
+      <img src="img/country_flags/${country.CNTR_ID.toLowerCase()}.webp" alt="${country.CNTR_NAME} Flag">
+      <h3>${country.CNTR_NAME}</h3>
     </div>
-  </div>
+  </header>
+  <section>
+    <p>Total: ${countryTotal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ${languageNameSpace.labels["abr_"+REF.unit]}</p>
+    <nav>
+      <button title="Close" type="button" onclick="closeInfo()" class="btn btn-primary min-with--nav">Close</button>
+      <button id="factSheet" title="Open factSheet" type="button" onclick="openFactSheet()" class="btn btn-primary min-with--nav">open factsheet</button>
+    </nav>
+  </section>
+</div>
 `;
 
 return countryContent
@@ -393,3 +399,21 @@ function calculateWeight(partners, value) {
   
     return fuelColors[REF.fuel] || 'rgba(0, 0, 0, 0.73)';
   }
+
+
+  function openFactSheet(params) {
+    const mapcontainer = document.querySelector(".wt-map-content");
+    
+    if (mapcontainer) {
+      mapcontainer.style.width = "50%";
+        map.setView([50, 70], 3);
+        $('#countryInfo').remove();
+        $('#map').removeClass('col-12').addClass('col-6')
+    } else {
+        console.error("Map element not found.");
+    }
+
+    $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
+
+
+}
