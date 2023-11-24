@@ -479,7 +479,11 @@
  "COOKIECOMPLETEclose": "Close",
  "COOKIECOMPLETEacceptAll": "Accept all cookies",
  "COOKIECOMPLETEonlyTechnical": "Accept only essential cookies",
- "COOKIECOMPLETE": "Your cookie preferences have been saved. To change your preferences at any time, see our\u00a0<a href=\"//ec.europa.eu/info/cookies_en\" target=\"_self\">cookies policy<\/a> or visit the link in the page footer."
+ "COOKIECOMPLETE": "Your cookie preferences have been saved. To change your preferences at any time, see our\u00a0<a href=\"//ec.europa.eu/info/cookies_en\" target=\"_self\">cookies policy<\/a> or visit the link in the page footer.",
+
+ "tutBACK": "Back",
+ "tutNEXT": "Next",
+ "tutFINISH": "Close"
  
   
 

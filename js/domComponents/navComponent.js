@@ -7,7 +7,7 @@ class Navbar {
       <div class="container-fluid">
         <div class="col-5 col-xs-6">
           <div id="header-title">
-            <h1 id="header-title-label">${languageNameSpace.labels["pub2"]}</h1>
+            <h1 id="header-title-label">${languageNameSpace.labels["inittitle"]}</h1>
           </div>
         </div>
         <div class="col-3 col-xs-3" id="lang-section">

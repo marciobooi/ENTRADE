@@ -75,9 +75,7 @@ function changeUrl(title, url) {
 	};
 };
 
-function openDataset() {
-	window.open(" https://ec.europa.eu/eurostat/databrowser/view/"+ dataNameSpace.dataset +"/default/table?lang="+ REF.language, "_self");	//
-}
+
 
 function modalreopen(){
 	renderMap()
@@ -569,6 +567,19 @@ function ajaxCordsCall(coordinates) {
 	}
   }
 
+//   new codes
+
+
+		function openDataset() {
+			window.open(" https://ec.europa.eu/eurostat/databrowser/view/"+ REF.dataset +"/default/table?lang="+ REF.language, "_self");	
+		}
+
+		function openMetadata () {
+			window.open("https://ec.europa.eu/eurostat/cache/metadata/en/nrg_t_esms.htm", "_self");
+		}
+		function openContact () {
+			document.location = "mailto:ESTAT-ENERGY@ec.europa.eu?subject=ENERGY%20TRADE%20CONTACT&body="+encodeURIComponent(window.location.href);
+		}
 
   function agregateIcon() {
 	const iconHTML = `
@@ -597,4 +608,41 @@ function ajaxCordsCall(coordinates) {
 		  <i class="fa fa-square fa-stack-1x" style="top: .3em;left: .3em;color: white;"></i>
 		</span>`;
   return iconHTML;
+  }
+
+
+  function getTitle() {
+	const geoLabel = languageNameSpace.labels[REF.geo];
+	const time = REF.year;
+	const dataset = languageNameSpace.labels[REF.dataset];
+
+	let title = ""
+	let subtitle = ""
+  
+	let chartTitle = "";
+	switch (REF.chart) {
+	  case "lineChart":
+		chartTitle = `${dataset}<br><span style="font-size:10px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
+		title = `${dataset}`;
+		subtitle = `<span style="font-size:12px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
+		break;
+	  case "pieChart":
+		chartTitle = `${dataset}<br><span style="font-size:10px; padding-top:5px">${geoLabel} - ${time} - ${consoms}</span>`;
+		title = `${dataset}`;
+		subtitle = `<span style="font-size:12px; padding-top:5px">${geoLabel} - ${time} - ${consoms}</span>`;
+		break;
+	  case "barChart":
+		chartTitle = `${dataset}<br><span style="font-size:12px; padding-top:5px">${barText} - ${geoLabel} - ${time}</span>`;
+		title = `${dataset}`;
+		subtitle = `<span style="font-size:12px; padding-top:5px">${barText} - ${geoLabel} - ${time}</span>`;
+		break;
+	  default:    	 
+	  title = `${dataset} - ${geoLabel} ${time}`;
+	  subtitle = "";   
+	}
+  
+	$("#title").html(title);
+	$("#subtitle").html(subtitle);	
+  
+	return chartTitle;
   }

@@ -22,49 +22,21 @@ class SubNavbar {
             </div>
             <div class="col-3">
             <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-              <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-                    <i class="fas fa-info" aria-hidden="true"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                    <button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DATASET']}" value="dataset">${languageNameSpace.labels['DATASET']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['META']}" value="Metadata" >${languageNameSpace.labels['META']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.email()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-                  </ul>
-                </li>
-                <li class="nav-item dropdown px-1" id="downloadChart" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="download chart image" data-bs-toggle="dropdown" role="menuitem" title="Download chart image" aria-haspopup="true" aria-expanded="true" id="downloadBtn">
-                    <i class="fas fa-download" aria-hidden="true"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">     					
-                    <button class="dropdown-item" role="menuitem" onclick="download_DIVPdf()" aria-label="${languageNameSpace.labels['POPDOWNLOADTABLEPDF']}">${languageNameSpace.labels["POPDOWNLOADTABLEPDF"]}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="table.button( '.exportxcel' ).trigger();" aria-label="${languageNameSpace.labels['POPDOWNLOADTABLEEXCEL']}">${languageNameSpace.labels["POPDOWNLOADTABLEEXCEL"]}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="table.button( '.exportcsv' ).trigger();" aria-label="${languageNameSpace.labels['POPDOWNLOADTABLECSV']}">${languageNameSpace.labels["POPDOWNLOADTABLECSV"]}</button>        		
-                  </ul>
-                </li>     
+   
+            <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+            <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+              <i class="fas fa-info" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+              <button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['ENTRADE_DATASET']}" value="Tutorial">${languageNameSpace.labels['ENTRADE_DATASET']}</button>
+              <button class="dropdown-item" role="menuitem" onclick="openMetadata()" aria-label="${languageNameSpace.labels['METADATA']}" value="Metadata" >${languageNameSpace.labels['METADATA']}</button>
+              <button class="dropdown-item" role="menuitem" onclick="openContact()" aria-label="${languageNameSpace.labels['CONTACT']}" value="Feedback">${languageNameSpace.labels['CONTACT']}</button>          		
+            </ul>
+          </li>    
 
-                <!-- <li class="nav-item button px-1" id="shareChart" role="none">
-                  <button id="shareBtn" title="share chart" type="button" class="btn btn-primary min-with--nav" aria-label="share chart" onclick="">
-                    <i class="fas fa-share-alt" aria-hidden="true"></i>
-                  </button>
-                </li> -->
-                <li class="nav-item button px-1" id="embebedChart" role="none">
-                  <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary min-with--nav" aria-label="Embebed chart iframe" onclick="exportIframe()">
-                    <i class="fas fa-code" aria-hidden="true"></i>
-                  </button>
-                </li>
-                <li class="nav-item button px-1" id="AMEX" role="none">
-                  <button id="AMEXBTN" title="${languageNameSpace.labels['AMEX']}" type="button"  onclick="showAmexModal()" class="btn btn-primary min-with--nav" aria-label="${languageNameSpace.labels['AMEX']}">
-                  <i class="fas fa-search" aria-hidden="true"></i>
-                  </button>
-                </li>
-                <li class="nav-item button px-1" id="definitions" role="none">
-                  <button id="BALGUIDEBTN" title="${languageNameSpace.labels['BALGUIDE']}" type="button"  onclick="openBalDefinitions()" class="btn btn-primary min-with--nav" aria-label="${languageNameSpace.labels['BALGUIDE']}">
-                  <i class="fas fa-book" aria-hidden="true"></i>
-                  </button>
-                </li>
+
                 <li class="nav-item button px-1" id="tutorial" role="none">
-                  <button id="TUTORIALBTN" title="${languageNameSpace.labels['POPTUT']}" type="button"  onclick="tutorial()" class="btn btn-primary min-with--nav" aria-label="${languageNameSpace.labels['POPTUT']}">
+                  <button id="TUTORIALBTN" title="${languageNameSpace.labels['TUTORIAL']}" type="button"  onclick="tutorial()" class="btn btn-primary min-with--nav" aria-label="${languageNameSpace.labels['TUTORIAL']}">
                   <i class="fas fa-book-open" aria-hidden="true"></i>
                   </button>
                 </li>
@@ -365,6 +337,7 @@ class SubNavbar {
       container.appendChild(this.subNavbar);
       this.createDropdownBtnGroups();
       // this.addHoverEvent();
+      
     
       const dropdownItems = this.subNavbar.querySelectorAll('.dropdown-item');
     

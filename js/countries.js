@@ -39,7 +39,6 @@ function renderMap() {
           events: {
             click: function (layer) {    
               if (Object.keys(geoCountries).includes(layer.feature.properties.CNTR_ID)) {
-                log(true)
                 const country = layer.feature.properties;
                 loadCountryData(country);    
                 $('path:has(desc b)').each(function () {
@@ -107,13 +106,14 @@ const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-anima
   });
 }
 
-function loadCountryData(country) {
-  dataset = dataNameSpace.dataset;
+function loadCountryData(country) {  
+  REF.dataset = dataNameSpace.dataset;
   REF.geo = country.CNTR_ID;
+  REF.chart = "map"
 
-  log(dataset)
+  log(REF.dataset)
 
-  url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + dataset + "?";
+  url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
   url += "format=JSON";
   url += "&lang=" + REF.language;
   url += "&geo=" + REF.geo;
@@ -125,6 +125,7 @@ function loadCountryData(country) {
   partners = countriesDataHandler(d);
   countryInfo(country);
   drawLines(country, partners);
+  getTitle()
 }
 
 function countriesDataHandler(d) {
@@ -316,7 +317,7 @@ function getCountryCoordinates(countryCode) {
 
 function lineTooltip(partnerCountry, value , countryNAme) {
 
-  const title = languageNameSpace.labels[dataset]
+  const title = languageNameSpace.labels[REF.dataset]
   const countryOne = REF.trade = "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme]
   const countryTwo = REF.trade = "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
   const orientation = "&#8594" 

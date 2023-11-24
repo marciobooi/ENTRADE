@@ -37,7 +37,8 @@ var dataNameSpace = {
 		"unit": "TJ_GCV",
 		"defaultUnit": "TJ_GCV",
 		"detail": 1, 
-		"chart": ""
+		"chart": "map",
+		"dataset": "nrg_ti_gas"
 		},
 
 		// handle different window resolutions
