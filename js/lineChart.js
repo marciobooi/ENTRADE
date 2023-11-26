@@ -1,112 +1,128 @@
-function rendertimeChart() {
-    $wt.render("timeChart", {
-      service: "charts",
-      provider: "highcharts",
-      version: "2.0",
-      dataset: {
-        options: {
-          series: filteredSeries,
-        },
-      },
-      data: {
-        colors: ramdomcolor,
-        title: {
-          text: languageNameSpace.labels[REF.trade] +
-            " " +
-            languageNameSpace.labels["title6"] +
-            " " +
-            languageNameSpace.labels[REF.siec] +
-            " <br> " +
-            newTitle +
-            "<br><spam class='pt-1' style='font-size:10px;font-weight: bold;'>" +
-            languageNameSpace.labels[REF.unit] +
-            "</spam>",
-        },
-        // , "subtitle": {
-        //     "text": '' + languageNameSpace.labels["timeChartSub"]
-        // , }
-        credits: {
-          href: "https://ec.europa.eu/eurostat/web/energy/data/database",
-          text: "Source: Eurostat",
-        },
-        chart: {
-          type: "line",
-          height: height,
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: " " + languageNameSpace.labels[REF.unit],
-          },
-        },
-        xAxis: {
-          categories: timezone,
-          enabled: true,
-        },
-        scrollbar: {
-          enabled: true,
-        },
-        legend: {
-          itemStyle: {
-            fontWeight: "bold",
-          },
-          enabled: false,
-        },
-        tooltip: {
-          valueDecimals: 1,
-          valueSuffix: " " + languageNameSpace.labels[abbunit],
-          shared: true,
-        },
-        responsive: {
-          rules: [
-            {
-              condition: {
-                maxWidth: 820,
-                maxHeight: 400,
-              },
-              chartOptions: {
-                xAxis: {
-                  labels: {
-                    style: {
-                      fontSize: "6px",
-                      color: "lightblue",
-                    },
-                  },
-                },
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
-                },
-              },
-            },
-          ],
-        },
-        series: filteredSeries,
-        exporting: {
-          chartOptions:{
-            legend:{
-              enabled:true
-            }
-          },
-          buttons: {
-            contextButton: {
-              menuItems: ["printChart",
-                          "separator",
-                          "downloadPNG",
-                          "downloadJPEG",
-                          // "downloadPDF",
-                          "downloadSVG",
-                          "separator",
-                          "downloadCSV",
-                          "downloadXLS",
-                          //"viewData",
-                          // "openInCloud"
-                        ]
+function createLineChart() {
+
+  REF.chart = "lineChart"
+
+  d = chartApiCall();
+
+
+  const years = d.Dimension("time").id;
+
+
+  linechartdata(d)
+
+  const tooltipFormatter = function () { return tooltipTable(this.points);}; 
+   
+
+    const chartOptions = {
+      containerId: "chartContainer",
+      type: "spline",
+      title: getTitle(),
+      subtitle: null,
+      xAxis: { categories: years },
+      yAxisFormat: "{value:.2f}",
+      tooltipFormatter: tooltipFormatter,
+      creditsText: credits(),
+      creditsHref: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
+      series: lineChartData,
+      colors: colors,
+      legend: {enabled:true},        
+      columnOptions: {
+          stacking: "normal",
+          events: {
+            mouseOver: function () {
+              var point = this;
+              var color = point.color;
+              $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
             }
           }
-        }
-      },
-      "lang": REF.language.toLowerCase()
-    });
-  }
+        },
+      seriesOptions: ""      
+    };
+    
+    const chart = new Chart(chartOptions);
+    chart.createChart();    
+}
+
+
+
+function linechartdata(d) {
+  lineChartData = [];
+
+  const partners = d.Dimension('partner').id;
+  const years = d.Dimension('time').id;
+
+  partners.forEach((partner, partnerIndex) => {
+    // Exclude partners based on the excludedPartners array, except for "NSP"
+    if (!excludedPartners.includes(partner) || partner === "NSP") {
+      const data = years.map((year, yearIndex) => {
+        isNaN(d.value) || d.value === undefined ? 0 : d.value = d.value;
+        return d.value[partnerIndex * years.length + yearIndex] || 0;
+      });
+
+      const allZeros = data.every(value => value === 0);
+      const partnerName = languageNameSpace.labels[partner];
+
+      if (!allZeros) {
+        lineObj = {
+          name: partnerName,
+          data: data,
+        };
+        lineChartData.push(lineObj);
+      }
+    }
+  });
+
+  // Calculate the total for each country
+  lineChartData.forEach((lineObj) => {
+    lineObj.total = lineObj.data.reduce((sum, value) => sum + value, 0);
+  });
+
+  // Sort lineChartData based on total values in descending order
+  lineChartData.sort((a, b) => b.total - a.total);
+
+  // Select the top 5 countries
+  const top5 = lineChartData.slice(0, 5);
+  const rest = lineChartData.slice(5, lineChartData.length);
+
+  // Sum values for countries in 'rest'
+  const restTotal = rest.reduce((sum, lineObj) => sum + lineObj.total, 0);
+
+  // Create an 'others' category in lineChartData
+  lineChartData = top5;
+  lineChartData.push({
+    name: 'Others',
+    data: years.map((year, yearIndex) => {
+      return rest.reduce((sum, lineObj) => sum + lineObj.data[yearIndex], 0);
+    }),
+    total: restTotal,
+  });
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

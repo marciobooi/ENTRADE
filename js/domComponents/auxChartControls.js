@@ -115,6 +115,7 @@ class ChartControls {
 		lineChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
+		  createLineChart()
 		});
 		createprintChart.setClickHandler(function() {
 			exportHandling(this.id);

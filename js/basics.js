@@ -659,9 +659,9 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	let chartTitle = "";
 	switch (REF.chart) {
 	  case "lineChart":
-		chartTitle = `${dataset}<br><span style="font-size:10px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
+		chartTitle = `${dataset} <br> ${unit} - ${time}`;
 		title = `${dataset} - ${geoLabel} ${time}`;
-		subtitle = `<span style="font-size:12px; padding-top:5px">${geoLabel} - ${consoms}</span>`;
+		subtitle = "";
 		break;
 	  case "pieChart":
 		chartTitle = `${dataset} <br> ${unit} - ${time}`;
@@ -711,7 +711,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
   
   function tooltipTable(points) {
   
-	const decimals = REF.dataset == "demo_pjan" ? 0 : 3
+	const decimals = 0
   
 	if(REF.percentage == 1 ){
 	  let html = "";
@@ -755,7 +755,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  
 	  sortedPoints.forEach(function (point) {
 		const color = point.series.color;
-		const value = point.y.toFixed(decimals); // Limit decimals to three places
+		const value = point.y.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Limit decimals to three places
 		const category = point.series.name;
 	  
 		html += `<tr>
@@ -785,7 +785,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		  }, 0);
 	  
 		  // Format the total sum with three decimal places
-		  const totalValue = totalSum.toFixed(decimals);
+		  const totalValue = totalSum.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 	  
 		  // Add a row for the total
 		  html += `<tr>

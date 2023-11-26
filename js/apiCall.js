@@ -16,17 +16,11 @@ function chartApiCall(query) {
   url += "format=JSON";
   url += "&lang=" + REF.language;
 
-  switch (REF.chartType) {
-    case "lineChart":
-      url += "&unit=" + REF.unit; 
-      url += "&geo=" + REF.geos;  
-      if(REF.indicator.length > 0) {
-        for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
-      }
-      if(REF.indicator2.length > 0) {
-        for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];  
-      }
-     
+  switch (REF.chart) {
+    case "lineChart": 
+      url += "&geo=" + REF.geo;
+      url += "&siec=" + REF.siec;
+      url += "&unit=" + REF.unit;     
       break;
 
  case "barChart":
@@ -52,6 +46,9 @@ function chartApiCall(query) {
   
  
   }
+
+
+  log(url)
 
   if (cache[url] && cache[url].length > 0) {  
     d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);

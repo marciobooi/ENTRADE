@@ -1,4 +1,4 @@
-function handleData() {
+function barchartdata() {
   barChartSeries = [];
 
   d = chartApiCall();
@@ -36,7 +36,7 @@ function createBarChart() {
 
 
 
-  handleData();   
+  barchartdata();   
 
  
 

@@ -109,8 +109,5 @@ function piechartdata() {
 
 piedata.sort((a, b) => b.y - a.y);
 
-log(piedata)
-
- 
 
 }
