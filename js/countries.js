@@ -107,7 +107,7 @@ const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-anima
 }
 
 function loadCountryData(country) {  
-  REF.dataset = dataNameSpace.dataset;
+  REF.dataset = REF.dataset;
   REF.geo = country.CNTR_ID;
   REF.chart = "map"
 
@@ -308,10 +308,10 @@ function getCountryCoordinates(countryCode) {
 function lineTooltip(partnerCountry, value , countryNAme) {
 
   const title = languageNameSpace.labels[REF.dataset]
-  const countryOne = REF.trade = "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme]
-  const countryTwo = REF.trade = "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
+  const countryOne = REF.trade == "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme]
+  const countryTwo = REF.trade == "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
   const orientation = "&#8594" 
-  const fuel = languageNameSpace.labels[REF.fuel]
+  const labelFuel = languageNameSpace.labels[REF.fuel]
   const countryValue = value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   const unit = languageNameSpace.labels["abr_"+REF.unit]
   const icon = REF.fuel
@@ -321,7 +321,7 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   <div id="popCard">
   <div id="sectionOne">
     <img id="popImg" src="img/fuel-family/${icon}.png" alt="">
-    <p id="popDescription">${fuel}</p>
+    <p id="popDescription">${labelFuel}</p>
   </div>
   <hr class="vertical-hr">
   <div id="sectionTwo">

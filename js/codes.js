@@ -141,7 +141,7 @@ trade = {
 }
 
 tradeFuel = {
-	"solid":"", "oil":"" , "gas":"", "biofuels":"", "electricity":""
+	"solid":"", "oil":"" , "gas":"", "bio":"", "electricity":""
 }
 
 tradeSiec = {

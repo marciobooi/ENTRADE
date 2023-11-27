@@ -37,6 +37,15 @@ function populateTrade() {
 
       REF.trade = target.attr('data-trade')
 
+      const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
+
+      log(apiParam)
+
+      REF.dataset = apiParam.name;
+      REF.unit = apiParam.defUnit
+      REF.defaultUnit = apiParam.defUnit
+      REF.siec = apiParam.defSiec
+
     });
 
   tradeDropDown.prepend(dropdownMenu);

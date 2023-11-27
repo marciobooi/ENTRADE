@@ -11,7 +11,6 @@ function addToCache(query, d) {
 
 function chartApiCall(query) {
 
-
   let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
   url += "format=JSON";
   url += "&lang=" + REF.language;

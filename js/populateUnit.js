@@ -3,8 +3,12 @@ function populateUnit() {
     const unitDropDown = $("#chartOptionsMenu > div.dropdown-grid > div > div:nth-child(2) > div > ul");
     unitDropDown.empty()
     let content = '';
+
+    const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
+
+    const units = apiParam.unit
   
-    Object.keys(tradeUnit).forEach(unit => {     
+    units.forEach(unit => {     
         const isActive = unit == REF.unit ? 'active' : '';
       content += `
         <a role="menuitem" class="dropdown-item d-flex justify-content-between align-items-center ${isActive}" href="#" data-unit="${unit}" data-bs-toggle="button" aria-pressed="true">

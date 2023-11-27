@@ -36,6 +36,18 @@ function populateFuel() {
         $('#selectFuel').text(selectedText).append('<i class="fas fa-caret-down"></i>');
 
         REF.fuel = target.attr('data-fuel')
+        log(REF.fuel)
+
+        const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
+
+        log(REF.fuel, REF.trade)
+
+        log(apiParam)
+
+        REF.dataset = apiParam.name;
+        REF.unit = apiParam.defUnit
+        REF.defaultUnit = apiParam.defUnit
+        REF.siec = apiParam.defSiec
 
       });
   

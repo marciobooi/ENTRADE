@@ -474,98 +474,12 @@ function ajaxCordsCall(coordinates) {
 
 
 // function to change the navbar text according to selected in the map
-  function titleManager() {
-	$("#header-title-Label").html(languageNameSpace.labels[REF.trade] + " " + languageNameSpace.labels["title6"] + " " + languageNameSpace.labels[REF.siec]);
-	$("#subHeader-title").html(newTitle + "  " + [dataNameSpace.ref.year]);
-  }
 
 
 
 
-  function polyPopUpHandler(countries, i, countriesValue, pl) {
-	var customPopup = '<div class="popTitle">' + languageNameSpace.labels[dataNameSpace.dataset].slice(this.length, -19)
-	  + "</div>"
-	  + '<div class="popBody">'
-	  + '<div class="popText">';
-	if (REF.trade == "exp") {
-	  customPopup += '<div class="popSubTitle"><b>' + newTitle + '</b><span> &#8594; </span> <b>' + languageNameSpace.labels[countries[i - 1]] + "</b></div>";
-	} else {
-	  customPopup += '<div class="popSubTitle"><b>' + languageNameSpace.labels[countries[i - 1]] + '</b><span> &#8594; </span><b>' + newTitle + "</b></div>";
-	}
-	customPopup += '<div class="popFuel">' + languageNameSpace.labels[REF.siec] + "</div>"
-	  + '<div class="popValue">' + (Math.round(countriesValue[i - 1] * 10) / 10).toLocaleString("en-EN").replace(",", " ") + " - <small> " + languageNameSpace.labels[REF.unit]
-	  + "</div>"
-	  + "</div>"
-	  + '<div class="popImg"><img class="icoBack text-center" src="img/fuel-family/' + REF.fuel + '.png" alt="" width="100px"/></div>'
-	  + "</div>";
-	// specify popup options
-	var customOptions = {
-	  maxWidth: "400",
-	  width: "290",
-	  className: "popupCustom",
-	};
-	// code related to the popup on the polylines
-	return pl.bindPopup(customPopup, customOptions, { weight: 250, height: 25,});
-  }
 
-  function bindTooltipToMap(map) {
-	bindTooltip = topLayer.bindTooltip(function (layer) {
-	  switch (REF.language) {
-		case "DE":
-		  if (layer.feature.properties.SHRT_GERM == 'undefined') {
-			return layer.feature.properties.SHRT_GERM;
-		  } else {
-			return languageNameSpace.labels[layer.feature.properties.CNTR_ID];
-		  }
-		case "EN":
-		  if (layer.feature.properties.SHRT_ENGL == 'undefined') {
-			return layer.feature.properties.SHRT_ENGL;
-		  } else {
-			return languageNameSpace.labels[layer.feature.properties.CNTR_ID];
-		  }
-		case "FR":
-		  if (layer.feature.properties.SHRT_FREN == 'undefined') {
-			return layer.feature.properties.SHRT_FREN;
-		  } else {
-			return languageNameSpace.labels[layer.feature.properties.CNTR_ID];
-		  }
-	  }
-	}, {
-	  sticky: true,
-	  direction: "top",
-	  className: "wtLabelHover",
-	  opacity: 1,
-	  zindex: 9999999,
-	} //then add your options
-	).addTo(map);
-  }
 
-  function urlLoadFunction(layer, map) {
-	if (REF.geo == layer.feature.properties.CNTR_ID) {
-	  map.loading.show();
-	  eventCoordinates = [layer._latlngs[0][0][0]];
-	  $.ajax({
-		url: 'data/data.json',
-		type: "GET",
-		dataType: "json",
-		async: false,
-		success: function (result) {
-  
-		  for (let i = 0; i < result.features.length; i++) {
-			if (result.features[i].properties.CNTR_ID == REF.geo) {
-			  eventCoordinates = [{
-				lat: result.features[i].geometry.coordinates[1],
-				lng: result.features[i].geometry.coordinates[0]
-			  }];
-			  setTimeout(() => layer.fire('click'), 10);
-			  map.loading.hide();
-			  break;
-			}
-		  }
-		}
-	  });
-	}
-  }
 
 //   new codes
 
@@ -802,4 +716,23 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  return `<div>${html}</div>`;
 	  
 	}
+  }
+
+
+  function getDatasetNameByDefaultSIECAndTrade(fuel, trade) {
+	for (const key in codesDataset) {
+	  if (codesDataset.hasOwnProperty(key)) {
+		const dataset = codesDataset[key];
+		if (dataset.fuel.includes(fuel) && dataset.trade.includes(trade) ) {
+			datasetobj = {
+				name: key,
+				unit: dataset.unit,
+				defUnit: dataset.defaultUnit,
+				defSiec: dataset.defaultSiec,
+			}
+		  return datasetobj;
+		}
+	  }
+	}
+	return null;
   }
