@@ -163,3 +163,14 @@ span.agregates.fa-stack.fa-rotate-180 {
     padding: 0.5em !important;
     color: #fff !important;
 }
+
+#btnCloseModalChart {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+#btnCloseModalChart:hover {
+    background-color: red !important;
+    border-color: red !important;
+    box-shadow: 0 0 0 0.15rem rgb(255 0 0 / 37%);
+}
