@@ -50,11 +50,12 @@ $( document ).ready(function() {
   }
   
   function populateDropdownData() {
-	// populateCountries();
-	// populateFuel();
+	populateTrade();
+	populateUnit();
+	populateFuel();
 	// // populateConsumer();
-	// populateYearsData();
+	populateYearsData();
 	// populateDecimals();
-	// populateUnit();
+	
   }
   

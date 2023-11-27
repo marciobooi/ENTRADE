@@ -199,53 +199,36 @@ class SubNavbar {
     }
 
     createDropdownBtnGroups() {
-      const dropdownBtnGroupData = [
+      const dropdownBtnGroupData = [ 
         {
-          label: languageNameSpace.labels["COUNTRY"],
-          id: "selectCountry",
-          defaultText: languageNameSpace.labels[REF.geo],
-          area: languageNameSpace.labels["MENU_COUNTRY"],
-          data: `<div class="d-flex justify-content-evenly py-2">
-                  <button class="btn btn-outline-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-reset">Reset</button>
-                  <button class="btn btn-outline-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-cancel">Cancel</button>
-                  <button class="btn btn-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-ok">OK</button>
-                </div>`
+          label: languageNameSpace.labels["MENU_TRADE"],
+          id: "selectTrade",
+          defaultText: languageNameSpace.labels[REF.trade],
+          area: languageNameSpace.labels["MENU_TRADE"],
+          data: ``
         },
         {
-          label: languageNameSpace.labels["FUEL"],
+          label: languageNameSpace.labels["MENU_UNIT"],
+          id: "selectUnit",
+          defaultText: languageNameSpace.labels[REF.unit],
+          area: languageNameSpace.labels["MENU_UNIT"],
+          data: ``
+        },
+        {
+          label: languageNameSpace.labels["MENU_FUEL"],
           id: "selectFuel",
           defaultText: languageNameSpace.labels[REF.fuel],
           area: languageNameSpace.labels["MENU_FUEL"],
           data: ``
         },
-        // {
-        //   label: languageNameSpace.labels["CONSUMER"],
-        //   id: "selectConsumer",
-        //   defaultText: languageNameSpace.labels["HOUSEHOLD"],
-        //   area: languageNameSpace.labels["MENU_CONSUMER"],
-        //   data: ``
-        // },
         {
-          label: languageNameSpace.labels["REFERENCE"],
+          label: languageNameSpace.labels["MENU_YEAR"],
           id: "selectYear",
-          defaultText: "2022 - S2",
-          area: languageNameSpace.labels["MENU_YEARS"],
+          defaultText: REF.year,
+          area: languageNameSpace.labels["MENU_YEAR"],
           data: ``
         },
-        {
-          label: languageNameSpace.labels["DECIMALS"],
-          id: "selectDecimals",
-          defaultText: REF.decimals,
-          area: languageNameSpace.labels["MENU_DEC"],
-          data: ``
-        },
-        {
-          label: languageNameSpace.labels["UNIT"],
-          id: "selectUnit",
-          defaultText: languageNameSpace.labels[REF.unit],
-          area: languageNameSpace.labels["MENU_UNIT"],
-          data: ``
-        }
+
       ];
     
       const dropdownGrid = this.subNavbar.querySelector('.dropdown-grid');
