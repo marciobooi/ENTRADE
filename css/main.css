@@ -50,3 +50,13 @@ body {
     display: block;
   }
 } */
+
+
+tr.bg-primary.text-white > td:nth-child(2), td.text-right {
+  text-align: end;
+}
+
+table.table.table-bordered.table-striped.table-hover {
+  width: 80%;
+  margin: auto;
+}

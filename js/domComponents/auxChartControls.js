@@ -20,6 +20,7 @@ class ChartControls {
 				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
+				  <li class="nav-item button px-1" id="toggleTable" role="none"></li>
 				  <li class="nav-item button px-1" id="printChart" role="none"></li>
 				  <li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
@@ -43,6 +44,7 @@ class ChartControls {
 				<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
+				<li class="nav-item button px-1" id="toggleTable" role="none"></li>
 				<li class="nav-item button px-1" id="printChart" role="none"></li>
 				<li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
@@ -85,6 +87,7 @@ class ChartControls {
 		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "false");
 		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "true");
 		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "false");
+		const tableChart = new Button("tableChart", ["btn", "btn-primary", "min-with--nav"], "Toggle table", "tableChart", "false");
 		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], "Print chart", "false");
 		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
 		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart data", "false");
@@ -95,6 +98,7 @@ class ChartControls {
 		barChart.setInnerHtml('<i class="fas fa-chart-bar" aria-hidden="true"></i>');
 		pieChart.setInnerHtml('<i class="fas fa-chart-pie" aria-hidden="true"></i>');
 		lineChart.setInnerHtml('<i class="fas fa-chart-line" aria-hidden="true"></i>');
+		tableChart.setInnerHtml('<i class="fas fa-table" aria-hidden="true"></i>');
 		createprintChart.setInnerHtml('<i class="fas fa-print" aria-hidden="true"></i>');
 		downloadChart.setInnerHtml('<i class="fas fa-download" aria-hidden="true"></i>');
 		downloadExcel.setInnerHtml('<i class="fas fa-file-excel" aria-hidden="true"></i>');
@@ -117,6 +121,11 @@ class ChartControls {
 		  REF.chart = this.value;
 		  createLineChart()
 		});
+		tableChart.setClickHandler(function() {
+		  disableChatOptionsBtn(this.value);
+		  REF.chart = this.value;
+		  createTableChart()
+		});
 		createprintChart.setClickHandler(function() {
 			exportHandling(this.id);
 		});
@@ -137,6 +146,7 @@ class ChartControls {
 			const barChartElement = barChart.createButton();
 			const pieChartElement = pieChart.createButton();
 			const lineChartElement = lineChart.createButton();
+			const tableChartElement = tableChart.createButton();
 			const printChartElement = createprintChart.createButton();
 			const downloadChartElement = downloadChart.createButton();
 			const downloadExcelElement = downloadExcel.createButton();
@@ -148,6 +158,7 @@ class ChartControls {
 			document.getElementById("toggleBarChart").appendChild(barChartElement);
 			document.getElementById("togglePieChart").appendChild(pieChartElement);
 			document.getElementById("toggleLineChart").appendChild(lineChartElement);
+			document.getElementById("toggleTable").appendChild(tableChartElement);
 			document.getElementById("printChart").appendChild(printChartElement);
 			document.getElementById("downloadChart").appendChild(downloadChartElement);
 			document.getElementById("downloadExcel").appendChild(downloadExcelElement);
@@ -177,7 +188,7 @@ class ChartControls {
   }
   
   function disableChatOptionsBtn(chartid) {
-	const charts = ["barChart", "pieChart", "lineChart"];  
+	const charts = ["barChart", "pieChart", "lineChart", "tableChart"];  
 	charts.forEach(chart => {
 	  if (chartid == chart) {
 		$("#" + chart).attr("disabled", "disabled");
