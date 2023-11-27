@@ -56,7 +56,38 @@ tr.bg-primary.text-white > td:nth-child(2), td.text-right {
   text-align: end;
 }
 
-table.table.table-bordered.table-striped.table-hover {
-  width: 80%;
+table.chartTable {
+  width: 90%;
   margin: auto;
+}
+
+td {
+  padding: 0.2rem;
+}
+tbody tr:hover {
+  background-color: lightblue;
+}
+thead tr {
+  background-color: lightgray;
+  font-weight: 600;
+  font-size: .9em;
+}
+
+h2.tableTitle {
+  width: 100%;
+  font-size: 1em;
+  padding: 1rem 0 0 2rem;
+}
+
+table thead td:last-child {
+  padding-right: 2rem;
+  text-align: end;
+}
+
+table td:first-child {
+  padding-left: 2rem;
+}
+
+table td:last-child {
+  padding-right: 2rem;
 }

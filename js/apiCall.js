@@ -65,8 +65,8 @@ function chartApiCall(query) {
       // submitFormDown();
     }
   
-    const data = JSON.parse(request.responseText);
-    const d = JSONstat(data).Dataset(0);
+  
+    const d = JSONstat(url).Dataset(0);
 
     addToCache(url, d);
     

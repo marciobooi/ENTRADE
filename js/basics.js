@@ -652,6 +652,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	const time = REF.year;
 	const dataset = languageNameSpace.labels[REF.dataset];
 	const unit = languageNameSpace.labels[REF.unit];
+	const unitAbbr = languageNameSpace.labels['abr_'+REF.unit];
 
 	let title = ""
 	let subtitle = ""
@@ -674,6 +675,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		subtitle = "";
 		break;
 	  default:    	 
+	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}) <br> ${time}`;
 	  title = `${dataset} - ${geoLabel} ${time}`;
 	  subtitle = "";   
 	}
