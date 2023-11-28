@@ -87,23 +87,15 @@ var languageNameSpace = {
 function addCredits() {	
 	setTimeout(function(){
 	document.querySelectorAll(".credits").forEach(el => el.remove());
-	linksContent = 	"<div class='modalHeader'>"
-	+ '<button type="button" class="btn-close2" data-bs-dismiss="modal" aria-label="Close">x</button>'
-	+ "<h5 class='disclaimerTitle'>" + languageNameSpace.labels["DISCLAIMERTITLE"] + "</h5>"
-	+ "</div>"
-	+ "<div>"
-	+ '<p class="disclaimerText">' + languageNameSpace.labels["DISCLAIMER"] + '</p>'
-	+ "</div>" 
-
 
 	if($("#links").html() === "") {
 	$("#links").append(linksContent);
 	}
 
 	let creditLinks = '<div class="credits">'
-		+'<span class="credits">  </span><a title="'+languageNameSpace.labels["COOKIES"]+'" href=\"https://ec.europa.eu/info/cookies_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["COOKIES"]+'</a>'
-		+ '<span class="credits"> | </span><a title="'+languageNameSpace.labels["PRIVACY"]+'" href=\"https://ec.europa.eu/info/privacy-policy_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["PRIVACY"]+'</a>'
-		+ '<span class="credits"> | </span><a  title="'+languageNameSpace.labels["LEGAL"]+'" href=\"https://ec.europa.eu/info/legal-notice_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["LEGAL"]+'</a>'
+		+'<span class="credits">  </span><a class="wt-link" title="'+languageNameSpace.labels["COOKIES"]+'" href=\"https://ec.europa.eu/info/cookies_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["COOKIES"]+'</a>'
+		+ '<span class="credits"> | </span><a class="wt-link title="'+languageNameSpace.labels["PRIVACY"]+'" href=\"https://ec.europa.eu/info/privacy-policy_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["PRIVACY"]+'</a>'
+		+ '<span class="credits"> | </span><a class="wt-link title="'+languageNameSpace.labels["LEGAL"]+'" href=\"https://ec.europa.eu/info/legal-notice_'+ REF.language.toLowerCase() +'\" target=\"_self\" class="credits">'+languageNameSpace.labels["LEGAL"]+'</a>'
 		+ '</div>'
 
 		$(".wtfooter").append(creditLinks);

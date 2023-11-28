@@ -1,39 +1,18 @@
 
 
-#componentFooter {
+.wtfooter {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  align-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
-#footer {
-  z-index: 1;
-  background-color: white;
-  margin-top: 0.5rem;
+a.wt-link {
+  padding: 10px 0 5px;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
-ul#footerCredits {
-  margin-right: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-hr {
-  height: 1.5vh;
-  width: 0.1vw;
-  border-width: 0;
-  background-color: var(--main-color);
-  margin: 0.6rem 0;
-  opacity: 1;
-}
-
-ul#footerCredits li a {
-  color: var(--main-color);
-  font-size: 0.8em;
-  padding: 0.3rem;
-}
-
-ul#footerCredits li a:hover {
+a.wt-link:hover {
   font-weight: bold;
 }
-
