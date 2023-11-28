@@ -158,7 +158,7 @@ var languageNameSpace = {
 			tradeFuel["solid"] = languageNameSpace.labels["solid"];
 			tradeFuel["oil"] = languageNameSpace.labels["oil"];
 			tradeFuel["gas"] = languageNameSpace.labels["gas"];
-			tradeFuel["biofuels"] = languageNameSpace.labels["biofuels"];
+			tradeFuel["bio"] = languageNameSpace.labels["bio"];
 			tradeFuel["electricity"] = languageNameSpace.labels["electricity"];
 			
 			trade["exp"] = languageNameSpace.labels["exp"];

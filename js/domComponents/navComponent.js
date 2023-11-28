@@ -50,7 +50,7 @@ class Navbar {
     const langSelection = this.navbar.querySelector("#lang-selection");
     langSelection.addEventListener("change", function (event) {
       const selectedValue = langSelection.value;
-      languageNameSpace.ChangeLanguage(selectedValue);
+      languageNameSpace.initLanguage(selectedValue);
     });
 
     langSelection.addEventListener("keydown", function (event) {

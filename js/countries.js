@@ -50,7 +50,7 @@ function renderMap() {
                   }
               });
               layer.setStyle({
-                fillColor: '#0b39a2', 
+                fillColor: 'red', 
                 color: 'white', 
               });
               }
@@ -68,10 +68,10 @@ function renderMap() {
             language: REF.language
           },
           style: {
-            color: "transparent",
+            color: "#f5f5f5",
             weight: 1,
             opacity: 1,
-            fillColor: "transparent",
+            fillColor: "#e6e6e6",
             fillOpacity: 1
           },
         }
@@ -79,27 +79,38 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
-    Object.keys(geoCountries).forEach(key => {    
-        $('path:has(desc b)').each(function () {
-          const countryName = $(this).find('desc b').text().trim();
-          if (countryName === languageNameSpace.labels[key]) {
-            $(this).css('fill', '#738ce5'); 
-            $(this).css('stroke', '#444'); 
-          }
-      });
+
+setTimeout(() => {
+      Object.keys(geoCountries).forEach(key => {    
+          $('path:has(desc b)').each(function () {
+            const countryName = $(this).find('desc b').text().trim();
+            if (countryName == languageNameSpace.labels[key]) {
+              log(countryName, languageNameSpace.labels[key])
+              $(this).css('fill', '#738ce5'); 
+              $(this).css('stroke', '#444'); 
+            }       
+        });
+
 
 const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
 
       // Iterate through the found elements
       elementsWithClasses.each(function () {
         // Check inner text
-        var countryName = $(this).text().trim();
+        const countryName = $(this).text().trim();
       
         // Check if the inner text matches the desired name
         if (countryName.includes(languageNameSpace.labels[key])) {         
           // Change the color property of the div element with !important
           this.style.setProperty('color', '#fff', 'important');
         }
+
+
+      }, 1500);
+
+
+
+
       });
       
     });    
