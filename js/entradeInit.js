@@ -13,8 +13,11 @@ $( document ).ready(function() {
 		lang: REF.language.toLowerCase(),
 		theme: "dark",
 	  });
+
+	  
+
   
-	buildComponents();
+	
   
 	// Call the createForm function and append the form to the "hiddenFormDiv"
   // const actionURL = "https://formsubmit.co/e466de393c51be5bb8265025772c5712";

@@ -7,7 +7,7 @@ class Navbar {
       <div class="container-fluid">
         <div class="col-5 col-xs-6">
           <div id="header-title">
-            <h1 id="header-title-label">${languageNameSpace.labels["inittitle"]}</h1>
+            <h1 id="header-title-label">${languageNameSpace.labels["header-title-label"]}</h1>
           </div>
         </div>
         <div class="col-3 col-xs-3" id="lang-section">
@@ -39,7 +39,8 @@ class Navbar {
       </div>`;
 
         this.langSelection = this.navbar.querySelector("#lang-selection");
-        const initialLanguage = REF.language; // Assuming REF.language holds the selected language value
+        const initialLanguage = REF.language; 
+        log(REF.language)
           for (let i = 0; i < this.langSelection.options.length; i++) {
             if (this.langSelection.options[i].value === initialLanguage) {
               this.langSelection.selectedIndex = i;
@@ -50,6 +51,7 @@ class Navbar {
     const langSelection = this.navbar.querySelector("#lang-selection");
     langSelection.addEventListener("change", function (event) {
       const selectedValue = langSelection.value;
+      REF.language = selectedValue
       languageNameSpace.initLanguage(selectedValue);
     });
 

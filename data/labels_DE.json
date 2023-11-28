@@ -209,7 +209,7 @@
 	"abr_TJ_GCV": "Tj",
 	"abr_GWH": "GWH",
 
-	"inittitle" : "Energiehandel",
+  "header-title-label" : "Energiehandel",
 
 	"btn1": "Info anzeigen",
 	"btn2": "Kreisdiagramm anzeigen",

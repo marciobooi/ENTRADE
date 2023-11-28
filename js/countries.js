@@ -80,12 +80,11 @@ function renderMap() {
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
 
-setTimeout(() => {
+
       Object.keys(geoCountries).forEach(key => {    
           $('path:has(desc b)').each(function () {
             const countryName = $(this).find('desc b').text().trim();
             if (countryName == languageNameSpace.labels[key]) {
-              log(countryName, languageNameSpace.labels[key])
               $(this).css('fill', '#738ce5'); 
               $(this).css('stroke', '#444'); 
             }       
@@ -104,13 +103,6 @@ const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-anima
           // Change the color property of the div element with !important
           this.style.setProperty('color', '#fff', 'important');
         }
-
-
-      }, 1500);
-
-
-
-
       });
       
     });    

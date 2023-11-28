@@ -184,7 +184,7 @@
 "abr_GWH": "GWH",
 "TJ": "Terajoule",
 
-"inittitle" : "Energy Trade",
+"header-title-label" : "Energy Trade",
 
 "btn1" : "Show info",
 "btn2" : "Show pie chart",
