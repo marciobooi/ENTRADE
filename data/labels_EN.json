@@ -484,7 +484,9 @@
  "tutBACK": "Back",
  "tutNEXT": "Next",
  "tutFINISH": "Close",
- "MENU_YEAR": "Reference period"
+ "MENU_YEAR": "Reference period",
+ "EXPORT_FOOTER_TITLE": "Source: Eurostat",
+ "DB": "Access to dataset"
  
   
 

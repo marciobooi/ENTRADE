@@ -38,7 +38,7 @@ function renderMap() {
         options: {
           events: {
             click: function (layer) {    
-              if (Object.keys(geoCountries).includes(layer.feature.properties.CNTR_ID)) {
+              if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
                 const country = layer.feature.properties;
                 loadCountryData(country);    
                 $('path:has(desc b)').each(function () {
@@ -81,17 +81,18 @@ function renderMap() {
     map = mapInstance; // Update the global map variable
 
 
-      Object.keys(geoCountries).forEach(key => {    
+      defGeos.forEach(key => {    
           $('path:has(desc b)').each(function () {
             const countryName = $(this).find('desc b').text().trim();
             if (countryName == languageNameSpace.labels[key]) {
+              // log(countryName, languageNameSpace.labels[key])
               $(this).css('fill', '#738ce5'); 
               $(this).css('stroke', '#444'); 
             }       
         });
 
 
-const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+    const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
 
       // Iterate through the found elements
       elementsWithClasses.each(function () {
@@ -259,7 +260,7 @@ function clearMap() {
 });
 
 
-  Object.keys(geoCountries).forEach(key => {    
+defGeos.forEach(key => {    
     $('path:has(desc b)').each(function () {
       const countryName = $(this).find('desc b').text().trim();
       if (countryName === languageNameSpace.labels[key]) {

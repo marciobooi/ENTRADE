@@ -53,6 +53,7 @@ class Navbar {
       const selectedValue = langSelection.value;
       REF.language = selectedValue
       languageNameSpace.initLanguage(selectedValue);
+      renderMap()
     });
 
     langSelection.addEventListener("keydown", function (event) {
