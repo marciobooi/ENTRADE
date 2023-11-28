@@ -16,6 +16,7 @@ fetch("data/data.json")
 function renderMap() {
   map = $wt.map.render({
     map: {
+      scrollWheelZoom: true,
       center: [50, 10],
       smoothZoom: true,
       zoom: 4,
