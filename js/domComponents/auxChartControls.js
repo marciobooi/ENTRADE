@@ -72,8 +72,7 @@ class ChartControls {
 		  this.chartToolsMenu.classList.toggle("d-none");
 		  this.toolsButton.style.display = "none";
 		});
-	  } else {
-		log(isMobile);
+	  } else {		
 		this.controls.innerHTML = notMobileContent;
 	  }
 	}
@@ -84,15 +83,15 @@ class ChartControls {
 	  container.insertBefore(this.controls, container.firstChild);
 
 	    // Create the button instances
-		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "false");
-		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "true");
-		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "false");
-		const tableChart = new Button("tableChart", ["btn", "btn-primary", "min-with--nav"], "Toggle table", "tableChart", "false");
-		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], "Print chart", "false");
-		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
-		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart data", "false");
-		const embebedeChart = new Button("embebedBtn", ["btn", "btn-primary", "min-with--nav"], "Embebed chart iframe", "false");
-		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav"], "Close", "false");
+		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle bar Chart", "barChart", "false");
+		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle pie Chart", "pieChart", "true");
+		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle line Chart", "lineChart", "false");
+		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle table", "tableChart", "false");
+		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Print chart", "false");
+		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Download chart image", "false");
+		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Download chart data", "false");
+		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Embebed chart iframe", "false");
+		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Close", "false");
 	
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar" aria-hidden="true"></i>');
@@ -165,7 +164,7 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
-			pieChart.setDisabled(true);
+			tableChart.setDisabled(true);
 	}
   
 	removeFromDOM() {

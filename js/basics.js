@@ -624,6 +624,33 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	const title = REF.chartId==="lineChart" ?  points[0].key : points[0].x
 	return this.y == 0 ? `<b>${title}<br>Total: <b>${na}</b>` : `<b>${title}<br>Total: <b>${value}</b> ${unit}`;
   }
+
+  function pieTolltip(point) {
+	// Assuming there is a variable 'unit' representing the unit you want to display
+	const unit = REF.unit; // Replace 'your_unit' with the actual unit
+	const na = languageNameSpace.labels['FLAG_NA'];
+	
+	const formatPointTooltip = function () {
+	  return `<tr class="tooltipTableRow"><td><span style="color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
+	};
+  
+	// Construct the complete tooltip content
+	const tooltipRows = formatPointTooltip();
+  
+	// Create the HTML table structure
+	const html = `<table id="tooltipTable" class="table_component"> 
+	  <thead class="">
+		<tr class="">
+		  <th scope="col" colspan="2">${languageNameSpace.labels[REF.chartGeo]}</th>                
+		</tr>
+	  </thead>
+	  <tbody>
+		${tooltipRows}
+	  </tbody>
+	</table>`;
+  
+	return html;   
+  }
   
   function tooltipTable(points) {
   
@@ -631,7 +658,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
   
 	if(REF.percentage == 1 ){
 	  let html = "";
-	  html += `<table id="tooltipTable" class="table">                
+	  html += `<table id="tooltipTable" class="table_component">                
 				  <thead>
 					<tr>
 					  <th scope="cols">${points[0].x}</th>                    
@@ -661,7 +688,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		return 0;
 	  });
 	  
-	  html += `<table id="tooltipTable" class="table">                
+	  html += `<table id="tooltipTable" class="table_component">                
 		<thead>
 		  <tr>
 			<th scope="cols">${sortedPoints[0].key}</th>                    
@@ -729,6 +756,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 				unit: dataset.unit,
 				defUnit: dataset.defaultUnit,
 				defSiec: dataset.defaultSiec,
+				siecs: dataset.siec,
 			}
 		  return datasetobj;
 		}

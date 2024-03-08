@@ -1,6 +1,8 @@
 let countryTotal = 0;
 let coords = []; // Declare coords at the global scope
 let map; // Initialize the map variable
+let isOpenChartContainer
+let mapCenterCoords
 
 // Fetch coordination data asynchronously
 fetch("data/data.json")
@@ -26,7 +28,7 @@ function renderMap() {
       smoothFactor: 1,
       language: REF.language,
       background: ["osmec"],
-      height: "84vh",
+      height: "86vh",
       width: "100%",
       maxBounds: [
         [-90, -Infinity],
@@ -59,7 +61,7 @@ function renderMap() {
             tooltip: {
               content: "<b>{CNTR_NAME}</b>",
               options: {
-                direction: "bottom",
+                direction: "top",
                 sticky: true
               }
             }
@@ -81,33 +83,33 @@ function renderMap() {
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
 
-
-      defGeos.forEach(key => {    
-          $('path:has(desc b)').each(function () {
-            const countryName = $(this).find('desc b').text().trim();
-            if (countryName == languageNameSpace.labels[key]) {
-              // log(countryName, languageNameSpace.labels[key])
-              $(this).css('fill', '#738ce5'); 
-              $(this).css('stroke', '#444'); 
-            }       
-        });
-
-
-    const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
-
-      // Iterate through the found elements
-      elementsWithClasses.each(function () {
-        // Check inner text
-        const countryName = $(this).text().trim();
-      
-        // Check if the inner text matches the desired name
-        if (countryName.includes(languageNameSpace.labels[key])) {         
-          // Change the color property of the div element with !important
-          this.style.setProperty('color', '#fff', 'important');
-        }
-      });
-      
-    });    
+      setTimeout(() => {
+              defGeos.forEach(key => {    
+                  $('path:has(desc b)').each(function () {
+                    const countryName = $(this).find('desc b').text().trim();
+                    if (countryName == languageNameSpace.labels[key]) {
+                      // log(countryName, languageNameSpace.labels[key])
+                      $(this).css('fill', '#738ce5'); 
+                      $(this).css('stroke', 'black'); 
+                      // $(this).css('stroke-width', '.5px');
+                    }       
+                });
+              const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+        
+              // Iterate through the found elements
+              elementsWithClasses.each(function () {
+                // Check inner text
+                const countryName = $(this).text().trim();
+              
+                // Check if the inner text matches the desired name
+                if (countryName.includes(languageNameSpace.labels[key])) {         
+                  // Change the color property of the div element with !important
+                  this.style.setProperty('color', '#fff', 'important');
+                }
+              });
+              
+            });    
+      }, 300);
   });
 }
 
@@ -122,6 +124,38 @@ function loadCountryData(country) {
   countryInfo(country);
   drawLines(country, partners);
   getTitle()
+  chartContainerStatus()
+  if (isOpenChartContainer) {
+    $('#countryInfo').remove()
+    removeChartOptions()  
+    openFactSheet()
+  }
+}
+
+function openFactSheet(country) {
+
+  log(mapCenterCoords)
+
+  const mapcontainer = document.querySelector(".wt-map-content");
+  
+  if (mapcontainer) {
+
+      mapcontainer.style.width = "50%";
+      map.setView([mapCenterCoords.CENTROID[0], mapCenterCoords.CENTROID[1] + 30], 4);
+  
+      $('#countryInfo').remove();
+      $('#map').removeClass('col-12').addClass('col-6')
+  } else {
+      console.error("Map element not found.");
+  }
+
+  $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
+
+  addChartOptions()
+  // createTableChart()
+  createDepChart()
+
+
 }
 
 function countriesDataHandler(d) {
@@ -161,7 +195,8 @@ function drawLines(sourceCountry, partners) {
     return;
   }
 
- 
+  mapCenterCoords = sourceCountry;
+
   clearLinesAndMarkers();
 
   partners.forEach(partner => {
@@ -169,14 +204,11 @@ function drawLines(sourceCountry, partners) {
     const value = partner[1];
     const sourceCoords = sourceCountry.CENTROID;
     const partnerCoords = getCountryCoordinates(partnerCountry);
-    const countryNAme = sourceCountry.CNTR_ID
-
-
-
+    const countryName = sourceCountry.CNTR_ID;
 
     const curvePoint = getMidpoint(sourceCoords, partnerCoords);    
 
-    const line = L.curve([ "M", sourceCoords, "Q", curvePoint, partnerCoords], {
+    const line = L.curve(["M", sourceCoords, "Q", curvePoint, partnerCoords], {
       color: poliColorChange(), // Set the desired line color
       weight: calculateWeight(partners, value),
       opacity: 1,
@@ -187,24 +219,43 @@ function drawLines(sourceCountry, partners) {
       outline: "none",
       className: "myClass",
     }).on('mouseover', function (event) {
-      const tooltipContent = lineTooltip(partnerCountry, value, countryNAme )  
-    this.bindTooltip(tooltipContent, { sticky: true }).openTooltip();
-    })
-    .on('mouseout', function (event) {
+      const tooltipContent = lineTooltip(partnerCountry, value, countryName);
+      this.bindTooltip(tooltipContent, { sticky: true }).openTooltip();
+    }).on('mouseout', function (event) {
       this.closeTooltip();
     }).addTo(map);
 
-    const marker = L.marker(partnerCoords).addTo(map)
-    .bindPopup(lineTooltip(partnerCountry, value, countryNAme ))
-    .on('mouseover', function (e) { this.openPopup();})
-    .on('mouseout', function (e) {this.closePopup();});
+    const radius = calculateRadius(partners, value); // Declare radius outside forEach loop
+
+    const marker = L.circle(partnerCoords, {
+      color: 'rgb(170 95 24)', // Set the color of the circle's border to transparent
+      fillColor: 'rgb(170 95 24)', // Set the fill color of the circle
+      fillOpacity: 1, // Set the opacity of the fill color
+      radius: radius // Set the radius of the circle in meters
+    }).addTo(map)
+    .bindPopup(lineTooltip(partnerCountry, value, countryName))
+    .on('mouseover', function (e) { this.openPopup(); })
+    .on('mouseout', function (e) { this.closePopup(); });
+
+    // Function to update circle sizes based on current zoom level
+    function updateCircleSize() {
+      const zoomLevel = map.getZoom();
+      const scale = Math.pow(2, 5 - zoomLevel); // Adjust the power according to your starting zoom level
+      const newRadius = radius * scale; // Adjust radius based on zoom level
+      marker.setRadius(newRadius);
+    }
+
+    // Listen for 'zoom' event on the map and update circle size
+    map.on('zoom', updateCircleSize);
 
     lines.push(line);
     markers.push(marker);
-    styleCountry(partnerCountry)
+    styleCountry(partnerCountry);
   });
-
 }
+
+
+
 
 function getMidpoint(sourceCoords, partnerCoords) {
   const sourceLat = sourceCoords[0];
@@ -212,16 +263,24 @@ function getMidpoint(sourceCoords, partnerCoords) {
   const partnerLat = partnerCoords[0];
   const partnerLng = partnerCoords[1];
 
+  // Calculate the distance between source and partner coordinates
+  const distance = Math.sqrt(Math.pow(partnerLat - sourceLat, 2) + Math.pow(partnerLng - sourceLng, 2));
+
+  // Adjust the curve factor based on the distance using a logarithmic function
+  const curveFactor = distance > 35 ? Math.log(distance + 1) * 3.5 : 1.1  
+
+  log(distance, curveFactor)
+
   // Calculate the midpoint
   const midLat = (sourceLat + partnerLat) / 2;
   const midLng = (sourceLng + partnerLng) / 2;
-  curveFactor = 1.1
 
-  // Use the midpoint as the control point for the quadratic Bezier curve
-  const controlPoint = [midLat * curveFactor, midLng * curveFactor];
+  // Use the midpoint as the control point for the quadratic Bezier curve, multiplied by the curve factor
+  const controlPoint = [midLat + curveFactor, midLng + curveFactor];
 
   return controlPoint;
 }
+
 
 
 function styleCountry(partnerCountry) {
@@ -295,7 +354,7 @@ function clearLinesAndMarkers() {
 }
 
 
-// Assuming there's a function to get coordinates for each country
+
 function getCountryCoordinates(countryCode) {
   const feature = coords[0].features.find(feature => feature.properties.CNTR_ID === countryCode);
   if (feature) {
@@ -379,10 +438,27 @@ function calculateWeight(partners, value) {
   
 	const factor = (maxWeight - minWeight) / (maxValue - minValue);
 	const weight = Math.round((factor * value) + pixelLength);
-  
+  if(weight > maxWeight) return maxWeight;
 	return weight;
   }
+  
+  function calculateRadius(partners, value) {
+    const values = partners.map(item => item[1]);
+  
+    const minValue = Math.min(...values);
+    const maxValue = Math.max(...values);
+    const maxRadius = 35000;
+    const minRadius = 20000;
 
+    if (minValue === maxValue) {
+        return minRadius; // Corrected variable name from `minWeight` to `minRadius`
+    }
+
+    const factor = (maxRadius - minRadius) / (maxValue - minValue);
+    let radius = Math.round(factor * (value - minValue) + minRadius); // Adjusted formula to start from minRadius
+    radius = Math.min(radius, maxRadius); // Ensuring radius doesn't exceed maxRadius
+    return radius;
+}
 
   function poliColorChange() {
     const fuelColors = {
@@ -393,26 +469,14 @@ function calculateWeight(partners, value) {
       electricity: 'rgba(215, 60, 65, 0.73)',
     };
   
-    return fuelColors[REF.fuel] || 'rgba(0, 0, 0, 0.73)';
+    // return fuelColors[REF.fuel] || 'rgb(204 163 0 / 85%)';
+    return 'rgb(204 163 0)';
   }
 
-
-  function openFactSheet(params) {
-    const mapcontainer = document.querySelector(".wt-map-content");
-    
-    if (mapcontainer) {
-      mapcontainer.style.width = "50%";
-        map.setView([50, 70], 3);
-        $('#countryInfo').remove();
-        $('#map').removeClass('col-12').addClass('col-6')
-    } else {
-        console.error("Map element not found.");
-    }
-
-    $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
-
-    addChartOptions()
-    createPieChart()
+  
 
 
+
+function chartContainerStatus() {
+  isOpenChartContainer = ($('#chartContainer').css('display') === 'none') ? false : true;
 }

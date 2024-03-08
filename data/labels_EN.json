@@ -481,12 +481,59 @@
  "COOKIECOMPLETEonlyTechnical": "Accept only essential cookies",
  "COOKIECOMPLETE": "Your cookie preferences have been saved. To change your preferences at any time, see our\u00a0<a href=\"//ec.europa.eu/info/cookies_en\" target=\"_self\">cookies policy<\/a> or visit the link in the page footer.",
 
+
+
+
+
  "tutBACK": "Back",
  "tutNEXT": "Next",
  "tutFINISH": "Close",
- "MENU_YEAR": "Reference period",
+ "MENU_YEAR": "Select year",
  "EXPORT_FOOTER_TITLE": "Source: Eurostat",
- "DB": "Access to dataset"
+ "DB": "Access to dataset",
+ "UNIT": "Unit",
+ "YEAR": "Year",
+ "TRADE": "Trade",
+  "MAINMENU": "Menu",
+  "COUNTRY": "Country",
+  "FUEL": "Fuel",
+  "CONSUMER": "Consumer",
+  "REFERENCE": "Reference period",
+  "CONSUME": "Consumption level",
+  "FEED": "Feedback",
+  "TOOLS": "Tools",
+  "%": "in percentages",
+  "TOGGLEAGREGATES": "Toggle aggregates",
+  "SELITEN" : "Select an item",
+  "NORESULTS" : "No results found",
+  "SELALL" : "Select all",
+  "CLEAR" : "Clear all",
+  "CLOSE" : "Close",
+  "KEYWORD" : "Enter keyword",
+
+  "infoBtn": "Show info",
+  "downloadBtn": "download chart image",
+  "shareBtn": "share chart",
+  "embebedBtn": "Embebed chart iframe",
+  "shareChart": "Share in social media",
+  "toggleAgregates": "Toggle aggregates",
+  "tb-togle-order": "Select order of the chart",
+  "tb-togle-table": "Toggle table",
+  "barChart": "Toggle bar Chart",
+  "pieChart": "Toggle pie Chart",
+  "lineChart": "Toggle line Chart",
+  "table": "Toggle table",
+  "createprintChart": "Print chart",
+  "downloadChart": "Download chart image",
+  "downloadExcel": "Download chart data",
+  "embebedeChart": "Embebed chart iframe",
+  "closeChart": "Close",
+  "twitter": "Share on twitter",
+  "linkedin": "Share on linkedin",
+  "facebook": "Share on facebook",
+  "ACCESS": "Accessibility",
+  "PRODUCT": "Select product",
+  "PRO": "Product"
  
   
 

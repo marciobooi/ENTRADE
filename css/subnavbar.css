@@ -2,6 +2,9 @@
     background-color: #e9eaeb !important;
 }
 
+#menu > span {
+    font-size: .8em;
+}
 
 .text-group {
     display: flex;
@@ -14,12 +17,12 @@
 
 #title, #subtitle {
     font-size: 1em;
-    color: var(--main-color);
-    line-height: 15px;
+    color: var(--text-main-color);
+    margin-bottom: 0.2rem;
 }
 
 ul.dropdown-menu {
-    max-width: 19rem;
+    /* max-width: 19rem; */
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -27,7 +30,8 @@ ul.dropdown-menu {
 
 .flag {
     max-width: 25px;
-    height: auto;
+    height: 20px;
+    object-fit: fill;
 }
 
 
@@ -55,3 +59,13 @@ ul.dropdown-menu {
     visibility: hidden !important;
 }
 
+.ecl-form-label {
+    color: #171a22;
+    display: inline-flex;
+    font-weight: 500;
+    white-space: pre-wrap;
+    font-size: 0.8em;
+    margin-left: 0.6rem;
+    line-height: 0.5rem;
+    color: #656872;
+}

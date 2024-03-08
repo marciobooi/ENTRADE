@@ -1,5 +1,6 @@
 function createPieChart() {
   REF.chart = "pieChart";
+  $('#chartContainer').empty()
 
   piechartdata()
  
@@ -43,6 +44,10 @@ function createPieChart() {
       layout: 'horizontal'
   }
 
+  const tooltipFormatter = function() {
+    return pieTolltip(this.point);
+  };
+
   const chartOptions = {
     containerId: "chartContainer",
     type: "pie",
@@ -50,7 +55,7 @@ function createPieChart() {
     subtitle: null,
     xAxis: null,
     yAxisFormat: "",
-    tooltipFormatter: "",
+    tooltipFormatter: tooltipFormatter,
     creditsText: credits(),
     creditsHref: "",
     series: [

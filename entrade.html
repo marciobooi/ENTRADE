@@ -77,6 +77,10 @@
   <link href="css/chartOptionsMenu.css" rel="stylesheet">  
   <link href="css/highchartsTable.css" rel="stylesheet">  
   <link href="css/auxChartControls.css" rel="stylesheet">  
+
+  <link href="css/EC/ecl-reset.css" rel="stylesheet">  
+  <link href="css/EC/ecl-eu-default.css" rel="stylesheet">  
+  <link href="css/EC/ecl-eu.css" rel="stylesheet">  
   <link href="css/mediaqueries.css" rel="stylesheet">  
 
   <link rel="stylesheet" href="css/intro/intro.css">
@@ -107,6 +111,7 @@
   <script src="js/piechart.js"></script>
   <script src="js/barChart.js"></script>
   <script src="js/lineChart.js"></script>
+  <script src="js/dependencyChart.js"></script>
   <script src="js/table.js"></script>
 
   <script src="js/external/chart/highcharts.js"></script>
@@ -115,7 +120,8 @@
   <script src="js/external/chart/export-data.js"></script>
   <script src="js/external/chart/accessibility.js"></script>
   <script src="js/external/chart/data.js"></script>
-
+  <script src="js/external/chart/sankey.js"></script>
+  <script src="js/external/chart/dependency.js"></script>
 
   <script defer type="text/javascript" src="js/domComponents/navComponent.js"></script>
   <script defer type="text/javascript" src="js/domComponents/subNavBarComponent.js"></script>
@@ -126,13 +132,16 @@
   <script defer type="text/javascript" src="js/domComponents/btns.js"></script>
   <script defer type="text/javascript" src="js/domComponents/modal.js"></script>
   <script defer type="text/javascript" src="js/domComponents/timeline.js"></script>
+  <script defer type="text/javascript" src="js/domComponents/singleSelect.js"></script>
 
 
   <script src="js/populateTrade.js"></script>
   <script src="js/populateFuels.js"></script>
   <script src="js/populateYears.js"></script>
   <script src="js/populateUnit.js"></script>
+  <script src="js/populateProduct.js"></script>
   <script src="js/keyboardNavigationLogic.js"></script>
+
 
   <link rel="stylesheet" href="css/mediaqueries.css">
 
@@ -159,10 +168,10 @@
     <div id="allContainer">
         <div id="subnavbar-container"></div>           
         <div id="auxChartControls"></div>
-        <div id="loader" style="display: none;">
+        <!-- <div id="loader" style="display: none;">
             <p id="progress" class="sankey-loader"></p>
             <img id="loading-icon" alt="loading..." src="img/block-loader.gif">
-        </div>
+        </div> -->
         <div class="d-flex">
           <section id="map" class="col-12">
             <script type="application/json">{
@@ -177,6 +186,8 @@
    
     </div>    
   </div>
+
+  <script src="js/external/ecl-eu.js"></script>
 
     <script type="application/json">{
     "utility": "cck",

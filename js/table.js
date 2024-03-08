@@ -8,16 +8,20 @@ function createTableChart() {
 
   // Create a new table element
   const table = document.createElement("table");
-  table.classList.add("chartTable", "table-hover"); // Add Bootstrap table classes for striping and hover effects
+  table.classList.add("ecl-table"); // Add Bootstrap table classes for striping and hover effects
   table.style.marginTop = "20px"; // Add some top margin for spacing
 
   // Create thead (table header) with Bootstrap styles
   const thead = document.createElement("thead");
+  thead.classList.add("ecl-table__head");
   table.appendChild(thead);
 
   const headerRow = thead.insertRow(0);
+  headerRow.classList.add("ecl-table__row");
   const headerCell1 = headerRow.insertCell(0);
   const headerCell2 = headerRow.insertCell(1);
+  headerCell1.classList.add("ecl-table__header");
+  headerCell2.classList.add("ecl-table__header");
 
   headerCell1.innerHTML = "Country";
   headerCell1.setAttribute("scope", "col"); // Specify that this cell is a header for a column
@@ -26,18 +30,24 @@ function createTableChart() {
 
   // Create tbody (table body) for data rows
   const tbody = document.createElement("tbody");
+  tbody.classList.add("ecl-table__body");
   table.appendChild(tbody);
 
   // Iterate through the bar chart series data and populate the tbody
   barChartSeries.forEach((dataPoint, index) => {
     const row = tbody.insertRow(index);
+    row.classList.add("ecl-table__row");
 
     const cell1 = row.insertCell(0);
     const cell2 = row.insertCell(1);
+    cell1.classList.add("ecl-table__cell");
+    cell2.classList.add("ecl-table__cell");
+
+
 
     cell1.innerHTML = dataPoint.name;
     cell2.innerHTML = formatNumber(dataPoint.y);
-    cell2.classList.add("text-right"); // Add Bootstrap class to align text to the right
+  
 
     // Add attributes for screen readers
     row.setAttribute("role", "row");

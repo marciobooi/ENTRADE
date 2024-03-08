@@ -22,19 +22,27 @@ class Footer {
     buildLinksFooter() {
       const footerCredits = document.querySelector('#footerCredits');
       footerCredits.innerHTML = '';
-
- 
-      const linksContent = ` <li>
-      <a href="https://ec.europa.eu/info/cookies_${REF.language.toLowerCase()}" target="_blank" rel="noreferrer noopener" id="footer-cookies" class="footer-decoration">${languageNameSpace.labels["COOKIES"]}</a>
-    </li>
-    <hr>
-    <li>
-      <a href="https://ec.europa.eu/info/privacy-policy_${REF.language.toLowerCase()}" target="_blank" rel="noreferrer noopener" id="footer-privacy" class="footer-decoration">${languageNameSpace.labels["PRIVACY"]}</a>
-    </li>
-    <hr>
-    <li>
-      <a href="https://ec.europa.eu/info/legal-notice_${REF.language.toLowerCase()}" target="_blank" rel="noreferrer noopener" id="footer-legal" class="footer-decoration">${languageNameSpace.labels["LEGAL"]}</a>
-    </li>`;
+      const linksContent = /*html*/`
+      <li class="ecl-site-footer__list-item">
+        <a id="footer-cookies" href="https://ec.europa.eu/info/cookies_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        ${languageNameSpace.labels["COOKIES"]}</a>
+        </li class="ecl-site-footer__list-item">
+        <hr>
+      <li class="ecl-site-footer__list-item">
+        <a id="footer-privacy" href="https://ec.europa.eu/info/privacy-policy_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        ${languageNameSpace.labels["PRIVACY"]}</a>
+        </li>
+        <hr>
+      <li class="ecl-site-footer__list-item">
+        <a id="footer-legal" href="https://ec.europa.eu/info/legal-notice_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener"  class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        ${languageNameSpace.labels["LEGAL"]}</a>
+        </li>
+        <hr>
+      <li class="ecl-site-footer__list-item">
+        <a id="footer-access" href="https://ec.europa.eu/eurostat/web/main/help/accessibility" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        ${languageNameSpace.labels["ACCESS"]}</a>
+        </li>
+  `;
   
       footerCredits.innerHTML = linksContent;
     }
@@ -42,7 +50,6 @@ class Footer {
     addToDOM(targetElement) {
       const container = document.querySelector(targetElement);
       container.appendChild(this.footer);
-
 
     // Call the buildLinksFooter method after inserting the footer into the DOM
     this.buildLinksFooter();

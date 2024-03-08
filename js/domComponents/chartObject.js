@@ -96,6 +96,15 @@ class Chart {
       }); // end of chart object
       enableScreenREader()
     } // end of chart function
+
+    redrawChart() {
+      if (this.chart) {
+          this.chart.redraw();
+          console.log('Chart redrawn');
+      } else {
+          console.log('Chart has not been created yet');
+      }
+  }
     
   }
 

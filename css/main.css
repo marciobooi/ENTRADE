@@ -61,7 +61,7 @@ table.chartTable {
   margin: auto;
 }
 
-td {
+/* td {
   padding: 0.2rem;
 }
 tbody tr:hover {
@@ -74,14 +74,14 @@ thead tr {
 }
 thead th {
   padding-left: 2rem;
-}
+} */
 h2.tableTitle {
   width: 100%;
   font-size: 1em;
   padding: 1rem 0 0 2rem;
 }
 
-table thead td:last-child {
+/* table thead td:last-child {
   padding-right: 2rem;
   text-align: end;
 }
@@ -92,4 +92,4 @@ table td:first-child {
 
 table td:last-child {
   padding-right: 2rem;
-}
+} */
