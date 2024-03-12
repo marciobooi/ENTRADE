@@ -134,8 +134,6 @@ function loadCountryData(country) {
 
 function openFactSheet(country) {
 
-  log(mapCenterCoords)
-
   const mapcontainer = document.querySelector(".wt-map-content");
   
   if (mapcontainer) {
@@ -268,8 +266,6 @@ function getMidpoint(sourceCoords, partnerCoords) {
 
   // Adjust the curve factor based on the distance using a logarithmic function
   const curveFactor = distance > 35 ? Math.log(distance + 1) * 3.5 : 1.1  
-
-  log(distance, curveFactor)
 
   // Calculate the midpoint
   const midLat = (sourceLat + partnerLat) / 2;

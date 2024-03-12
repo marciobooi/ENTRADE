@@ -1,107 +1,103 @@
 function depData(params) {
+    const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/${REF.dataset}?format=JSON&time=2022&unit=TJ_GCV&siec=G3000&lang=${REF.language}`;
 
-const url = 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_ti_gas?format=JSON&time=2022&unit=TJ_GCV&siec=G3000&partner=BE&partner=BG&partner=CZ&partner=DK&partner=DE&partner=EE&partner=IE&partner=EL&partner=ES&partner=FR&partner=HR&partner=IT&partner=CY&partner=LV&partner=LT&partner=LU&partner=HU&partner=MT&partner=NL&partner=AT&partner=PL&partner=PT&partner=RO&partner=SI&partner=SK&partner=FI&partner=SE&partner=IS&partner=LI&partner=NO&partner=CH&partner=UK&partner=BA&partner=ME&partner=MD&partner=MK&partner=AL&partner=RS&partner=TR&partner=UA&partner=XK&partner=GE&partner=AD&partner=BY&partner=GI&partner=RU&partner=EX_SU_OTH&partner=EUR_OTH&partner=AO&partner=CM&partner=CG&partner=CD&partner=GQ&partner=GA&partner=ST&partner=DJ&partner=ER&partner=ET&partner=KE&partner=MG&partner=MU&partner=MZ&partner=UG&partner=TZ&partner=DZ&partner=EG&partner=LY&partner=MA&partner=SS&partner=SD&partner=TN&partner=NA&partner=ZA&partner=BJ&partner=CV&partner=CI&partner=GH&partner=GW&partner=LR&partner=MR&partner=NE&partner=NG&partner=SN&partner=SL&partner=TG&partner=AFR_OTH&partner=CA&partner=US&partner=AW&partner=BS&partner=BB&partner=VG&partner=CU&partner=CW&partner=DO&partner=JM&partner=TT&partner=BZ&partner=CR&partner=GT&partner=HN&partner=MX&partner=PA&partner=AR&partner=BO&partner=BR&partner=CL&partner=CO&partner=EC&partner=PE&partner=UY&partner=VE&partner=AME_OTH&partner=KZ&partner=KG&partner=TJ&partner=TM&partner=UZ&partner=CN&partner=HK&partner=JP&partner=MN&partner=KP&partner=KR&partner=TW&partner=BD&partner=IN&partner=IR&partner=NP&partner=PK&partner=LK&partner=BN&partner=KH&partner=ID&partner=LA&partner=MY&partner=MM&partner=PH&partner=SG&partner=TH&partner=TL&partner=VN&partner=AM&partner=AZ&partner=BH&partner=IQ&partner=IL&partner=JO&partner=KW&partner=LB&partner=OM&partner=QA&partner=SA&partner=SY&partner=AE&partner=YE&partner=ASI_NME_OTH&partner=ASI_OTH&partner=AU&partner=NZ&partner=NC&partner=PG&partner=MH&partner=TOTAL&partner=NSP&lang=en'
-
-
-
-
-
-
-
-
-    return data = [
-        ['Brazil', 'Portugal', 5],
-        ['Brazil', 'France', 1],
-        ['Brazil', 'Spain', 1],
-        ['Brazil', 'England', 1],
-        ['Canada', 'Portugal', 1],
-        ['Canada', 'France', 5],
-        ['Canada', 'England', 1],
-        ['Mexico', 'Portugal', 1],
-        ['Mexico', 'France', 1],
-        ['Mexico', 'Spain', 5],
-        ['Mexico', 'England', 1],
-        ['USA', 'Portugal', 1],
-        ['USA', 'France', 1],
-        ['USA', 'Spain', 1],
-        ['USA', 'England', 5],
-        ['Portugal', 'Angola', 2],
-        ['Portugal', 'Senegal', 1],
-        ['Portugal', 'Morocco', 1],
-        ['Portugal', 'South Africa', 3],
-        ['France', 'Angola', 1],
-        ['France', 'Senegal', 3],
-        ['France', 'Mali', 3],
-        ['France', 'Morocco', 3],
-        ['France', 'South Africa', 1],
-        ['Spain', 'Senegal', 1],
-        ['Spain', 'Morocco', 3],
-        ['Spain', 'South Africa', 1],
-        ['England', 'Angola', 1],
-        ['England', 'Senegal', 1],
-        ['England', 'Morocco', 2],
-        ['England', 'South Africa', 7],
-        ['South Africa', 'China', 5],
-        ['South Africa', 'India', 1],
-        ['South Africa', 'Japan', 3],
-        ['Angola', 'China', 5],
-        ['Angola', 'India', 1],
-        ['Angola', 'Japan', 3],
-        ['Senegal', 'China', 5],
-        ['Senegal', 'India', 1],
-        ['Senegal', 'Japan', 3],
-        ['Mali', 'China', 5],
-        ['Mali', 'India', 1],
-        ['Mali', 'Japan', 3],
-        ['Morocco', 'China', 5],
-        ['Morocco', 'India', 1],
-        ['Morocco', 'Japan', 3],
-        ['Japan', 'Brazil', 1]
-    ]
+    const data = JSONstat(url).Dataset(0);
     
+    // Get dimensions
+    const geoDimension = data.Dimension("geo");
+    const partnerDimension = data.Dimension("partner");
+
+    // Get IDs of geographic areas and partner countries
+    const countryIDs = geoDimension.id;
+    const partnerIDs = partnerDimension.id;
+
+    // Get values
+    const values = data.value;
+
+    // Initialize an array to store processed data
+    processedData = [];
+
+    const aggregates = ['EURO_OTH', 'TOTAL', 'EU27_2020', 'EA20', 'NSP'];
+
+    partnerIDs.forEach((partner, i) => {
+        for (let j = 0; j < countryIDs.length; j++) {
+            // Check if the country ID and partner ID are not in the aggregates array
+            if (!aggregates.includes(countryIDs[j]) && !aggregates.includes(partner)) {
+                const val = values[i * countryIDs.length + j];
+                if (val > 0) {
+                    obj = {
+                        name: data.__tree__.dimension.geo.category.label[countryIDs[j]],
+                        from: data.__tree__.dimension.partner.category.label[partner],
+                        to: data.__tree__.dimension.geo.category.label[countryIDs[j]],
+                        weight: val
+                    }
+                    processedData.push(obj);
+                }
+            }
+        }
+    });
+
+    return processedData;
 }
 
 
 function createDepChart() {
-
-
     depData()
+    const unit = languageNameSpace.labels[REF.unit];
 
-    Highcharts.chart('chartContainer', {
+    var arrow = REF.trade === "imp" ? '\u2192' : '\u2190';
 
-        title: {
-            text: 'Highcharts Dependency Wheel'
-        },
-    
-        accessibility: {
-            point: {
-                valueDescriptionFormat: '{index}. From {point.from} to {point.to}: {point.weight}.'
+      Highcharts.chart('chartContainer', {  
+          title: {
+              text: 'Highcharts Dependency Wheel'
+          },
+      
+          accessibility: {
+              point: {
+                  valueDescriptionFormat: '{index}. From {point.from} to {point.to}: {point.weight}.'
+              }
+          },   
+          tooltip: {
+            formatter: function() {
+                if (this.point && this.point.isNode) {
+                    // For nodes
+                    return '<b>' + this.point.name + '</b><br>' +
+                        'Total: ' + Highcharts.numberFormat(this.point.sum, 2) + ' ' +unit;
+                } else if (this.point) {
+                    // For links
+                    return '<b>' + this.point.from + ' ' + arrow + ' ' + this.point.to + '</b><br>' +
+                        'Value: ' + Highcharts.numberFormat(this.point.weight, 2) + ' ' +unit;
+                } else {
+                    // Handle other cases
+                    return 'Unknown tooltip';
+                }
             }
         },
-    
-        series: [{
-            keys: ['from', 'to', 'weight'],
-            data: data,
-            type: 'dependencywheel',
-            name: 'Dependency wheel series',
-            dataLabels: {
-                color: '#333',
-                style: {
-                    textOutline: 'none'
+          series: [{
+              keys: ['from', 'to', 'weight'],
+              data: processedData,
+              type: 'dependencywheel',
+              name: 'Dependency wheel series',
+              dataLabels: {
+                  color: '#333',
+                  style: {
+                      textOutline: 'none'
+                  },
+                  textPath: {
+                    enabled: true,
+                    attributes: {
+                        dy: 5
+                    }
                 },
-                textPath: {
-                    enabled: true
-                },
-                distance: 10
-            },
-            size: '95%'
-        }]
-    
-    });
-    
-  
-  
-  
+                  distance: 10
+              },
+              size: '95%',
+              colors: ['#17256b'],
+
+   
+          }]
+      
+      });
   }
   
   
