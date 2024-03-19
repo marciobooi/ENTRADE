@@ -18,6 +18,7 @@ class ChartControls {
 			  <div class="menu">
 				<ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
+				  <li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleTable" role="none"></li>
@@ -42,6 +43,7 @@ class ChartControls {
 			<div class="menu d-none">
 			  <ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 				<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
+				<li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleTable" role="none"></li>
@@ -63,7 +65,6 @@ class ChartControls {
 		
   
 	  if (isMobile) {
-		log(isMobile);
 		this.controls.innerHTML = mobileContent;
 		this.toolsButton = this.controls.querySelector("#tools");
 		this.chartToolsMenu = this.controls.querySelector(".menu");
@@ -81,9 +82,9 @@ class ChartControls {
 	  $("#menuToolbar").toggle();	
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
-
 	    // Create the button instances
 		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle bar Chart", "barChart", "false");
+		const depChart = new Button("depChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle dependency wheel Chart", "depChart", "false");
 		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle pie Chart", "pieChart", "true");
 		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle line Chart", "lineChart", "false");
 		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle table", "tableChart", "false");
@@ -95,6 +96,7 @@ class ChartControls {
 	
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar" aria-hidden="true"></i>');
+		depChart.setInnerHtml('<i class="fas fa-project-diagram" aria-hidden="true"></i>');
 		pieChart.setInnerHtml('<i class="fas fa-chart-pie" aria-hidden="true"></i>');
 		lineChart.setInnerHtml('<i class="fas fa-chart-line" aria-hidden="true"></i>');
 		tableChart.setInnerHtml('<i class="fas fa-table" aria-hidden="true"></i>');
@@ -109,6 +111,11 @@ class ChartControls {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createBarChart()
+		});
+		depChart.setClickHandler(function() {
+		  disableChatOptionsBtn(this.value);
+		  REF.chart = this.value;
+		  createDepChart()
 		});
 		pieChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
@@ -143,6 +150,7 @@ class ChartControls {
 
 	  	  // Create the button elements
 			const barChartElement = barChart.createButton();
+			const depChartElement = depChart.createButton();
 			const pieChartElement = pieChart.createButton();
 			const lineChartElement = lineChart.createButton();
 			const tableChartElement = tableChart.createButton();
@@ -155,6 +163,7 @@ class ChartControls {
 		
 			// Append the button elements to the document
 			document.getElementById("toggleBarChart").appendChild(barChartElement);
+			document.getElementById("toggleDepChart").appendChild(depChartElement);
 			document.getElementById("togglePieChart").appendChild(pieChartElement);
 			document.getElementById("toggleLineChart").appendChild(lineChartElement);
 			document.getElementById("toggleTable").appendChild(tableChartElement);
@@ -187,7 +196,7 @@ class ChartControls {
   }
   
   function disableChatOptionsBtn(chartid) {
-	const charts = ["barChart", "pieChart", "lineChart", "tableChart"];  
+	const charts = ["barChart", "pieChart", "lineChart", "tableChart", "depChart"];  
 	charts.forEach(chart => {
 	  if (chartid == chart) {
 		$("#" + chart).attr("disabled", "disabled");

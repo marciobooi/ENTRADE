@@ -150,8 +150,9 @@ function openFactSheet(country) {
   $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
 
   addChartOptions()
-  // createTableChart()
-  createDepChart()
+  createTableChart()
+
+  getTitle()
 
 
 }
@@ -397,19 +398,14 @@ function lineTooltip(partnerCountry, value , countryNAme) {
 function countryInfoMenu(country) {
   const countryContent = `
   <div id="countryInfo">
-  <header style="text-align: center;">
-    <div id="countryInfoHeader">
-      <img src="img/country_flags/${country.CNTR_ID.toLowerCase()}.webp" alt="${country.CNTR_NAME} Flag">
-      <h3>${country.CNTR_NAME}</h3>
-    </div>
-  </header>
-  <section>
-    <p>Total: ${countryTotal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ${languageNameSpace.labels["abr_"+REF.unit]}</p>
-    <nav>
-      <button title="Close" type="button" onclick="closeInfo()" class="btn btn-primary min-with--nav">Close</button>
-      <button id="factSheet" title="Open factSheet" type="button" onclick="openFactSheet()" class="btn btn-primary min-with--nav">open factsheet</button>
-    </nav>
-  </section>
+    <button id="factSheet" 
+            class="ecl-button ecl-button--cta" 
+            type="submit"
+            onclick="openFactSheet()"
+            title="${languageNameSpace.labels["FACTSHEET"]}"
+            >
+            ${languageNameSpace.labels["FACTSHEET"]}
+    </button>
 </div>
 `;
 

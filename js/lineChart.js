@@ -53,7 +53,7 @@ function linechartdata(d) {
 
   partners.forEach((partner, partnerIndex) => {
     // Exclude partners based on the excludedPartners array, except for "NSP"
-    if (!excludedPartners.includes(partner) || partner === "NSP") {
+    if (!excludedPartners.includes(partner) || partner !== "NSP") {
       const data = years.map((year, yearIndex) => {
         isNaN(d.value) || d.value === undefined ? 0 : d.value = d.value;
         return d.value[partnerIndex * years.length + yearIndex] || 0;

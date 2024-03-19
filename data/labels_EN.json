@@ -533,9 +533,11 @@
   "facebook": "Share on facebook",
   "ACCESS": "Accessibility",
   "PRODUCT": "Select product",
-  "PRO": "Product"
- 
-  
+  "PRO": "Product",
+
+  "TRADETITLE": "Energy trade",
+  "FACTSHEET": "Open factsheet",
+  "DEPTITLE": "World trade of"
 
 
 }

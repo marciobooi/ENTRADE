@@ -20,6 +20,8 @@
 
 /* Global Styles */
 html {
+  font-family: Arial, sans-serif;
+  color: #333;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -39,7 +41,7 @@ body {
   transform: rotate3d(25.5, -10.5, 6, 127deg);
 }
 
-/* @media screen {
+@media screen {
   .highcharts-title {
     display: none;
   }
@@ -49,7 +51,7 @@ body {
   .highcharts-title {
     display: block;
   }
-} */
+}
 
 
 tr.bg-primary.text-white > td:nth-child(2), td.text-right {

@@ -583,6 +583,11 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		title = `${dataset} - ${geoLabel} ${time}`;
 		subtitle = "";
 		break;
+	  case "depChart":
+		chartTitle = `${languageNameSpace.labels["DEPTITLE"]} ${languageNameSpace.labels[REF.siec]} - ${REF.year}`;
+		title = `${languageNameSpace.labels["DEPTITLE"]} ${languageNameSpace.labels[REF.siec]} - ${REF.year}`;
+		subtitle = "";
+		break;
 	  case "barChart":
 		chartTitle = `${dataset} <br> ${unit} - ${time}`;
 		title = `${dataset} - ${geoLabel} ${time}`;

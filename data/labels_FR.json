@@ -477,7 +477,11 @@
   "COOKIECOMPLETEclose": "Fermer",
   "COOKIECOMPLETEacceptAll": "Accepter tous les cookies",
   "COOKIECOMPLETEonlyTechnical": "N\u2019accepter que les cookies essentiels",
-  "COOKIECOMPLETE": "Vos pr\u00e9f\u00e9rences en mati\u00e8re de cookies ont \u00e9t\u00e9 sauvegard\u00e9es. Pour modifier vos pr\u00e9f\u00e9rences \u00e0 tout moment, consultez notre <a href=\"//ec.europa.eu/info/cookies_fr\" target=\"_self\">politique sur les cookies</a> ou cliquez sur le lien dans le pied de page."
+  "COOKIECOMPLETE": "Vos pr\u00e9f\u00e9rences en mati\u00e8re de cookies ont \u00e9t\u00e9 sauvegard\u00e9es. Pour modifier vos pr\u00e9f\u00e9rences \u00e0 tout moment, consultez notre <a href=\"//ec.europa.eu/info/cookies_fr\" target=\"_self\">politique sur les cookies</a> ou cliquez sur le lien dans le pied de page.",
+
+  "TRADETITLE": "Commerce d'énergie",
+  "FACTSHEET": "Ouvrir la fiche d'informations",
+  "DEPTITLE": "Commerce mondial de"
  
 
   
