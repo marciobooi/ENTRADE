@@ -14,45 +14,74 @@ class SubNavbar {
                 <i class="fas fa-bars" aria-hidden="true"></i>             
               </button>
             </div>
-            <div class="col-8">
+
+            <div class="col-7">
               <div class="text-group">
                 <h2 id="title" class="title"></h2>
                 <h6 id="subtitle" class="subtitle"></h6>      
               </div>
             </div>
 
-
-
-        <div class="col-3">
+          <div class="col-4">
             <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-              <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                
+              <div id="switchBtn">  
+                <label class="form-check-label" for="switchTop5">${languageNameSpace.labels['top5']}</label>
+                <div class="form-check form-switch d-inline-block">
+                  <input class="form-check-input focus-ring" type="checkbox" value="${REF.filter}" role="switch" id="switchTop5" ${REF.filter == "top5" ? 'checked' : ''} aria-checked=${REF.filter == "top5" ? 'true' : 'false'}>
+                </div>
+              </div>
+            
+            
+                <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${languageNameSpace.labels['infoBtn']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['infoBtn']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                     <i class="fas fa-info"></i>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                    <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['METADATA']}" value="Metadata" >${languageNameSpace.labels['METADATA']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['CONTACT']}" value="Feedback">${languageNameSpace.labels['CONTACT']}</button>          		
+                    <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+                    <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['METADATA']}" value="Metadata" >${languageNameSpace.labels['METADATA']}</button>
+                    <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['CONTACT']}" value="Feedback">${languageNameSpace.labels['CONTACT']}</button>          		
                   </ul>
                 </li>
    
 
                 <li class="nav-item button px-1" id="embebedChart" role="none">
-                  <button id="embebedBtn" title="Embebed chart iframe" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
+                  <button id="embebedBtn" title="${languageNameSpace.labels['embebedBtn']}" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="${languageNameSpace.labels['embebedBtn']}" onclick="exportIframe()">
                     <i class="fas fa-code" aria-hidden="true"></i>
                   </button>
                 </li>
 
                 <li class="nav-item dropdown px-1" id="social-media" role="none">
-                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="Share in social media" data-bs-toggle="dropdown" role="menuitem" title="Share chart" aria-haspopup="true" aria-expanded="true" id="shareChart">
-                    <i class="fas fa-share-alt" aria-hidden="true"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Share chart">     					
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}">${languageNameSpace.labels["twitter"]}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['facebook']}">${languageNameSpace.labels["facebook"]}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn()" aria-label="${languageNameSpace.labels['linkedin']}">${languageNameSpace.labels["linkedin"]}</button>        		
-                  </ul>
-                </li>    
+                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${languageNameSpace.labels['shareChart']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['shareChart']}" aria-haspopup="true" aria-expanded="true" id="shareChart">
+                  <i class="fas fa-share-alt" aria-hidden="true"></i>
+                </button>
+
+
+                <ul class="dropdown-menu dropdown-menu-end" style="padding: 12px;" role="menu" aria-labelledby="Share chart">     			
+                <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;">Share this page</p>   		
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}">                  
+                    <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                      <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/twiter.svg" alt="Twitter Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                    </span>
+                    <span class="ecl-link__label">${languageNameSpace.labels["twitter"]}</span>                  
+                </button>  
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['facebook']}">
+                  <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                    <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/face.svg" alt="Facebook Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                  </span>
+                  <span class="ecl-link__label">${languageNameSpace.labels["facebook"]}</span>                  
+                </button>
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.linkedin()" aria-label="${languageNameSpace.labels['linkedin']}">
+                  <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                    <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/linkdin.svg" alt="Linkedin Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                  </span>
+                  <span class="ecl-link__label">${languageNameSpace.labels["linkedin"]}</span>                  
+                </button>
+               </ul>                
+              </li>    
 
               </ul>
             </div>
@@ -89,29 +118,29 @@ class SubNavbar {
           <div class="">              
               <button id="menu" class="btnGroup" type="button" aria-label="${languageNameSpace.labels["MAINMENU"]}" title="${languageNameSpace.labels["MAINMENU"]}" aria-haspopup="true">
                 <i class="fas fa-bars" aria-hidden="true"></i>                    
-                <span class="iconText">${languageNameSpace.labels["MAINMENU"]}</span>           
+                <span class="iconText">Menu</span>           
               </button>
           </div>
-
+          
         <div class="chartMenuMobile d-none">
           <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                   <i class="fas fa-info" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                  <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['METADATA']}" value="Metadata" >${languageNameSpace.labels['METADATA']}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['CONTACT']}" value="Feedback">${languageNameSpace.labels['CONTACT']}</button>          		
+                  <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+                  <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['METADATA']}" value="Metadata" >${languageNameSpace.labels['METADATA']}</button>
+                  <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['CONTACT']}" value="Feedback">${languageNameSpace.labels['CONTACT']}</button>          		
                 </ul>
               </li> 
               <li class="nav-item button px-1" id="shareChart" role="none">
-                <button id="shareBtn" title="share chart" type="button" class="btn btn-primary min-with--nav" aria-label="share chart" onclick="">
+                <button id="shareBtn" title="share chart" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="share chart" onclick="">
                   <i class="fas fa-share-alt" aria-hidden="true"></i>
                 </button>
               </li>
               <li class="nav-item button px-1" id="embebedChart" role="none">
-                <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary min-with--nav" aria-label="Embebed chart iframe" onclick="exportIframe()">
+                <button id="embebedBtn" title="Embebed chart iframe" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
                   <i class="fas fa-code" aria-hidden="true"></i>
                 </button>
               </li>
@@ -172,6 +201,8 @@ class SubNavbar {
 
           this.subNavbar.innerHTML = browser         
 
+
+          
       
 
           this.menuButton = this.subNavbar.querySelector('#menu');
@@ -188,6 +219,34 @@ class SubNavbar {
           this.closeChartMenuBtn.addEventListener('click', () => {
               this.toggleChartOptionsMenu();
           });
+
+          function toggleSwitch(switchElement) {
+            switchElement.addEventListener('click', () => {        
+              // Toggle the switch value between 1 and 0 when clicked
+              switchElement.value = switchElement.value === 'top5' ? 'all' : 'top5';    
+              switchElement.setAttribute('aria-checked', switchElement.value === 'top5' ? 'true' : 'false')
+              REF.filter = switchElement.value;     
+
+              const label = document.querySelector('label[for="switchTop5"]');
+              label.style.fontWeight = switchElement.value === 'top5' ? 'bold' : 'inherit';
+
+              if (typeof country !== 'undefined') {
+                loadCountryData(country);
+              }
+            });     
+          }
+          
+          this.switchElements = this.subNavbar.querySelectorAll('[role="switch"]');
+          
+          
+          // Loop through each switch element and attach event listeners
+          this.switchElements.forEach(switchElement => {
+            toggleSwitch(switchElement);
+          });
+          
+
+
+
 
         }     
     }

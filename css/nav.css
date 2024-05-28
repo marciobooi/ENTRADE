@@ -25,6 +25,10 @@
     margin: 0;
 }
 
+#lang-selection {
+    width: auto;
+}
+
 /* select#lang-selection {
     width: 7.5rem;
     height: 2rem;

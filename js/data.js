@@ -32,7 +32,7 @@ var dataNameSpace = {
 		"language": "EN", // language selected 
 		"trade": "imp",
 		"siec": "G3000",	
-		"filter": "all",
+		"filter": "top5",
 		"fuel":"gas",
 		"unit": "TJ_GCV",
 		"defaultUnit": "TJ_GCV",

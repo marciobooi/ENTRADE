@@ -9,13 +9,60 @@ fetch("data/data.json")
   .then(response => response.json())
   .then(data => {
     coords.push(data);
-
-    // Render the map after coordination data is loaded
+    dataNameSpace.getRefURL()
     renderMap();
-  })
-  .catch(error => console.error('Error loading coordination data:', error));
+    log(REF.geo)
+    if (REF.geo !== "") {
+      fireOnStart(REF.geo)
+    }
+  }).catch(error => console.error('Error loading coordination data:', error));
+
+  function fireOnStart(geo) {
+    let country = geo;
+    log(country, REF.geo)
+    
+    setTimeout(function () {
+      for (const layerId in map._layers) {
+        if (map._layers.hasOwnProperty(layerId)) {
+            const layer = map._layers[layerId];
+    
+            // Check if the layer represents a GeoJSON feature
+            if (layer.feature && layer.feature.properties) {
+                const properties = layer.feature.properties;   
+
+                if (properties.CNTR_ID === REF.geo) {    
+                    loadCountryData(properties);   
+                    return
+                }
+            }
+        }
+    }
+    }, 1000);
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
 
 function renderMap() {
+ 
   map = $wt.map.render({
     map: {
       scrollWheelZoom: true,
@@ -42,7 +89,7 @@ function renderMap() {
           events: {
             click: function (layer) {    
               if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
-                const country = layer.feature.properties;
+                country = layer.feature.properties;
                 loadCountryData(country);    
                 $('path:has(desc b)').each(function () {
                   const countryName = $(this).find('desc b').text().trim();
@@ -57,6 +104,7 @@ function renderMap() {
                 color: 'white', 
               });
               }
+              dataNameSpace.setRefURL();
             },
             tooltip: {
               content: "<b>{CNTR_NAME}</b>",
@@ -82,7 +130,7 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
-
+    
       setTimeout(() => {
               defGeos.forEach(key => {    
                   $('path:has(desc b)').each(function () {
@@ -102,15 +150,39 @@ function renderMap() {
                 const countryName = $(this).text().trim();
               
                 // Check if the inner text matches the desired name
-                if (countryName.includes(languageNameSpace.labels[key])) {         
+                // if (countryName.includes(languageNameSpace.labels[key])) {         
                   // Change the color property of the div element with !important
                   this.style.setProperty('color', '#fff', 'important');
-                }
+                // }
               });
               
-            });    
+            });        
+            addClearToMenu()
       }, 300);
   });
+}
+
+
+
+
+function addClearToMenu() {
+  icon = '<i class="fas fa-eraser"></i>'
+ const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="clear" type="button">
+  <b class="wt-noconflict"></b>
+  <span class="wt-noconflict">Clear map</span>
+</button>`
+
+$(".wt-map-menu").append(content);
+
+$("#wt-button-clear").click(() => { 
+  clearLines()
+  $('#countryInfo').remove()
+  clearMap()
+  
+})
+
+
+  
 }
 
 function loadCountryData(country) {  
@@ -165,7 +237,7 @@ function countriesDataHandler(d) {
 
   const partnerIds = d.Dimension("partner").id;
 
-  const partners = partnerIds.map((currentPartnerId, index) => {
+  let partners = partnerIds.map((currentPartnerId, index) => {
     if (!excludedPartners.includes(currentPartnerId) && d.value[index] > 0) {
       return [currentPartnerId, d.value[index]]
     }
@@ -174,7 +246,12 @@ function countriesDataHandler(d) {
 
   countryTotal = Math.floor(partners.reduce((acc, currentValue) => acc + currentValue[1], 0));
 
-  return partners;
+
+  if( REF.filter === "top5" ){
+    partners = getTopFive(partners);
+  }
+
+   return partners;
 }
 
 function countryInfo(country) {
@@ -235,6 +312,8 @@ function drawLines(sourceCountry, partners) {
     .bindPopup(lineTooltip(partnerCountry, value, countryName))
     .on('mouseover', function (e) { this.openPopup(); })
     .on('mouseout', function (e) { this.closePopup(); });
+
+    marker._path.classList.add('marker');
 
     // Function to update circle sizes based on current zoom level
     function updateCircleSize() {
@@ -339,6 +418,10 @@ const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-anima
       this.style.setProperty('color', '#fff', 'important');
     }
   });
+
+  markers.forEach(function(marker) {
+    map.removeLayer(marker);
+});
   
 }); 
 }

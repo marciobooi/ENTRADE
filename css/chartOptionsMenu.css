@@ -127,10 +127,6 @@ a.dropdown-item.selected {
   align-items: center;
 }
 
-.fa-times:before {
-  content: "\f00d";
-  -webkit-text-stroke: 2.5px #f3f6fc;
-}
 
 .close-chart-menu-btn:focus {
   outline: none;
@@ -162,5 +158,17 @@ a.dropdown-item.selected {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 
+.dropdown-item:not(:last-child) {
+  text-size-adjust: 100%;
+  border-bottom: 1px solid lightgray;
+}
 
+.ecl-link {
+  text-decoration: none;
+  padding: 0.5rem;
+  font-size: 16px;
+}
 
+.ecl-link--standalone {
+  text-decoration: underline !important;
+}

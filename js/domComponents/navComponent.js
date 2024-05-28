@@ -13,13 +13,13 @@ class Navbar {
     this.navbar.innerHTML = /*html*/`
     <div class="container-fluid">
 
-      <div class="col-6 col-lg-9">
+      <div class="col-6 col-lg-8">
         <div id="header-title">
           <h1 id="header-title-label">${languageNameSpace.labels['TRADETITLE']}</h1>
         </div>
       </div>
 
-      <div class="col-3 col-lg-1" id="lang-section">
+      <div class="col-3 col-lg-2" id="lang-section">
       
       <label for="lang-selection" class="visually-hidden">Select Language:</label>
         <select id="lang-selection" class="form-select langSelect" tabindex="0" aria-labelledby="Select language" aria-expanded="false">
@@ -64,7 +64,7 @@ class Navbar {
 
   handleLangSelectionChange(event) {
     const selectedValue = this.langSelection.value;
-    languageNameSpace.initLanguage(selectedValue);
+    languageNameSpace.ChangeLanguage(selectedValue);
     REF.language = selectedValue;
   }
 
@@ -77,7 +77,7 @@ class Navbar {
     } else if (key === Key.ENTER) {
       event.preventDefault();
       const selectedValue = this.langSelection.value;
-      languageNameSpace.initLanguage(selectedValue);
+      languageNameSpace.ChangeLanguage(selectedValue);
     }
   }
 

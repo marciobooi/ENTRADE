@@ -21,11 +21,11 @@ class ChartControls {
 				  <li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
-				  <li class="nav-item button px-1" id="toggleTable" role="none"></li>
+				  <li class="nav-item button px-1" id="toggleTable" role="none" style="margin-right: 2rem;"></li>
 				  <li class="nav-item button px-1" id="printChart" role="none"></li>
 				  <li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
-				  <li class="nav-item button px-1" id="embebedChart" role="none"></li>
+				  <li class="nav-item button px-1" id="embebedChart" role="none" style="margin-right: 2rem;"></li>
 				  <li class="nav-item button px-1" id="closeChart" role="none"></li>
 				</ul>
 			  </div>
@@ -83,17 +83,21 @@ class ChartControls {
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 	    // Create the button instances
-		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle bar Chart", "barChart", "false");
-		const depChart = new Button("depChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle dependency wheel Chart", "depChart", "false");
-		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle pie Chart", "pieChart", "true");
-		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle line Chart", "lineChart", "false");
-		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle table", "tableChart", "false");
-		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Print chart", "false");
-		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Download chart image", "false");
-		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Download chart data", "false");
-		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Embebed chart iframe", "false");
-		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn"], "Close", "false");
+		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["barChart"], "barChart", "false");
+		const depChart = new Button("depChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["depChart"], "depChart", "false");
+		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["pieChart"], "pieChart", "true");
+		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["lineChart"], "lineChart", "false");
+		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["toggleTableBtn"], "tableChart", "false");
+		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["createprintChart"], "false");
+		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadChart"], "false");
+		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadExcel"], "false");
+		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["embebedeChart"], "false");
+		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["closeChart"], "Close", "false");
 	
+
+
+
+
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar" aria-hidden="true"></i>');
 		depChart.setInnerHtml('<i class="fas fa-project-diagram" aria-hidden="true"></i>');
@@ -133,21 +137,21 @@ class ChartControls {
 		  createTableChart()
 		});
 		createprintChart.setClickHandler(function() {
-			exportHandling(this.id);
+			printChart();
 		});
 		downloadChart.setClickHandler(function() {
-			exportHandling(this.id);
-		});
-		downloadExcel.setClickHandler(function() {
-			exportHandling(this.id);
-		});
-		embebedeChart.setClickHandler(function() {
-			exportHandling(this.id);
+			exportPngChart();
+		  });
+		  downloadExcel.setClickHandler(function() {
+			exportXlsChart();
+		  });
+		  embebedeChart.setClickHandler(function() {
+			exportIframe();
 		});
 		closeChart.setClickHandler(function() {
 		  removeChartOptions();
 		});
-
+		
 	  	  // Create the button elements
 			const barChartElement = barChart.createButton();
 			const depChartElement = depChart.createButton();

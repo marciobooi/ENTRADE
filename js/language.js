@@ -49,8 +49,7 @@ var languageNameSpace = {
 		$( document ).ready(function() {	
 
 
-			const elementsId = ["#header-title-label"
-			]
+			const elementsId = ["#header-title-label"]
 		
 			elementsId.forEach(id => {
 			  const element = $(id);
@@ -63,9 +62,10 @@ var languageNameSpace = {
 			  element.html(languageNameSpace.labels[id.substring(1)]);
 			});
 
-			removeComponents()
-			buildComponents();
 			
+
+			removeComponents()
+			buildComponents()		
 			
 			
 			$(".cck-content-content > p").html(languageNameSpace.labels["COOKIETEXT"]);
@@ -81,10 +81,32 @@ var languageNameSpace = {
 			$("#footer-privacy").html(languageNameSpace.labels["PRIVACY"]);
 			$("#footer-legal").html(languageNameSpace.labels["LEGAL"]);
 			$("#footer-access").html(languageNameSpace.labels["ACCESS"]);
+
+	
+				
+		
 		});
 	},
 		
+	ChangeLanguage: function (val) {
+		REF.language = val;
+		languageNameSpace.initLanguage(REF.language);	
+		removeChartOptions();	
+		renderMap();
+		setTimeout(() => {
+			$("#wt-button-home > span").text(languageNameSpace.labels["HOME"]);
+			$("#wt-button-zoomout > span").text(languageNameSpace.labels["ZOUT"]);
+			$("#wt-button-zoomin > span").text(languageNameSpace.labels["ZIN"]);
+			$("#wt-button-fullscreen > span").text(languageNameSpace.labels["FULL"]);
+			$("#wt-button-clear > span").text(languageNameSpace.labels["CLEAR"]);
 
+			$("#wt-button-home").attr("aria-label", languageNameSpace.labels["HOME"]);
+			$("#wt-button-zoomout").attr("aria-label", languageNameSpace.labels["ZOUT"]);
+			$("#wt-button-zoomin").attr("aria-label", languageNameSpace.labels["ZIN"]);
+			$("#wt-button-fullscreen").attr("aria-label", languageNameSpace.labels["FULL"]);
+			$("#wt-button-clear").attr("aria-label", languageNameSpace.labels["CLEAR"]);
+		}, 700);
+	  }
 
 };
 

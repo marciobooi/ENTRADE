@@ -20,7 +20,7 @@ section#map {
   } 
   .wt-map-panels {
     right: -1rem !important;
-    top: 31.8rem !important;
+    top: 25rem !important;
     bottom: 0rem !important;
     background-color: transparent !important;
     height: 1rem;
@@ -191,6 +191,6 @@ path:focus {
 
 #chartContainer {
   width: 50vw;
-  /* height: 78vh; */
-  /* border: 1px solid red; */
+  height: 68vh;
+  margin-top: 2rem;
 }

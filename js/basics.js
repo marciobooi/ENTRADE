@@ -5,8 +5,6 @@ var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 
 
 const message = (/The ENTRADE tool is down since:     (.*)/)
 
-
-
 	function getOrientation() {
 		if(screen.height > screen.width){	    
 			return "portrait";
@@ -27,39 +25,39 @@ function getUrlVars() {
 };
 
 //dialog box position object
-var dialogBoxPosition = function (x, y) {
-	this.x = x;
-	this.y = y;
-};
+// var dialogBoxPosition = function (x, y) {
+// 	this.x = x;
+// 	this.y = y;
+// };
 
 //calculate the dialog box position to display it all the time inside the diagram wether for the extrem right and bottom nodes
-function calculateDialogBoxPosition(x, y, width, height) {
-	var rightSpace = $(window).width() - x;
-	var bottomSpace = imgHeight - y;
-	var newX,
-		newY;
+// function calculateDialogBoxPosition(x, y, width, height) {
+// 	var rightSpace = $(window).width() - x;
+// 	var bottomSpace = imgHeight - y;
+// 	var newX,
+// 		newY;
 
-	if (rightSpace < width) {
-		newX = x - width;
-		if (bottomSpace < height) {
-			newY = y - height;
-		} else {
-			newY = y - 20;
-		}
-	} else if (bottomSpace < height) {
-		newX = x;
-		newY = y - height;
-	} else {
-		newX = x;
-		newY = y;
-	}
-	return new dialogBoxPosition(newX, newY);
-}
+// 	if (rightSpace < width) {
+// 		newX = x - width;
+// 		if (bottomSpace < height) {
+// 			newY = y - height;
+// 		} else {
+// 			newY = y - 20;
+// 		}
+// 	} else if (bottomSpace < height) {
+// 		newX = x;
+// 		newY = y - height;
+// 	} else {
+// 		newX = x;
+// 		newY = y;
+// 	}
+// 	return new dialogBoxPosition(newX, newY);
+// }
 
-function closeDialogBox(box) {
-	box.close();
-	box.destroy();
-}
+// function closeDialogBox(box) {
+// 	box.close();
+// 	box.destroy();
+// }
 
 // change URL by adding new item to history
 // code from http://www.aspsnippets.com/Articles/Change-Browser-URL-without-reloading-refreshing-page-using-HTML5-in-JavaScript-and-jQuery.aspx
@@ -77,255 +75,255 @@ function changeUrl(title, url) {
 
 
 
-function modalreopen(){
-	renderMap()
-}
+// function modalreopen(){
+// 	renderMap()
+// }
 
-function pieChart() {
-	renderPie();
-	REF.chart = "pie"
-	$("#columnChart").addClass("none");
-	$("#timeChart").addClass("none");
-	$("#pieChart").addClass("none");
-	$("#stats").addClass("none");
-	$("#statusinfo").addClass("none");
+// function pieChart() {
+// 	renderPie();
+// 	REF.chart = "pie"
+// 	$("#columnChart").addClass("none");
+// 	$("#timeChart").addClass("none");
+// 	$("#pieChart").addClass("none");
+// 	$("#stats").addClass("none");
+// 	$("#statusinfo").addClass("none");
 
-	$("#columnChart").removeClass("show");
-	$("#timeChart").removeClass("show");
-	$("#pieChart").addClass("show");
-	$("#statusinfo").removeClass("show");
-	$("#stats").removeClass("show");
-	$(".charts-toolbar").show();
+// 	$("#columnChart").removeClass("show");
+// 	$("#timeChart").removeClass("show");
+// 	$("#pieChart").addClass("show");
+// 	$("#statusinfo").removeClass("show");
+// 	$("#stats").removeClass("show");
+// 	$(".charts-toolbar").show();
 
-	$("#customtb").show();
-	$("#customtimetb").hide();
+// 	$("#customtb").show();
+// 	$("#customtimetb").hide();
 	
 
-}
+// }
 
-function columnChart() {
-	renderBarChart()
-	REF.chart = "col"
-	$("#columnChart").addClass("none");
-	$("#timeChart").addClass("none");
-	$("#pieChart").addClass("none");
-	$("#stats").addClass("none");
-	$("#statusinfo").addClass("none");
+// function columnChart() {
+// 	renderBarChart()
+// 	REF.chart = "col"
+// 	$("#columnChart").addClass("none");
+// 	$("#timeChart").addClass("none");
+// 	$("#pieChart").addClass("none");
+// 	$("#stats").addClass("none");
+// 	$("#statusinfo").addClass("none");
 
-	$("#columnChart").addClass("show");
-	$("#timeChart").removeClass("show");
-	$("#pieChart").removeClass("show");
-	$("#statusinfo").removeClass("show");
-	$("#stats").removeClass("show");
-	$(".charts-toolbar").show();
+// 	$("#columnChart").addClass("show");
+// 	$("#timeChart").removeClass("show");
+// 	$("#pieChart").removeClass("show");
+// 	$("#statusinfo").removeClass("show");
+// 	$("#stats").removeClass("show");
+// 	$(".charts-toolbar").show();
 
-	$("#customtb").show();
-	$("#customtimetb").hide();
+// 	$("#customtb").show();
+// 	$("#customtimetb").hide();
 
-}
+// }
 
-function timeChart() {
-	rendertimeChart()
-	REF.chart = "time"
-	$("#columnChart").addClass("none");
-	$("#timeChart").addClass("none");
-	$("#pieChart").addClass("none");
-	$("#stats").addClass("none");
-	$("#statusinfo").addClass("none");
+// function timeChart() {
+// 	rendertimeChart()
+// 	REF.chart = "time"
+// 	$("#columnChart").addClass("none");
+// 	$("#timeChart").addClass("none");
+// 	$("#pieChart").addClass("none");
+// 	$("#stats").addClass("none");
+// 	$("#statusinfo").addClass("none");
 	
 
-	$("#columnChart").removeClass("show");
-	$("#timeChart").addClass("show");
-	$("#pieChart").removeClass("show");
-	$("#statusinfo").removeClass("show");
-	$("#stats").removeClass("show");
-	$(".charts-toolbar").show();
+// 	$("#columnChart").removeClass("show");
+// 	$("#timeChart").addClass("show");
+// 	$("#pieChart").removeClass("show");
+// 	$("#statusinfo").removeClass("show");
+// 	$("#stats").removeClass("show");
+// 	$(".charts-toolbar").show();
 
-	$("#customtb").hide();
-	$("#customtimetb").show();
+// 	$("#customtb").hide();
+// 	$("#customtimetb").show();
 
-}
+// }
 
-function stats() {
-	REF.chart = "stat"
-	$("#columnChart").addClass("none");
-	$("#timeChart").addClass("none");
-	$("#pieChart").addClass("none");
-	$("#stats").addClass("none");
-	$("#statusinfo").addClass("none");
+// function stats() {
+// 	REF.chart = "stat"
+// 	$("#columnChart").addClass("none");
+// 	$("#timeChart").addClass("none");
+// 	$("#pieChart").addClass("none");
+// 	$("#stats").addClass("none");
+// 	$("#statusinfo").addClass("none");
 
-	$("#columnChart").removeClass("show");
-	$("#timeChart").removeClass("show");
-	$("#pieChart").removeClass("show");
-	$("#statusinfo").removeClass("show");
-	$("#stats").addClass("show");
-	$(".charts-toolbar").hide();
-}
+// 	$("#columnChart").removeClass("show");
+// 	$("#timeChart").removeClass("show");
+// 	$("#pieChart").removeClass("show");
+// 	$("#statusinfo").removeClass("show");
+// 	$("#stats").addClass("show");
+// 	$(".charts-toolbar").hide();
+// }
 
-function info() {
-	REF.chart = "info"
-	$("#columnChart").addClass("none");
-	$("#timeChart").addClass("none");
-	$("#pieChart").addClass("none");
-	$("#stats").addClass("none");
-	$("#statusinfo").addClass("none");
+// function info() {
+// 	REF.chart = "info"
+// 	$("#columnChart").addClass("none");
+// 	$("#timeChart").addClass("none");
+// 	$("#pieChart").addClass("none");
+// 	$("#stats").addClass("none");
+// 	$("#statusinfo").addClass("none");
 
-	$("#columnChart").removeClass("show");
-	$("#timeChart").removeClass("show");
-	$("#pieChart").removeClass("show");
-	$("#stats").removeClass("show");
-	$("#statusinfo").addClass("show");
-	$(".charts-toolbar").hide();
-}
+// 	$("#columnChart").removeClass("show");
+// 	$("#timeChart").removeClass("show");
+// 	$("#pieChart").removeClass("show");
+// 	$("#stats").removeClass("show");
+// 	$("#statusinfo").addClass("show");
+// 	$(".charts-toolbar").hide();
+// }
 
-function filterAll() {
-	// console.log(REF.filter)
-	REF.filter = "all"
-	if ($("#pieChart").hasClass("show")){
-		renderMap()
-		pieChart()
-	} 
-	if ($("#columnChart").hasClass("show")){
-		renderMap()
-		columnChart()
-	}
-	if ($("#timeChart").hasClass("show")){
-		renderMap()
-		timeChart()
-	}
-	if ($("#stats").hasClass("show")){
-		renderMap()
-		stats()
-	} else {
-		renderMap()
-		stats()
-	}
-	if ($("#info").hasClass("show")){
-		renderMap()
-		info()
-	}
+// function filterAll() {
+// 	// console.log(REF.filter)
+// 	REF.filter = "all"
+// 	if ($("#pieChart").hasClass("show")){
+// 		renderMap()
+// 		pieChart()
+// 	} 
+// 	if ($("#columnChart").hasClass("show")){
+// 		renderMap()
+// 		columnChart()
+// 	}
+// 	if ($("#timeChart").hasClass("show")){
+// 		renderMap()
+// 		timeChart()
+// 	}
+// 	if ($("#stats").hasClass("show")){
+// 		renderMap()
+// 		stats()
+// 	} else {
+// 		renderMap()
+// 		stats()
+// 	}
+// 	if ($("#info").hasClass("show")){
+// 		renderMap()
+// 		info()
+// 	}
 	
-}
+// }
 
-function filterCounter() {
-	switch (REF.filter) {
-	  case "top5":
-		counter = 5;
-		break;
-	  case "top10":
-		counter = 10;
-		break;
-	  case "top25":
-		counter = 25;
-		break;
-	  case "all":
-		counter = 1000;
-		break;
-	  default:
-		counter = 1000;
-		break;
-	}
-  }
+// function filterCounter() {
+// 	switch (REF.filter) {
+// 	  case "top5":
+// 		counter = 5;
+// 		break;
+// 	  case "top10":
+// 		counter = 10;
+// 		break;
+// 	  case "top25":
+// 		counter = 25;
+// 		break;
+// 	  case "all":
+// 		counter = 1000;
+// 		break;
+// 	  default:
+// 		counter = 1000;
+// 		break;
+// 	}
+//   }
 
-function topFive() {
-	// console.log(REF.filter)
-	REF.filter = "top5"
-	if ($("#pieChart").hasClass("show")){
-		renderMap()
-		pieChart()
-	}
-	if ($("#columnChart").hasClass("show")){
-		renderMap()
-		columnChart()
-	}
-	if ($("#timeChart").hasClass("show")){
-		renderMap()
-		timeChart()
-	}
-	if ($("#stats").hasClass("show")){
-		renderMap()
-		stats()
-	} else {
-		renderMap()
-		stats()
-	}
-	if ($("#info").hasClass("show")){
-		renderMap()
-		info()
-	}
-}
+// function topFive() {
+// 	// console.log(REF.filter)
+// 	REF.filter = "top5"
+// 	if ($("#pieChart").hasClass("show")){
+// 		renderMap()
+// 		pieChart()
+// 	}
+// 	if ($("#columnChart").hasClass("show")){
+// 		renderMap()
+// 		columnChart()
+// 	}
+// 	if ($("#timeChart").hasClass("show")){
+// 		renderMap()
+// 		timeChart()
+// 	}
+// 	if ($("#stats").hasClass("show")){
+// 		renderMap()
+// 		stats()
+// 	} else {
+// 		renderMap()
+// 		stats()
+// 	}
+// 	if ($("#info").hasClass("show")){
+// 		renderMap()
+// 		info()
+// 	}
+// }
 
-function topTen() {
-	// console.log(REF.filter)
-	REF.filter = "top10"
-	if ($("#pieChart").hasClass("show")){
-		renderMap()
-		pieChart()
-	}
-	if ($("#columnChart").hasClass("show")){
-		renderMap()
-		columnChart()
-	}
-	if ($("#timeChart").hasClass("show")){
-		renderMap()
-		timeChart()
-	}
-	if ($("#stats").hasClass("show")){
-		renderMap()
-		stats()
-	} else {
-		renderMap()
-		stats()
-	}
-	if ($("#info").hasClass("show")){
-		renderMap()
-		info()
-	}
-}
+// function topTen() {
+// 	// console.log(REF.filter)
+// 	REF.filter = "top10"
+// 	if ($("#pieChart").hasClass("show")){
+// 		renderMap()
+// 		pieChart()
+// 	}
+// 	if ($("#columnChart").hasClass("show")){
+// 		renderMap()
+// 		columnChart()
+// 	}
+// 	if ($("#timeChart").hasClass("show")){
+// 		renderMap()
+// 		timeChart()
+// 	}
+// 	if ($("#stats").hasClass("show")){
+// 		renderMap()
+// 		stats()
+// 	} else {
+// 		renderMap()
+// 		stats()
+// 	}
+// 	if ($("#info").hasClass("show")){
+// 		renderMap()
+// 		info()
+// 	}
+// }
 
-function topTwentyFive() {
-	// console.log(REF.filter)
-	REF.filter = "top25"
-	if ($("#pieChart").hasClass("show")){
-		renderMap()
-		pieChart()
-	}
-	if ($("#columnChart").hasClass("show")){
-		renderMap()
-		columnChart()
-	}
-	if ($("#timeChart").hasClass("show")){
-		renderMap()
-		timeChart()
-	}
-	if ($("#stats").hasClass("show")){
-		renderMap()
-		stats()
-	} else {
-		renderMap()
-		stats()
-	}
-	if ($("#info").hasClass("show")){
-		renderMap()
-		info()
-	}
-}
+// function topTwentyFive() {
+// 	// console.log(REF.filter)
+// 	REF.filter = "top25"
+// 	if ($("#pieChart").hasClass("show")){
+// 		renderMap()
+// 		pieChart()
+// 	}
+// 	if ($("#columnChart").hasClass("show")){
+// 		renderMap()
+// 		columnChart()
+// 	}
+// 	if ($("#timeChart").hasClass("show")){
+// 		renderMap()
+// 		timeChart()
+// 	}
+// 	if ($("#stats").hasClass("show")){
+// 		renderMap()
+// 		stats()
+// 	} else {
+// 		renderMap()
+// 		stats()
+// 	}
+// 	if ($("#info").hasClass("show")){
+// 		renderMap()
+// 		info()
+// 	}
+// }
 
-function fuelColors() {
+// function fuelColors() {
 
-	var ramdomcolor = []
+// 	var ramdomcolor = []
 	
-	for(i=1;i<11;i++){		
-		// fuelColors.push('#'+Math.floor(Math.random()*16777215).toString(16))
-		r = Math.floor(Math.random() * 255);
-        g = Math.floor(Math.random() * 255);
-        b = Math.floor(Math.random() * 255);
+// 	for(i=1;i<11;i++){		
+// 		// fuelColors.push('#'+Math.floor(Math.random()*16777215).toString(16))
+// 		r = Math.floor(Math.random() * 255);
+//         g = Math.floor(Math.random() * 255);
+//         b = Math.floor(Math.random() * 255);
        
-        ramdomcolor.push ('rgb(' + r + ', ' + g + ', ' + b + ')');
-}	
-return ramdomcolor
+//         ramdomcolor.push ('rgb(' + r + ', ' + g + ', ' + b + ')');
+// }	
+// return ramdomcolor
 
-}
+// }
 
 
 function clearmapclose() {
@@ -360,117 +358,112 @@ function clearmapclose() {
 
 
 
-function bulkDownlod() {
-	window.open("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2F" + dataNameSpace.dataset + ".tsv.gz");	
-}
-
-
 
 // function to clear the map
-  function cleanmaplines(counter) {
-	$("#clean").on("click", function () {
-	  // alert(true)
-	  counter += 1;
-	  if (counter > 1) {
-		//clean lines
-		var elem = document.querySelectorAll('.myClass').forEach(function (a) {
-		  a.remove();
-		});
-		//clean Markers
-		var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
-		  b.remove();
-		});
-		var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
-		  d.remove();
-		});
-	  }
-	  // close the modal
-	  $(".wtinfo").removeClass("wtinfo");
-	  // clean toggler modal btn
-	  $("#toggleMenu").remove();
-	  $('#clean').remove();
-	});
-	return counter;
-  }
+//   function cleanmaplines(counter) {
+// 	$("#clean").on("click", function () {
+// 	  // alert(true)
+// 	  counter += 1;
+// 	  if (counter > 1) {
+// 		//clean lines
+// 		var elem = document.querySelectorAll('.myClass').forEach(function (a) {
+// 		  a.remove();
+// 		});
+// 		//clean Markers
+// 		var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
+// 		  b.remove();
+// 		});
+// 		var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
+// 		  d.remove();
+// 		});
+// 	  }
+// 	  // close the modal
+// 	  $(".wtinfo").removeClass("wtinfo");
+// 	  // clean toggler modal btn
+// 	  $("#toggleMenu").remove();
+// 	  $('#clean').remove();
+// 	});
+// 	return counter;
+//   }
 
-  $("#clean").on("click", function () {
-	// alert(true)
-	counter += 1;
-	if (counter > 1) {
-	  //clean lines
-	  var elem = document.querySelectorAll('.myClass').forEach(function (a) {
-		a.remove();
-	  });
-	  //clean Markers
-	  var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
-		b.remove();
-	  });
-	  var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
-		d.remove();
-	  });
-	}
-	// close the modal
-	$(".wtinfo").removeClass("wtinfo");
-	// clean toggler modal btn
-	$("#toggleMenu").remove();
-	$('#clean').remove();
-  });
+//   $("#clean").on("click", function () {
+// 	// alert(true)
+// 	counter += 1;
+// 	if (counter > 1) {
+// 	  //clean lines
+// 	  var elem = document.querySelectorAll('.myClass').forEach(function (a) {
+// 		a.remove();
+// 	  });
+// 	  //clean Markers
+// 	  var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
+// 		b.remove();
+// 	  });
+// 	  var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
+// 		d.remove();
+// 	  });
+// 	}
+// 	// close the modal
+// 	$(".wtinfo").removeClass("wtinfo");
+// 	// clean toggler modal btn
+// 	$("#toggleMenu").remove();
+// 	$('#clean').remove();
+//   });
 
 // function to redraw the lines in the map
 
 
   
 // function to make the polylines curve in the map
-  function curvePolilines(coordinates, event) {
-	var latlngs = [];
-	for (var i = 1; i < coordinates.length; i++) {
-	  var latlng1 = Object.values(event.latlng), latlng2 = [coordinates[i][0], coordinates[i][1]];
-	  var offsetX = latlng2[1] - latlng1[1], offsetY = latlng2[0] - latlng1[0];
-	  var r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), theta = Math.atan2(offsetY, offsetX);
-	  if (offsetX > 0) {
-		var thetaOffset = (6.14 / 19);
-	  }
-	  else {
-		var thetaOffset = -(6.14 / 19);
-	  }
-	  var r2 = (r / 2) / (Math.cos(thetaOffset)), theta2 = theta + thetaOffset;
-	  var midpointX = (r2 * Math.cos(theta2)) + latlng1[1], midpointY = (r2 * Math.sin(theta2)) + latlng1[0];
-	  var midpointLatLng = [midpointY, midpointX];
-	  latlngs.push(midpointLatLng);
-	  // console.log(midpointLatLng)
-	}
-	return { i, latlngs };
-  }
+//   function curvePolilines(coordinates, event) {
+// 	var latlngs = [];
+// 	for (var i = 1; i < coordinates.length; i++) {
+// 	  var latlng1 = Object.values(event.latlng), latlng2 = [coordinates[i][0], coordinates[i][1]];
+// 	  var offsetX = latlng2[1] - latlng1[1], offsetY = latlng2[0] - latlng1[0];
+// 	  var r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), theta = Math.atan2(offsetY, offsetX);
+// 	  if (offsetX > 0) {
+// 		var thetaOffset = (6.14 / 19);
+// 	  }
+// 	  else {
+// 		var thetaOffset = -(6.14 / 19);
+// 	  }
+// 	  var r2 = (r / 2) / (Math.cos(thetaOffset)), theta2 = theta + thetaOffset;
+// 	  var midpointX = (r2 * Math.cos(theta2)) + latlng1[1], midpointY = (r2 * Math.sin(theta2)) + latlng1[0];
+// 	  var midpointLatLng = [midpointY, midpointX];
+// 	  latlngs.push(midpointLatLng);
+// 	  // console.log(midpointLatLng)
+// 	}
+// 	return { i, latlngs };
+//   }
 
 
 // function to get the coordinates of the map 
-function ajaxCordsCall(coordinates) {
+// function ajaxCordsCall(coordinates) {
 
-		// console.log(countries)
+// 		// console.log(countries)
 
-		// proposed by webtools
-		for (var i = 0; i < countries.length; i++) {
-				//   console.log(countries[i], L.labels[countries[i]].c)				
-				coordinates.push(L.labels[countries[i]].c);	
-		}		
-	// $.ajax({
-	//   type: 'GET',
-	//   dataType: 'json',
-	//   async: false,
-	//   url: 'data/data.json',
-	//   success: function (data) {
-	// 	for (var i = 0; i < countries.length; i++) {
-	// 	  $.each(data['features'], (index, obj) => {
-	// 		for (let [key, value] of Object.entries(obj)) {
-	// 		  if (countries[i].includes(value)) {
-	// 			coordinates.push([(Object.entries(obj)[0][1].coordinates[1]), (Object.entries(obj)[0][1].coordinates[0])]);
-	// 		  }
-	// 		}
-	// 	  });
-	// 	}
-	//   }
-	// });
-  }
+// 		// proposed by webtools
+// 		for (var i = 0; i < countries.length; i++) {
+// 				//   console.log(countries[i], L.labels[countries[i]].c)				
+// 				coordinates.push(L.labels[countries[i]].c);	
+// 		}		
+// 	// $.ajax({
+// 	//   type: 'GET',
+// 	//   dataType: 'json',
+// 	//   async: false,
+// 	//   url: 'data/data.json',
+// 	//   success: function (data) {
+// 	// 	for (var i = 0; i < countries.length; i++) {
+// 	// 	  $.each(data['features'], (index, obj) => {
+// 	// 		for (let [key, value] of Object.entries(obj)) {
+// 	// 		  if (countries[i].includes(value)) {
+// 	// 			coordinates.push([(Object.entries(obj)[0][1].coordinates[1]), (Object.entries(obj)[0][1].coordinates[0])]);
+// 	// 		  }
+// 	// 		}
+// 	// 	  });
+// 	// 	}
+// 	//   }
+// 	// });
+//   }
 
 
 // function to change the navbar text according to selected in the map
@@ -530,6 +523,37 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		function openContact () {
 			document.location = "mailto:ESTAT-ENERGY@ec.europa.eu?subject=ENERGY%20TRADE%20CONTACT&body="+encodeURIComponent(window.location.href);
 		}
+
+
+
+		function printChart() { $("#chartContainer").highcharts().print()};
+		function exportPngChart() { $("#chartContainer").highcharts().exportChart()};
+		function exportJpegChart() { $("#chartContainer").highcharts().exportChart({type: 'image/jpeg'})};
+		function exportPdfChart() { $("#chartContainer").highcharts().exportChart({type: 'application/pdf'})};
+		function exportSvgChart() { $("#chartContainer").highcharts().exportChart({type: 'image/svg+xml'})};
+		
+		function exportXlsChart() { $("#chartContainer").highcharts().downloadXLS()};
+		function exportCsvChart() { $("#chartContainer").highcharts().downloadCSV()};
+		
+		
+		function mailContact() {
+		  document.location = "mailto:ESTAT-ENERGY@ec.europa.eu?subject=ENERGY%20PRICES%20CONTACT&body=" +
+		  encodeURIComponent(window.location.href);
+		}
+		
+		function exportTable() {
+		  window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('.highcharts-data-table').html()));
+		}
+
+
+
+
+
+
+
+
+
+
 
   function agregateIcon() {
 	const iconHTML = `
@@ -646,7 +670,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	const html = `<table id="tooltipTable" class="table_component"> 
 	  <thead class="">
 		<tr class="">
-		  <th scope="col" colspan="2">${languageNameSpace.labels[REF.chartGeo]}</th>                
+		  <th scope="col" colspan="2">${languageNameSpace.labels[REF.dataset]} - ${languageNameSpace.labels[REF.geo]} - ${REF.year}</th>     
 		</tr>
 	  </thead>
 	  <tbody>
@@ -696,8 +720,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  html += `<table id="tooltipTable" class="table_component">                
 		<thead>
 		  <tr>
-			<th scope="cols">${sortedPoints[0].key}</th>                    
-			<th scope="cols"></th>                    
+			<th scope="cols"colspan="2">${sortedPoints[0].key}</th>                                      
 		  </tr>
 		</thead>`;
 	  
@@ -736,10 +759,10 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		  const totalValue = totalSum.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 	  
 		  // Add a row for the total
-		  html += `<tr>
-			<td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${totalColor}" /></svg> ${languageNameSpace.labels['TOTAL']}</td>
-			<td>${totalValue}</td>
-		  </tr>`;
+		//   html += `<tr>
+		// 	<td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${totalColor}" /></svg> ${languageNameSpace.labels['TOTAL']}</td>
+		// 	<td>${totalValue}</td>
+		//   </tr>`;
 		}
 	  // }
 	  
@@ -769,3 +792,29 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	}
 	return null;
   }
+
+
+  function getTopFive(array) {
+	function sortElements (a, b) {
+	  return b[1] - a[1];
+	}
+	let sortedArray = array.slice().sort(sortElements);
+	return sortedArray.slice(0, 5);
+  }
+
+  function getKeyByValue(object, targetValue) {
+    // Iterate through each key-value pair in the object
+    for (const key in object) {
+        if (object.hasOwnProperty(key)) {
+            // Construct a regular expression to match partial values
+            const regex = new RegExp(targetValue, 'i'); // 'i' flag for case-insensitive matching
+            // Check if the current value matches the target value partially
+            if (regex.test(object[key])) {
+                // If found, return the key
+                return key;
+            }
+        }
+    }
+    // If the target value is not found, return null
+    return null;
+}

@@ -265,9 +265,40 @@ span.agregates.fa-stack.fa-rotate-180 {
   margin-top: 0.8rem;
 }
 
+#menu { 
+  color: white;
+}
 
+#menu > span {
+  font-size: .6em;
+}
 
+.text-group, #auxChartTitle {
+  height: 3.4rem;
+}
 
+#chartOptionsMenu {
+  z-index: 999;
+}
+
+#factSheet {
+  background-color: #cfdaf5;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 9rem;
+}
+
+#chartContainer {
+  width: 100vw;
+  height: 80vh;
+  margin-top: 2rem;
+  position: absolute;
+  left: 0;
+  z-index: 9999999999999999;
+  background: white;
+  top: 20.7%;
+}
 
 
 

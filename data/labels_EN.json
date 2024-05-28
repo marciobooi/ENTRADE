@@ -135,10 +135,7 @@
 
 
 
-	"all":"All countries",
-	"top5":"Top 5 countries",
-	"top10":"Top 10 countries",
-	"top25":"Top 25 countries",
+
 
 	"FLAG_NA": "Not available",
 	"FLAG_C": "Confidential",
@@ -494,7 +491,7 @@
  "UNIT": "Unit",
  "YEAR": "Year",
  "TRADE": "Trade",
-  "MAINMENU": "Menu",
+  "MAINMENU": "Display menu",
   "COUNTRY": "Country",
   "FUEL": "Fuel",
   "CONSUMER": "Consumer",
@@ -503,11 +500,10 @@
   "FEED": "Feedback",
   "TOOLS": "Tools",
   "%": "in percentages",
-  "TOGGLEAGREGATES": "Toggle aggregates",
+  "TOGGLEAGREGATES": "Display aggregates",
   "SELITEN" : "Select an item",
   "NORESULTS" : "No results found",
   "SELALL" : "Select all",
-  "CLEAR" : "Clear all",
   "CLOSE" : "Close",
   "KEYWORD" : "Enter keyword",
 
@@ -516,13 +512,14 @@
   "shareBtn": "share chart",
   "embebedBtn": "Embebed chart iframe",
   "shareChart": "Share in social media",
-  "toggleAgregates": "Toggle aggregates",
+  "toggleAgregates": "Display aggregates",
   "tb-togle-order": "Select order of the chart",
-  "tb-togle-table": "Toggle table",
-  "barChart": "Toggle bar Chart",
-  "pieChart": "Toggle pie Chart",
-  "lineChart": "Toggle line Chart",
-  "table": "Toggle table",
+  "tb-togle-table": "Display table",
+  "barChart": "Display bar Chart",
+  "pieChart": "Display pie Chart",
+  "lineChart": "Display line Chart",
+  "depChart": "Display dependency wheel chart",
+  "table": "Display table",
   "createprintChart": "Print chart",
   "downloadChart": "Download chart image",
   "downloadExcel": "Download chart data",
@@ -537,7 +534,18 @@
 
   "TRADETITLE": "Energy trade",
   "FACTSHEET": "Open factsheet",
-  "DEPTITLE": "World trade of"
+  "DEPTITLE": "World trade of",
+
+  "top5" : "Show top 5 countries",
+  "OTH": "Others",
+
+  "HOME": "Home",
+  "ZIN": "Zoom in",
+  "ZOUT": "Zoom out",
+  "FULL": "Fullscreen",
+  "CLEAR": "Clear map",
+
+  "sharemodaltitle": "Embed chart"
 
 
 }

@@ -12,20 +12,21 @@ function barchartdata() {
     return null;
   }).filter(partner => partner !== null);
 
-  if (data.length > 5) {
-    data.sort((a, b) => {
-      if (a.name === 'others') return 1; // "others" always comes last
-      if (b.name === 'others') return -1;
-      return b.y - a.y;
-    });
+  data.sort((a, b) => {
+    if (a.name === 'others') return 1; // "others" always comes last
+    if (b.name === 'others') return -1;
+    return b.y - a.y;
+  });
 
+  if (REF.filter === "top5") {  
     const topCountries = data.slice(0, 5);
     const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-    const finalData = topCountries.concat([{ name: 'others', y: sumOfOthers, color: 'rgb(37 123 228)'}]);
+    const finalData = topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers, color: 'red'}]);
     barChartSeries.push(...finalData);
   } else {
     barChartSeries.push(...data);
   }
+
 }
 
 
@@ -73,7 +74,7 @@ function createBarChart() {
           mouseOver: function () {
             var point = this;
             var color = point.color;
-            $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
+            // $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
           }
         }
       },

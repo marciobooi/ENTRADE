@@ -15,22 +15,29 @@ function createPieChart() {
   }
   
   const seriesOpt = {
-    innerSize: "75%",
     showInLegend: true,
     dataLabels: {
       enabled: true,
     },
   };
 
+
   const pieOpt = {  
-      allowPointSelect: true,
-      animation: true,
-      cursor: "pointer",
-      dataLabels: {
-        enabled: true,
-        format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + languageNameSpace.labels["abr_"+REF.unit],
-      },
-  } 
+    allowPointSelect: true,
+    // size: "75%",
+    innerSize: "75%",
+    showInLegend: true,
+    animation: true,
+    cursor: "pointer",
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: '.8rem',
+        fontWeight: 'normal'
+    },
+    format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + languageNameSpace.labels["abr_"+REF.unit],
+    },
+  }
   
   const fullChart = $(window).width() > 700;
 
@@ -41,8 +48,18 @@ function createPieChart() {
   };
   
   const legendSmall = {     
-      layout: 'horizontal'
-  }
+    layout: 'horizontal',
+    padding: 3,   
+    itemMarginTop: 5,
+    itemMarginBottom: 5,
+    itemHiddenStyle: {
+      color: '#767676'
+    },
+    itemStyle: {
+      fontSize: '.9rem',
+      fontWeight: 'light'
+    }
+}
 
   const tooltipFormatter = function() {
     return pieTolltip(this.point);
@@ -65,7 +82,7 @@ function createPieChart() {
       },
     ],
     colors: colors,
-    legend: fullChart? legendBig : legendSmall,
+    legend: legendSmall,
     pieOptions: pieOpt,
     columnOptions: null,
     seriesOptions: seriesOpt,
@@ -99,13 +116,13 @@ function piechartdata() {
 
 
 
-  if (data.length > 5) {
+  if (REF.filter === "top5") {
     data.sort((a, b) => b.y - a.y);
     const topCountries = data.slice(0, 5);
   
     const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
   
-    const finalData = topCountries.concat([{ name: 'others', y: sumOfOthers }]);
+    const finalData = topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers }]);
   
     piedata.push(...finalData);
   } else {

@@ -25,7 +25,9 @@ class Chart {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
+          spacingBottom: 50,
           style: {
+            fontFamily: 'arial,sans-serif',
             animation: true,
             duration: 1000,
           },
@@ -39,7 +41,31 @@ class Chart {
         xAxis: this.xAxis,
         yAxis: {
           labels: {
-            format: this.yAxisFormat,
+            format: this.yAxisFormat, 
+            formatter: function() {
+              // Handle zero value separately
+              if (this.value === 0) {
+                  return '0';
+              }
+
+              // Define an array with abbreviated suffixes
+              var suffixes = ['k', 'M', 'G', 'T', 'P', 'E'];
+
+              // Get the absolute value of the label
+              var value = Math.abs(this.value);
+
+              // Find the appropriate suffix based on the magnitude of the value
+              var suffixIndex = Math.floor(Math.log10(value) / 3);
+
+              // Calculate the abbreviated value
+              var abbreviatedValue = value / Math.pow(10, suffixIndex * 3);
+
+              // Format the abbreviated value with at most one decimal place
+              var formattedValue = abbreviatedValue.toFixed(1).replace(/\.0+$/, '');
+
+              // Return the formatted label with the appropriate suffix
+              return formattedValue + suffixes[suffixIndex];
+          }
           },
           title: {
             enabled: true,
@@ -52,8 +78,8 @@ class Chart {
           valueDecimals: 4,
           shared: true,
           useHTML: true,         
-          padding: 5,
-          backgroundColor: "rgba(255,255,255,0.9)",   
+          padding: 0,
+          // backgroundColor: "rgba(255,255,255,0.9)",   
         },
         credits: {
           text: this.creditsText,
@@ -62,12 +88,15 @@ class Chart {
             align:'center',
           },   
         },
-        legend: this.legend,
-        legend: {          
+        legend: {                
           itemHiddenStyle: {
             color: '#767676'
           },
+          itemStyle: {
+            fontSize: '1rem',
+          }
         },
+        legend: this.legend,
         plotOptions: {
           column: this.columnOptions,
           pie: this.pieOptions,
@@ -82,7 +111,7 @@ class Chart {
               xAxis: [{
                 labels: {
                   style: {
-                    fontSize: '10px'
+                    fontSize: '12px'
                   }
                 }
               }]

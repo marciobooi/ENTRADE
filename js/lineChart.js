@@ -19,13 +19,24 @@ function createLineChart() {
       title: getTitle(),
       subtitle: null,
       xAxis: { categories: years },
-      yAxisFormat: "{value:.2f}",
+      yAxisFormat: "{value:.0f}",
       tooltipFormatter: tooltipFormatter,
       creditsText: credits(),
       creditsHref: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
       series: lineChartData,
       colors: colors,
-      legend: {enabled:true},        
+      legend: {
+        padding: 3,   
+        itemMarginTop: 5,
+        itemMarginBottom: 5,
+        itemHiddenStyle: {
+          color: '#767676'
+        },
+        itemStyle: {
+          fontSize: '.9rem',
+          fontWeight: 'light'
+        }
+      },       
       columnOptions: {
           stacking: "normal",
           events: {
@@ -72,6 +83,10 @@ function linechartdata(d) {
     }
   });
 
+
+
+  if(REF.filter === "top5") {
+
   // Calculate the total for each country
   lineChartData.forEach((lineObj) => {
     lineObj.total = lineObj.data.reduce((sum, value) => sum + value, 0);
@@ -90,13 +105,13 @@ function linechartdata(d) {
   // Create an 'others' category in lineChartData
   lineChartData = top5;
   lineChartData.push({
-    name: 'Others',
+    name: languageNameSpace.labels["OTH"],
     data: years.map((year, yearIndex) => {
       return rest.reduce((sum, lineObj) => sum + lineObj.data[yearIndex], 0);
     }),
     total: restTotal,
   });
-
+} 
  
 }
 

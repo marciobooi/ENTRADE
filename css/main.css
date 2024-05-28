@@ -4,11 +4,12 @@
     --width-100: 100vw;
     --nav-color: #0E47CB;
     --sub-nav-color: #F3F3F3;
-    --tool-1: #0A328E;
+    --tool-1: #0E47CB;
     --tool-2: #3E6CD5;
     --tool-3: #8AA7E8;
     --btn-color: #0E47CB;
     --hover-color: #3E6CD5;
+    --text-main-color: #262b38;
 }
 
 /* Modern CSS Reset */
@@ -95,3 +96,9 @@ table td:first-child {
 table td:last-child {
   padding-right: 2rem;
 } */
+
+
+.ecl-modal__body-scroll {
+  overflow-y: auto;
+  word-break: break-all;
+}

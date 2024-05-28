@@ -52,7 +52,7 @@ function depData(params) {
                 const val = values[i * countryIDs.length + j];
                 if (val > 0) {
                     const obj = {
-                        name: data.__tree__.dimension.geo.category.label[countryIDs[j]],
+                        name: countryIDs[j],
                         from: data.__tree__.dimension.partner.category.label[partnerIDs[i]],
                         to: data.__tree__.dimension.geo.category.label[countryIDs[j]],
                         ctrCode: partnerIDs[i],
@@ -66,11 +66,6 @@ function depData(params) {
             }
         }
     }
-
-
-
-
-
 
     return processedData;
 }
@@ -87,54 +82,77 @@ function createDepChart() {
 
     
 
-    (function(H) {
-        H.seriesTypes.dependencywheel.prototype.pointClass.prototype.getDataLabelPath = function(a) {
-      
-                      function EstimateLabelWidth(label) {
-                          // Wasn't able to properly calculate the required width
-                          // use label text length as a guide, this probably breaks if font size etc change a lot
-                          return label.length * 3.6 + 15;
-                      }
-      
-                      const c = this.series.chart.renderer;
-                      const f = this.shapeArgs;
-                      const e = 0 > this.angle || this.angle > Math.PI;
-                      const g = f.start;
-                      const b = f.end;
-      
-                      this.dataLabelPath ||
-                      (this.dataLabelPath = c.arc({
-                          open: true
-                      }).add(a));
-      
-                      this.dataLabelPath.attr({
-                          x: f.x,
-                          y: f.y,
-                          r: f.r + (this.series.options.dataLabels.distance),
-                          start: e ? g : b,
-                          end: e ? b : g,
-                          clockwise: +e
-                      });
-      
-                      const availWidth = (f.r + (this.series.options.dataLabels.distance || 0)) * (b - g);
-      
-                      if (EstimateLabelWidth(this.id) > availWidth) {
-                          let shortName = this.id.toString().match(/\b([A-Z])/g).join('');
-                          if (shortName.length < 2) {
-                            // If acronym has less  
-                              shortName = this.linksFrom[0].options.ctrCode;
-                          }
-                          a.textStr = this.linksFrom[0].options.ctrCode;
-                          a.textSetter(this.linksFrom[0].options.ctrCode);
-                      }      
-                      return this.dataLabelPath;
-                  };
-      })(Highcharts);
-
+    Highcharts.seriesTypes.dependencywheel.prototype.pointClass.prototype.getDataLabelPath = function(a){
+        var c = this.series.chart.renderer,
+        f = this.shapeArgs,
+        e = 0 > this.angle || this.angle > Math.PI,
+        g = f.start,
+        b = f.end;
+        // Create a dummy text element to get the bounding box width
+        let tmpText = c.text("xx")
+            // Set the appropriate text styles so that we get an accurate bounding box
+            .attr({style: 'font-size: ' + a.text.styles.fontSize + '; font-weight: ' + a.text.styles.fontWeight })
+            // We don't get the real box until it's been added
+            .add();
+        var width = tmpText.getBBox().width;
+        // Clean up the dummy text element
+        tmpText.destroy(); 
+        // if (width < (f.r + (a.options.distance || 0))*(b-g) ) {
+        //     // safe for arc shapeArgs (enough space for labelling in the arc)
+        //     this.dataLabelPath = c.arc({open: !0}).add(a);
+        //     this.dataLabelPath.attr({
+        //         x: f.x,
+        //         y: f.y,
+        //         r: f.r + (a.options.distance || 0),
+        //         start: e ? g : b,
+        //         end: e ? b : g,
+        //         clockwise: +e,
+        //     })
+        //     a.textStr = getKeyByValue(languageNameSpace.labels, this.id.toString())
+        // } else {
+            // go for radial
+            var 
+            x = (f.r + (a.options.distance / 2 || 0)) * Math.cos(this.angle) + f.x,
+            y = (f.r + (a.options.distance / 2 || 0)) * Math.sin(this.angle) + f.y,
+            p1 = [
+                Math.round(x), 
+                Math.round(y)
+            ],
+            p2 = [
+                Math.round(x + Math.cos(this.angle) * width),
+                Math.round(y + Math.sin(this.angle) * width)
+            ];
+            e = -Math.PI/2 > this.angle || this.angle > Math.PI/2;
+            var svg_path = e ? ['M', p2[0], p2[1], 'L', p1[0], p1[1]] : ['M', p1[0], p1[1], 'L', p2[0], p2[1]] ;
+            if (b - g === 0) {
+                a.options.enabled = false;             
+            } 
+            a.textStr = getKeyByValue(languageNameSpace.labels, this.id.toString())
+            if (!this.dataLabelPath) {
+                this.dataLabelPath = c.path(svg_path).add(a);
+            } else {
+                this.dataLabelPath.attr({
+                    d: svg_path
+                });
+            // }
+        }
+        return this.dataLabelPath;
+    }
 
 
 
     Highcharts.chart('chartContainer', {  
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            spacingBottom: 40,
+            style: {
+              fontFamily: 'arial,sans-serif',
+              animation: true,
+              duration: 1000,
+            },
+          },
           title: {
               text: getTitle() 
           },      
@@ -218,6 +236,8 @@ function createDepChart() {
       }
       
       });
+
+
   }
   
   
