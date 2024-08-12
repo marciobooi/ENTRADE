@@ -545,7 +545,15 @@
   "FULL": "Fullscreen",
   "CLEAR": "Clear map",
 
-  "sharemodaltitle": "Embed chart"
+  "sharemodaltitle": "Embed chart",
+
+  "SELECTLANGUAGE": "Select language",
+	"OFFICIAL": "Official EU languages:",
+	"AGGREGATE": "Aggregate",
+	"EUCTR": "EU countries",
+	"EFTA": "EFTA countries",
+	"ENLARGEMENT": "Enlargement countries",
+	"OTHERCTR": "Other third countries"
 
 
 }

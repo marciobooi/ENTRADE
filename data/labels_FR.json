@@ -536,7 +536,15 @@
   "ZIN": "Zoomer",
   "ZOUT": "Zoom arrière",
   "PLEIN": "Plein écran",
-  "CLEAR": "Effacer la carte"
+  "CLEAR": "Effacer la carte",
+
+  "SELECTLANGUAGE": "Sélectionner la langue",
+  "OFFICIAL": "Langues officielles de l'UE :",
+  "AGGREGATE": "Agrégat",
+  "EUCTR": "Pays de l'UE",
+  "EFTA": "Pays de l'AELE",
+  "ENLARGEMENT": "Pays en élargissement",
+  "OTHERCTR": "Autres pays tiers"
 
   
 
