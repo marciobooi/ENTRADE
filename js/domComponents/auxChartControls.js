@@ -176,7 +176,7 @@ class ChartControls {
 			document.getElementById("togglePieChart").appendChild(pieChartElement);
 			document.getElementById("toggleLineChart").appendChild(lineChartElement);
 			document.getElementById("toggleTable").appendChild(tableChartElement);
-			document.getElementById("printChart").appendChild(printChartElement);
+			// document.getElementById("printChart").appendChild(printChartElement);
 			document.getElementById("downloadChart").appendChild(downloadChartElement);
 			document.getElementById("downloadExcel").appendChild(downloadExcelElement);
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);

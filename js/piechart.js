@@ -75,6 +75,15 @@ function createPieChart() {
     tooltipFormatter: tooltipFormatter,
     creditsText: credits(),
     creditsHref: "",
+    // series: [
+    //   {
+    //     data: piedata
+    //       .filter(arr => arr[1] > 0) // Filter out zero or negative values
+    //       .sort((a, b) => b[1] - a[1]), // Sort by value in descending order
+    //       // .reverse(), // Reverse to arrange for clockwise direction
+    //       name: languageNameSpace.labels[REF.dataset],
+    //   },
+    // ],
     series: [
       {
         data: piedata,
@@ -97,9 +106,9 @@ function createPieChart() {
 
 
 function piechartdata() {
-  piedata = [];
+   piedata = [];
 
-  d = chartApiCall();
+  const d = chartApiCall();
 
   if (d === null) {
     return []; 
@@ -107,29 +116,35 @@ function piechartdata() {
 
   const indicator = d.Dimension("partner").id;
 
+  // Filter out excluded partners and values of 0 or less
   const data = indicator.map((indicator, index) => {
     if (!excludedPartners.includes(indicator) && d.value[index] > 0) {
-      return {name: languageNameSpace.labels[indicator],y: d.value[index]}      
+      return {name: languageNameSpace.labels[indicator], y: d.value[index]};    
     }
     return null;
   }).filter(partner => partner !== null);
 
-
-
   if (REF.filter === "top5") {
+    // Sort by value (descending)
     data.sort((a, b) => b.y - a.y);
+
+    // Get the top 5 countries
     const topCountries = data.slice(0, 5);
   
+    // Sum the values of the remaining countries
     const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-  
-    const finalData = topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers }]);
-  
+
+    // Only add "Others" if sumOfOthers is greater than 0
+    const finalData = sumOfOthers > 0 
+      ? topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers }]) 
+      : topCountries;
+
     piedata.push(...finalData);
   } else {
     piedata.push(...data);
   }
 
-piedata.sort((a, b) => b.y - a.y);
-
+  // Sort the final data again by value (descending)
+  piedata.sort((a, b) => b.y - a.y);
 
 }
