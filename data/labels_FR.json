@@ -93,11 +93,10 @@
 
 	"CONTACT": "Nous contacter",
 
-	"THS_T": "Mille tonnes",
-	"MIO_M3": "Millions de mètres cubes",
-	"TJ_GCV": "Térajoule (pouvoir calorifique supérieur - GCV)",
-	"GWH": "Gigawatt-heure",
-	"TJ": "Terajoule",
+"MIO_M3": "Million de mètres cubes (MIO_M3)",
+"TJ_GCV": "Térajoule (valeur calorifique brute - GCV) (TJ_GCV)",
+"THS_T": "Mille tonnes (THS_T)",
+"GWH": "Gigawatt-heure (GWH)",
 
 	"imp": "Importations",
 	"exp": "Exportations",
@@ -520,9 +519,9 @@
   "downloadExcel": "Télécharger les données du graphique",
   "embebedeChart": "Intégrer le graphique (iframe)",
   "closeChart": "Fermer",
-  "twitter": "Partager sur Twitter",
-  "linkedin": "Partager sur LinkedIn",
-  "facebook": "Partager sur Facebook",
+  "twitter": "X",
+  "linkedin": "Linkedin",
+  "facebook": "Facebook",
   "ACCESS": "Accessibilité",
   "PRODUCT": "Sélectionner un produit",
   "PRO": "Produit",

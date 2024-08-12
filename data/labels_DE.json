@@ -109,12 +109,10 @@
   "CONTACT": "Kontaktieren Sie uns",
 
 
-  "THS_T": "Tausend Tonnen",
-  "MIO_M3": "Millionen Kubikmeter",
-  "TJ_GCV": "Terajoule (Bruttoheizwert - GCV)",
- 
- "GWH": "Gigawattstunde",
-  "TJ": "Terajoule",
+"MIO_M3": "Million Kubikmeter (MIO_M3)",
+"TJ_GCV": "Terajoule (Bruttowärmeinhalt - GCV) (TJ_GCV)",
+"THS_T": "Tausend Tonnen (THS_T)",
+"GWH": "Gigawattstunde (GWH)",
 
 
   "imp": "Einfuhren",
@@ -549,9 +547,9 @@
    "downloadExcel": "Diagrammdaten herunterladen",
    "embebedeChart": "Diagramm einbetten (iframe)",
    "closeChart": "Schließen",
-   "twitter": "Auf Twitter teilen",
-   "linkedin": "Auf LinkedIn teilen",
-   "facebook": "Auf Facebook teilen",
+   "twitter": "X",
+   "linkedin": "Linkedin",
+   "facebook": "Facebook",
    "ACCESS": "Barrierefreiheit",
    "PRODUCT": "Produkt auswählen",
    "PRO": "Produkt",

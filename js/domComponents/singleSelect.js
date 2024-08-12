@@ -15,22 +15,54 @@ class Singleselect {
     } 
 
     createSingleSelect() {    
+
+
+
+        let optionsHTML = '';   
+
+       // Sort optionsArray
+       const sortedOptionsArray = this.optionsArray.sort((a, b) => {
+        const isNumberA = !isNaN(parseFloat(a));
+        const isNumberB = !isNaN(parseFloat(b));
+      
+        if (isNumberA && isNumberB) {
+          return 0; // Both are numbers, no need to sort
+        }
+      
+        const labelA = languageNameSpace.labels[a] !== undefined ? languageNameSpace.labels[a] : a;
+        const labelB = languageNameSpace.labels[b] !== undefined ? languageNameSpace.labels[b] : b;
+      
+        return labelA.localeCompare(labelB);
+      });
+
+    // For other elementIds, create options based on the provided sorted optionsArray
+    optionsHTML = sortedOptionsArray.map(option => `
+        <option value="${option}" ${this.activeElement === option ? 'selected' : ''}>
+            ${languageNameSpace.labels[option] !== undefined ? languageNameSpace.labels[option] : option}
+        </option>
+    `).join('');
+
+
+          
+
+
+
+
+
+        
         const singleSelectHTML = /*html*/`
-                <div class="ecl-form-group" role="application">
-                    <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
-                    <div class="ecl-select__container ecl-select__container--l">
-                        <select class="ecl-select" id="${this.elementId}" name="country" required="">
-                            ${this.optionsArray.map(option => `
-                                <option value="${option}" ${this.activeElement === option ? 'selected' : ''}>
-                                    ${languageNameSpace.labels[option] !== undefined ? languageNameSpace.labels[option] : option}
-                                </option>`).join('')
-                            }
-                        </select>
-                        <div class="ecl-select__icon">
-                            ${this.svgArrow} 
-                        </div>
-                    </div>
-                </div>`;
+        <div class="ecl-form-group" role="application">
+        <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
+            <div class="ecl-select__container ecl-select__container--l">
+                <select class="ecl-select" id="${this.elementId}" name="country" required="">
+                    ${optionsHTML}
+                </select>
+                <div class="ecl-select__icon">
+                    ${this.svgArrow}
+                </div>
+            </div>
+        </div>
+                `;
 
         return singleSelectHTML;
     }

@@ -115,26 +115,31 @@ class ChartControls {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createBarChart()
+		  disableBtns()
 		});
 		depChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createDepChart()
+		  disableBtns()
 		});
 		pieChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createPieChart()
+		  disableBtns()
 		});
 		lineChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createLineChart()
+		  disableBtns()
 		});
 		tableChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createTableChart()
+		  disableBtns()
 		});
 		createprintChart.setClickHandler(function() {
 			printChart();
@@ -206,6 +211,26 @@ class ChartControls {
 		$("#" + chart).attr("disabled", "disabled");
 	  } else {
 		$("#" + chart).removeAttr("disabled");
+	  }
+	});
+	
+  }
+
+  function  disableBtns(chartid) {
+	const chartTypes = ["tableChart", "map"];
+	const btns = ["printBtn", "downloadBtn", "excelBtn", "embebedBtn"];
+  
+	// Assuming REF.chartType is a string representing the chart type
+	const isSupportedChart = chartTypes.includes(REF.chart);
+  
+	btns.forEach(btnId => {
+	  const btn = document.getElementById(btnId);
+	  if (btn) {
+		if (isSupportedChart) {
+		  btn.disabled = true;
+		} else {
+		  btn.disabled = false;
+		}
 	  }
 	});
   }

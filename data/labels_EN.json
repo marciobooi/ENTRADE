@@ -87,7 +87,7 @@
 
 	"ENTRADE_EXPLAINED": "Trade explained",
 
-	"DEFINITIONS": "Show info",
+	"DEFINITIONS": "Show information",
 
 	"METADATA": "Metadata",
 
@@ -95,10 +95,10 @@
 
 	"CONTACT": "Contact us",
 
-	"THS_T": "Thousand tonnes",
-	"MIO_M3": "Million cubic metres",
-	"TJ_GCV": "Terajoule (gross calorific value - GCV)",
-	"GWH": "Gigawatt-hour",
+	"MIO_M3": "Million cubic metres (MIO_M3)",
+	"TJ_GCV": "Terajoule (gross calorific value - GCV) (TJ_GCV)",
+	"THS_T": "Thousand tonnes (THS_T)",
+	"GWH": "Gigawatt-hour (GWH)",
 
 
 	"imp": "Imports",
@@ -525,9 +525,9 @@
   "downloadExcel": "Download chart data",
   "embebedeChart": "Embebed chart iframe",
   "closeChart": "Close",
-  "twitter": "Share on twitter",
-  "linkedin": "Share on linkedin",
-  "facebook": "Share on facebook",
+  "twitter": "X",
+  "linkedin": "Linkedin",
+  "facebook": "Facebook",
   "ACCESS": "Accessibility",
   "PRODUCT": "Select product",
   "PRO": "Product",

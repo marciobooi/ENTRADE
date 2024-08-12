@@ -1,11 +1,3 @@
-.ecl-button:hover, #btn-country-ok:hover {
-    color: white;
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    
-}
-
 .btn-secondary {
     background-color: var(--tool-1);
 }
@@ -34,26 +26,13 @@ span.iconText {
     font-size: 0.7em;
 }
 
-.btnGroup > i {
-    font-size: 1.3em;
-}
+
 
 #chartBtns {
     display: flex;
     justify-content: flex-end;
 }
 
-li > button {
-    background-color: var(--tool-1) !important;
-    border-color: var(--tool-1) !important;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em !important;
-    
-}
 
 #menuSwitch {
     color: var(--main-color);
@@ -107,20 +86,6 @@ ul.dropdown-menu.dropdown-menu-end.show {
     background-color: #CCA300;
     border-color: #CCA300 ;
 }
-button:focus:not(:focus-visible):not(.dropdown-toggle), button:active:not(.dropdown-toggle), .wt-btn:hover, .wt-btn:focus:not(:focus-visible) {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300 !important;
-    border-color: #CCA300 !important;
-}
-
-
-
-.ecl-button:focus-visible { 
-    outline: 0;   
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300;
-    border-color: #CCA300 ;
-}
 
 #factSheet {
     background-color: #cfdaf5;
@@ -166,15 +131,20 @@ span.agregates.fa-stack.fa-rotate-180 {
 
 #btnCloseModalChart:hover {
     box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    color: white !important;
+    background-color: white!important;
+    border-color: #0e47cb !important;
+    color: #0e47cb !important;
+
+
+ 
+    
 }
 
 #btnCloseModalChart:focus {
     box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
+    background-color: white!important;
+    border-color: #0e47cb !important;
+    color: #0e47cb !important;
 }
 
 .text-truncate {
@@ -270,3 +240,40 @@ label[for="switchTop5"] {
 #iframeModal > div > div > header > button > span > svg path {
     fill: #0e47cb !important
 }
+
+
+li > button {
+    background-color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em !important;
+    font-size: 1.3em;
+}
+
+
+
+
+
+.ecl-button:hover {
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white !important;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
+    
+}
+
+.ecl-button:disabled {
+    pointer-events: auto;
+    cursor: not-allowed !important;
+    opacity: .5;
+    text-decoration: none;
+}
+
+
+

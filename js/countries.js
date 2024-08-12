@@ -226,7 +226,7 @@ function openFactSheet(country) {
 
   getTitle()
 
-
+  disableBtns()
 }
 
 function countriesDataHandler(d) {

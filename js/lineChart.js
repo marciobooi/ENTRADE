@@ -13,6 +13,8 @@ function createLineChart() {
   const tooltipFormatter = function () { return tooltipTable(this.points);}; 
    
 
+
+
     const chartOptions = {
       containerId: "chartContainer",
       type: "spline",
@@ -23,7 +25,7 @@ function createLineChart() {
       tooltipFormatter: tooltipFormatter,
       creditsText: credits(),
       creditsHref: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
-      series: lineChartData,
+      series: lineChartData.sort((a, b) => a.name.localeCompare(b.name)),
       colors: colors,
       legend: {
         padding: 3,   

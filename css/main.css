@@ -102,3 +102,11 @@ table td:last-child {
   overflow-y: auto;
   word-break: break-all;
 }
+
+
+.ecl-link--standalone {
+  text-decoration: none;
+}
+.ecl-link--standalone:hover {
+  text-decoration: underline;
+}

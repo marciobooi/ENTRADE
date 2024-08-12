@@ -534,6 +534,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		
 		function exportXlsChart() { $("#chartContainer").highcharts().downloadXLS()};
 		function exportCsvChart() { $("#chartContainer").highcharts().downloadCSV()};
+
 		
 		
 		function mailContact() {
@@ -682,8 +683,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
   }
   
   function tooltipTable(points) {
-  
-	const decimals = 0
+	const dec = 0
   
 	if(REF.percentage == 1 ){
 	  let html = "";
@@ -708,7 +708,8 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	} else {
 	  let html = "";
 	  let totalAdded = false; // Flag to track if the total row has been added
-	  let totalColor = "#7cb5ec";
+	  let totalColor = "rgb(14, 71, 203)";
+  
 	  
 	  // Sort the points so that the "Total" item is at the last place
 	  const sortedPoints = points.sort(function (a, b) {
@@ -720,22 +721,24 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  html += `<table id="tooltipTable" class="table_component">                
 		<thead>
 		  <tr>
-			<th scope="cols"colspan="2">${sortedPoints[0].key}</th>                                      
+			<th scope="cols">${sortedPoints[0].key}</th>                    
+			<th class="tooltipUnit" scope="cols">${REF.unit}</th>                    
 		  </tr>
 		</thead>`;
 	  
 	  sortedPoints.forEach(function (point) {
 		const color = point.series.color;
-		const value = point.y.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Limit decimals to three places
-		const category = point.series.name;
-	  
-		html += `<tr>
+		const value = point.y.toFixed(dec); // Limit decimals to three places
+		const category = point.series.name;    
+  
+		if(REF.details != 0) {
+		  html += `<tr>
 		  <td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${color}" /></svg> ${category}</td>
 		  <td>${value}</td>
 		</tr>`;
-	  
+		}    
 		// Check if point is "Total" and set the flag if found
-		if (category == languageNameSpace.labels['TOTAL']) {
+		if (category == languageNameSpace.labels['total']) {
 		  totalAdded = true;
 		}
 	  });
@@ -744,10 +747,20 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  const allValuesZero = sortedPoints.every(function (point) {
 		return point.y === 0;
 	  });
-	  
-	  // if (allValuesZero) {
-	  //   html = "<p>All values are zero.</p>"; // Replace the table with the message
-	  // } else {
+	 
+	  if (allValuesZero) {
+		html = 
+	  `<table id="tooltipTable" class="table_component">                
+	  <thead>
+		<tr>
+		  <th scope="cols">${sortedPoints[0].key}</th>                                    
+		</tr>
+	  </thead><tr>      
+	  <td>${languageNameSpace.labels["FLAG_NA"]}</td>
+	</tr></table>`;
+  
+  
+	  } else {
 		// Add a row for the total if not already added
 		if (!totalAdded) {
 		  // Calculate the total sum of all values
@@ -756,18 +769,17 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		  }, 0);
 	  
 		  // Format the total sum with three decimal places
-		  const totalValue = totalSum.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+		  const totalValue = totalSum.toFixed(dec);
 	  
 		  // Add a row for the total
-		//   html += `<tr>
-		// 	<td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${totalColor}" /></svg> ${languageNameSpace.labels['TOTAL']}</td>
-		// 	<td>${totalValue}</td>
-		//   </tr>`;
+		  html += `
+		  <tr class="TOTAL">
+			<td class="TOTAL"> ${languageNameSpace.labels['TOTAL']}</td>
+			<td class="TOTAL">${totalValue}</td>
+		  </tr>`;
 		}
-	  // }
-	  
-	  html += `</table>`;
-	  
+	  }    
+	  html += `</table>`; 
 	  return `<div>${html}</div>`;
 	  
 	}
