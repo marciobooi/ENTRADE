@@ -67,12 +67,12 @@ section#map {
 
   #countryInfo {
     position: absolute;
-    top: 9.5rem;
+    top: 25%;
     right: 1rem;
     z-index: 9;
     /* background-color: white; */
     /* padding: 0.5rem; */
-    /* border-radius: 0.2rem;    */
+    /* border-radius: 0.2rem; */
     animation: fadeIn 2s;
     /* box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px; */
 }
@@ -133,7 +133,7 @@ section#map {
   align-content: space-around;
   justify-content: space-evenly;
   align-items: center;
-  width: 351px;
+
   /* box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px; */
 }
 
@@ -143,6 +143,7 @@ section#map {
   align-items: center;
   align-content: space-around;
   flex-direction: column;
+  padding: 1rem;
 }
 
 #popImg {
@@ -166,6 +167,7 @@ section#map {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  padding: 1rem;
 }
 
 #popTitle {

@@ -464,7 +464,7 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   const tooltipContent = `
   <div id="popCard">
   <div id="sectionOne">
-    <img id="popImg" src="img/fuel-family/${icon}.png" alt="">
+    <img id="popImg" src="img/fuel-family/${icon}.png" alt="fuel-family ${icon}">
     <p id="popDescription">${labelFuel}</p>
   </div>
   <hr class="vertical-hr">

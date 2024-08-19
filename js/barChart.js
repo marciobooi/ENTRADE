@@ -21,11 +21,18 @@ function barchartdata() {
   if (REF.filter === "top5") {  
     const topCountries = data.slice(0, 5);
     const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-    const finalData = topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers, color: 'red'}]);
+
+    // Determine the final data to be used, only adding "OTH" if sumOfOthers is greater than 0
+    const finalData = sumOfOthers > 0 
+        ? topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers, color: 'red' }]) 
+        : topCountries;
+
+    // Add the final data to the bar chart series
     barChartSeries.push(...finalData);
-  } else {
+} else {
+    // If the filter is not "top5", just use the original data
     barChartSeries.push(...data);
-  }
+}
 
 }
 
