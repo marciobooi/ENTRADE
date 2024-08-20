@@ -553,7 +553,8 @@
 	"EUCTR": "EU countries",
 	"EFTA": "EFTA countries",
 	"ENLARGEMENT": "Enlargement countries",
-	"OTHERCTR": "Other third countries"
+	"OTHERCTR": "Other third countries",
+	"NODATA": "No data available for the current selection"
 
 
 }

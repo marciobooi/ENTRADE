@@ -573,7 +573,8 @@
    "EFTA": "EFTA-Länder",
    "ENLARGEMENT": "Erweiterungsländer",
    "OTHERCTR": "Andere Drittländer",
-   "PERCENTAGE": "Prozentsatz"
+   "PERCENTAGE": "Prozentsatz",
+	"NODATA": "Keine Daten für die aktuelle Auswahl verfügbar."
   
 
 }

@@ -185,24 +185,67 @@ $("#wt-button-clear").click(() => {
   
 }
 
+
 function loadCountryData(country) {  
-  REF.dataset = REF.dataset;
+  REF.dataset = REF.dataset;  // Consider whether this line is necessary if you're not changing anything
   REF.geo = country.CNTR_ID;
-  REF.chart = "map"
+  REF.chart = "map";
 
-  d = chartApiCall();
+  // Assuming chartApiCall returns an object with a 'value' property
+  let d = chartApiCall();
 
-  partners = countriesDataHandler(d);
-  countryInfo(country);
-  drawLines(country, partners);
-  getTitle()
-  chartContainerStatus()
-  if (isOpenChartContainer) {
-    $('#countryInfo').remove()
-    removeChartOptions()  
-    openFactSheet()
+  let values = d.value;
+  let allZero = values.every(value => value === 0);
+  let allNull = values.every(value => value === null);
+  let allUndefined = values.every(value => typeof value === 'undefined');
+
+  if (allZero || allNull || allUndefined) {
+
+    let content = /*html*/`
+    <div class="alert-popup">
+        <div style="display: flex; align-items: center; margin-right: 16px;">
+            <i class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></i>
+            <p style="display: inline-block; margin: 0;">${languageNameSpace.labels['NODATA']}</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+`;
+
+$('body').append(content);
+
+// Function to remove the alert popup
+function removeAlertPopup() {
+    $('.alert-popup').remove();
+}
+
+// Set timeout to auto-destroy the alert after 3 seconds
+setTimeout(removeAlertPopup, 3000);
+
+// Add a click event listener to close the alert popup manually
+$('#closeAlertPopup').on('click', removeAlertPopup);
+
+
+
+
+  } else {
+    let partners = countriesDataHandler(d);
+    countryInfo(country);
+    drawLines(country, partners);
+    getTitle();
+    chartContainerStatus();
+
+    if (isOpenChartContainer) {
+      $('#countryInfo').remove();
+      removeChartOptions();
+      openFactSheet();
+    }
   }
 }
+
 
 function openFactSheet(country) {
 
