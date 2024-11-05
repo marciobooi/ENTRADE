@@ -15,12 +15,22 @@ var languageNameSpace = {
 		languageNameSpace.languageSelected = language;
 		
 		$.ajax({
-			url: 'data/labels_'+language+'.json',
+			url: 'data/translations.json',
 			type: "GET",
 			dataType: "json",
 			async: false,
 			success: function (data) {
-				languageNameSpace.labels = data;
+				const labels = {};
+
+				for (let key in data) {
+					if (data[key][language]) {
+						// Assign the translation for the specified language to the labels object
+						labels[key] = data[key][language];
+					}
+				}
+			
+				// Set the filtered language data to languageNameSpace.labels
+				languageNameSpace.labels = labels;
 			},
 			error: function () {
 				console.log("Error with language: "+language);
