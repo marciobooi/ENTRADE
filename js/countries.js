@@ -3,6 +3,9 @@ let coords = []; // Declare coords at the global scope
 let map; // Initialize the map variable
 let isOpenChartContainer
 let mapCenterCoords
+let euCtr = '#738ce5';
+let partnersCtr = '#17256b';
+let selectLayer = "#0b39a2"
 
 // Fetch coordination data asynchronously
 fetch("data/data.json")
@@ -11,7 +14,6 @@ fetch("data/data.json")
     coords.push(data);
     dataNameSpace.getRefURL()
     renderMap();
-    log(REF.geo)
     if (REF.geo !== "") {
       fireOnStart(REF.geo)
     }
@@ -19,7 +21,6 @@ fetch("data/data.json")
 
   function fireOnStart(geo) {
     let country = geo;
-    log(country, REF.geo)
     
     setTimeout(function () {
       for (const layerId in map._layers) {
@@ -38,27 +39,6 @@ fetch("data/data.json")
         }
     }
     }, 1000);
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
 function renderMap() {
@@ -74,7 +54,7 @@ function renderMap() {
       inertia: true,
       smoothFactor: 1,
       language: REF.language,
-      background: ["osmec"],
+      background : ["positron_background"],
       height: "86vh",
       width: "100%",
       maxBounds: [
@@ -90,20 +70,40 @@ function renderMap() {
             click: function (layer) {    
               if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
                 country = layer.feature.properties;
-                loadCountryData(country);    
-                $('path:has(desc b)').each(function () {
-                  const countryName = $(this).find('desc b').text().trim();
-                  if (countryName === country.CNTR_NAME) {
-                    $(this).css('fill', '#0b39a2'); 
-                    $(this).css('stroke', '#fff'); 
-                    $(this).css('stroke-width', '2'); 
+                loadCountryData(country);  
+
+
+            
+
+                $('path[aria-label]').each(function () {
+                  const countryName = $(this).attr('aria-label').trim();           
+                  if (countryName === languageNameSpace.labels[country]) {
+                    $(this).css({
+                      'fill': partnersCtr,
+                      'stroke': '#4b598b',
+                      'stroke-width': '2px'
+                    });
+                  } else if (countryName === languageNameSpace.labels[REF.geo]) {
+                    $(this).css({
+                      'fill': selectLayer,
+                      'stroke': 'white',
+                      'stroke-width': '2px'
+                    });
                   }
-              });
-              layer.setStyle({
-                fillColor: 'red', 
-                color: 'white', 
-              });
+                });
+
+              
+
+      
+         
+
+
+
               }
+
+
+   
+
               dataNameSpace.setRefURL();
             },
             tooltip: {
@@ -133,28 +133,49 @@ function renderMap() {
     
       setTimeout(() => {
               defGeos.forEach(key => {    
-                  $('path:has(desc b)').each(function () {
-                    const countryName = $(this).find('desc b').text().trim();
-                    if (countryName == languageNameSpace.labels[key]) {
-                      // log(countryName, languageNameSpace.labels[key])
-                      $(this).css('fill', '#738ce5'); 
-                      $(this).css('stroke', 'black'); 
-                      // $(this).css('stroke-width', '.5px');
-                    }       
-                });
-              const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+
+
+
+
+
+
+          
+                  $('path[aria-label]').each(function () {
+                    const countryName = $(this).attr('aria-label').trim();
+                
+                    if (countryName === languageNameSpace.labels[key]) {
+                      $(this).css({
+                        'fill': euCtr,
+                        'stroke': '#4b598b',
+                        'stroke-width': '2px'
+                      });
+                    }else if (countryName === languageNameSpace.labels[REF.geo]) {
+                      $(this).css({
+                        'fill': selectLayer,
+                        'stroke': 'white',
+                        'stroke-width': '2px'
+                      });
+                    } 
+                  });
+            
+
+
+
+
+
+              // const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
         
-              // Iterate through the found elements
-              elementsWithClasses.each(function () {
-                // Check inner text
-                const countryName = $(this).text().trim();
+              // // Iterate through the found elements
+              // elementsWithClasses.each(function () {
+              //   // Check inner text
+              //   const countryName = $(this).text().trim();
               
-                // Check if the inner text matches the desired name
-                // if (countryName.includes(languageNameSpace.labels[key])) {         
-                  // Change the color property of the div element with !important
-                  this.style.setProperty('color', '#fff', 'important');
-                // }
-              });
+              //   // Check if the inner text matches the desired name
+              //   // if (!countryName.includes(languageNameSpace.labels[key])) {         
+   
+              //   //   this.style.setProperty('color', 'red', 'important');
+              //   // }
+              // });
               
             });        
             addClearToMenu()
@@ -403,17 +424,17 @@ function getMidpoint(sourceCoords, partnerCoords) {
 
 
 function styleCountry(partnerCountry) {
+  $('path[aria-label]').each(function () {
+    const countryName = $(this).attr('aria-label').trim();
 
-$('path:has(desc b)').each(function () {
-  // Get the text content of the descendant b element
-  var countryName = $(this).find('desc b').text().trim();
-
-  // Check if the countryName matches the desired name (replace 'NAME' with the actual name)
-  if (countryName === languageNameSpace.labels[partnerCountry]) {
-    // Change the fill property of the path element
-    $(this).css('fill', '#17256b'); // Change '#ff0000' to the desired fill color
-  }
-});
+    if (countryName === languageNameSpace.labels[partnerCountry]) {
+      $(this).css({
+        'fill': partnersCtr,
+        'stroke': 'white',
+        'stroke-width': '2px'
+      });
+    }
+  });
 }
 
 
@@ -434,19 +455,36 @@ function clearMarkers() {
 
 function clearMap() {
 
+  log('here')
+
   $('path').each(function () {    
       $(this).css('fill', 'transparent');    
 });
 
 
-defGeos.forEach(key => {    
-    $('path:has(desc b)').each(function () {
-      const countryName = $(this).find('desc b').text().trim();
+defGeos.forEach(key => {   
+
+    $('path[aria-label]').each(function () {
+      const countryName = $(this).attr('aria-label').trim();
+  
       if (countryName === languageNameSpace.labels[key]) {
-        $(this).css('fill', '#738ce5'); 
-        $(this).css('stroke', '#444'); 
+        $(this).css({
+          'fill': euCtr,
+          'stroke': '#4b598b',
+          'stroke-width': '2px'
+        });
+      } else if (countryName === languageNameSpace.labels[REF.geo]) {
+        $(this).css({
+          'fill': selectLayer,
+          'stroke': 'white',
+          'stroke-width': '2px'
+        });
       }
-  });
+    });
+
+  
+
+
 
 const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
 
@@ -454,6 +492,8 @@ const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-anima
   elementsWithClasses.each(function () {
     // Check inner text
     var countryName = $(this).text().trim();
+
+
   
     // Check if the inner text matches the desired name
     if (countryName.includes(languageNameSpace.labels[key])) {         

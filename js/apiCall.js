@@ -22,18 +22,18 @@ function chartApiCall(query) {
       url += "&unit=" + REF.unit;     
       break;
 
- case "barChart":
-    url += "&geo=" + REF.geo;
-    url += "&siec=" + REF.siec;
-    url += "&unit=" + REF.unit;
-    url += "&time=" + REF.year;
-  break
-  case "pieChart":
-    url += "&geo=" + REF.geo;
-    url += "&siec=" + REF.siec;
-    url += "&unit=" + REF.unit;
-    url += "&time=" + REF.year;  
-    break
+//  case "barChart":
+//     url += "&geo=" + REF.geo;
+//     url += "&siec=" + REF.siec;
+//     url += "&unit=" + REF.unit;
+//     url += "&time=" + REF.year;
+//   break
+//   case "pieChart":
+//     url += "&geo=" + REF.geo;
+//     url += "&siec=" + REF.siec;
+//     url += "&unit=" + REF.unit;
+//     url += "&time=" + REF.year;  
+//     break
 
   default:
     url += "&geo=" + REF.geo;
@@ -54,16 +54,7 @@ function chartApiCall(query) {
 
     const request = new XMLHttpRequest();
     request.open("GET", url, false); // Setting the third parameter to 'false' makes it synchronous
-    request.send();
-  
-    if (request.status === 500 || request.status === 503) {
-      // submitFormDown();
-    }
-  
-    if (request.status !== 200) {
-      // submitFormDown();
-    }
-  
+    request.send(); 
   
     const d = JSONstat(url).Dataset(0);
 
