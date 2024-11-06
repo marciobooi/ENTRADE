@@ -1,7 +1,7 @@
 function createTableChart() {
   $('#chartContainer').empty();
 
-  barchartdata(d);
+  barchartdata();
   const title = document.createElement("h2");
   title.classList.add("tableTitle");
   title.innerHTML = getTitle();
