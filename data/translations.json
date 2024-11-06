@@ -1,2498 +1,2494 @@
 {
-    "C0000X0350-0370": {
-        "EN": "Solid fossil fuels",
-        "FR": "Combustibles fossiles solides",
-        "DE": "Feste fossile Brennstoffe"
-    },
-    "C0100": {
-        "EN": "Hard coal",
-        "FR": "Houille",
-        "DE": "Steinkohle"
-    },
-    "C0110": {
-        "EN": "Anthracite",
-        "FR": "Anthracite",
-        "DE": "Anthrazit"
-    },
-    "C0121": {
-        "EN": "Coking coal",
-        "FR": "Charbon à coke",
-        "DE": "Kokskohle"
-    },
-    "C0129": {
-        "EN": "Other bituminous coal",
-        "FR": "Autre charbon bitumineux",
-        "DE": "Andere Steinkohle"
-    },
-    "C0200": {
-        "EN": "Brown coal",
-        "FR": "Charbon brun",
-        "DE": "Braunkohle"
-    },
-    "C0210": {
-        "EN": "Sub-bituminous coal",
-        "FR": "Charbon sub-bitumineux",
-        "DE": "Subbituminöse Kohle"
-    },
-    "C0220": {
-        "EN": "Lignite",
-        "FR": "Lignite",
-        "DE": "Lignit"
-    },
-    "C0311": {
-        "EN": "Coke oven coke",
-        "FR": "Coke de four à coke",
-        "DE": "Ofenkoks"
-    },
-    "C0320": {
-        "EN": "Patent fuel",
-        "FR": "Combustible breveté",
-        "DE": "Patentbrennstoff"
-    },
-    "C0330": {
-        "EN": "Brown coal briquettes",
-        "FR": "Briquettes de lignite",
-        "DE": "Braunkohlebriketts"
-    },
-    "C0340": {
-        "EN": "Coal tar",
-        "FR": "Goudron de houille",
-        "DE": "Kohlenteer"
-    },
-    "P1100": {
-        "EN": "Peat",
-        "FR": "Tourbe",
-        "DE": "Torf"
-    },
-    "P1200": {
-        "EN": "Peat products",
-        "FR": "Produits de tourbe",
-        "DE": "Torfprodukte"
-    },
-    "O4000": {
-        "EN": "Oil and petroleum products",
-        "FR": "Pétrole et produits pétroliers",
-        "DE": "Öl und Erdölprodukte"
-    },
-    "O4000XBIO": {
-        "EN": "Oil and petroleum products (excluding biofuel portion)",
-        "FR": "Pétrole et produits pétroliers (hors portion de biocarburant)",
-        "DE": "Öl und Erdölprodukte (ohne Biokraftstoffanteil)"
-    },
-    "O4100_TOT_4200-4500": {
-        "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons",
-        "FR": "Pétrole brut, GPL, charges d'alimentation des raffineries, additifs et oxygénés et autres hydrocarbures",
-        "DE": "Rohöl, NGL, Raffinerie-Rohstoffe, Additive und Sauerstoffverbindungen und andere Kohlenwasserstoffe"
-    },
-    "O4100_TOT_4200-4500XBIO": {
-        "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons (excluding biofuel portion)",
-        "FR": "Pétrole brut, GPL, charges d'alimentation des raffineries, additifs et oxygénés et autres hydrocarbures (hors portion de biocarburant)",
-        "DE": "Rohöl, NGL, Raffinerie-Rohstoffe, Additive und Sauerstoffverbindungen und andere Kohlenwasserstoffe (ohne Biokraftstoffanteil)"
-    },
-    "O4100_TOT": {
-        "EN": "Crude oil",
-        "FR": "Pétrole brut",
-        "DE": "Rohöl"
-    },
-    "O4200": {
-        "EN": "Natural gas liquids",
-        "FR": "Gaz de pétrole liquéfié",
-        "DE": "Flüssiggas"
-    },
-    "O4300": {
-        "EN": "Refinery feedstocks",
-        "FR": "Charges d'alimentation des raffineries",
-        "DE": "Raffinerie-Rohstoffe"
-    },
-    "O4400X4410": {
-        "EN": "Additives and oxygenates (excluding biofuel portion)",
-        "FR": "Additifs et oxygénés (hors portion de biocarburant)",
-        "DE": "Additive und Sauerstoffverbindungen (ohne Biokraftstoffanteil)"
-    },
-    "O4400": {
-        "EN": "Additives and oxygenates",
-        "FR": "Additifs et oxygénés",
-        "DE": "Additive und Sauerstoffverbindungen"
-    },
-    "O4500": {
-        "EN": "Other hydrocarbons",
-        "FR": "Autres hydrocarbures",
-        "DE": "Andere Kohlenwasserstoffe"
-    },
-    "O4600": {
-        "EN": "Oil products",
-        "FR": "Produits pétroliers",
-        "DE": "Ölprodukte"
-    },
-    "O4600XBIO": {
-        "EN": "Oil products (excluding biofuel portion)",
-        "FR": "Produits pétroliers (hors portion de biocarburant)",
-        "DE": "Ölprodukte (ohne Biokraftstoffanteil)"
-    },
-    "O4620": {
-        "EN": "Ethane",
-        "FR": "Éthane",
-        "DE": "Ethan"
-    },
-    "O4630": {
-        "EN": "Liquefied petroleum gases",
-        "FR": "Gaz de pétrole liquéfié",
-        "DE": "Flüssiggas"
-    },
-    "O4640": {
-        "EN": "Naphtha",
-        "FR": "Naphte",
-        "DE": "Naphtha"
-    },
-    "O4651": {
-        "EN": "Aviation gasoline",
-        "FR": "Essence aviation",
-        "DE": "Flugbenzin"
-    },
-    "O4652": {
-        "EN": "Motor gasoline",
-        "FR": "Essence moteur",
-        "DE": "Motorbenzin"
-    },
-    "O4652XR5210B": {
-        "EN": "Motor gasoline (excluding biofuel portion)",
-        "FR": "Essence moteur (hors portion de biocarburant)",
-        "DE": "Motorbenzin (ohne Biokraftstoffanteil)"
-    },
-    "O4653": {
-        "EN": "Gasoline-type jet fuel",
-        "FR": "Carburant aviation de type essence",
-        "DE": "Flugkraftstoff vom Typ Benzin"
-    },
-    "O4661": {
-        "EN": "Kerosene-type jet fuel",
-        "FR": "Carburant aviation de type kérosène",
-        "DE": "Kerosinartiger Flugkraftstoff"
-    },
-    "O4661XR5230B": {
-        "EN": "Kerosene-type jet fuel (excluding biofuel portion)",
-        "FR": "Carburant aviation de type kérosène (hors portion de biocarburant)",
-        "DE": "Kerosinartiger Flugkraftstoff (ohne Biokraftstoffanteil)"
-    },
-    "O4669": {
-        "EN": "Other kerosene",
-        "FR": "Autre kérosène",
-        "DE": "Anderes Kerosin"
-    },
-    "O4671": {
-        "EN": "Gas oil and diesel oil",
-        "FR": "Gazole et diesel",
-        "DE": "Gasöl und Dieselkraftstoff"
-    },
-    "O4671XR5220B": {
-        "EN": "Gas oil and diesel oil (excluding biofuel portion)",
-        "FR": "Gazole et diesel (hors portion de biocarburant)",
-        "DE": "Gasöl und Dieselkraftstoff (ohne Biokraftstoffanteil)"
-    },
-    "O46711": {
-        "EN": "Road diesel",
-        "FR": "Diesel routier",
-        "DE": "Straßendiesel"
-    },
-    "O46712": {
-        "EN": "Heating and other gasoil",
-        "FR": "Fioul domestique et autres gazoles",
-        "DE": "Heizöl und andere Gasöle"
-    },
-    "O4680": {
-        "EN": "Fuel oil",
-        "FR": "Fioul",
-        "DE": "Heizöl"
-    },
-    "O4681": {
-        "EN": "Fuel oil (low sulphur <1%)",
-        "FR": "Fioul (faible teneur en soufre <1%)",
-        "DE": "Heizöl (niedriger Schwefelgehalt <1%)"
-    },
-    "O4682": {
-        "EN": "Fuel oil (high sulphur >1%)",
-        "FR": "Fioul (forte teneur en soufre >1%)",
-        "DE": "Heizöl (hoher Schwefelgehalt >1%)"
-    },
-    "O4691": {
-        "EN": "White spirit and special boiling point industrial spirits",
-        "FR": "White spirit et solvants industriels",
-        "DE": "Testbenzin und spezielle Siedepunktlösungsmittel"
-    },
-    "O4692": {
-        "EN": "Lubricants",
-        "FR": "Lubrifiants",
-        "DE": "Schmierstoffe"
-    },
-    "O4693": {
-        "EN": "Paraffin waxes",
-        "FR": "Cires de paraffine",
-        "DE": "Paraffinwachse"
-    },
-    "O4694": {
-        "EN": "Petroleum coke",
-        "FR": "Coke de pétrole",
-        "DE": "Petrolkoks"
-    },
-    "O4695": {
-        "EN": "Bitumen",
-        "FR": "Bitume",
-        "DE": "Bitumen"
-    },
-    "O4699": {
-        "EN": "Other oil products n.e.c.",
-        "FR": "Autres produits pétroliers n.c.a.",
-        "DE": "Andere Ölprodukte n.a."
-    },
-    "R5210B": {
-        "EN": "Blended biogasoline",
-        "FR": "Biocarburant mélangé",
-        "DE": "Gemischtes Biogasolin"
-    },
-    "R5220B": {
-        "EN": "Blended biodiesels",
-        "FR": "Biodiesel mélangé",
-        "DE": "Gemischtes Biodiesel"
-    },
-    "R5230B": {
-        "EN": "Blended bio jet kerosene",
-        "FR": "Biokérosène mélangé",
-        "DE": "Gemischtes Biokerosin"
-    },
-    "G3000": {
-        "EN": "Natural gas",
-        "FR": "Gaz naturel",
-        "DE": "Erdgas"
-    },
-    "G3200": {
-        "EN": "Liquefied natural gas",
-        "FR": "Gaz naturel liquéfié",
-        "DE": "Flüssigerdgas"
-    },
-    "R5111": {
-        "EN": "Wood pellets",
-        "FR": "Granulés de bois",
-        "DE": "Holzpellets"
-    },
-    "R5210P": {
-        "EN": "Pure biogasoline",
-        "FR": "Biogazole pur",
-        "DE": "Reines Biobenzin"
-    },
-    "R5210E": {
-        "EN": "Bioethanol",
-        "FR": "Bioéthanol",
-        "DE": "Bioethanol"
-    },
-    "R5220P": {
-        "EN": "Pure biodiesels",
-        "FR": "Biodiesel pur",
-        "DE": "Reines Biodiesel"
-    },
-    "R5230P": {
-        "EN": "Pure bio jet kerosene",
-        "FR": "Biokérosène pur",
-        "DE": "Reines Biokerosin"
-    },
-    "R5290": {
-        "EN": "Other liquid biofuels",
-        "FR": "Autres biocarburants liquides",
-        "DE": "Andere flüssige Biokraftstoffe"
-    },
-    "E7000": {
-        "EN": "Electricity",
-        "FR": "Électricité",
-        "DE": "Elektrizität"
-    },
-    "H8000": {
-        "EN": "Heat",
-        "FR": "Chaleur",
-        "DE": "Wärme"
-    },
-    "BOX_FUEL_TITLE": {
-        "EN": "Select fuel",
-        "FR": "Sélectionnez le carburant",
-        "DE": "Kraftstoff auswählen"
-    },
-    "BOX_UNIT_TITLE": {
-        "EN": "Select unit",
-        "FR": "Sélectionnez l'unité",
-        "DE": "Einheit auswählen"
-    },
-    "BOX_TRADE_TITLE": {
-        "EN": "Select Trade",
-        "FR": "Sélectionnez le commerce",
-        "DE": "Handel auswählen"
-    },
-    "BOX_COUNTRY_TITLE": {
-        "EN": "Select countries",
-        "FR": "Sélectionnez les pays",
-        "DE": "Länder auswählen"
-    },
-    "BOX_MORE_TITLE": {
-        "EN": "Find out more",
-        "FR": "En savoir plus",
-        "DE": "Mehr erfahren"
-    },
-    "BOX_FILTER_TITLE": {
-        "EN": "Select filter",
-        "FR": "Sélectionnez le filtre",
-        "DE": "Filter auswählen"
-    },
-    "MENU_FUEL": {
-        "EN": "Select fuel",
-        "FR": "Sélectionnez le carburant",
-        "DE": "Kraftstoff auswählen"
-    },
-    "MENU_UNIT": {
-        "EN": "Select unit",
-        "FR": "Sélectionnez l'unité",
-        "DE": "Einheit auswählen"
-    },
-    "MENU_TRADE": {
-        "EN": "Select trade",
-        "FR": "Sélectionnez le commerce",
-        "DE": "Handel auswählen"
-    },
-    "MENU_MORE": {
-        "EN": "Find out more",
-        "FR": "En savoir plus",
-        "DE": "Mehr erfahren"
-    },
-    "MENU_FILTER": {
-        "EN": "Select countries to display",
-        "FR": "Sélectionnez les pays à afficher",
-        "DE": "Länder zur Anzeige auswählen"
-    },
-    "TUTORIAL": {
-        "EN": "Tutorial",
-        "FR": "Tutoriel",
-        "DE": "Anleitung"
-    },
-    "ENTRADE_EXPLAINED": {
-        "EN": "Trade explained",
-        "FR": "Commerce expliqué",
-        "DE": "Handel erklärt"
-    },
-    "DEFINITIONS": {
-        "EN": "Show information",
-        "FR": "Afficher les informations",
-        "DE": "Informationen anzeigen"
-    },
-    "METADATA": {
-        "EN": "Metadata",
-        "FR": "Métadonnées",
-        "DE": "Metadaten"
-    },
-    "ENTRADE_DATASET": {
-        "EN": "Trade dataset",
-        "FR": "Jeu de données sur le commerce",
-        "DE": "Handelsdatensatz"
-    },
-    "CONTACT": {
-        "EN": "Contact us",
-        "FR": "Contactez-nous",
-        "DE": "Kontaktieren Sie uns"
-    },
-    "MIO_M3": {
-        "EN": "Million cubic metres (MIO_M3)",
-        "FR": "Million de mètres cubes (MIO_M3)",
-        "DE": "Million Kubikmeter (MIO_M3)"
-    },
-    "TJ_GCV": {
-        "EN": "Terajoule (gross calorific value - GCV) (TJ_GCV)",
-        "FR": "Térajoule (pouvoir calorifique brut - GCV) (TJ_GCV)",
-        "DE": "Terajoule (Bruttowert - GCV) (TJ_GCV)"
-    },
-    "THS_T": {
-        "EN": "Thousand tonnes (THS_T)",
-        "FR": "Mille tonnes (THS_T)",
-        "DE": "Tausend Tonnen (THS_T)"
-    },
-    "GWH": {
-        "EN": "Gigawatt-hour (GWH)",
-        "FR": "Gigawattheure (GWH)",
-        "DE": "Gigawattstunde (GWH)"
-    },
-    "imp": {
-        "EN": "Imports",
-        "FR": "Importations",
-        "DE": "Importe"
-    },
-    "exp": {
-        "EN": "Exports",
-        "FR": "Exportations",
-        "DE": "Exporte"
-    },
-    "solid": {
-        "EN": "Solid fossil fuels",
-        "FR": "Combustibles fossiles solides",
-        "DE": "Feste fossile Brennstoffe"
-    },
-    "oil": {
-        "EN": "Oil and petroleum",
-        "FR": "Pétrole et produits pétroliers",
-        "DE": "Öl und Erdöl"
-    },
-    "gas": {
-        "EN": "Natural gas",
-        "FR": "Gaz naturel",
-        "DE": "Erdgas"
-    },
-    "bio": {
-        "EN": "Biofuels",
-        "FR": "Biocarburants",
-        "DE": "Biokraftstoffe"
-    },
-    "electricity": {
-        "EN": "Electricity and heat",
-        "FR": "Électricité et chaleur",
-        "DE": "Elektrizität und Wärme"
-    },
-    "nrg_ti_sff": {
-        "EN": "Imports of solid fossil fuels by partner country",
-        "FR": "Importations de combustibles fossiles solides par pays partenaire",
-        "DE": "Importe fester fossiler Brennstoffe nach Partnerland"
-    },
-    "nrg_ti_oil": {
-        "EN": "Imports of oil and petroleum products by partner country",
-        "FR": "Importations de pétrole et de produits pétroliers par pays partenaire",
-        "DE": "Importe von Öl und Erdölprodukten nach Partnerland"
-    },
-    "nrg_ti_gas": {
-        "EN": "Imports of natural gas by partner country",
-        "FR": "Importations de gaz naturel par pays partenaire",
-        "DE": "Importe von Erdgas nach Partnerland"
-    },
-    "nrg_ti_bio": {
-        "EN": "Imports of biofuels by partner country",
-        "FR": "Importations de biocarburants par pays partenaire",
-        "DE": "Importe von Biokraftstoffen nach Partnerland"
-    },
-    "nrg_ti_eh": {
-        "EN": "Imports of electricity and heat by partner country",
-        "FR": "Importations d'électricité et de chaleur par pays partenaire",
-        "DE": "Importe von Elektrizität und Wärme nach Partnerland"
-    },
-    "nrg_te_sff": {
-        "EN": "Exports of solid fossil fuels by partner country",
-        "FR": "Exportations de combustibles fossiles solides par pays partenaire",
-        "DE": "Exporte fester fossiler Brennstoffe nach Partnerland"
-    },
-    "nrg_te_oil": {
-        "EN": "Exports of oil and petroleum products by partner country",
-        "FR": "Exportations de pétrole et de produits pétroliers par pays partenaire",
-        "DE": "Exporte von Öl und Erdölprodukten nach Partnerland"
-    },
-    "nrg_te_gas": {
-        "EN": "Exports of natural gas by partner country",
-        "FR": "Exportations de gaz naturel par pays partenaire",
-        "DE": "Exporte von Erdgas nach Partnerland"
-    },
-    "nrg_te_bio": {
-        "EN": "Exports of biofuels by partner country",
-        "FR": "Exportations de biocarburants par pays partenaire",
-        "DE": "Exporte von Biokraftstoffen nach Partnerland"
-    },
-    "nrg_te_eh": {
-        "EN": "Exports of electricity and heat by partner country",
-        "FR": "Exportations d'électricité et de chaleur par pays partenaire",
-        "DE": "Exporte von Elektrizität und Wärme nach Partnerland"
-    },
-    "NSP": {
-        "EN": "Not specified",
-        "FR": "Non spécifié",
-        "DE": "Nicht spezifiziert"
-    },
-    "TOTAL": {
-        "EN": "Total",
-        "FR": "Total",
-        "DE": "Gesamt"
-    },
-    "ASI_OTH": {
-        "EN": "Other Asian countries (aggregate changing according to the context)",
-        "FR": "Autres pays asiatiques (agrégat évoluant selon le contexte)",
-        "DE": "Andere asiatische Länder (Aggregat, das sich je nach Kontext ändert)"
-    },
-    "ASI_NME_OTH": {
-        "EN": "Other Near and Middle East Asian countries",
-        "FR": "Autres pays d'Asie du Proche et Moyen-Orient",
-        "DE": "Andere Länder in Nah- und Mittelostasien"
-    },
-    "AME_OTH": {
-        "EN": "Other American countries (aggregate changing according to the context)",
-        "FR": "Autres pays américains (agrégat évoluant selon le contexte)",
-        "DE": "Andere amerikanische Länder (Aggregat, das sich je nach Kontext ändert)"
-    },
-    "AFR_OTH": {
-        "EN": "Other African countries (aggregate changing according to the context)",
-        "FR": "Autres pays africains (agrégat évoluant selon le contexte)",
-        "DE": "Andere afrikanische Länder (Aggregat, das sich je nach Kontext ändert)"
-    },
-    "EUR_OTH": {
-        "EN": "Other European countries (aggregate changing according to the context)",
-        "FR": "Autres pays européens (agrégat évoluant selon le contexte)",
-        "DE": "Andere europäische Länder (Aggregat, das sich je nach Kontext ändert)"
-    },
-    "EX_SU_OTH": {
-        "EN": "Other countries of former Soviet Union (before 1991)",
-        "FR": "Autres pays de l'ancienne Union soviétique (avant 1991)",
-        "DE": "Andere Länder der ehemaligen Sowjetunion (vor 1991)"
-    },
-    "FLAG_NA": {
-        "EN": "Not available",
-        "FR": "Non disponible",
-        "DE": "Nicht verfügbar"
-    },
-    "FLAG_C": {
-        "EN": "Confidential",
-        "FR": "Confidentiel",
-        "DE": "Vertraulich"
-    },
-    "FLAG_P": {
-        "EN": "Provisional",
-        "FR": "Provisoire",
-        "DE": "Vorläufig"
-    },
-    "FLAG_E": {
-        "EN": "Estimated",
-        "FR": "Estimé",
-        "DE": "Geschätzt"
-    },
-    "FLAG_N": {
-        "EN": "Not significant",
-        "FR": "Non significatif",
-        "DE": "Nicht signifikant"
-    },
-    "FLAG_B": {
-        "EN": "Break in time series",
-        "FR": "Rupture dans la série chronologique",
-        "DE": "Bruch in der Zeitreihe"
-    },
-    "FLAG_S": {
-        "EN": "Eurostat estimate",
-        "FR": "Estimation Eurostat",
-        "DE": "Eurostat-Schätzung"
-    },
-    "FLAG_F": {
-        "EN": "Forecast",
-        "FR": "Prévision",
-        "DE": "Prognose"
-    },
-    "FLAG_U": {
-        "EN": "Low reliability",
-        "FR": "Fiabilité faible",
-        "DE": "Geringe Zuverlässigkeit"
-    },
-    "FLAG_D": {
-        "EN": "Definition differs, see metadata",
-        "FR": "Définition différente, voir métadonnées",
-        "DE": "Definition weicht ab, siehe Metadaten"
-    },
-    "FLAG_I": {
-        "EN": "See metadata",
-        "FR": "Voir métadonnées",
-        "DE": "Siehe Metadaten"
-    },
-    "FLAG_R": {
-        "EN": "Revised",
-        "FR": "Révisé",
-        "DE": "Überarbeitet"
-    },
-    "FLAG_Z": {
-        "EN": "Not applicable",
-        "FR": "Non applicable",
-        "DE": "Nicht zutreffend"
-    },
-    "error": {
-        "EN": "Please select a country from the European Union, candidate or potential candidate countries or a country member of the Energy Community",
-        "FR": "Veuillez sélectionner un pays de l'Union européenne, un pays candidat ou potentiel ou un pays membre de la Communauté de l'énergie",
-        "DE": "Bitte wählen Sie ein Land aus der Europäischen Union, ein Kandidatenland, ein potenzielles Kandidatenland oder ein Mitgliedsland der Energiegemeinschaft"
-    },
-    "error2": {
-        "EN": "No data available for ",
-        "FR": "Aucune donnée disponible pour ",
-        "DE": "Keine Daten verfügbar für "
-    },
-    "error3": {
-        "EN": "Please select a European country first",
-        "FR": "Veuillez d'abord sélectionner un pays européen",
-        "DE": "Bitte wählen Sie zuerst ein europäisches Land aus"
-    },
-    "TitleError3": {
-        "EN": "Filter options error",
-        "FR": "Erreur d'options de filtre",
-        "DE": "Filteroptionen-Fehler"
-    },
-    "nodata": {
-        "EN": "No data available",
-        "FR": "Aucune donnée disponible",
-        "DE": "Keine Daten verfügbar"
-    },
-    "timeChartTitle": {
-        "EN": "Energy trade timeline",
-        "FR": "Chronologie du commerce de l'énergie",
-        "DE": "Energiehandel-Zeitachse"
-    },
-    "timeChartSub": {
-        "EN": "Values in",
-        "FR": "Valeurs en",
-        "DE": "Werte in"
-    },
-    "title1": {
-        "EN": "Countries",
-        "FR": "Pays",
-        "DE": "Länder"
-    },
-    "title2": {
-        "EN": "Values",
-        "FR": "Valeurs",
-        "DE": "Werte"
-    },
-    "title3": {
-        "EN": "Aggregate",
-        "FR": "Agrégat",
-        "DE": "Aggregat"
-    },
-    "title4": {
-        "EN": "From",
-        "FR": "De",
-        "DE": "Von"
-    },
-    "title5": {
-        "EN": "To",
-        "FR": "À",
-        "DE": "Bis"
-    },
-    "title6": {
-        "EN": "Of",
-        "FR": "De",
-        "DE": "Von"
-    },
-    "title7": {
-        "EN": "Download dataset",
-        "FR": "Télécharger le jeu de données",
-        "DE": "Datensatz herunterladen"
-    },
-    "title8": {
-        "EN": "Table view",
-        "FR": "Vue en tableau",
-        "DE": "Tabellenansicht"
-    },
-    "title9": {
-        "EN": "For the selected year",
-        "FR": "Pour l'année sélectionnée",
-        "DE": "Für das ausgewählte Jahr"
-    },
-    "allbtn": {
-        "EN": "All",
-        "FR": "Tout",
-        "DE": "Alle"
-    },
-    "top5btn": {
-        "EN": "Top 5",
-        "FR": "Top 5",
-        "DE": "Top 5"
-    },
-    "top10btn": {
-        "EN": "Top 10",
-        "FR": "Top 10",
-        "DE": "Top 10"
-    },
-    "top25btn": {
-        "EN": "Top 25",
-        "FR": "Top 25",
-        "DE": "Top 25"
-    },
-    "abr_THS_T": {
-        "EN": "Kt",
-        "FR": "Kt",
-        "DE": "Kt"
-    },
-    "abr_MIO_M3": {
-        "EN": "Mm3",
-        "FR": "Mm3",
-        "DE": "Mm3"
-    },
-    "abr_TJ_GCV": {
-        "EN": "Tj",
-        "FR": "Tj",
-        "DE": "Tj"
-    },
-    "abr_GWH": {
-        "EN": "GWH",
-        "FR": "GWH",
-        "DE": "GWH"
-    },
-    "TJ": {
-        "EN": "Terajoule",
-        "FR": "Térajoule",
-        "DE": "Terajoule"
-    },
-    "header-title-label": {
-        "EN": "Energy Trade",
-        "FR": "Commerce de l'énergie",
-        "DE": "Energiehandel"
-    },
-    "btn1": {
-        "EN": "Show info",
-        "FR": "Afficher les infos",
-        "DE": "Info anzeigen"
-    },
-    "btn2": {
-        "EN": "Show pie chart",
-        "FR": "Afficher le graphique en camembert",
-        "DE": "Kreisdiagramm anzeigen"
-    },
-    "btn3": {
-        "EN": "Show bar chart",
-        "FR": "Afficher le graphique en barres",
-        "DE": "Balkendiagramm anzeigen"
-    },
-    "btn4": {
-        "EN": "Show time-line chart",
-        "FR": "Afficher le graphique chronologique",
-        "DE": "Zeitdiagramm anzeigen"
-    },
-    "btn5": {
-        "EN": "Show definition",
-        "FR": "Afficher la définition",
-        "DE": "Definition anzeigen"
-    },
-    "btn6": {
-        "EN": "Play animation",
-        "FR": "Lire l'animation",
-        "DE": "Animation abspielen"
-    },
-    "btn7": {
-        "EN": "Clear map",
-        "FR": "Effacer la carte",
-        "DE": "Karte löschen"
-    },
-    "inftitle": {
-        "EN": "Energy data",
-        "FR": "Données énergétiques",
-        "DE": "Energiedaten"
-    },
-    "TABTITLE1": {
-        "EN": "Energy data",
-        "FR": "Données énergétiques",
-        "DE": "Energiedaten"
-    },
-    "TAB1": {
-        "EN": "Energy statistics are in the spotlight due to their strategic importance to the drive towards competitive and sustainable economic growth. In recent years, the European Union has faced a number of important energy issues related to e.g. climate change, energy security and affordability. These have pushed the topic of energy towards the top of national and European political agendas, with energy statistics providing key information for policy makers. In order to meet policy makers' growing needs for data on energy, Eurostat has developed a coherent and harmonised system of energy statistics. Annual, half-yearly and monthly data collections cover the Member States of the EU, European Economic Area countries, candidate countries, potential candidates and Energy Community Contracting Partners.",
-        "FR": "Les statistiques énergétiques sont mises en avant en raison de leur importance stratégique pour la croissance économique compétitive et durable. Ces dernières années, l'Union européenne a été confrontée à d'importants enjeux énergétiques liés au changement climatique, à la sécurité énergétique et à l'accessibilité. Ces enjeux ont propulsé le thème de l'énergie au sommet des agendas politiques nationaux et européens, les statistiques énergétiques fournissant des informations clés aux décideurs politiques. Afin de répondre aux besoins croissants des décideurs en matière de données sur l'énergie, Eurostat a développé un système de statistiques énergétiques cohérent et harmonisé. Les collectes de données annuelles, semestrielles et mensuelles couvrent les États membres de l'UE, les pays de l'Espace économique européen, les pays candidats, les candidats potentiels et les partenaires contractants de la Communauté de l'énergie.",
-        "DE": "Energiedaten stehen im Fokus aufgrund ihrer strategischen Bedeutung für das Streben nach wettbewerbsfähigem und nachhaltigem Wirtschaftswachstum. In den letzten Jahren sah sich die Europäische Union mit wichtigen Energiefragen konfrontiert, die z. B. den Klimawandel, die Energiesicherheit und die Erschwinglichkeit betreffen. Diese Themen haben die Energie auf die oberste Ebene der nationalen und europäischen politischen Tagesordnung gebracht, wobei Energiedaten wichtige Informationen für Entscheidungsträger liefern. Um den wachsenden Bedarf der Entscheidungsträger an Energiedaten zu decken, hat Eurostat ein kohärentes und harmonisiertes System der Energiestatistiken entwickelt. Jährliche, halbjährliche und monatliche Datensammlungen umfassen die Mitgliedstaaten der EU, die Länder des Europäischen Wirtschaftsraums, die Kandidatenländer, die potenziellen Kandidaten und die Vertragsparteien der Energiegemeinschaft."
-    },
-    "TABTITLE2": {
-        "EN": "Annual energy data",
-        "FR": "Données énergétiques annuelles",
-        "DE": "Jährliche Energiedaten"
-    },
-    "TAB2": {
-        "EN": "These are annual data on crude oil, oil products, natural gas, electricity, derived heat, solid fossil fuels, renewables and wastes covering the full spectrum of the energy balance positions from supply through transformation to final energy consumption by sector and fuel type. Eurostat has developed an <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>interactive tool</u></a> to visualise annual energy data by means of flow diagrams (also called Sankey diagrams). The tool allows you to build and customise your own diagram by playing with different options (country, year, fuel, level of detail, etc.).",
-        "FR": "Il s'agit de données annuelles sur le pétrole brut, les produits pétroliers, le gaz naturel, l'électricité, la chaleur dérivée, les combustibles fossiles solides, les énergies renouvelables et les déchets couvrant tout le spectre des positions du bilan énergétique, de l'approvisionnement à la consommation finale par secteur et type de combustible. Eurostat a développé un <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>outil interactif</u></a> pour visualiser les données énergétiques annuelles sous forme de diagrammes de flux (également appelés diagrammes de Sankey). Cet outil vous permet de construire et de personnaliser votre propre diagramme en jouant avec différentes options (pays, année, combustible, niveau de détail, etc.).",
-        "DE": "Es handelt sich um jährliche Daten zu Rohöl, Ölprodukten, Erdgas, Strom, erzeugter Wärme, festen fossilen Brennstoffen, erneuerbaren Energien und Abfällen, die das gesamte Spektrum der Energiebilanzpositionen abdecken, von der Versorgung über die Umwandlung bis hin zum Endverbrauch nach Sektor und Brennstofftyp. Eurostat hat ein <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>interaktives Tool</u></a> entwickelt, um die jährlichen Energiedaten mittels Flussdiagrammen (auch Sankey-Diagramme genannt) zu visualisieren. Das Tool ermöglicht es Ihnen, Ihr eigenes Diagramm zu erstellen und anzupassen, indem Sie mit verschiedenen Optionen (Land, Jahr, Brennstoff, Detailstufe usw.) spielen."
-    },
-    "TABTITLE3": {
-        "EN": "Monthly energy data",
-        "FR": "Données énergétiques mensuelles",
-        "DE": "Monatliche Energiedaten"
-    },
-    "TAB3": {
-        "EN": "Eurostat collects and publishes monthly energy data on supply and to a limited extent consumption of various fuels; this data currently covers the coals / solid fossil fuels, natural gas, oil and petroleum products and electricity. Eurostat has developed an interactive tool to visualise monthly energy data.",
-        "FR": "Eurostat collecte et publie des données énergétiques mensuelles sur l'approvisionnement et, dans une mesure limitée, la consommation de divers combustibles. Ces données couvrent actuellement les charbons/combustibles fossiles solides, le gaz naturel, le pétrole et les produits pétroliers et l'électricité. Eurostat a développé un outil interactif pour visualiser les données énergétiques mensuelles.",
-        "DE": "Eurostat sammelt und veröffentlicht monatliche Energiedaten über das Angebot und in begrenztem Umfang den Verbrauch verschiedener Brennstoffe. Diese Daten umfassen derzeit Kohle / feste fossile Brennstoffe, Erdgas, Öl und Erdölprodukte sowie Strom. Eurostat hat ein interaktives Tool zur Visualisierung der monatlichen Energiedaten entwickelt."
-    },
-    "TABTITLE4": {
-        "EN": "Energy prices",
-        "FR": "Prix de l'énergie",
-        "DE": "Energiepreise"
-    },
-    "TAB4": {
-        "EN": "These are half-yearly and yearly data on electricity and natural gas prices provided for both final non-households as well as for households customers and for different consumption bands. Half-yearly prices are provided without taxes, with VAT and with all taxes included. Yearly data consist of more disaggregated prices on the energy cost, the network cost and the taxes. In addition, it also includes national average prices for each of these disaggregated sub-components. Eurostat has developed an <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>interactive tool</u></a> to visualise energy prices data.",
-        "FR": "Il s'agit de données semestrielles et annuelles sur les prix de l'électricité et du gaz naturel fournies à la fois pour les clients non ménages finaux ainsi que pour les clients ménages et pour différentes tranches de consommation. Les prix semestriels sont fournis hors taxes, avec TVA et avec toutes les taxes incluses. Les données annuelles comprennent des prix plus détaillés sur le coût de l'énergie, le coût du réseau et les taxes. En outre, elles comprennent également les prix nationaux moyens pour chacun de ces sous-composants désagrégés. Eurostat a développé un <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>outil interactif</u></a> pour visualiser les données de prix de l'énergie.",
-        "DE": "Es handelt sich um halbjährliche und jährliche Daten zu Strom- und Erdgaspreisen, die sowohl für Endverbraucher als auch für Haushaltskunden und für verschiedene Verbrauchsgruppen bereitgestellt werden. Halbjährliche Preise werden ohne Steuern, mit Mehrwertsteuer und mit allen Steuern angegeben. Jährliche Daten bestehen aus detaillierteren Preisen für die Energiekosten, die Netzkosten und die Steuern. Darüber hinaus enthalten sie nationale Durchschnittspreise für jede dieser disaggregierten Unterkomponenten. Eurostat hat ein <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>interaktives Tool</u></a> zur Visualisierung der Energiepreisdaten entwickelt."
-    },
-    "TABTITLE5": {
-        "EN": "Energy indicators",
-        "FR": "Indicateurs énergétiques",
-        "DE": "Energieindikatoren"
-    },
-    "TAB5": {
-        "EN": "Eurostat produces some selected energy indicators covering the major European policy areas (for example: the share of energy from renewable sources). Eurostat has developed an interactive tool to visualise energy indicators.",
-        "FR": "Eurostat produit certains indicateurs énergétiques couvrant les principales politiques européennes (par exemple : la part d'énergie provenant de sources renouvelables). Eurostat a développé un outil interactif pour visualiser les indicateurs énergétiques.",
-        "DE": "Eurostat erstellt einige ausgewählte Energieindikatoren, die die wichtigsten europäischen Politikbereiche abdecken (z. B. den Anteil der Energie aus erneuerbaren Quellen). Eurostat hat ein interaktives Tool zur Visualisierung der Energieindikatoren entwickelt."
-    },
-    "mobileWarning": {
-        "EN": "This tool is not designed for small screens. Thank you for your understanding",
-        "FR": "Cet outil n'est pas conçu pour les petits écrans. Merci pour votre compréhension",
-        "DE": "Dieses Tool ist nicht für kleine Bildschirme ausgelegt. Vielen Dank für Ihr Verständnis"
-    },
-    "EL": {
-        "EN": "Greece",
-        "FR": "Grèce",
-        "DE": "Griechenland"
-    },
-    "UK": {
-        "EN": "United Kingdom",
-        "FR": "Royaume-Uni",
-        "DE": "Vereinigtes Königreich"
-    },
-    "XK": {
-        "EN": "Kosovo (under United Nations Security Council resolution 1244/99)",
-        "FR": "Kosovo (sous la résolution 1244/99 du Conseil de sécurité des Nations Unies)",
-        "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
-    },
-    "KS": {
-        "EN": "Kosovo (under United Nations Security Council resolution 1244/99)",
-        "FR": "Kosovo (sous la résolution 1244/99 du Conseil de sécurité des Nations Unies)",
-        "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
-    },
-    "XKmobile": {
-        "EN": "Kosovo",
-        "FR": "Kosovo",
-        "DE": "Kosovo"
-    },
-    "other": {
-        "EN": "Other",
-        "FR": "Autre",
-        "DE": "Andere"
-    },
-    "AF": {
-        "EN": "Afghanistan",
-        "FR": "Afghanistan",
-        "DE": "Afghanistan"
-    },
-    "AX": {
-        "EN": "Åland Islands",
-        "FR": "Îles Åland",
-        "DE": "Ålandinseln"
-    },
-    "AL": {
-        "EN": "Albania",
-        "FR": "Albanie",
-        "DE": "Albanien"
-    },
-    "DZ": {
-        "EN": "Algeria",
-        "FR": "Algérie",
-        "DE": "Algerien"
-    },
-    "AS": {
-        "EN": "American Samoa",
-        "FR": "Samoa américaines",
-        "DE": "Amerikanisch-Samoa"
-    },
-    "AD": {
-        "EN": "Andorra",
-        "FR": "Andorre",
-        "DE": "Andorra"
-    },
-    "AO": {
-        "EN": "Angola",
-        "FR": "Angola",
-        "DE": "Angola"
-    },
-    "AI": {
-        "EN": "Anguilla",
-        "FR": "Anguilla",
-        "DE": "Anguilla"
-    },
-    "AQ": {
-        "EN": "Antarctica",
-        "FR": "Antarctique",
-        "DE": "Antarktis"
-    },
-    "AG": {
-        "EN": "Antigua and Barbuda",
-        "FR": "Antigua-et-Barbuda",
-        "DE": "Antigua und Barbuda"
-    },
-    "AR": {
-        "EN": "Argentina",
-        "FR": "Argentine",
-        "DE": "Argentinien"
-    },
-    "AM": {
-        "EN": "Armenia",
-        "FR": "Arménie",
-        "DE": "Armenien"
-    },
-    "AW": {
-        "EN": "Aruba",
-        "FR": "Aruba",
-        "DE": "Aruba"
-    },
-    "AU": {
-        "EN": "Australia",
-        "FR": "Australie",
-        "DE": "Australien"
-    },
-    "AT": {
-        "EN": "Austria",
-        "FR": "Autriche",
-        "DE": "Österreich"
-    },
-    "AZ": {
-        "EN": "Azerbaijan",
-        "FR": "Azerbaïdjan",
-        "DE": "Aserbaidschan"
-    },
-    "BS": {
-        "EN": "Bahamas",
-        "FR": "Bahamas",
-        "DE": "Bahamas"
-    },
-    "BH": {
-        "EN": "Bahrain",
-        "FR": "Bahreïn",
-        "DE": "Bahrain"
-    },
-    "BD": {
-        "EN": "Bangladesh",
-        "FR": "Bangladesh",
-        "DE": "Bangladesch"
-    },
-    "BB": {
-        "EN": "Barbados",
-        "FR": "Barbade",
-        "DE": "Barbados"
-    },
-    "BY": {
-        "EN": "Belarus",
-        "FR": "Biélorussie",
-        "DE": "Belarus"
-    },
-    "BE": {
-        "EN": "Belgium",
-        "FR": "Belgique",
-        "DE": "Belgien"
-    },
-    "BZ": {
-        "EN": "Belize",
-        "FR": "Belize",
-        "DE": "Belize"
-    },
-    "BJ": {
-        "EN": "Benin",
-        "FR": "Bénin",
-        "DE": "Benin"
-    },
-    "BM": {
-        "EN": "Bermuda",
-        "FR": "Bermudes",
-        "DE": "Bermuda"
-    },
-    "BT": {
-        "EN": "Bhutan",
-        "FR": "Bhoutan",
-        "DE": "Bhutan"
-    },
-    "BO": {
-        "EN": "Bolivia (Plurinational State of)",
-        "FR": "Bolivie (État plurinational de)",
-        "DE": "Bolivien (Plurinationaler Staat)"
-    },
-    "BQ": {
-        "EN": "Bonaire, Sint Eustatius and Saba",
-        "FR": "Bonaire, Saint-Eustache et Saba",
-        "DE": "Bonaire, Sint Eustatius und Saba"
-    },
-    "BA": {
-        "EN": "Bosnia and Herzegovina",
-        "FR": "Bosnie-Herzégovine",
-        "DE": "Bosnien und Herzegowina"
-    },
-    "BW": {
-        "EN": "Botswana",
-        "FR": "Botswana",
-        "DE": "Botswana"
-    },
-    "BV": {
-        "EN": "Bouvet Island",
-        "FR": "Île Bouvet",
-        "DE": "Bouvetinsel"
-    },
-    "BR": {
-        "EN": "Brazil",
-        "FR": "Brésil",
-        "DE": "Brasilien"
-    },
-    "IO": {
-        "EN": "British Indian Ocean Territory",
-        "FR": "Territoire britannique de l'océan Indien",
-        "DE": "Britisches Territorium im Indischen Ozean"
-    },
-    "BN": {
-        "EN": "Brunei Darussalam",
-        "FR": "Brunei Darussalam",
-        "DE": "Brunei Darussalam"
-    },
-    "BG": {
-        "EN": "Bulgaria",
-        "FR": "Bulgarie",
-        "DE": "Bulgarien"
-    },
-    "BF": {
-        "EN": "Burkina Faso",
-        "FR": "Burkina Faso",
-        "DE": "Burkina Faso"
-    },
-    "BI": {
-        "EN": "Burundi",
-        "FR": "Burundi",
-        "DE": "Burundi"
-    },
-    "CV": {
-        "EN": "Cabo Verde",
-        "FR": "Cabo Verde",
-        "DE": "Cabo Verde"
-    },
-    "KH": {
-        "EN": "Cambodia",
-        "FR": "Cambodge",
-        "DE": "Kambodscha"
-    },
-    "CM": {
-        "EN": "Cameroon",
-        "FR": "Cameroun",
-        "DE": "Kamerun"
-    },
-    "CA": {
-        "EN": "Canada",
-        "FR": "Canada",
-        "DE": "Kanada"
-    },
-    "KY": {
-        "EN": "Cayman Islands",
-        "FR": "Îles Caïmans",
-        "DE": "Kaimaninseln"
-    },
-    "CF": {
-        "EN": "Central African Republic",
-        "FR": "République centrafricaine",
-        "DE": "Zentralafrikanische Republik"
-    },
-    "TD": {
-        "EN": "Chad",
-        "FR": "Tchad",
-        "DE": "Tschad"
-    },
-    "CL": {
-        "EN": "Chile",
-        "FR": "Chili",
-        "DE": "Chile"
-    },
-    "CN": {
-        "EN": "China",
-        "FR": "Chine",
-        "DE": "China"
-    },
-    "CX": {
-        "EN": "Christmas Island",
-        "FR": "Île Christmas",
-        "DE": "Weihnachtsinsel"
-    },
-    "CC": {
-        "EN": "Cocos (Keeling) Islands",
-        "FR": "Îles Cocos (Keeling)",
-        "DE": "Kokosinseln"
-    },
-    "CO": {
-        "EN": "Colombia",
-        "FR": "Colombie",
-        "DE": "Kolumbien"
-    },
-    "KM": {
-        "EN": "Comoros",
-        "FR": "Comores",
-        "DE": "Komoren"
-    },
-    "CG": {
-        "EN": "Congo",
-        "FR": "Congo",
-        "DE": "Kongo"
-    },
-    "CD": {
-        "EN": "Congo, Democratic Republic of the",
-        "FR": "Congo, République démocratique du",
-        "DE": "Kongo, Demokratische Republik"
-    },
-    "CK": {
-        "EN": "Cook Islands",
-        "FR": "Îles Cook",
-        "DE": "Cookinseln"
-    },
-    "CR": {
-        "EN": "Costa Rica",
-        "FR": "Costa Rica",
-        "DE": "Costa Rica"
-    },
-    "CI": {
-        "EN": "Côte d'Ivoire",
-        "FR": "Côte d'Ivoire",
-        "DE": "Elfenbeinküste"
-    },
-    "HR": {
-        "EN": "Croatia",
-        "FR": "Croatie",
-        "DE": "Kroatien"
-    },
-    "CU": {
-        "EN": "Cuba",
-        "FR": "Cuba",
-        "DE": "Kuba"
-    },
-    "CW": {
-        "EN": "Curaçao",
-        "FR": "Curaçao",
-        "DE": "Curaçao"
-    },
-    "CY": {
-        "EN": "Cyprus",
-        "FR": "Chypre",
-        "DE": "Zypern"
-    },
-    "CZ": {
-        "EN": "Czechia",
-        "FR": "Tchéquie",
-        "DE": "Tschechien"
-    },
-    "DK": {
-        "EN": "Denmark",
-        "FR": "Danemark",
-        "DE": "Dänemark"
-    },
-    "DJ": {
-        "EN": "Djibouti",
-        "FR": "Djibouti",
-        "DE": "Dschibuti"
-    },
-    "DM": {
-        "EN": "Dominica",
-        "FR": "Dominique",
-        "DE": "Dominica"
-    },
-    "DO": {
-        "EN": "Dominican Republic",
-        "FR": "République dominicaine",
-        "DE": "Dominikanische Republik"
-    },
-    "EC": {
-        "EN": "Ecuador",
-        "FR": "Équateur",
-        "DE": "Ecuador"
-    },
-    "EG": {
-        "EN": "Egypt",
-        "FR": "Égypte",
-        "DE": "Ägypten"
-    },
-    "SV": {
-        "EN": "El Salvador",
-        "FR": "El Salvador",
-        "DE": "El Salvador"
-    },
-    "GQ": {
-        "EN": "Equatorial Guinea",
-        "FR": "Guinée équatoriale",
-        "DE": "Äquatorialguinea"
-    },
-    "ER": {
-        "EN": "Eritrea",
-        "FR": "Érythrée",
-        "DE": "Eritrea"
-    },
-    "EE": {
-        "EN": "Estonia",
-        "FR": "Estonie",
-        "DE": "Estland"
-    },
-    "SZ": {
-        "EN": "Eswatini",
-        "FR": "Eswatini",
-        "DE": "Eswatini"
-    },
-    "ET": {
-        "EN": "Ethiopia",
-        "FR": "Éthiopie",
-        "DE": "Äthiopien"
-    },
-    "FK": {
-        "EN": "Falkland Islands (Malvinas)",
-        "FR": "Îles Malouines",
-        "DE": "Falklandinseln (Malwinen)"
-    },
-    "FO": {
-        "EN": "Faroe Islands",
-        "FR": "Îles Féroé",
-        "DE": "Färöer-Inseln"
-    },
-    "FJ": {
-        "EN": "Fiji",
-        "FR": "Fidji",
-        "DE": "Fidschi"
-    },
-    "FI": {
-        "EN": "Finland",
-        "FR": "Finlande",
-        "DE": "Finnland"
-    },
-    "FR": {
-        "EN": "France",
-        "FR": "France",
-        "DE": "Frankreich"
-    },
-    "GF": {
-        "EN": "French Guiana",
-        "FR": "Guyane française",
-        "DE": "Französisch-Guayana"
-    },
-    "PF": {
-        "EN": "French Polynesia",
-        "FR": "Polynésie française",
-        "DE": "Französisch-Polynesien"
-    },
-    "TF": {
-        "EN": "French Southern Territories",
-        "FR": "Terres australes françaises",
-        "DE": "Französische Süd- und Antarktisgebiete"
-    },
-    "GA": {
-        "EN": "Gabon",
-        "FR": "Gabon",
-        "DE": "Gabun"
-    },
-    "GM": {
-        "EN": "Gambia",
-        "FR": "Gambie",
-        "DE": "Gambia"
-    },
-    "GE": {
-        "EN": "Georgia",
-        "FR": "Géorgie",
-        "DE": "Georgien"
-    },
-    "DE": {
-        "EN": "Germany",
-        "FR": "Allemagne",
-        "DE": "Deutschland"
-    },
-    "GH": {
-        "EN": "Ghana",
-        "FR": "Ghana",
-        "DE": "Ghana"
-    },
-    "GI": {
-        "EN": "Gibraltar",
-        "FR": "Gibraltar",
-        "DE": "Gibraltar"
-    },
-    "GR": {
-        "EN": "Greece",
-        "FR": "Grèce",
-        "DE": "Griechenland"
-    },
-    "GL": {
-        "EN": "Greenland",
-        "FR": "Groenland",
-        "DE": "Grönland"
-    },
-    "GD": {
-        "EN": "Grenada",
-        "FR": "Grenade",
-        "DE": "Grenada"
-    },
-    "GP": {
-        "EN": "Guadeloupe",
-        "FR": "Guadeloupe",
-        "DE": "Guadeloupe"
-    },
-    "GU": {
-        "EN": "Guam",
-        "FR": "Guam",
-        "DE": "Guam"
-    },
-    "GT": {
-        "EN": "Guatemala",
-        "FR": "Guatemala",
-        "DE": "Guatemala"
-    },
-    "GG": {
-        "EN": "Guernsey",
-        "FR": "Guernesey",
-        "DE": "Guernsey"
-    },
-    "GN": {
-        "EN": "Guinea",
-        "FR": "Guinée",
-        "DE": "Guinea"
-    },
-    "GW": {
-        "EN": "Guinea-Bissau",
-        "FR": "Guinée-Bissau",
-        "DE": "Guinea-Bissau"
-    },
-    "GY": {
-        "EN": "Guyana",
-        "FR": "Guyana",
-        "DE": "Guyana"
-    },
-    "HT": {
-        "EN": "Haiti",
-        "FR": "Haïti",
-        "DE": "Haiti"
-    },
-    "HM": {
-        "EN": "Heard Island and McDonald Islands",
-        "FR": "Île Heard et îles McDonald",
-        "DE": "Heard und McDonaldinseln"
-    },
-    "VA": {
-        "EN": "Holy See",
-        "FR": "Saint-Siège",
-        "DE": "Heiliger Stuhl"
-    },
-    "HN": {
-        "EN": "Honduras",
-        "FR": "Honduras",
-        "DE": "Honduras"
-    },
-    "HK": {
-        "EN": "Hong Kong",
-        "FR": "Hong Kong",
-        "DE": "Hongkong"
-    },
-    "HU": {
-        "EN": "Hungary",
-        "FR": "Hongrie",
-        "DE": "Ungarn"
-    },
-    "IS": {
-        "EN": "Iceland",
-        "FR": "Islande",
-        "DE": "Island"
-    },
-    "IN": {
-        "EN": "India",
-        "FR": "Inde",
-        "DE": "Indien"
-    },
-    "ID": {
-        "EN": "Indonesia",
-        "FR": "Indonésie",
-        "DE": "Indonesien"
-    },
-    "IR": {
-        "EN": "Iran (Islamic Republic of)",
-        "FR": "Iran (République islamique d')",
-        "DE": "Iran (Islamische Republik)"
-    },
-    "IQ": {
-        "EN": "Iraq",
-        "FR": "Irak",
-        "DE": "Irak"
-    },
-    "IE": {
-        "EN": "Ireland",
-        "FR": "Irlande",
-        "DE": "Irland"
-    },
-    "IM": {
-        "EN": "Isle of Man",
-        "FR": "Île de Man",
-        "DE": "Isle of Man"
-    },
-    "IL": {
-        "EN": "Israel",
-        "FR": "Israël",
-        "DE": "Israel"
-    },
-    "IT": {
-        "EN": "Italy",
-        "FR": "Italie",
-        "DE": "Italien"
-    },
-    "JM": {
-        "EN": "Jamaica",
-        "FR": "Jamaïque",
-        "DE": "Jamaika"
-    },
-    "JP": {
-        "EN": "Japan",
-        "FR": "Japon",
-        "DE": "Japan"
-    },
-    "JE": {
-        "EN": "Jersey",
-        "FR": "Jersey",
-        "DE": "Jersey"
-    },
-    "JO": {
-        "EN": "Jordan",
-        "FR": "Jordanie",
-        "DE": "Jordanien"
-    },
-    "KZ": {
-        "EN": "Kazakhstan",
-        "FR": "Kazakhstan",
-        "DE": "Kasachstan"
-    },
-    "KE": {
-        "EN": "Kenya",
-        "FR": "Kenya",
-        "DE": "Kenia"
-    },
-    "KI": {
-        "EN": "Kiribati",
-        "FR": "Kiribati",
-        "DE": "Kiribati"
-    },
-    "KP": {
-        "EN": "Korea (Democratic People's Republic of)",
-        "FR": "Corée (République populaire démocratique de)",
-        "DE": "Korea (Demokratische Volksrepublik)"
-    },
-    "KR": {
-        "EN": "Korea, Republic of",
-        "FR": "Corée, République de",
-        "DE": "Korea, Republik von"
-    },
-    "KW": {
-        "EN": "Kuwait",
-        "FR": "Koweït",
-        "DE": "Kuwait"
-    },
-    "KG": {
-        "EN": "Kyrgyzstan",
-        "FR": "Kirghizistan",
-        "DE": "Kirgisistan"
-    },
-    "LA": {
-        "EN": "Lao People's Democratic Republic",
-        "FR": "République démocratique populaire lao",
-        "DE": "Laos, Demokratische Volksrepublik"
-    },
-    "LV": {
-        "EN": "Latvia",
-        "FR": "Lettonie",
-        "DE": "Lettland"
-    },
-    "LB": {
-        "EN": "Lebanon",
-        "FR": "Liban",
-        "DE": "Libanon"
-    },
-    "LS": {
-        "EN": "Lesotho",
-        "FR": "Lesotho",
-        "DE": "Lesotho"
-    },
-    "LR": {
-        "EN": "Liberia",
-        "FR": "Libéria",
-        "DE": "Liberia"
-    },
-    "LY": {
-        "EN": "Libya",
-        "FR": "Libye",
-        "DE": "Libyen"
-    },
-    "LI": {
-        "EN": "Liechtenstein",
-        "FR": "Liechtenstein",
-        "DE": "Liechtenstein"
-    },
-    "LT": {
-        "EN": "Lithuania",
-        "FR": "Lituanie",
-        "DE": "Litauen"
-    },
-    "LU": {
-        "EN": "Luxembourg",
-        "FR": "Luxembourg",
-        "DE": "Luxemburg"
-    },
-    "MO": {
-        "EN": "Macao",
-        "FR": "Macao",
-        "DE": "Macao"
-    },
-    "MG": {
-        "EN": "Madagascar",
-        "FR": "Madagascar",
-        "DE": "Madagaskar"
-    },
-    "MW": {
-        "EN": "Malawi",
-        "FR": "Malawi",
-        "DE": "Malawi"
-    },
-    "MY": {
-        "EN": "Malaysia",
-        "FR": "Malaisie",
-        "DE": "Malaysia"
-    },
-    "MV": {
-        "EN": "Maldives",
-        "FR": "Maldives",
-        "DE": "Malediven"
-    },
-    "ML": {
-        "EN": "Mali",
-        "FR": "Mali",
-        "DE": "Mali"
-    },
-    "MT": {
-        "EN": "Malta",
-        "FR": "Malte",
-        "DE": "Malta"
-    },
-    "MH": {
-        "EN": "Marshall Islands",
-        "FR": "Îles Marshall",
-        "DE": "Marshallinseln"
-    },
-    "MQ": {
-        "EN": "Martinique",
-        "FR": "Martinique",
-        "DE": "Martinique"
-    },
-    "MR": {
-        "EN": "Mauritania",
-        "FR": "Mauritanie",
-        "DE": "Mauretanien"
-    },
-    "MU": {
-        "EN": "Mauritius",
-        "FR": "Île Maurice",
-        "DE": "Mauritius"
-    },
-    "YT": {
-        "EN": "Mayotte",
-        "FR": "Mayotte",
-        "DE": "Mayotte"
-    },
-    "MX": {
-        "EN": "Mexico",
-        "FR": "Mexique",
-        "DE": "Mexiko"
-    },
-    "FM": {
-        "EN": "Micronesia (Federated States of)",
-        "FR": "Micronésie (États fédérés de)",
-        "DE": "Mikronesien (Föderierte Staaten von)"
-    },
-    "MD": {
-        "EN": "Moldova, Republic of",
-        "FR": "Moldavie, République de",
-        "DE": "Moldau, Republik"
-    },
-    "MC": {
-        "EN": "Monaco",
-        "FR": "Monaco",
-        "DE": "Monaco"
-    },
-    "MN": {
-        "EN": "Mongolia",
-        "FR": "Mongolie",
-        "DE": "Mongolei"
-    },
-    "ME": {
-        "EN": "Montenegro",
-        "FR": "Monténégro",
-        "DE": "Montenegro"
-    },
-    "MS": {
-        "EN": "Montserrat",
-        "FR": "Montserrat",
-        "DE": "Montserrat"
-    },
-    "MA": {
-        "EN": "Morocco",
-        "FR": "Maroc",
-        "DE": "Marokko"
-    },
-    "MZ": {
-        "EN": "Mozambique",
-        "FR": "Mozambique",
-        "DE": "Mosambik"
-    },
-    "MM": {
-        "EN": "Myanmar",
-        "FR": "Myanmar",
-        "DE": "Myanmar"
-    },
-    "NA": {
-        "EN": "Namibia",
-        "FR": "Namibie",
-        "DE": "Namibia"
-    },
-    "NR": {
-        "EN": "Nauru",
-        "FR": "Nauru",
-        "DE": "Nauru"
-    },
-    "NP": {
-        "EN": "Nepal",
-        "FR": "Népal",
-        "DE": "Nepal"
-    },
-    "NL": {
-        "EN": "Netherlands",
-        "FR": "Pays-Bas",
-        "DE": "Niederlande"
-    },
-    "NC": {
-        "EN": "New Caledonia",
-        "FR": "Nouvelle-Calédonie",
-        "DE": "Neukaledonien"
-    },
-    "NZ": {
-        "EN": "New Zealand",
-        "FR": "Nouvelle-Zélande",
-        "DE": "Neuseeland"
-    },
-    "NI": {
-        "EN": "Nicaragua",
-        "FR": "Nicaragua",
-        "DE": "Nicaragua"
-    },
-    "NE": {
-        "EN": "Niger",
-        "FR": "Niger",
-        "DE": "Niger"
-    },
-    "NG": {
-        "EN": "Nigeria",
-        "FR": "Nigéria",
-        "DE": "Nigeria"
-    },
-    "NU": {
-        "EN": "Niue",
-        "FR": "Niue",
-        "DE": "Niue"
-    },
-    "NF": {
-        "EN": "Norfolk Island",
-        "FR": "Île Norfolk",
-        "DE": "Norfolkinsel"
-    },
-    "MK": {
-        "EN": "North Macedonia",
-        "FR": "Macédoine du Nord",
-        "DE": "Nordmazedonien"
-    },
-    "MP": {
-        "EN": "Northern Mariana Islands",
-        "FR": "Îles Mariannes du Nord",
-        "DE": "Nördliche Marianeninseln"
-    },
-    "NO": {
-        "EN": "Norway",
-        "FR": "Norvège",
-        "DE": "Norwegen"
-    },
-    "OM": {
-        "EN": "Oman",
-        "FR": "Oman",
-        "DE": "Oman"
-    },
-    "PK": {
-        "EN": "Pakistan",
-        "FR": "Pakistan",
-        "DE": "Pakistan"
-    },
-    "PW": {
-        "EN": "Palau",
-        "FR": "Palaos",
-        "DE": "Palau"
-    },
-    "PS": {
-        "EN": "Palestine, State of",
-        "FR": "Palestine, État de",
-        "DE": "Palästina, Staat von"
-    },
-    "PA": {
-        "EN": "Panama",
-        "FR": "Panama",
-        "DE": "Panama"
-    },
-    "PG": {
-        "EN": "Papua New Guinea",
-        "FR": "Papouasie-Nouvelle-Guinée",
-        "DE": "Papua-Neuguinea"
-    },
-    "PY": {
-        "EN": "Paraguay",
-        "FR": "Paraguay",
-        "DE": "Paraguay"
-    },
-    "PE": {
-        "EN": "Peru",
-        "FR": "Pérou",
-        "DE": "Peru"
-    },
-    "PH": {
-        "EN": "Philippines",
-        "FR": "Philippines",
-        "DE": "Philippinen"
-    },
-    "PN": {
-        "EN": "Pitcairn",
-        "FR": "Pitcairn",
-        "DE": "Pitcairn"
-    },
-    "PL": {
-        "EN": "Poland",
-        "FR": "Pologne",
-        "DE": "Polen"
-    },
-    "PT": {
-        "EN": "Portugal",
-        "FR": "Portugal",
-        "DE": "Portugal"
-    },
-    "PR": {
-        "EN": "Puerto Rico",
-        "FR": "Porto Rico",
-        "DE": "Puerto Rico"
-    },
-    "QA": {
-        "EN": "Qatar",
-        "FR": "Qatar",
-        "DE": "Katar"
-    },
-    "RE": {
-        "EN": "Réunion",
-        "FR": "Réunion",
-        "DE": "Réunion"
-    },
-    "RO": {
-        "EN": "Romania",
-        "FR": "Roumanie",
-        "DE": "Rumänien"
-    },
-    "RU": {
-        "EN": "Russian Federation",
-        "FR": "Russie",
-        "DE": "Russland"
-    },
-    "RW": {
-        "EN": "Rwanda",
-        "FR": "Rwanda",
-        "DE": "Ruanda"
-    },
-    "BL": {
-        "EN": "Saint Barthélemy",
-        "FR": "Saint-Barthélemy",
-        "DE": "Saint-Barthélemy"
-    },
-    "SH": {
-        "EN": "Saint Helena, Ascension and Tristan da Cunha",
-        "FR": "Sainte-Hélène, Ascension et Tristan da Cunha",
-        "DE": "St. Helena, Ascension und Tristan da Cunha"
-    },
-    "KN": {
-        "EN": "Saint Kitts and Nevis",
-        "FR": "Saint-Christophe-et-Niévès",
-        "DE": "St. Kitts und Nevis"
-    },
-    "LC": {
-        "EN": "Saint Lucia",
-        "FR": "Sainte-Lucie",
-        "DE": "St. Lucia"
-    },
-    "MF": {
-        "EN": "Saint Martin (French part)",
-        "FR": "Saint-Martin (partie française)",
-        "DE": "Saint-Martin (französischer Teil)"
-    },
-    "PM": {
-        "EN": "Saint Pierre and Miquelon",
-        "FR": "Saint-Pierre-et-Miquelon",
-        "DE": "St. Pierre und Miquelon"
-    },
-        "VC": {
-          "EN": "Saint Vincent and the Grenadines",
-          "FR": "Saint-Vincent-et-les-Grenadines",
-          "DE": "St. Vincent und die Grenadinen"
-        },
-        "WS": {
-          "EN": "Samoa",
-          "FR": "Samoa",
-          "DE": "Samoa"
-        },
-        "SM": {
-          "EN": "San Marino",
-          "FR": "Saint-Marin",
-          "DE": "San Marino"
-        },
-        "ST": {
-          "EN": "Sao Tome and Principe",
-          "FR": "Sao Tomé-et-Principe",
-          "DE": "São Tomé und Príncipe"
-        },
-        "SA": {
-          "EN": "Saudi Arabia",
-          "FR": "Arabie Saoudite",
-          "DE": "Saudi-Arabien"
-        },
-        "SN": {
-          "EN": "Senegal",
-          "FR": "Sénégal",
-          "DE": "Senegal"
-        },
-        "RS": {
-          "EN": "Serbia",
-          "FR": "Serbie",
-          "DE": "Serbien"
-        },
-        "SC": {
-          "EN": "Seychelles",
-          "FR": "Seychelles",
-          "DE": "Seychellen"
-        },
-        "SL": {
-          "EN": "Sierra Leone",
-          "FR": "Sierra Leone",
-          "DE": "Sierra Leone"
-        },
-        "SG": {
-          "EN": "Singapore",
-          "FR": "Singapour",
-          "DE": "Singapur"
-        },
-        "SX": {
-          "EN": "Sint Maarten (Dutch part)",
-          "FR": "Saint-Martin (partie néerlandaise)",
-          "DE": "Sint Maarten (niederländischer Teil)"
-        },
-        "SK": {
-          "EN": "Slovakia",
-          "FR": "Slovaquie",
-          "DE": "Slowakei"
-        },
-        "SI": {
-          "EN": "Slovenia",
-          "FR": "Slovénie",
-          "DE": "Slowenien"
-        },
-        "SB": {
-          "EN": "Solomon Islands",
-          "FR": "Îles Salomon",
-          "DE": "Salomonen"
-        },
-        "SO": {
-          "EN": "Somalia",
-          "FR": "Somalie",
-          "DE": "Somalia"
-        },
-        "ZA": {
-          "EN": "South Africa",
-          "FR": "Afrique du Sud",
-          "DE": "Südafrika"
-        },
-        "GS": {
-          "EN": "South Georgia and the South Sandwich Islands",
-          "FR": "Géorgie du Sud et îles Sandwich du Sud",
-          "DE": "Südgeorgien und die Südlichen Sandwichinseln"
-        },
-        "SS": {
-          "EN": "South Sudan",
-          "FR": "Soudan du Sud",
-          "DE": "Südsudan"
-        },
-        "ES": {
-          "EN": "Spain",
-          "FR": "Espagne",
-          "DE": "Spanien"
-        },
-        "LK": {
-          "EN": "Sri Lanka",
-          "FR": "Sri Lanka",
-          "DE": "Sri Lanka"
-        },
-        "SD": {
-          "EN": "Sudan",
-          "FR": "Soudan",
-          "DE": "Sudan"
-        },
-        "SR": {
-          "EN": "Suriname",
-          "FR": "Suriname",
-          "DE": "Suriname"
-        },
-        "SJ": {
-          "EN": "Svalbard and Jan Mayen",
-          "FR": "Svalbard et Jan Mayen",
-          "DE": "Svalbard und Jan Mayen"
-        },
-        "SE": {
-          "EN": "Sweden",
-          "FR": "Suède",
-          "DE": "Schweden"
-        },
-        "CH": {
-          "EN": "Switzerland",
-          "FR": "Suisse",
-          "DE": "Schweiz"
-        },
-        "SY": {
-          "EN": "Syrian Arab Republic",
-          "FR": "République arabe syrienne",
-          "DE": "Syrische Arabische Republik"
-        },
-        "TW": {
-          "EN": "Taiwan, Province of China",
-          "FR": "Taïwan, Province de Chine",
-          "DE": "Taiwan, Provinz von China"
-        },
-        "TZ": {
-          "EN": "Tanzania, United Republic of",
-          "FR": "Tanzanie, République-Unie de",
-          "DE": "Tansania, Vereinigte Republik"
-        },
-        "TH": {
-          "EN": "Thailand",
-          "FR": "Thaïlande",
-          "DE": "Thailand"
-        },
-        "TL": {
-          "EN": "Timor-Leste",
-          "FR": "Timor-Leste",
-          "DE": "Timor-Leste"
-        },
-        "TG": {
-          "EN": "Togo",
-          "FR": "Togo",
-          "DE": "Togo"
-        },
-        "TK": {
-          "EN": "Tokelau",
-          "FR": "Tokelau",
-          "DE": "Tokelau"
-        },
-        "TO": {
-          "EN": "Tonga",
-          "FR": "Tonga",
-          "DE": "Tonga"
-        },
-        "TT": {
-          "EN": "Trinidad and Tobago",
-          "FR": "Trinité-et-Tobago",
-          "DE": "Trinidad und Tobago"
-        },
-        "TN": {
-          "EN": "Tunisia",
-          "FR": "Tunisie",
-          "DE": "Tunesien"
-        },
-        "TR": {
-          "EN": "Türkiye",
-          "FR": "Turquie",
-          "DE": "Türkei"
-        },
-        "TM": {
-          "EN": "Turkmenistan",
-          "FR": "Turkménistan",
-          "DE": "Turkmenistan"
-        },
-        "TC": {
-          "EN": "Turks and Caicos Islands",
-          "FR": "Îles Turques-et-Caïques",
-          "DE": "Turks- und Caicosinseln"
-        },
-        "TV": {
-          "EN": "Tuvalu",
-          "FR": "Tuvalu",
-          "DE": "Tuvalu"
-        },
-        "UG": {
-          "EN": "Uganda",
-          "FR": "Ouganda",
-          "DE": "Uganda"
-        },
-        "UA": {
-          "EN": "Ukraine",
-          "FR": "Ukraine",
-          "DE": "Ukraine"
-        },
-        "AE": {
-          "EN": "United Arab Emirates",
-          "FR": "Émirats arabes unis",
-          "DE": "Vereinigte Arabische Emirate"
-        },
-        "GB": {
-          "EN": "United Kingdom of Great Britain and Northern Ireland",
-          "FR": "Royaume-Uni de Grande-Bretagne et d'Irlande du Nord",
-          "DE": "Vereinigtes Königreich Großbritannien und Nordirland"
-        },
-        "US": {
-          "EN": "United States",
-          "FR": "États-Unis d'Amérique",
-          "DE": "Vereinigte Staaten"
-        },
-        "UM": {
-          "EN": "United States Minor Outlying Islands",
-          "FR": "Îles mineures éloignées des États-Unis",
-          "DE": "Kleinere abgelegene Inseln der Vereinigten Staaten"
-        },
-        "UY": {
-          "EN": "Uruguay",
-          "FR": "Uruguay",
-          "DE": "Uruguay"
-        },
-        "UZ": {
-          "EN": "Uzbekistan",
-          "FR": "Ouzbékistan",
-          "DE": "Usbekistan"
-        },
-        "VU": {
-          "EN": "Vanuatu",
-          "FR": "Vanuatu",
-          "DE": "Vanuatu"
-        },
-        "VE": {
-          "EN": "Venezuela (Bolivarian Republic of)",
-          "FR": "Venezuela (République bolivarienne du)",
-          "DE": "Venezuela (Bolivarische Republik)"
-        },
-        "VN": {
-          "EN": "Viet Nam",
-          "FR": "Viet Nam",
-          "DE": "Vietnam"
-        },
-        "VG": {
-          "EN": "Virgin Islands (British)",
-          "FR": "Îles Vierges (britanniques)",
-          "DE": "Britische Jungferninseln"
-        },
-        "VI": {
-          "EN": "Virgin Islands (U.S.)",
-          "FR": "Îles Vierges (É.U.)",
-          "DE": "Amerikanische Jungferninseln"
-        },
-        "WF": {
-          "EN": "Wallis and Futuna",
-          "FR": "Wallis-et-Futuna",
-          "DE": "Wallis und Futuna"
-        },
-        "EH": {
-          "EN": "Western Sahara",
-          "FR": "Sahara occidental",
-          "DE": "Westsahara"
-        },
-        "YE": {
-          "EN": "Yemen",
-          "FR": "Yémen",
-          "DE": "Jemen"
-        },
-        "ZM": {
-          "EN": "Zambia",
-          "FR": "Zambie",
-          "DE": "Sambia"
-        },
-        "ZW": {
-          "EN": "Zimbabwe",
-          "FR": "Zimbabwe",
-          "DE": "Simbabwe"
-        },
-            "LINKS": {
-              "EN": "Links",
-              "FR": "Liens",
-              "DE": "Links"
-            },
-            "COOKIES": {
-              "EN": "Cookies",
-              "FR": "Cookies",
-              "DE": "Cookies"
-            },
-            "PRIVACY": {
-              "EN": "Privacy policy",
-              "FR": "Politique de confidentialité",
-              "DE": "Datenschutzrichtlinie"
-            },
-            "LEGAL": {
-              "EN": "Legal notice",
-              "FR": "Mentions légales",
-              "DE": "Rechtlicher Hinweis"
-            },
-            "DISCLAIMER": {
-              "EN": "The designations employed and the presentation of material on the map do not imply the expression of any opinion whatsoever on the part of the European Union concerning the legal status of any country, territory or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Kosovo* - This designation is without prejudice to positions on status, and is in line with UNSCR 1244/1999 and the ICJ Opinion on the Kosovo declaration of independence.",
-              "FR": "Les désignations utilisées et la présentation du matériel sur la carte n’impliquent aucune opinion de la part de l’Union européenne concernant le statut juridique d’un pays, d’un territoire ou d’une zone ou de ses autorités, ni concernant la délimitation de ses frontières. Kosovo* - Cette désignation est sans préjudice des positions sur le statut, et est conforme à la résolution 1244/1999 du Conseil de sécurité des Nations unies et à l’avis de la CIJ sur la déclaration d'indépendance du Kosovo.",
-              "DE": "Die Bezeichnungen und die Darstellung von Material auf der Karte implizieren keinerlei Meinungsäußerung der Europäischen Union bezüglich des rechtlichen Status eines Landes, Territoriums oder Gebiets oder dessen Behörden, noch bezüglich der Abgrenzung seiner Grenzen. Kosovo* - Diese Bezeichnung lässt Positionen zum Status unberührt und entspricht der Resolution 1244/1999 des Sicherheitsrats der Vereinten Nationen und dem Gutachten des IGH zur Unabhängigkeitserklärung des Kosovo."
-            },
-            "DISCLAIMERTITLE": {
-              "EN": "Disclaimer",
-              "FR": "Avertissement",
-              "DE": "Haftungsausschluss"
-            },
-            "COOKIETEXT": {
-              "EN": "This site uses cookies to offer you a better browsing experience. Find out more on <a href=\"http://ec.europa.eu/cookies/index_en.htm\" target=\"_self\">how we use cookies.</a>",
-              "FR": "Ce site utilise des cookies pour vous offrir une meilleure expérience de navigation. En savoir plus sur <a href=\"http://ec.europa.eu/cookies/index_fr.htm\" target=\"_self\">notre utilisation des cookies.</a>",
-              "DE": "Diese Website verwendet Cookies, um Ihnen ein besseres Surferlebnis zu bieten. Erfahren Sie mehr über <a href=\"http://ec.europa.eu/cookies/index_de.htm\" target=\"_self\">die Verwendung von Cookies.</a>"
-            },
-            "COOKIECOMPLETEclose": {
-              "EN": "Close",
-              "FR": "Fermer",
-              "DE": "Schließen"
-            },
-            "COOKIECOMPLETEacceptAll": {
-              "EN": "Accept all cookies",
-              "FR": "Accepter tous les cookies",
-              "DE": "Alle Cookies akzeptieren"
-            },
-            "COOKIECOMPLETEonlyTechnical": {
-              "EN": "Accept only essential cookies",
-              "FR": "Accepter uniquement les cookies essentiels",
-              "DE": "Nur notwendige Cookies akzeptieren"
-            },
-            "COOKIECOMPLETE": {
-              "EN": "Your cookie preferences have been saved. To change your preferences at any time, see our <a href=\"//ec.europa.eu/info/cookies_en\" target=\"_self\">cookies policy</a> or visit the link in the page footer.",
-              "FR": "Vos préférences en matière de cookies ont été enregistrées. Pour les modifier à tout moment, consultez notre <a href=\"//ec.europa.eu/info/cookies_fr\" target=\"_self\">politique de cookies</a> ou rendez-vous sur le lien en bas de page.",
-              "DE": "Ihre Cookie-Einstellungen wurden gespeichert. Um Ihre Einstellungen jederzeit zu ändern, besuchen Sie unsere <a href=\"//ec.europa.eu/info/cookies_de\" target=\"_self\">Cookie-Richtlinie</a> oder den Link im Seitenfuß."
-            },
-            "tutBACK": {
-              "EN": "Back",
-              "FR": "Retour",
-              "DE": "Zurück"
-            },
-            "tutNEXT": {
-              "EN": "Next",
-              "FR": "Suivant",
-              "DE": "Weiter"
-            },
-            "tutFINISH": {
-              "EN": "Close",
-              "FR": "Fermer",
-              "DE": "Schließen"
-            },
-            "MENU_YEAR": {
-              "EN": "Select year",
-              "FR": "Sélectionnez l'année",
-              "DE": "Jahr auswählen"
-            },
-            "EXPORT_FOOTER_TITLE": {
-              "EN": "Source: Eurostat",
-              "FR": "Source : Eurostat",
-              "DE": "Quelle: Eurostat"
-            },
-            "DB": {
-              "EN": "Access to dataset",
-              "FR": "Accéder au jeu de données",
-              "DE": "Zugang zum Datensatz"
-            },
-            "UNIT": {
-              "EN": "Unit",
-              "FR": "Unité",
-              "DE": "Einheit"
-            },
-            "YEAR": {
-              "EN": "Year",
-              "FR": "Année",
-              "DE": "Jahr"
-            },
-            "TRADE": {
-              "EN": "Trade",
-              "FR": "Commerce",
-              "DE": "Handel"
-            },
-            "MAINMENU": {
-              "EN": "Display menu",
-              "FR": "Afficher le menu",
-              "DE": "Menü anzeigen"
-            },
-            "COUNTRY": {
-              "EN": "Country",
-              "FR": "Pays",
-              "DE": "Land"
-            },
-            "FUEL": {
-              "EN": "Fuel",
-              "FR": "Carburant",
-              "DE": "Brennstoff"
-            },
-            "CONSUMER": {
-              "EN": "Consumer",
-              "FR": "Consommateur",
-              "DE": "Verbraucher"
-            },
-            "REFERENCE": {
-              "EN": "Reference period",
-              "FR": "Période de référence",
-              "DE": "Referenzzeitraum"
-            },
-            "CONSUME": {
-              "EN": "Consumption level",
-              "FR": "Niveau de consommation",
-              "DE": "Verbrauchsniveau"
-            },
-            
-                "FEED": {
-                  "EN": "Feedback",
-                  "FR": "Retour",
-                  "DE": "Rückmeldung"
-                },
-                "TOOLS": {
-                  "EN": "Tools",
-                  "FR": "Outils",
-                  "DE": "Werkzeuge"
-                },
-                "%": {
-                  "EN": "in percentages",
-                  "FR": "en pourcentages",
-                  "DE": "in Prozenten"
-                },
-                "TOGGLEAGREGATES": {
-                  "EN": "Display aggregates",
-                  "FR": "Afficher les agrégats",
-                  "DE": "Aggregierte Daten anzeigen"
-                },
-                "SELITEN": {
-                  "EN": "Select an item",
-                  "FR": "Sélectionnez un élément",
-                  "DE": "Wählen Sie ein Element aus"
-                },
-                "NORESULTS": {
-                  "EN": "No results found",
-                  "FR": "Aucun résultat trouvé",
-                  "DE": "Keine Ergebnisse gefunden"
-                },
-                "SELALL": {
-                  "EN": "Select all",
-                  "FR": "Tout sélectionner",
-                  "DE": "Alles auswählen"
-                },
-                "CLOSE": {
-                  "EN": "Close",
-                  "FR": "Fermer",
-                  "DE": "Schließen"
-                },
-                "KEYWORD": {
-                  "EN": "Enter keyword",
-                  "FR": "Saisir un mot-clé",
-                  "DE": "Suchbegriff eingeben"
-                },
-                "infoBtn": {
-                  "EN": "Show info",
-                  "FR": "Afficher les informations",
-                  "DE": "Informationen anzeigen"
-                },
-                "downloadBtn": {
-                  "EN": "download chart image",
-                  "FR": "télécharger l'image du graphique",
-                  "DE": "Diagrammbild herunterladen"
-                },
-                "shareBtn": {
-                  "EN": "share chart",
-                  "FR": "partager le graphique",
-                  "DE": "Diagramm teilen"
-                },
-                "embebedBtn": {
-                  "EN": "Embebed chart iframe",
-                  "FR": "Intégrer le graphique en iframe",
-                  "DE": "Diagramm als iFrame einbetten"
-                },
-                "shareChart": {
-                  "EN": "Share in social media",
-                  "FR": "Partager sur les réseaux sociaux",
-                  "DE": "In sozialen Medien teilen"
-                },
-                "toggleAgregates": {
-                  "EN": "Display aggregates",
-                  "FR": "Afficher les agrégats",
-                  "DE": "Aggregierte Daten anzeigen"
-                },
-                "tb-togle-order": {
-                  "EN": "Select order of the chart",
-                  "FR": "Sélectionner l'ordre du graphique",
-                  "DE": "Diagrammreihenfolge auswählen"
-                },
-                "tb-togle-table": {
-                  "EN": "Display table",
-                  "FR": "Afficher le tableau",
-                  "DE": "Tabelle anzeigen"
-                },
-                "barChart": {
-                  "EN": "Display bar Chart",
-                  "FR": "Afficher le diagramme à barres",
-                  "DE": "Balkendiagramm anzeigen"
-                },
-                "pieChart": {
-                  "EN": "Display pie Chart",
-                  "FR": "Afficher le diagramme circulaire",
-                  "DE": "Kreisdiagramm anzeigen"
-                },
-                "lineChart": {
-                  "EN": "Display line Chart",
-                  "FR": "Afficher le diagramme en ligne",
-                  "DE": "Liniendiagramm anzeigen"
-                },
-                "depChart": {
-                  "EN": "Display dependency wheel chart",
-                  "FR": "Afficher le graphique en roue de dépendance",
-                  "DE": "Abhängigkeitsdiagramm anzeigen"
-                },
-                "table": {
-                  "EN": "Display table",
-                  "FR": "Afficher le tableau",
-                  "DE": "Tabelle anzeigen"
-                },
-                "createprintChart": {
-                  "EN": "Print chart",
-                  "FR": "Imprimer le graphique",
-                  "DE": "Diagramm drucken"
-                },
-                "downloadChart": {
-                  "EN": "Download chart image",
-                  "FR": "Télécharger l'image du graphique",
-                  "DE": "Diagrammbild herunterladen"
-                },
-                "downloadExcel": {
-                  "EN": "Download chart data",
-                  "FR": "Télécharger les données du graphique",
-                  "DE": "Diagrammdaten herunterladen"
-                },
-                "embebedeChart": {
-                  "EN": "Embed chart iframe",
-                  "FR": "Intégrer le graphique en iframe",
-                  "DE": "Diagramm als iFrame einbetten"
-                },
-                "closeChart": {
-                  "EN": "Close",
-                  "FR": "Fermer",
-                  "DE": "Schließen"
-                },
-                "twitter": {
-                  "EN": "X",
-                  "FR": "X",
-                  "DE": "X"
-                },
-                "linkedin": {
-                  "EN": "Linkedin",
-                  "FR": "Linkedin",
-                  "DE": "Linkedin"
-                },
-                "facebook": {
-                  "EN": "Facebook",
-                  "FR": "Facebook",
-                  "DE": "Facebook"
-                },
-                "ACCESS": {
-                  "EN": "Accessibility",
-                  "FR": "Accessibilité",
-                  "DE": "Barrierefreiheit"
-                },
-                "PRODUCT": {
-                  "EN": "Select product",
-                  "FR": "Sélectionner un produit",
-                  "DE": "Produkt auswählen"
-                },
-                "PRO": {
-                  "EN": "Product",
-                  "FR": "Produit",
-                  "DE": "Produkt"
-                },
-                "TRADETITLE": {
-                  "EN": "Energy trade",
-                  "FR": "Commerce d'énergie",
-                  "DE": "Energiehandel"
-                },
-                "FACTSHEET": {
-                  "EN": "Open factsheet",
-                  "FR": "Ouvrir la fiche d'information",
-                  "DE": "Datenblatt öffnen"
-                },
-                "DEPTITLE": {
-                  "EN": "World trade of",
-                  "FR": "Commerce mondial de",
-                  "DE": "Weltweiter Handel mit"
-                },
-                "top5": {
-                  "EN": "Show top 5 countries",
-                  "FR": "Afficher les 5 premiers pays",
-                  "DE": "Die Top-5-Länder anzeigen"
-                },
-                "OTH": {
-                  "EN": "Others",
-                  "FR": "Autres",
-                  "DE": "Andere"
-                },
-            
-                    "HOME": {
-                      "EN": "Home",
-                      "FR": "Accueil",
-                      "DE": "Startseite"
-                    },
-                    "ZIN": {
-                      "EN": "Zoom in",
-                      "FR": "Agrandir",
-                      "DE": "Vergrößern"
-                    },
-                    "ZOUT": {
-                      "EN": "Zoom out",
-                      "FR": "Réduire",
-                      "DE": "Verkleinern"
-                    },
-                    "FULL": {
-                      "EN": "Fullscreen",
-                      "FR": "Plein écran",
-                      "DE": "Vollbild"
-                    },
-                    "CLEAR": {
-                      "EN": "Clear map",
-                      "FR": "Effacer la carte",
-                      "DE": "Karte löschen"
-                    },
-                    "sharemodaltitle": {
-                      "EN": "Embed chart",
-                      "FR": "Intégrer le graphique",
-                      "DE": "Diagramm einbetten"
-                    },
-                    "SELECTLANGUAGE": {
-                      "EN": "Select language",
-                      "FR": "Sélectionner la langue",
-                      "DE": "Sprache auswählen"
-                    },
-                    "OFFICIAL": {
-                      "EN": "Official EU languages:",
-                      "FR": "Langues officielles de l'UE :",
-                      "DE": "Amtssprachen der EU:"
-                    },
-                    "AGGREGATE": {
-                      "EN": "Aggregate",
-                      "FR": "Agrégat",
-                      "DE": "Aggregat"
-                    },
-                    "EUCTR": {
-                      "EN": "EU countries",
-                      "FR": "Pays de l'UE",
-                      "DE": "EU-Länder"
-                    },
-                    "EFTA": {
-                      "EN": "EFTA countries",
-                      "FR": "Pays de l'AELE",
-                      "DE": "EFTA-Länder"
-                    },
-                    "ENLARGEMENT": {
-                      "EN": "Enlargement countries",
-                      "FR": "Pays en élargissement",
-                      "DE": "Erweiterungsländer"
-                    },
-                    "OTHERCTR": {
-                      "EN": "Other third countries",
-                      "FR": "Autres pays tiers",
-                      "DE": "Andere Drittstaaten"
-                    },
-                    "NODATA": {
-                      "EN": "No data available for the current selection",
-                      "FR": "Aucune donnée disponible pour la sélection actuelle",
-                      "DE": "Keine Daten für die aktuelle Auswahl verfügbar"
-                    }
-                  }
-                               
-                      
-          
-      
+  "C0000X0350-0370": {
+    "EN": "Solid fossil fuels",
+    "FR": "Combustibles fossiles solides",
+    "DE": "Feste fossile Brennstoffe"
+  },
+  "C0100": {
+    "EN": "Hard coal",
+    "FR": "Houille",
+    "DE": "Steinkohle"
+  },
+  "C0110": {
+    "EN": "Anthracite",
+    "FR": "Anthracite",
+    "DE": "Anthrazit"
+  },
+  "C0121": {
+    "EN": "Coking coal",
+    "FR": "Charbon à coke",
+    "DE": "Kokskohle"
+  },
+  "C0129": {
+    "EN": "Other bituminous coal",
+    "FR": "Autre charbon bitumineux",
+    "DE": "Andere Steinkohle"
+  },
+  "C0200": {
+    "EN": "Brown coal",
+    "FR": "Charbon brun",
+    "DE": "Braunkohle"
+  },
+  "C0210": {
+    "EN": "Sub-bituminous coal",
+    "FR": "Charbon sub-bitumineux",
+    "DE": "Subbituminöse Kohle"
+  },
+  "C0220": {
+    "EN": "Lignite",
+    "FR": "Lignite",
+    "DE": "Lignit"
+  },
+  "C0311": {
+    "EN": "Coke oven coke",
+    "FR": "Coke de four à coke",
+    "DE": "Ofenkoks"
+  },
+  "C0320": {
+    "EN": "Patent fuel",
+    "FR": "Aggloméré",
+    "DE": "Steinkohlebriketts"
+  },
+  "C0330": {
+    "EN": "Brown coal briquettes",
+    "FR": "Briquettes de lignite",
+    "DE": "Braunkohlebriketts"
+  },
+  "C0340": {
+    "EN": "Coal tar",
+    "FR": "Goudron de houille",
+    "DE": "Benzol"
+  },
+  "P1100": {
+    "EN": "Peat",
+    "FR": "Tourbe",
+    "DE": "Torf"
+  },
+  "P1200": {
+    "EN": "Peat products",
+    "FR": "Produits dérivés de la tourbe",
+    "DE": "Torferzeugnisse"
+  },
+  "O4000": {
+    "EN": "Oil and petroleum products",
+    "FR": "Pétrole et produits pétroliers",
+    "DE": "Öl und Mineralölerzeugnisse"
+  },
+  "O4000XBIO": {
+    "EN": "Oil and petroleum products (excluding biofuel portion)",
+    "FR": "Pétrole et produits pétroliers (part de biocarburant non comprise)",
+    "DE": "Öl und Mineralölerzeugnisse (ohne Biokraftstoffanteil)"
+  },
+  "O4100_TOT_4200-4500": {
+    "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons",
+    "FR": "Pétrole brut, LGN, produits d'alimentation et autres hydrocarbures",
+    "DE": "RRohöl, NGL, Einsatzmaterial und sonstige Kohlenwasserstoffe"
+  },
+  "O4100_TOT_4200-4500XBIO": {
+    "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons (excluding biofuel portion)",
+    "FR": "Pétrole brut, LGN, produits d'alimentation et autres hydrocarbures (part de biocarburant non comprise)",
+    "DE": "Rohöl, NGL, Einsatzmaterial und sonstige Kohlenwasserstoffe (ohne Biokraftstoffanteil)"
+  },
+  "O4100_TOT": {
+    "EN": "Crude oil",
+    "FR": "Pétrole brut",
+    "DE": "Rohöl"
+  },
+  "O4200": {
+    "EN": "Natural gas liquids",
+    "FR": "Liquides du gaz naturel",
+    "DE": "Erdgaskondensate"
+  },
+  "O4300": {
+    "EN": "Refinery feedstocks",
+    "FR": "Produits d'alimentation des raffineries",
+    "DE": "Raffinerieeinsatzmaterial"
+  },
+  "O4400X4410": {
+    "EN": "Additives and oxygenates (excluding biofuel portion)",
+    "FR": "Additifs et composés oxygénés (part de biocarburant non comprise)",
+    "DE": "Zusatzstoffe und Oxigenate (ohne Biokraftstoffanteil)"
+  },
+  "O4400": {
+    "EN": "Additives and oxygenates",
+    "FR": "Additifs et composés oxygénés",
+    "DE": "Zusatzstoffe und Oxigenate"
+  },
+  "O4500": {
+    "EN": "Other hydrocarbons",
+    "FR": "Autres hydrocarbures",
+    "DE": "Sonstige Kohlenwasserstoffe"
+  },
+  "O4600": {
+    "EN": "Oil products",
+    "FR": "Produits pétroliers",
+    "DE": "Mineralölerzeugnisse"
+  },
+  "O4600XBIO": {
+    "EN": "Oil products (excluding biofuel portion)",
+    "FR": "Produits pétroliers (part de biocarburant non comprise)",
+    "DE": "Mineralölerzeugnisse (ohne Biokraftstoffanteil)"
+  },
+  "O4620": {
+    "EN": "Ethane",
+    "FR": "Éthane",
+    "DE": "Ethan"
+  },
+  "O4630": {
+    "EN": "Liquefied petroleum gases",
+    "FR": "Gaz de pétrole liquéfié",
+    "DE": "Flüssiggas"
+  },
+  "O4640": {
+    "EN": "Naphtha",
+    "FR": "Naphta",
+    "DE": "Naphtha"
+  },
+  "O4651": {
+    "EN": "Aviation gasoline",
+    "FR": "Essence d'aviation",
+    "DE": "Flugbenzin"
+  },
+  "O4652": {
+    "EN": "Motor gasoline",
+    "FR": "Essence moteur",
+    "DE": "Motorenbenzin"
+  },
+  "O4652XR5210B": {
+    "EN": "Motor gasoline (excluding biofuel portion)",
+    "FR": "Essence moteur (part de biocarburant non comprise)",
+    "DE": "Motorbenzin (ohne Biokraftstoffanteil)"
+  },
+  "O4653": {
+    "EN": "Gasoline-type jet fuel",
+    "FR": "Carburéacteur type essence",
+    "DE": "Flugturbinenkraftstoff"
+  },
+  "O4661": {
+    "EN": "Kerosene-type jet fuel",
+    "FR": "Carburéacteur type kérosène",
+    "DE": "Flugturbinenkraftstoff auf Petroleumbasis"
+  },
+  "O4661XR5230B": {
+    "EN": "Kerosene-type jet fuel (excluding biofuel portion)",
+    "FR": "Carburéacteur type kérosène (part de biocarburant non comprise)",
+    "DE": "Flugturbinenkraftstoff auf Petroleumbasis (ohne Biokraftstoffanteil)"
+  },
+  "O4669": {
+    "EN": "Other kerosene",
+    "FR": "Autre kérosène",
+    "DE": "Sonstiges Kerosin"
+  },
+  "O4671": {
+    "EN": "Gas oil and diesel oil",
+    "FR": "Gazole et carburant diesel",
+    "DE": "Gasöl und Dieselöl"
+  },
+  "O4671XR5220B": {
+    "EN": "Gas oil and diesel oil (excluding biofuel portion)",
+    "FR": "Gazole et carburant diesel (part de biocarburant non comprise)",
+    "DE": "Gasöl und Dieselöl (ohne Biokraftstoffanteil)"
+  },
+  "O46711": {
+    "EN": "Road diesel",
+    "FR": "Diesel routier",
+    "DE": "Kraftfahrzeug-Diesel"
+  },
+  "O46712": {
+    "EN": "Heating and other gasoil",
+    "FR": "Fioul domestique et autres gazoles",
+    "DE": "Heizöl und sonstiges Gasöl"
+  },
+  "O4680": {
+    "EN": "Fuel oil",
+    "FR": "Fioul",
+    "DE": "Heizöl"
+  },
+  "O4681": {
+    "EN": "Fuel oil (low sulphur <1%)",
+    "FR": "Fioul (faible teneur en soufre <1%)",
+    "DE": "Heizöl mit niedrigem Schwefelgehalt (<1 %)"
+  },
+  "O4682": {
+    "EN": "Fuel oil (high sulphur >1%)",
+    "FR": "Fioul (haute teneur en soufre >=1%)",
+    "DE": "Heizöl mit hohem Schwefelgehalt (>=1 %)"
+  },
+  "O4691": {
+    "EN": "White spirit and special boiling point industrial spirits",
+    "FR": "White spirit et essences industrielles à point de début d'ébullition spécial",
+    "DE": "Testbenzin und Industriebrennstoffe"
+  },
+  "O4692": {
+    "EN": "Lubricants",
+    "FR": "Lubrifiants",
+    "DE": "Schmierstoffe"
+  },
+  "O4693": {
+    "EN": "Paraffin waxes",
+    "FR": "Cires de paraffine",
+    "DE": "Paraffinwachse"
+  },
+  "O4694": {
+    "EN": "Petroleum coke",
+    "FR": "Coke de pétrole",
+    "DE": "Petrolkoks"
+  },
+  "O4695": {
+    "EN": "Bitumen",
+    "FR": "Bitume",
+    "DE": "Bitumen"
+  },
+  "O4699": {
+    "EN": "Other oil products n.e.c.",
+    "FR": "Autres produits pétroliers n.c.a.",
+    "DE": "Sonstige Ölerzeugnisse a.n.g."
+  },
+  "R5210B": {
+    "EN": "Blended biogasoline",
+    "FR": "Bioessence mélangée",
+    "DE": "Gemischtes Biobenzin"
+  },
+  "R5220B": {
+    "EN": "Blended biodiesels",
+    "FR": "Biodiesels mélangés",
+    "DE": "Gemischtes Biodiesel"
+  },
+  "R5230B": {
+    "EN": "Blended bio jet kerosene",
+    "FR": "Biokérosène mélangé",
+    "DE": "Gemischter Bio-Flugturbinenkraftstoff"
+  },
+  "G3000": {
+    "EN": "Natural gas",
+    "FR": "Gaz naturel",
+    "DE": "Erdgas"
+  },
+  "G3200": {
+    "EN": "Liquefied natural gas",
+    "FR": "Gaz naturel liquéfié",
+    "DE": "Verflüssigtes Erdgas"
+  },
+  "R5111": {
+    "EN": "Wood pellets",
+    "FR": "Granulés de bois",
+    "DE": "Holzpellets"
+  },
+  "R5210P": {
+    "EN": "Pure biogasoline",
+    "FR": "Bioessence pure",
+    "DE": "Reines Biobenzin"
+  },
+  "R5210E": {
+    "EN": "Bioethanol",
+    "FR": "Bioéthanol",
+    "DE": "Bioethanol"
+  },
+  "R5220P": {
+    "EN": "Pure biodiesels",
+    "FR": "Biodiesels purs",
+    "DE": "Reines Biodiesel"
+  },
+  "R5230P": {
+    "EN": "Pure bio jet kerosene",
+    "FR": "Biokérosène pur",
+    "DE": "Reiner Bio-Flugturbinenkraftstoff"
+  },
+  "R5290": {
+    "EN": "Other liquid biofuels",
+    "FR": "Autres biocarburants liquides",
+    "DE": "Sonstige flüssige Biobrennstoffe"
+  },
+  "E7000": {
+    "EN": "Electricity",
+    "FR": "Électricité",
+    "DE": "Elektrizität"
+  },
+  "H8000": {
+    "EN": "Heat",
+    "FR": "Chaleur",
+    "DE": "Wärme"
+  },
+  "BOX_FUEL_TITLE": {
+    "EN": "Select fuel",
+    "FR": "Sélectionnez le carburant",
+    "DE": "Kraftstoff auswählen"
+  },
+  "BOX_UNIT_TITLE": {
+    "EN": "Select unit",
+    "FR": "Sélectionnez l'unité",
+    "DE": "Einheit auswählen"
+  },
+  "BOX_TRADE_TITLE": {
+    "EN": "Select Trade",
+    "FR": "Sélectionnez le commerce",
+    "DE": "Handel auswählen"
+  },
+  "BOX_COUNTRY_TITLE": {
+    "EN": "Select countries",
+    "FR": "Sélectionnez les pays",
+    "DE": "Länder auswählen"
+  },
+  "BOX_MORE_TITLE": {
+    "EN": "Find out more",
+    "FR": "En savoir plus",
+    "DE": "Mehr erfahren"
+  },
+  "BOX_FILTER_TITLE": {
+    "EN": "Select filter",
+    "FR": "Sélectionnez le filtre",
+    "DE": "Filter auswählen"
+  },
+  "MENU_FUEL": {
+    "EN": "Select fuel",
+    "FR": "Sélectionnez le carburant",
+    "DE": "Kraftstoff auswählen"
+  },
+  "MENU_UNIT": {
+    "EN": "Select unit",
+    "FR": "Sélectionnez l'unité",
+    "DE": "Einheit auswählen"
+  },
+  "MENU_TRADE": {
+    "EN": "Select trade",
+    "FR": "Sélectionnez le commerce",
+    "DE": "Handel auswählen"
+  },
+  "MENU_MORE": {
+    "EN": "Find out more",
+    "FR": "En savoir plus",
+    "DE": "Mehr erfahren"
+  },
+  "MENU_FILTER": {
+    "EN": "Select countries to display",
+    "FR": "Sélectionnez les pays à afficher",
+    "DE": "Länder zur Anzeige auswählen"
+  },
+  "TUTORIAL": {
+    "EN": "Tutorial",
+    "FR": "Tutoriel",
+    "DE": "Anleitung"
+  },
+  "ENTRADE_EXPLAINED": {
+    "EN": "Trade explained",
+    "FR": "Commerce expliqué",
+    "DE": "Handel erklärt"
+  },
+  "DEFINITIONS": {
+    "EN": "Show information",
+    "FR": "Afficher les informations",
+    "DE": "Informationen anzeigen"
+  },
+  "METADATA": {
+    "EN": "Metadata",
+    "FR": "Métadonnées",
+    "DE": "Metadaten"
+  },
+  "ENTRADE_DATASET": {
+    "EN": "Trade dataset",
+    "FR": "Jeu de données sur le commerce",
+    "DE": "Handelsdatensatz"
+  },
+  "CONTACT": {
+    "EN": "Contact us",
+    "FR": "Contactez-nous",
+    "DE": "Kontaktieren Sie uns"
+  },
+  "MIO_M3": {
+    "EN": "Million cubic metres (MIO_M3)",
+    "FR": "Million de mètres cubes (MIO_M3)",
+    "DE": "Million Kubikmeter (MIO_M3)"
+  },
+  "TJ_GCV": {
+    "EN": "Terajoule (gross calorific value - GCV) (TJ_GCV)",
+    "FR": "Térajoule (pouvoir calorifique brut - GCV) (TJ_GCV)",
+    "DE": "Terajoule (Bruttowert - GCV) (TJ_GCV)"
+  },
+  "THS_T": {
+    "EN": "Thousand tonnes (THS_T)",
+    "FR": "Mille tonnes (THS_T)",
+    "DE": "Tausend Tonnen (THS_T)"
+  },
+  "GWH": {
+    "EN": "Gigawatt-hour (GWH)",
+    "FR": "Gigawattheure (GWH)",
+    "DE": "Gigawattstunde (GWH)"
+  },
+  "imp": {
+    "EN": "Imports",
+    "FR": "Importations",
+    "DE": "Einfuhren"
+  },
+  "exp": {
+    "EN": "Exports",
+    "FR": "Exportations",
+    "DE": "Ausfuhren"
+  },
+  "solid": {
+    "EN": "Solid fossil fuels",
+    "FR": "Combustibles fossiles solides",
+    "DE": "Feste fossile Brennstoffe"
+  },
+  "oil": {
+    "EN": "Oil and petroleum",
+    "FR": "Pétrole et produits pétroliers",
+    "DE": "Öl und Mineralöl"
+  },
+  "gas": {
+    "EN": "Natural gas",
+    "FR": "Gaz naturel",
+    "DE": "Erdgas"
+  },
+  "bio": {
+    "EN": "Biofuels",
+    "FR": "Biocarburants",
+    "DE": "Biobrennstoffe"
+  },
+  "electricity": {
+    "EN": "Electricity and heat",
+    "FR": "Électricité et chaleur",
+    "DE": "Elektrizität und Wärme"
+  },
+  "nrg_ti_sff": {
+    "EN": "Imports of solid fossil fuels by partner country",
+    "FR": "Importations de combustibles fossiles solides par pays partenaire",
+    "DE": "Importe fester fossiler Brennstoffe nach Partnerland"
+  },
+  "nrg_ti_oil": {
+    "EN": "Imports of oil and petroleum products by partner country",
+    "FR": "Importations de pétrole et de produits pétroliers par pays partenaire",
+    "DE": "Importe von Öl und Erdölprodukten nach Partnerland"
+  },
+  "nrg_ti_gas": {
+    "EN": "Imports of natural gas by partner country",
+    "FR": "Importations de gaz naturel par pays partenaire",
+    "DE": "Importe von Erdgas nach Partnerland"
+  },
+  "nrg_ti_bio": {
+    "EN": "Imports of biofuels by partner country",
+    "FR": "Importations de biocarburants par pays partenaire",
+    "DE": "Importe von Biobrennstoffen nach Partnerland"
+  },
+  "nrg_ti_eh": {
+    "EN": "Imports of electricity and heat by partner country",
+    "FR": "Importations d'électricité et de chaleur par pays partenaire",
+    "DE": "Importe von Elektrizität und Wärme nach Partnerland"
+  },
+  "nrg_te_sff": {
+    "EN": "Exports of solid fossil fuels by partner country",
+    "FR": "Exportations de combustibles fossiles solides par pays partenaire",
+    "DE": "Exporte fester fossiler Brennstoffe nach Partnerland"
+  },
+  "nrg_te_oil": {
+    "EN": "Exports of oil and petroleum products by partner country",
+    "FR": "Exportations de pétrole et de produits pétroliers par pays partenaire",
+    "DE": "Exporte von Öl und Mineralölerzeugnisse nach Partnerland"
+  },
+  "nrg_te_gas": {
+    "EN": "Exports of natural gas by partner country",
+    "FR": "Exportations de gaz naturel par pays partenaire",
+    "DE": "Exporte von Erdgas nach Partnerland"
+  },
+  "nrg_te_bio": {
+    "EN": "Exports of biofuels by partner country",
+    "FR": "Exportations de biocarburants par pays partenaire",
+    "DE": "Exporte von Biobrennstoffen nach Partnerland"
+  },
+  "nrg_te_eh": {
+    "EN": "Exports of electricity and heat by partner country",
+    "FR": "Exportations d'électricité et de chaleur par pays partenaire",
+    "DE": "Exporte von Elektrizität und Wärme nach Partnerland"
+  },
+  "NSP": {
+    "EN": "Not specified",
+    "FR": "Non spécifié",
+    "DE": "Nicht angegeben"
+  },
+  "TOTAL": {
+    "EN": "Total",
+    "FR": "Total",
+    "DE": "Gesamt"
+  },
+  "ASI_OTH": {
+    "EN": "Other Asian countries (aggregate changing according to the context)",
+    "FR": "Autres pays asiatiques (agrégat évoluant selon le contexte)",
+    "DE": "Sonstige asiatische Länder (Aggregat ändert sich je nach Kontext)"
+  },
+  "ASI_NME_OTH": {
+    "EN": "Other Near and Middle East Asian countries",
+    "FR": "Autres pays d'Asie du Proche et Moyen-Orient",
+    "DE": "Sonstige Länder in Nah- und Mittelostasien"
+  },
+  "AME_OTH": {
+    "EN": "Other American countries (aggregate changing according to the context)",
+    "FR": "Autres pays américains (agrégat évoluant selon le contexte)",
+    "DE": "Sonstige amerikanische Länder (Aggregat ändert sich je nach Kontext)"
+  },
+  "AFR_OTH": {
+    "EN": "Other African countries (aggregate changing according to the context)",
+    "FR": "Autres pays africains (agrégat évoluant selon le contexte)",
+    "DE": "Sonstige afrikanische Länder (Aggregat ändert sich je nach Kontext)"
+  },
+  "EUR_OTH": {
+    "EN": "Other European countries (aggregate changing according to the context)",
+    "FR": "Autres pays européens (agrégat évoluant selon le contexte)",
+    "DE": "Sonstige europäische Länder (Aggregat ändert sich je nach Kontext)"
+  },
+  "EX_SU_OTH": {
+    "EN": "Other countries of former Soviet Union (before 1991)",
+    "FR": "Autres pays de l'ancienne Union soviétique (avant 1991)",
+    "DE": "Sonstige Länder der ehemaligen Sowjetunion (vor 1991)"
+  },
+  "FLAG_NA": {
+    "EN": "Not available",
+    "FR": "Non disponible",
+    "DE": "Nicht verfügbar"
+  },
+  "FLAG_C": {
+    "EN": "Confidential",
+    "FR": "Confidentiel",
+    "DE": "Vertraulich"
+  },
+  "FLAG_P": {
+    "EN": "Provisional",
+    "FR": "Provisoire",
+    "DE": "Vorläufig"
+  },
+  "FLAG_E": {
+    "EN": "Estimated",
+    "FR": "Estimé",
+    "DE": "Geschätzt"
+  },
+  "FLAG_N": {
+    "EN": "Not significant",
+    "FR": "Non significatif",
+    "DE": "Nicht signifikant"
+  },
+  "FLAG_B": {
+    "EN": "Break in time series",
+    "FR": "Rupture dans la série chronologique",
+    "DE": "Bruch in der Zeitreihe"
+  },
+  "FLAG_S": {
+    "EN": "Eurostat estimate",
+    "FR": "Estimation Eurostat",
+    "DE": "Eurostat-Schätzung"
+  },
+  "FLAG_F": {
+    "EN": "Forecast",
+    "FR": "Prévision",
+    "DE": "Prognose"
+  },
+  "FLAG_U": {
+    "EN": "Low reliability",
+    "FR": "Fiabilité faible",
+    "DE": "Geringe Zuverlässigkeit"
+  },
+  "FLAG_D": {
+    "EN": "Definition differs, see metadata",
+    "FR": "Définition différente, voir métadonnées",
+    "DE": "Definition weicht ab, siehe Metadaten"
+  },
+  "FLAG_I": {
+    "EN": "See metadata",
+    "FR": "Voir métadonnées",
+    "DE": "Siehe Metadaten"
+  },
+  "FLAG_R": {
+    "EN": "Revised",
+    "FR": "Révisé",
+    "DE": "Überarbeitet"
+  },
+  "FLAG_Z": {
+    "EN": "Not applicable",
+    "FR": "Non applicable",
+    "DE": "Nicht zutreffend"
+  },
+  "error": {
+    "EN": "Please select a country from the European Union, candidate or potential candidate countries or a country member of the Energy Community",
+    "FR": "Veuillez sélectionner un pays de l'Union européenne, un pays candidat ou potentiel ou un pays membre de la Communauté de l'énergie",
+    "DE": "Bitte wählen Sie ein Land aus der Europäischen Union, ein Kandidatenland, ein potenzielles Kandidatenland oder ein Mitgliedsland der Energiegemeinschaft"
+  },
+  "error2": {
+    "EN": "No data available for ",
+    "FR": "Aucune donnée disponible pour ",
+    "DE": "Keine Daten verfügbar für "
+  },
+  "error3": {
+    "EN": "Please select a European country first",
+    "FR": "Veuillez d'abord sélectionner un pays européen",
+    "DE": "Bitte wählen Sie zuerst ein europäisches Land aus"
+  },
+  "TitleError3": {
+    "EN": "Filter options error",
+    "FR": "Erreur d'options de filtre",
+    "DE": "Filteroptionen-Fehler"
+  },
+  "nodata": {
+    "EN": "No data available",
+    "FR": "Aucune donnée disponible",
+    "DE": "Keine Daten verfügbar"
+  },
+  "timeChartTitle": {
+    "EN": "Energy trade timeline",
+    "FR": "Chronologie du commerce de l'énergie",
+    "DE": "Energiehandel-Zeitleiste"
+  },
+  "timeChartSub": {
+    "EN": "Values in",
+    "FR": "Valeurs en",
+    "DE": "Werte in"
+  },
+  "title1": {
+    "EN": "Countries",
+    "FR": "Pays",
+    "DE": "Länder"
+  },
+  "title2": {
+    "EN": "Values",
+    "FR": "Valeurs",
+    "DE": "Werte"
+  },
+  "title3": {
+    "EN": "Aggregate",
+    "FR": "Agrégat",
+    "DE": "Aggregat"
+  },
+  "title4": {
+    "EN": "From",
+    "FR": "De",
+    "DE": "Von"
+  },
+  "title5": {
+    "EN": "To",
+    "FR": "À",
+    "DE": "Bis"
+  },
+  "title6": {
+    "EN": "Of",
+    "FR": "De",
+    "DE": "Von"
+  },
+  "title7": {
+    "EN": "Download dataset",
+    "FR": "Télécharger le jeu de données",
+    "DE": "Datensatz herunterladen"
+  },
+  "title8": {
+    "EN": "Table view",
+    "FR": "Vue en tableau",
+    "DE": "Tabellenansicht"
+  },
+  "title9": {
+    "EN": "For the selected year",
+    "FR": "Pour l'année sélectionnée",
+    "DE": "Für das ausgewählte Jahr"
+  },
+  "allbtn": {
+    "EN": "All",
+    "FR": "Tout",
+    "DE": "Alle"
+  },
+  "top5btn": {
+    "EN": "Top 5",
+    "FR": "Top 5",
+    "DE": "Top 5"
+  },
+  "top10btn": {
+    "EN": "Top 10",
+    "FR": "Top 10",
+    "DE": "Top 10"
+  },
+  "top25btn": {
+    "EN": "Top 25",
+    "FR": "Top 25",
+    "DE": "Top 25"
+  },
+  "abr_THS_T": {
+    "EN": "Kt",
+    "FR": "Kt",
+    "DE": "Kt"
+  },
+  "abr_MIO_M3": {
+    "EN": "Mm3",
+    "FR": "Mm3",
+    "DE": "Mm3"
+  },
+  "abr_TJ_GCV": {
+    "EN": "Tj",
+    "FR": "Tj",
+    "DE": "Tj"
+  },
+  "abr_GWH": {
+    "EN": "GWH",
+    "FR": "GWH",
+    "DE": "GWH"
+  },
+  "TJ": {
+    "EN": "Terajoule",
+    "FR": "Térajoule",
+    "DE": "Terajoule"
+  },
+  "header-title-label": {
+    "EN": "Energy Trade",
+    "FR": "Commerce de l'énergie",
+    "DE": "Energiehandel"
+  },
+  "btn1": {
+    "EN": "Show info",
+    "FR": "Afficher les infos",
+    "DE": "Info anzeigen"
+  },
+  "btn2": {
+    "EN": "Show pie chart",
+    "FR": "Afficher le graphique en camembert",
+    "DE": "Kreisdiagramm anzeigen"
+  },
+  "btn3": {
+    "EN": "Show bar chart",
+    "FR": "Afficher le graphique en barres",
+    "DE": "Balkendiagramm anzeigen"
+  },
+  "btn4": {
+    "EN": "Show timeline chart",
+    "FR": "Afficher le graphique chronologique",
+    "DE": "Zeitdiagramm anzeigen"
+  },
+  "btn5": {
+    "EN": "Show definition",
+    "FR": "Afficher la définition",
+    "DE": "Definition anzeigen"
+  },
+  "btn6": {
+    "EN": "Play animation",
+    "FR": "Lire l'animation",
+    "DE": "Animation abspielen"
+  },
+  "btn7": {
+    "EN": "Clear map",
+    "FR": "Effacer la carte",
+    "DE": "Karte löschen"
+  },
+  "inftitle": {
+    "EN": "Energy data",
+    "FR": "Données énergétiques",
+    "DE": "Energiedaten"
+  },
+  "TABTITLE1": {
+    "EN": "Energy data",
+    "FR": "Données énergétiques",
+    "DE": "Energiedaten"
+  },
+  "TAB1": {
+    "EN": "Energy statistics are in the spotlight due to their strategic importance to the drive towards competitive and sustainable economic growth. In recent years, the European Union has faced a number of important energy issues related to e.g. climate change, energy security and affordability. These have pushed the topic of energy towards the top of national and European political agendas, with energy statistics providing key information for policy makers. In order to meet policy makers' growing needs for data on energy, Eurostat has developed a coherent and harmonised system of energy statistics. Annual, half-yearly and monthly data collections cover the Member States of the EU, European Economic Area countries, candidate countries, potential candidates and Energy Community Contracting Partners.",
+    "FR": "Les statistiques énergétiques sont mises en avant en raison de leur importance stratégique pour la croissance économique compétitive et durable. Ces dernières années, l'Union européenne a été confrontée à d'importants enjeux énergétiques liés au changement climatique, à la sécurité énergétique et à l'accessibilité. Ces enjeux ont propulsé le thème de l'énergie au sommet des agendas politiques nationaux et européens, les statistiques énergétiques fournissant des informations clés aux décideurs politiques. Afin de répondre aux besoins croissants des décideurs en matière de données sur l'énergie, Eurostat a développé un système de statistiques énergétiques cohérent et harmonisé. Les collectes de données annuelles, semestrielles et mensuelles couvrent les États membres de l'UE, les pays de l'Espace économique européen, les pays candidats, les candidats potentiels et les partenaires contractants de la Communauté de l'énergie.",
+    "DE": "Energiedaten stehen im Fokus aufgrund ihrer strategischen Bedeutung für das Streben nach wettbewerbsfähigem und nachhaltigem Wirtschaftswachstum. In den letzten Jahren sah sich die Europäische Union mit wichtigen Energiefragen konfrontiert, die z. B. den Klimawandel, die Energiesicherheit und die Erschwinglichkeit betreffen. Diese Themen haben die Energie auf die oberste Ebene der nationalen und europäischen politischen Tagesordnung gebracht, wobei Energiedaten wichtige Informationen für Entscheidungsträger liefern. Um den wachsenden Bedarf der Entscheidungsträger an Energiedaten zu decken, hat Eurostat ein kohärentes und harmonisiertes System der Energiestatistiken entwickelt. Jährliche, halbjährliche und monatliche Datensammlungen umfassen die Mitgliedstaaten der EU, die Länder des Europäischen Wirtschaftsraums, die Kandidatenländer, die potenziellen Kandidaten und die Vertragsparteien der Energiegemeinschaft."
+  },
+  "TABTITLE2": {
+    "EN": "Annual energy data",
+    "FR": "Données énergétiques annuelles",
+    "DE": "Jährliche Energiedaten"
+  },
+  "TAB2": {
+    "EN": "These are annual data on crude oil, oil products, natural gas, electricity, derived heat, solid fossil fuels, renewables and wastes covering the full spectrum of the energy balance positions from supply through transformation to final energy consumption by sector and fuel type. Eurostat has developed an <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>interactive tool</u></a> to visualise annual energy data by means of flow diagrams (also called Sankey diagrams). The tool allows you to build and customise your own diagram by playing with different options (country, year, fuel, level of detail, etc.).",
+    "FR": "Il s'agit de données annuelles sur le pétrole brut, les produits pétroliers, le gaz naturel, l'électricité, la chaleur dérivée, les combustibles fossiles solides, les énergies renouvelables et les déchets couvrant tout le spectre des positions du bilan énergétique, de l'approvisionnement à la consommation finale par secteur et type de combustible. Eurostat a développé un <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>outil interactif</u></a> pour visualiser les données énergétiques annuelles sous forme de diagrammes de flux (également appelés diagrammes de Sankey). Cet outil vous permet de construire et de personnaliser votre propre diagramme en jouant avec différentes options (pays, année, combustible, niveau de détail, etc.).",
+    "DE": "Es handelt sich um jährliche Daten zu Rohöl, Ölprodukten, Erdgas, Strom, erzeugter Wärme, festen fossilen Brennstoffen, erneuerbaren Energien und Abfällen, die das gesamte Spektrum der Energiebilanzpositionen abdecken, von der Versorgung über die Umwandlung bis hin zum Endverbrauch nach Sektor und Brennstofftyp. Eurostat hat ein <a href=\"//ec.europa.eu/eurostat/cache/sankey/energy/sankey.html\" target=\"_self\"><u>interaktives Tool</u></a> entwickelt, um die jährlichen Energiedaten mittels Flussdiagrammen (auch Sankey-Diagramme genannt) zu visualisieren. Das Tool ermöglicht es Ihnen, Ihr eigenes Diagramm zu erstellen und anzupassen, indem Sie mit verschiedenen Optionen (Land, Jahr, Brennstoff, Detailstufe usw.) spielen."
+  },
+  "TABTITLE3": {
+    "EN": "Monthly energy data",
+    "FR": "Données énergétiques mensuelles",
+    "DE": "Monatliche Energiedaten"
+  },
+  "TAB3": {
+    "EN": "Eurostat collects and publishes monthly energy data on supply and to a limited extent consumption of various fuels; this data currently covers the coals / solid fossil fuels, natural gas, oil and petroleum products and electricity. Eurostat has developed an interactive tool to visualise monthly energy data.",
+    "FR": "Eurostat collecte et publie des données énergétiques mensuelles sur l'approvisionnement et, dans une mesure limitée, la consommation de divers combustibles. Ces données couvrent actuellement les charbons/combustibles fossiles solides, le gaz naturel, le pétrole et les produits pétroliers et l'électricité. Eurostat a développé un outil interactif pour visualiser les données énergétiques mensuelles.",
+    "DE": "Eurostat sammelt und veröffentlicht monatliche Energiedaten über das Angebot und in begrenztem Umfang den Verbrauch verschiedener Brennstoffe. Diese Daten umfassen derzeit Kohle / feste fossile Brennstoffe, Erdgas, Öl und Erdölprodukte sowie Strom. Eurostat hat ein interaktives Tool zur Visualisierung der monatlichen Energiedaten entwickelt."
+  },
+  "TABTITLE4": {
+    "EN": "Energy prices",
+    "FR": "Prix de l'énergie",
+    "DE": "Energiepreise"
+  },
+  "TAB4": {
+    "EN": "These are half-yearly and yearly data on electricity and natural gas prices provided for both final non-households as well as for households customers and for different consumption bands. Half-yearly prices are provided without taxes, with VAT and with all taxes included. Yearly data consist of more disaggregated prices on the energy cost, the network cost and the taxes. In addition, it also includes national average prices for each of these disaggregated sub-components. Eurostat has developed an <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>interactive tool</u></a> to visualise energy prices data.",
+    "FR": "Il s'agit de données semestrielles et annuelles sur les prix de l'électricité et du gaz naturel fournies à la fois pour les clients non ménages finaux ainsi que pour les clients ménages et pour différentes tranches de consommation. Les prix semestriels sont fournis hors taxes, avec TVA et avec toutes les taxes incluses. Les données annuelles comprennent des prix plus détaillés sur le coût de l'énergie, le coût du réseau et les taxes. En outre, elles comprennent également les prix nationaux moyens pour chacun de ces sous-composants désagrégés. Eurostat a développé un <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>outil interactif</u></a> pour visualiser les données de prix de l'énergie.",
+    "DE": "Es handelt sich um halbjährliche und jährliche Daten zu Strom- und Erdgaspreisen, die sowohl für Endverbraucher als auch für Haushaltskunden und für verschiedene Verbrauchsgruppen bereitgestellt werden. Halbjährliche Preise werden ohne Steuern, mit Mehrwertsteuer und mit allen Steuern angegeben. Jährliche Daten bestehen aus detaillierteren Preisen für die Energiekosten, die Netzkosten und die Steuern. Darüber hinaus enthalten sie nationale Durchschnittspreise für jede dieser disaggregierten Unterkomponenten. Eurostat hat ein <a href=\"//ec.europa.eu/eurostat/cache/infographs/energy_prices/enprices.html\" target=\"_self\"><u>interaktives Tool</u></a> zur Visualisierung der Energiepreisdaten entwickelt."
+  },
+  "TABTITLE5": {
+    "EN": "Energy indicators",
+    "FR": "Indicateurs énergétiques",
+    "DE": "Energieindikatoren"
+  },
+  "TAB5": {
+    "EN": "Eurostat produces some selected energy indicators covering the major European policy areas (for example: the share of energy from renewable sources). Eurostat has developed an interactive tool to visualise energy indicators.",
+    "FR": "Eurostat produit certains indicateurs énergétiques couvrant les principales politiques européennes (par exemple : la part d'énergie provenant de sources renouvelables). Eurostat a développé un outil interactif pour visualiser les indicateurs énergétiques.",
+    "DE": "Eurostat erstellt einige ausgewählte Energieindikatoren, die die wichtigsten europäischen Politikbereiche abdecken (z. B. den Anteil der Energie aus erneuerbaren Quellen). Eurostat hat ein interaktives Tool zur Visualisierung der Energieindikatoren entwickelt."
+  },
+  "mobileWarning": {
+    "EN": "This tool is not designed for small screens. Thank you for your understanding",
+    "FR": "Cet outil n'est pas conçu pour les petits écrans. Merci pour votre compréhension",
+    "DE": "Dieses Tool ist nicht für kleine Bildschirme ausgelegt. Vielen Dank für Ihr Verständnis"
+  },
+  "EL": {
+    "EN": "Greece",
+    "FR": "Grèce",
+    "DE": "Griechenland"
+  },
+  "UK": {
+    "EN": "United Kingdom",
+    "FR": "Royaume-Uni",
+    "DE": "Vereinigtes Königreich"
+  },
+  "XK": {
+    "EN": "Kosovo (under United Nations Security Council resolution 1244/99)",
+    "FR": "Kosovo (sous la résolution 1244/99 du Conseil de sécurité des Nations Unies)",
+    "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
+  },
+  "KS": {
+    "EN": "Kosovo (under United Nations Security Council resolution 1244/99)",
+    "FR": "Kosovo (sous la résolution 1244/99 du Conseil de sécurité des Nations Unies)",
+    "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
+  },
+  "XKmobile": {
+    "EN": "Kosovo",
+    "FR": "Kosovo",
+    "DE": "Kosovo"
+  },
+  "other": {
+    "EN": "Other",
+    "FR": "Autre",
+    "DE": "Sonstige"
+  },
+  "AF": {
+    "EN": "Afghanistan",
+    "FR": "Afghanistan",
+    "DE": "Afghanistan"
+  },
+  "AX": {
+    "EN": "Åland Islands",
+    "FR": "Îles Åland",
+    "DE": "Ålandinseln"
+  },
+  "AL": {
+    "EN": "Albania",
+    "FR": "Albanie",
+    "DE": "Albanien"
+  },
+  "DZ": {
+    "EN": "Algeria",
+    "FR": "Algérie",
+    "DE": "Algerien"
+  },
+  "AS": {
+    "EN": "American Samoa",
+    "FR": "Samoa américaines",
+    "DE": "Amerikanisch-Samoa"
+  },
+  "AD": {
+    "EN": "Andorra",
+    "FR": "Andorre",
+    "DE": "Andorra"
+  },
+  "AO": {
+    "EN": "Angola",
+    "FR": "Angola",
+    "DE": "Angola"
+  },
+  "AI": {
+    "EN": "Anguilla",
+    "FR": "Anguilla",
+    "DE": "Anguilla"
+  },
+  "AQ": {
+    "EN": "Antarctica",
+    "FR": "Antarctique",
+    "DE": "Antarktis"
+  },
+  "AG": {
+    "EN": "Antigua and Barbuda",
+    "FR": "Antigua-et-Barbuda",
+    "DE": "Antigua und Barbuda"
+  },
+  "AR": {
+    "EN": "Argentina",
+    "FR": "Argentine",
+    "DE": "Argentinien"
+  },
+  "AM": {
+    "EN": "Armenia",
+    "FR": "Arménie",
+    "DE": "Armenien"
+  },
+  "AW": {
+    "EN": "Aruba",
+    "FR": "Aruba",
+    "DE": "Aruba"
+  },
+  "AU": {
+    "EN": "Australia",
+    "FR": "Australie",
+    "DE": "Australien"
+  },
+  "AT": {
+    "EN": "Austria",
+    "FR": "Autriche",
+    "DE": "Österreich"
+  },
+  "AZ": {
+    "EN": "Azerbaijan",
+    "FR": "Azerbaïdjan",
+    "DE": "Aserbaidschan"
+  },
+  "BS": {
+    "EN": "Bahamas",
+    "FR": "Bahamas",
+    "DE": "Bahamas"
+  },
+  "BH": {
+    "EN": "Bahrain",
+    "FR": "Bahreïn",
+    "DE": "Bahrain"
+  },
+  "BD": {
+    "EN": "Bangladesh",
+    "FR": "Bangladesh",
+    "DE": "Bangladesch"
+  },
+  "BB": {
+    "EN": "Barbados",
+    "FR": "Barbade",
+    "DE": "Barbados"
+  },
+  "BY": {
+    "EN": "Belarus",
+    "FR": "Biélorussie",
+    "DE": "Belarus"
+  },
+  "BE": {
+    "EN": "Belgium",
+    "FR": "Belgique",
+    "DE": "Belgien"
+  },
+  "BZ": {
+    "EN": "Belize",
+    "FR": "Belize",
+    "DE": "Belize"
+  },
+  "BJ": {
+    "EN": "Benin",
+    "FR": "Bénin",
+    "DE": "Benin"
+  },
+  "BM": {
+    "EN": "Bermuda",
+    "FR": "Bermudes",
+    "DE": "Bermuda"
+  },
+  "BT": {
+    "EN": "Bhutan",
+    "FR": "Bhoutan",
+    "DE": "Bhutan"
+  },
+  "BO": {
+    "EN": "Bolivia (Plurinational State of)",
+    "FR": "Bolivie (État plurinational de)",
+    "DE": "Bolivien (Plurinationaler Staat)"
+  },
+  "BQ": {
+    "EN": "Bonaire, Sint Eustatius and Saba",
+    "FR": "Bonaire, Saint-Eustache et Saba",
+    "DE": "Bonaire, Sint Eustatius und Saba"
+  },
+  "BA": {
+    "EN": "Bosnia and Herzegovina",
+    "FR": "Bosnie Herzégovine",
+    "DE": "Bosnien und Herzegowina"
+  },
+  "BW": {
+    "EN": "Botswana",
+    "FR": "Botswana",
+    "DE": "Botswana"
+  },
+  "BV": {
+    "EN": "Bouvet Island",
+    "FR": "Île Bouvet",
+    "DE": "Bouvetinsel"
+  },
+  "BR": {
+    "EN": "Brazil",
+    "FR": "Brésil",
+    "DE": "Brasilien"
+  },
+  "IO": {
+    "EN": "British Indian Ocean Territory",
+    "FR": "Territoire britannique de l'océan Indien",
+    "DE": "Britisches Territorium im Indischen Ozean"
+  },
+  "BN": {
+    "EN": "Brunei Darussalam",
+    "FR": "Brunei Darussalam",
+    "DE": "Brunei Darussalam"
+  },
+  "BG": {
+    "EN": "Bulgaria",
+    "FR": "Bulgarie",
+    "DE": "Bulgarien"
+  },
+  "BF": {
+    "EN": "Burkina Faso",
+    "FR": "Burkina Faso",
+    "DE": "Burkina Faso"
+  },
+  "BI": {
+    "EN": "Burundi",
+    "FR": "Burundi",
+    "DE": "Burundi"
+  },
+  "CV": {
+    "EN": "Cabo Verde",
+    "FR": "Cabo Verde",
+    "DE": "Cabo Verde"
+  },
+  "KH": {
+    "EN": "Cambodia",
+    "FR": "Cambodge",
+    "DE": "Kambodscha"
+  },
+  "CM": {
+    "EN": "Cameroon",
+    "FR": "Cameroun",
+    "DE": "Kamerun"
+  },
+  "CA": {
+    "EN": "Canada",
+    "FR": "Canada",
+    "DE": "Kanada"
+  },
+  "KY": {
+    "EN": "Cayman Islands",
+    "FR": "Îles Caïmans",
+    "DE": "Kaimaninseln"
+  },
+  "CF": {
+    "EN": "Central African Republic",
+    "FR": "République centrafricaine",
+    "DE": "Zentralafrikanische Republik"
+  },
+  "TD": {
+    "EN": "Chad",
+    "FR": "Tchad",
+    "DE": "Tschad"
+  },
+  "CL": {
+    "EN": "Chile",
+    "FR": "Chili",
+    "DE": "Chile"
+  },
+  "CN": {
+    "EN": "China",
+    "FR": "Chine",
+    "DE": "China"
+  },
+  "CX": {
+    "EN": "Christmas Island",
+    "FR": "Île Christmas",
+    "DE": "Weihnachtsinsel"
+  },
+  "CC": {
+    "EN": "Cocos (Keeling) Islands",
+    "FR": "Îles Cocos (Keeling)",
+    "DE": "Kokosinseln"
+  },
+  "CO": {
+    "EN": "Colombia",
+    "FR": "Colombie",
+    "DE": "Kolumbien"
+  },
+  "KM": {
+    "EN": "Comoros",
+    "FR": "Comores",
+    "DE": "Komoren"
+  },
+  "CG": {
+    "EN": "Congo",
+    "FR": "Congo",
+    "DE": "Kongo"
+  },
+  "CD": {
+    "EN": "Congo, Democratic Republic of the",
+    "FR": "Congo, République démocratique du",
+    "DE": "Kongo, Demokratische Republik"
+  },
+  "CK": {
+    "EN": "Cook Islands",
+    "FR": "Îles Cook",
+    "DE": "Cookinseln"
+  },
+  "CR": {
+    "EN": "Costa Rica",
+    "FR": "Costa Rica",
+    "DE": "Costa Rica"
+  },
+  "CI": {
+    "EN": "Côte d'Ivoire",
+    "FR": "Côte d'Ivoire",
+    "DE": "Elfenbeinküste"
+  },
+  "HR": {
+    "EN": "Croatia",
+    "FR": "Croatie",
+    "DE": "Kroatien"
+  },
+  "CU": {
+    "EN": "Cuba",
+    "FR": "Cuba",
+    "DE": "Kuba"
+  },
+  "CW": {
+    "EN": "Curaçao",
+    "FR": "Curaçao",
+    "DE": "Curaçao"
+  },
+  "CY": {
+    "EN": "Cyprus",
+    "FR": "Chypre",
+    "DE": "Zypern"
+  },
+  "CZ": {
+    "EN": "Czechia",
+    "FR": "Tchéquie",
+    "DE": "Tschechien"
+  },
+  "DK": {
+    "EN": "Denmark",
+    "FR": "Danemark",
+    "DE": "Dänemark"
+  },
+  "DJ": {
+    "EN": "Djibouti",
+    "FR": "Djibouti",
+    "DE": "Dschibuti"
+  },
+  "DM": {
+    "EN": "Dominica",
+    "FR": "Dominique",
+    "DE": "Dominica"
+  },
+  "DO": {
+    "EN": "Dominican Republic",
+    "FR": "République dominicaine",
+    "DE": "Dominikanische Republik"
+  },
+  "EC": {
+    "EN": "Ecuador",
+    "FR": "Équateur",
+    "DE": "Ecuador"
+  },
+  "EG": {
+    "EN": "Egypt",
+    "FR": "Égypte",
+    "DE": "Ägypten"
+  },
+  "SV": {
+    "EN": "El Salvador",
+    "FR": "El Salvador",
+    "DE": "El Salvador"
+  },
+  "GQ": {
+    "EN": "Equatorial Guinea",
+    "FR": "Guinée équatoriale",
+    "DE": "Äquatorialguinea"
+  },
+  "ER": {
+    "EN": "Eritrea",
+    "FR": "Érythrée",
+    "DE": "Eritrea"
+  },
+  "EE": {
+    "EN": "Estonia",
+    "FR": "Estonie",
+    "DE": "Estland"
+  },
+  "SZ": {
+    "EN": "Eswatini",
+    "FR": "Eswatini",
+    "DE": "Eswatini"
+  },
+  "ET": {
+    "EN": "Ethiopia",
+    "FR": "Éthiopie",
+    "DE": "Äthiopien"
+  },
+  "FK": {
+    "EN": "Falkland Islands (Malvinas)",
+    "FR": "Îles Malouines",
+    "DE": "Falklandinseln (Malwinen)"
+  },
+  "FO": {
+    "EN": "Faroe Islands",
+    "FR": "Îles Féroé",
+    "DE": "Färöer-Inseln"
+  },
+  "FJ": {
+    "EN": "Fiji",
+    "FR": "Fidji",
+    "DE": "Fidschi"
+  },
+  "FI": {
+    "EN": "Finland",
+    "FR": "Finlande",
+    "DE": "Finnland"
+  },
+  "FR": {
+    "EN": "France",
+    "FR": "France",
+    "DE": "Frankreich"
+  },
+  "GF": {
+    "EN": "French Guiana",
+    "FR": "Guyane française",
+    "DE": "Französisch-Guayana"
+  },
+  "PF": {
+    "EN": "French Polynesia",
+    "FR": "Polynésie française",
+    "DE": "Französisch-Polynesien"
+  },
+  "TF": {
+    "EN": "French Southern Territories",
+    "FR": "Terres australes françaises",
+    "DE": "Französische Süd- und Antarktisgebiete"
+  },
+  "GA": {
+    "EN": "Gabon",
+    "FR": "Gabon",
+    "DE": "Gabun"
+  },
+  "GM": {
+    "EN": "Gambia",
+    "FR": "Gambie",
+    "DE": "Gambia"
+  },
+  "GE": {
+    "EN": "Georgia",
+    "FR": "Géorgie",
+    "DE": "Georgien"
+  },
+  "DE": {
+    "EN": "Germany",
+    "FR": "Allemagne",
+    "DE": "Deutschland"
+  },
+  "GH": {
+    "EN": "Ghana",
+    "FR": "Ghana",
+    "DE": "Ghana"
+  },
+  "GI": {
+    "EN": "Gibraltar",
+    "FR": "Gibraltar",
+    "DE": "Gibraltar"
+  },
+  "GR": {
+    "EN": "Greece",
+    "FR": "Grèce",
+    "DE": "Griechenland"
+  },
+  "GL": {
+    "EN": "Greenland",
+    "FR": "Groenland",
+    "DE": "Grönland"
+  },
+  "GD": {
+    "EN": "Grenada",
+    "FR": "Grenade",
+    "DE": "Grenada"
+  },
+  "GP": {
+    "EN": "Guadeloupe",
+    "FR": "Guadeloupe",
+    "DE": "Guadeloupe"
+  },
+  "GU": {
+    "EN": "Guam",
+    "FR": "Guam",
+    "DE": "Guam"
+  },
+  "GT": {
+    "EN": "Guatemala",
+    "FR": "Guatemala",
+    "DE": "Guatemala"
+  },
+  "GG": {
+    "EN": "Guernsey",
+    "FR": "Guernesey",
+    "DE": "Guernsey"
+  },
+  "GN": {
+    "EN": "Guinea",
+    "FR": "Guinée",
+    "DE": "Guinea"
+  },
+  "GW": {
+    "EN": "Guinea-Bissau",
+    "FR": "Guinée-Bissau",
+    "DE": "Guinea-Bissau"
+  },
+  "GY": {
+    "EN": "Guyana",
+    "FR": "Guyana",
+    "DE": "Guyana"
+  },
+  "HT": {
+    "EN": "Haiti",
+    "FR": "Haïti",
+    "DE": "Haiti"
+  },
+  "HM": {
+    "EN": "Heard Island and McDonald Islands",
+    "FR": "Île Heard et îles McDonald",
+    "DE": "Heard und McDonaldinseln"
+  },
+  "VA": {
+    "EN": "Holy See",
+    "FR": "Saint-Siège",
+    "DE": "Heiliger Stuhl"
+  },
+  "HN": {
+    "EN": "Honduras",
+    "FR": "Honduras",
+    "DE": "Honduras"
+  },
+  "HK": {
+    "EN": "Hong Kong",
+    "FR": "Hong Kong",
+    "DE": "Hongkong"
+  },
+  "HU": {
+    "EN": "Hungary",
+    "FR": "Hongrie",
+    "DE": "Ungarn"
+  },
+  "IS": {
+    "EN": "Iceland",
+    "FR": "Islande",
+    "DE": "Island"
+  },
+  "IN": {
+    "EN": "India",
+    "FR": "Inde",
+    "DE": "Indien"
+  },
+  "ID": {
+    "EN": "Indonesia",
+    "FR": "Indonésie",
+    "DE": "Indonesien"
+  },
+  "IR": {
+    "EN": "Iran (Islamic Republic of)",
+    "FR": "Iran (République islamique d')",
+    "DE": "Iran (Islamische Republik)"
+  },
+  "IQ": {
+    "EN": "Iraq",
+    "FR": "Irak",
+    "DE": "Irak"
+  },
+  "IE": {
+    "EN": "Ireland",
+    "FR": "Irlande",
+    "DE": "Irland"
+  },
+  "IM": {
+    "EN": "Isle of Man",
+    "FR": "Île de Man",
+    "DE": "Isle of Man"
+  },
+  "IL": {
+    "EN": "Israel",
+    "FR": "Israël",
+    "DE": "Israel"
+  },
+  "IT": {
+    "EN": "Italy",
+    "FR": "Italie",
+    "DE": "Italien"
+  },
+  "JM": {
+    "EN": "Jamaica",
+    "FR": "Jamaïque",
+    "DE": "Jamaika"
+  },
+  "JP": {
+    "EN": "Japan",
+    "FR": "Japon",
+    "DE": "Japan"
+  },
+  "JE": {
+    "EN": "Jersey",
+    "FR": "Jersey",
+    "DE": "Jersey"
+  },
+  "JO": {
+    "EN": "Jordan",
+    "FR": "Jordanie",
+    "DE": "Jordanien"
+  },
+  "KZ": {
+    "EN": "Kazakhstan",
+    "FR": "Kazakhstan",
+    "DE": "Kasachstan"
+  },
+  "KE": {
+    "EN": "Kenya",
+    "FR": "Kenya",
+    "DE": "Kenia"
+  },
+  "KI": {
+    "EN": "Kiribati",
+    "FR": "Kiribati",
+    "DE": "Kiribati"
+  },
+  "KP": {
+    "EN": "Korea (Democratic People's Republic of)",
+    "FR": "Corée (République populaire démocratique de)",
+    "DE": "Korea (Demokratische Volksrepublik)"
+  },
+  "KR": {
+    "EN": "Korea, Republic of",
+    "FR": "Corée, République de",
+    "DE": "Korea, Republik von"
+  },
+  "KW": {
+    "EN": "Kuwait",
+    "FR": "Koweït",
+    "DE": "Kuwait"
+  },
+  "KG": {
+    "EN": "Kyrgyzstan",
+    "FR": "Kirghizistan",
+    "DE": "Kirgisistan"
+  },
+  "LA": {
+    "EN": "Lao People's Democratic Republic",
+    "FR": "République démocratique populaire lao",
+    "DE": "Laos, Demokratische Volksrepublik"
+  },
+  "LV": {
+    "EN": "Latvia",
+    "FR": "Lettonie",
+    "DE": "Lettland"
+  },
+  "LB": {
+    "EN": "Lebanon",
+    "FR": "Liban",
+    "DE": "Libanon"
+  },
+  "LS": {
+    "EN": "Lesotho",
+    "FR": "Lesotho",
+    "DE": "Lesotho"
+  },
+  "LR": {
+    "EN": "Liberia",
+    "FR": "Libéria",
+    "DE": "Liberia"
+  },
+  "LY": {
+    "EN": "Libya",
+    "FR": "Libye",
+    "DE": "Libyen"
+  },
+  "LI": {
+    "EN": "Liechtenstein",
+    "FR": "Liechtenstein",
+    "DE": "Liechtenstein"
+  },
+  "LT": {
+    "EN": "Lithuania",
+    "FR": "Lituanie",
+    "DE": "Litauen"
+  },
+  "LU": {
+    "EN": "Luxembourg",
+    "FR": "Luxembourg",
+    "DE": "Luxemburg"
+  },
+  "MO": {
+    "EN": "Macao",
+    "FR": "Macao",
+    "DE": "Macao"
+  },
+  "MG": {
+    "EN": "Madagascar",
+    "FR": "Madagascar",
+    "DE": "Madagaskar"
+  },
+  "MW": {
+    "EN": "Malawi",
+    "FR": "Malawi",
+    "DE": "Malawi"
+  },
+  "MY": {
+    "EN": "Malaysia",
+    "FR": "Malaisie",
+    "DE": "Malaysia"
+  },
+  "MV": {
+    "EN": "Maldives",
+    "FR": "Maldives",
+    "DE": "Malediven"
+  },
+  "ML": {
+    "EN": "Mali",
+    "FR": "Mali",
+    "DE": "Mali"
+  },
+  "MT": {
+    "EN": "Malta",
+    "FR": "Malte",
+    "DE": "Malta"
+  },
+  "MH": {
+    "EN": "Marshall Islands",
+    "FR": "Îles Marshall",
+    "DE": "Marshallinseln"
+  },
+  "MQ": {
+    "EN": "Martinique",
+    "FR": "Martinique",
+    "DE": "Martinique"
+  },
+  "MR": {
+    "EN": "Mauritania",
+    "FR": "Mauritanie",
+    "DE": "Mauretanien"
+  },
+  "MU": {
+    "EN": "Mauritius",
+    "FR": "Île Maurice",
+    "DE": "Mauritius"
+  },
+  "YT": {
+    "EN": "Mayotte",
+    "FR": "Mayotte",
+    "DE": "Mayotte"
+  },
+  "MX": {
+    "EN": "Mexico",
+    "FR": "Mexique",
+    "DE": "Mexiko"
+  },
+  "FM": {
+    "EN": "Micronesia (Federated States of)",
+    "FR": "Micronésie (États fédérés de)",
+    "DE": "Mikronesien (Föderierte Staaten von)"
+  },
+  "MD": {
+    "EN": "Moldova",
+    "FR": "Moldavie",
+    "DE": "Moldau"
+  },
+  "MC": {
+    "EN": "Monaco",
+    "FR": "Monaco",
+    "DE": "Monaco"
+  },
+  "MN": {
+    "EN": "Mongolia",
+    "FR": "Mongolie",
+    "DE": "Mongolei"
+  },
+  "ME": {
+    "EN": "Montenegro",
+    "FR": "Monténégro",
+    "DE": "Montenegro"
+  },
+  "MS": {
+    "EN": "Montserrat",
+    "FR": "Montserrat",
+    "DE": "Montserrat"
+  },
+  "MA": {
+    "EN": "Morocco",
+    "FR": "Maroc",
+    "DE": "Marokko"
+  },
+  "MZ": {
+    "EN": "Mozambique",
+    "FR": "Mozambique",
+    "DE": "Mosambik"
+  },
+  "MM": {
+    "EN": "Myanmar",
+    "FR": "Myanmar",
+    "DE": "Myanmar"
+  },
+  "NA": {
+    "EN": "Namibia",
+    "FR": "Namibie",
+    "DE": "Namibia"
+  },
+  "NR": {
+    "EN": "Nauru",
+    "FR": "Nauru",
+    "DE": "Nauru"
+  },
+  "NP": {
+    "EN": "Nepal",
+    "FR": "Népal",
+    "DE": "Nepal"
+  },
+  "NL": {
+    "EN": "Netherlands",
+    "FR": "Pays-Bas",
+    "DE": "Niederlande"
+  },
+  "NC": {
+    "EN": "New Caledonia",
+    "FR": "Nouvelle-Calédonie",
+    "DE": "Neukaledonien"
+  },
+  "NZ": {
+    "EN": "New Zealand",
+    "FR": "Nouvelle-Zélande",
+    "DE": "Neuseeland"
+  },
+  "NI": {
+    "EN": "Nicaragua",
+    "FR": "Nicaragua",
+    "DE": "Nicaragua"
+  },
+  "NE": {
+    "EN": "Niger",
+    "FR": "Niger",
+    "DE": "Niger"
+  },
+  "NG": {
+    "EN": "Nigeria",
+    "FR": "Nigéria",
+    "DE": "Nigeria"
+  },
+  "NU": {
+    "EN": "Niue",
+    "FR": "Niue",
+    "DE": "Niue"
+  },
+  "NF": {
+    "EN": "Norfolk Island",
+    "FR": "Île Norfolk",
+    "DE": "Norfolkinsel"
+  },
+  "MK": {
+    "EN": "North Macedonia",
+    "FR": "Macédoine du Nord",
+    "DE": "Nordmazedonien"
+  },
+  "MP": {
+    "EN": "Northern Mariana Islands",
+    "FR": "Îles Mariannes du Nord",
+    "DE": "Nördliche Marianeninseln"
+  },
+  "NO": {
+    "EN": "Norway",
+    "FR": "Norvège",
+    "DE": "Norwegen"
+  },
+  "OM": {
+    "EN": "Oman",
+    "FR": "Oman",
+    "DE": "Oman"
+  },
+  "PK": {
+    "EN": "Pakistan",
+    "FR": "Pakistan",
+    "DE": "Pakistan"
+  },
+  "PW": {
+    "EN": "Palau",
+    "FR": "Palaos",
+    "DE": "Palau"
+  },
+  "PS": {
+    "EN": "Palestine, State of",
+    "FR": "Palestine, État de",
+    "DE": "Palästina, Staat von"
+  },
+  "PA": {
+    "EN": "Panama",
+    "FR": "Panama",
+    "DE": "Panama"
+  },
+  "PG": {
+    "EN": "Papua New Guinea",
+    "FR": "Papouasie-Nouvelle-Guinée",
+    "DE": "Papua-Neuguinea"
+  },
+  "PY": {
+    "EN": "Paraguay",
+    "FR": "Paraguay",
+    "DE": "Paraguay"
+  },
+  "PE": {
+    "EN": "Peru",
+    "FR": "Pérou",
+    "DE": "Peru"
+  },
+  "PH": {
+    "EN": "Philippines",
+    "FR": "Philippines",
+    "DE": "Philippinen"
+  },
+  "PN": {
+    "EN": "Pitcairn",
+    "FR": "Pitcairn",
+    "DE": "Pitcairn"
+  },
+  "PL": {
+    "EN": "Poland",
+    "FR": "Pologne",
+    "DE": "Polen"
+  },
+  "PT": {
+    "EN": "Portugal",
+    "FR": "Portugal",
+    "DE": "Portugal"
+  },
+  "PR": {
+    "EN": "Puerto Rico",
+    "FR": "Porto Rico",
+    "DE": "Puerto Rico"
+  },
+  "QA": {
+    "EN": "Qatar",
+    "FR": "Qatar",
+    "DE": "Katar"
+  },
+  "RE": {
+    "EN": "Réunion",
+    "FR": "Réunion",
+    "DE": "Réunion"
+  },
+  "RO": {
+    "EN": "Romania",
+    "FR": "Roumanie",
+    "DE": "Rumänien"
+  },
+  "RU": {
+    "EN": "Russian Federation",
+    "FR": "Fédération de Russie",
+    "DE": "Russische Föderation"
+  },
+  "RW": {
+    "EN": "Rwanda",
+    "FR": "Rwanda",
+    "DE": "Ruanda"
+  },
+  "BL": {
+    "EN": "Saint Barthélemy",
+    "FR": "Saint-Barthélemy",
+    "DE": "Saint-Barthélemy"
+  },
+  "SH": {
+    "EN": "Saint Helena, Ascension and Tristan da Cunha",
+    "FR": "Sainte-Hélène, Ascension et Tristan da Cunha",
+    "DE": "St. Helena, Ascension und Tristan da Cunha"
+  },
+  "KN": {
+    "EN": "Saint Kitts and Nevis",
+    "FR": "Saint-Christophe-et-Niévès",
+    "DE": "St. Kitts und Nevis"
+  },
+  "LC": {
+    "EN": "Saint Lucia",
+    "FR": "Sainte-Lucie",
+    "DE": "St. Lucia"
+  },
+  "MF": {
+    "EN": "Saint Martin (French part)",
+    "FR": "Saint-Martin (partie française)",
+    "DE": "Saint-Martin (französischer Teil)"
+  },
+  "PM": {
+    "EN": "Saint Pierre and Miquelon",
+    "FR": "Saint-Pierre-et-Miquelon",
+    "DE": "St. Pierre und Miquelon"
+  },
+  "VC": {
+    "EN": "Saint Vincent and the Grenadines",
+    "FR": "Saint-Vincent-et-les-Grenadines",
+    "DE": "St. Vincent und die Grenadinen"
+  },
+  "WS": {
+    "EN": "Samoa",
+    "FR": "Samoa",
+    "DE": "Samoa"
+  },
+  "SM": {
+    "EN": "San Marino",
+    "FR": "Saint-Marin",
+    "DE": "San Marino"
+  },
+  "ST": {
+    "EN": "Sao Tome and Principe",
+    "FR": "Sao Tomé-et-Principe",
+    "DE": "São Tomé und Príncipe"
+  },
+  "SA": {
+    "EN": "Saudi Arabia",
+    "FR": "Arabie Saoudite",
+    "DE": "Saudi-Arabien"
+  },
+  "SN": {
+    "EN": "Senegal",
+    "FR": "Sénégal",
+    "DE": "Senegal"
+  },
+  "RS": {
+    "EN": "Serbia",
+    "FR": "Serbie",
+    "DE": "Serbien"
+  },
+  "SC": {
+    "EN": "Seychelles",
+    "FR": "Seychelles",
+    "DE": "Seychellen"
+  },
+  "SL": {
+    "EN": "Sierra Leone",
+    "FR": "Sierra Leone",
+    "DE": "Sierra Leone"
+  },
+  "SG": {
+    "EN": "Singapore",
+    "FR": "Singapour",
+    "DE": "Singapur"
+  },
+  "SX": {
+    "EN": "Sint Maarten (Dutch part)",
+    "FR": "Saint-Martin (partie néerlandaise)",
+    "DE": "Sint Maarten (niederländischer Teil)"
+  },
+  "SK": {
+    "EN": "Slovakia",
+    "FR": "Slovaquie",
+    "DE": "Slowakei"
+  },
+  "SI": {
+    "EN": "Slovenia",
+    "FR": "Slovénie",
+    "DE": "Slowenien"
+  },
+  "SB": {
+    "EN": "Solomon Islands",
+    "FR": "Îles Salomon",
+    "DE": "Salomonen"
+  },
+  "SO": {
+    "EN": "Somalia",
+    "FR": "Somalie",
+    "DE": "Somalia"
+  },
+  "ZA": {
+    "EN": "South Africa",
+    "FR": "Afrique du Sud",
+    "DE": "Südafrika"
+  },
+  "GS": {
+    "EN": "South Georgia and the South Sandwich Islands",
+    "FR": "Géorgie du Sud et îles Sandwich du Sud",
+    "DE": "Südgeorgien und die Südlichen Sandwichinseln"
+  },
+  "SS": {
+    "EN": "South Sudan",
+    "FR": "Soudan du Sud",
+    "DE": "Südsudan"
+  },
+  "ES": {
+    "EN": "Spain",
+    "FR": "Espagne",
+    "DE": "Spanien"
+  },
+  "LK": {
+    "EN": "Sri Lanka",
+    "FR": "Sri Lanka",
+    "DE": "Sri Lanka"
+  },
+  "SD": {
+    "EN": "Sudan",
+    "FR": "Soudan",
+    "DE": "Sudan"
+  },
+  "SR": {
+    "EN": "Suriname",
+    "FR": "Suriname",
+    "DE": "Suriname"
+  },
+  "SJ": {
+    "EN": "Svalbard and Jan Mayen",
+    "FR": "Svalbard et Jan Mayen",
+    "DE": "Svalbard und Jan Mayen"
+  },
+  "SE": {
+    "EN": "Sweden",
+    "FR": "Suède",
+    "DE": "Schweden"
+  },
+  "CH": {
+    "EN": "Switzerland",
+    "FR": "Suisse",
+    "DE": "Schweiz"
+  },
+  "SY": {
+    "EN": "Syrian Arab Republic",
+    "FR": "République arabe syrienne",
+    "DE": "Syrische Arabische Republik"
+  },
+  "TW": {
+    "EN": "Taiwan, Province of China",
+    "FR": "Taïwan, Province de Chine",
+    "DE": "Taiwan, Provinz von China"
+  },
+  "TZ": {
+    "EN": "Tanzania, United Republic of",
+    "FR": "Tanzanie, République-Unie de",
+    "DE": "Tansania, Vereinigte Republik"
+  },
+  "TH": {
+    "EN": "Thailand",
+    "FR": "Thaïlande",
+    "DE": "Thailand"
+  },
+  "TL": {
+    "EN": "Timor-Leste",
+    "FR": "Timor-Leste",
+    "DE": "Timor-Leste"
+  },
+  "TG": {
+    "EN": "Togo",
+    "FR": "Togo",
+    "DE": "Togo"
+  },
+  "TK": {
+    "EN": "Tokelau",
+    "FR": "Tokelau",
+    "DE": "Tokelau"
+  },
+  "TO": {
+    "EN": "Tonga",
+    "FR": "Tonga",
+    "DE": "Tonga"
+  },
+  "TT": {
+    "EN": "Trinidad and Tobago",
+    "FR": "Trinité-et-Tobago",
+    "DE": "Trinidad und Tobago"
+  },
+  "TN": {
+    "EN": "Tunisia",
+    "FR": "Tunisie",
+    "DE": "Tunesien"
+  },
+  "TR": {
+    "EN": "Türkiye",
+    "FR": "Turquie",
+    "DE": "Türkei"
+  },
+  "TM": {
+    "EN": "Turkmenistan",
+    "FR": "Turkménistan",
+    "DE": "Turkmenistan"
+  },
+  "TC": {
+    "EN": "Turks and Caicos Islands",
+    "FR": "Îles Turques-et-Caïques",
+    "DE": "Turks- und Caicosinseln"
+  },
+  "TV": {
+    "EN": "Tuvalu",
+    "FR": "Tuvalu",
+    "DE": "Tuvalu"
+  },
+  "UG": {
+    "EN": "Uganda",
+    "FR": "Ouganda",
+    "DE": "Uganda"
+  },
+  "UA": {
+    "EN": "Ukraine",
+    "FR": "Ukraine",
+    "DE": "Ukraine"
+  },
+  "AE": {
+    "EN": "United Arab Emirates",
+    "FR": "Émirats arabes unis",
+    "DE": "Vereinigte Arabische Emirate"
+  },
+  "GB": {
+    "EN": "United Kingdom of Great Britain and Northern Ireland",
+    "FR": "Royaume-Uni de Grande-Bretagne et d'Irlande du Nord",
+    "DE": "Vereinigtes Königreich Großbritannien und Nordirland"
+  },
+  "US": {
+    "EN": "United States of America",
+    "FR": "États-Unis d'Amérique",
+    "DE": "Vereinigte Staaten von Amerika"
+  },
+  "UM": {
+    "EN": "United States Minor Outlying Islands",
+    "FR": "Îles mineures éloignées des États-Unis",
+    "DE": "Kleinere abgelegene Inseln der Vereinigten Staaten"
+  },
+  "UY": {
+    "EN": "Uruguay",
+    "FR": "Uruguay",
+    "DE": "Uruguay"
+  },
+  "UZ": {
+    "EN": "Uzbekistan",
+    "FR": "Ouzbékistan",
+    "DE": "Usbekistan"
+  },
+  "VU": {
+    "EN": "Vanuatu",
+    "FR": "Vanuatu",
+    "DE": "Vanuatu"
+  },
+  "VE": {
+    "EN": "Venezuela (Bolivarian Republic of)",
+    "FR": "Venezuela (République bolivarienne du)",
+    "DE": "Venezuela (Bolivarische Republik)"
+  },
+  "VN": {
+    "EN": "Viet Nam",
+    "FR": "Viet Nam",
+    "DE": "Vietnam"
+  },
+  "VG": {
+    "EN": "Virgin Islands (British)",
+    "FR": "Îles Vierges (britanniques)",
+    "DE": "Britische Jungferninseln"
+  },
+  "VI": {
+    "EN": "Virgin Islands (U.S.)",
+    "FR": "Îles Vierges (É.U.)",
+    "DE": "Amerikanische Jungferninseln"
+  },
+  "WF": {
+    "EN": "Wallis and Futuna",
+    "FR": "Wallis-et-Futuna",
+    "DE": "Wallis und Futuna"
+  },
+  "EH": {
+    "EN": "Western Sahara",
+    "FR": "Sahara occidental",
+    "DE": "Westsahara"
+  },
+  "YE": {
+    "EN": "Yemen",
+    "FR": "Yémen",
+    "DE": "Jemen"
+  },
+  "ZM": {
+    "EN": "Zambia",
+    "FR": "Zambie",
+    "DE": "Sambia"
+  },
+  "ZW": {
+    "EN": "Zimbabwe",
+    "FR": "Zimbabwe",
+    "DE": "Simbabwe"
+  },
+  "LINKS": {
+    "EN": "Links",
+    "FR": "Liens",
+    "DE": "Links"
+  },
+  "COOKIES": {
+    "EN": "Cookies",
+    "FR": "Cookies",
+    "DE": "Cookies"
+  },
+  "PRIVACY": {
+    "EN": "Privacy policy",
+    "FR": "Politique de confidentialité",
+    "DE": "Datenschutzrichtlinie"
+  },
+  "LEGAL": {
+    "EN": "Legal notice",
+    "FR": "Mentions légales",
+    "DE": "Rechtlicher Hinweis"
+  },
+  "DISCLAIMER": {
+    "EN": "The designations employed and the presentation of material on the map do not imply the expression of any opinion whatsoever on the part of the European Union concerning the legal status of any country, territory or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Kosovo* - This designation is without prejudice to positions on status, and is in line with UNSCR 1244/1999 and the ICJ Opinion on the Kosovo declaration of independence.",
+    "FR": "Les désignations utilisées et la présentation du matériel sur la carte n’impliquent aucune opinion de la part de l’Union européenne concernant le statut juridique d’un pays, d’un territoire ou d’une zone ou de ses autorités, ni concernant la délimitation de ses frontières. Kosovo* - Cette désignation est sans préjudice des positions sur le statut, et est conforme à la résolution 1244/1999 du Conseil de sécurité des Nations unies et à l’avis de la CIJ sur la déclaration d'indépendance du Kosovo.",
+    "DE": "Die Bezeichnungen und die Darstellung von Material auf der Karte implizieren keinerlei Meinungsäußerung der Europäischen Union bezüglich des rechtlichen Status eines Landes, Territoriums oder Gebiets oder dessen Behörden, noch bezüglich der Abgrenzung seiner Grenzen. Kosovo* - Diese Bezeichnung lässt Positionen zum Status unberührt und entspricht der Resolution 1244/1999 des Sicherheitsrats der Vereinten Nationen und dem Gutachten des IGH zur Unabhängigkeitserklärung des Kosovo."
+  },
+  "DISCLAIMERTITLE": {
+    "EN": "Disclaimer",
+    "FR": "Avertissement",
+    "DE": "Haftungsausschluss"
+  },
+  "COOKIETEXT": {
+    "EN": "This site uses cookies to offer you a better browsing experience. Find out more on <a href=\"http://ec.europa.eu/cookies/index_en.htm\" target=\"_self\">how we use cookies.</a>",
+    "FR": "Ce site utilise des cookies pour vous offrir une meilleure expérience de navigation. En savoir plus sur <a href=\"http://ec.europa.eu/cookies/index_fr.htm\" target=\"_self\">notre utilisation des cookies.</a>",
+    "DE": "Diese Website verwendet Cookies, um Ihnen ein besseres Surferlebnis zu bieten. Erfahren Sie mehr über <a href=\"http://ec.europa.eu/cookies/index_de.htm\" target=\"_self\">die Verwendung von Cookies.</a>"
+  },
+  "COOKIECOMPLETEclose": {
+    "EN": "Close",
+    "FR": "Fermer",
+    "DE": "Schließen"
+  },
+  "COOKIECOMPLETEacceptAll": {
+    "EN": "Accept all cookies",
+    "FR": "Accepter tous les cookies",
+    "DE": "Alle Cookies akzeptieren"
+  },
+  "COOKIECOMPLETEonlyTechnical": {
+    "EN": "Accept only essential cookies",
+    "FR": "Accepter uniquement les cookies essentiels",
+    "DE": "Nur notwendige Cookies akzeptieren"
+  },
+  "COOKIECOMPLETE": {
+    "EN": "Your cookie preferences have been saved. To change your preferences at any time, see our <a href=\"//ec.europa.eu/info/cookies_en\" target=\"_self\">cookies policy</a> or visit the link in the page footer.",
+    "FR": "Vos préférences en matière de cookies ont été enregistrées. Pour les modifier à tout moment, consultez notre <a href=\"//ec.europa.eu/info/cookies_fr\" target=\"_self\">politique de cookies</a> ou rendez-vous sur le lien en bas de page.",
+    "DE": "Ihre Cookie-Einstellungen wurden gespeichert. Um Ihre Einstellungen jederzeit zu ändern, besuchen Sie unsere <a href=\"//ec.europa.eu/info/cookies_de\" target=\"_self\">Cookie-Richtlinie</a> oder den Link im Seitenfuß."
+  },
+  "tutBACK": {
+    "EN": "Back",
+    "FR": "Retour",
+    "DE": "Zurück"
+  },
+  "tutNEXT": {
+    "EN": "Next",
+    "FR": "Suivant",
+    "DE": "Weiter"
+  },
+  "tutFINISH": {
+    "EN": "Close",
+    "FR": "Fermer",
+    "DE": "Schließen"
+  },
+  "MENU_YEAR": {
+    "EN": "Select year",
+    "FR": "Sélectionnez l'année",
+    "DE": "Jahr auswählen"
+  },
+  "EXPORT_FOOTER_TITLE": {
+    "EN": "Source: Eurostat",
+    "FR": "Source : Eurostat",
+    "DE": "Quelle: Eurostat"
+  },
+  "DB": {
+    "EN": "Access to dataset",
+    "FR": "Accéder au jeu de données",
+    "DE": "Zugang zum Datensatz"
+  },
+  "UNIT": {
+    "EN": "Unit",
+    "FR": "Unité",
+    "DE": "Einheit"
+  },
+  "YEAR": {
+    "EN": "Year",
+    "FR": "Année",
+    "DE": "Jahr"
+  },
+  "TRADE": {
+    "EN": "Trade",
+    "FR": "Commerce",
+    "DE": "Handel"
+  },
+  "MAINMENU": {
+    "EN": "Display menu",
+    "FR": "Afficher le menu",
+    "DE": "Menü anzeigen"
+  },
+  "COUNTRY": {
+    "EN": "Country",
+    "FR": "Pays",
+    "DE": "Land"
+  },
+  "FUEL": {
+    "EN": "Fuel",
+    "FR": "Carburant",
+    "DE": "Brennstoff"
+  },
+  "CONSUMER": {
+    "EN": "Consumer",
+    "FR": "Consommateur",
+    "DE": "Verbraucher"
+  },
+  "REFERENCE": {
+    "EN": "Reference period",
+    "FR": "Période de référence",
+    "DE": "Referenzzeitraum"
+  },
+  "CONSUME": {
+    "EN": "Consumption level",
+    "FR": "Niveau de consommation",
+    "DE": "Verbrauchsniveau"
+  },
+
+  "FEED": {
+    "EN": "Feedback",
+    "FR": "Retour",
+    "DE": "Rückmeldung"
+  },
+  "TOOLS": {
+    "EN": "Tools",
+    "FR": "Outils",
+    "DE": "Werkzeuge"
+  },
+  "%": {
+    "EN": "in percentages",
+    "FR": "en pourcentages",
+    "DE": "in Prozenten"
+  },
+  "TOGGLEAGREGATES": {
+    "EN": "Display aggregates",
+    "FR": "Afficher les agrégats",
+    "DE": "Aggregierte Daten anzeigen"
+  },
+  "SELITEN": {
+    "EN": "Select an item",
+    "FR": "Sélectionnez un élément",
+    "DE": "Wählen Sie ein Element aus"
+  },
+  "NORESULTS": {
+    "EN": "No results found",
+    "FR": "Aucun résultat trouvé",
+    "DE": "Keine Ergebnisse gefunden"
+  },
+  "SELALL": {
+    "EN": "Select all",
+    "FR": "Tout sélectionner",
+    "DE": "Alles auswählen"
+  },
+  "CLOSE": {
+    "EN": "Close",
+    "FR": "Fermer",
+    "DE": "Schließen"
+  },
+  "KEYWORD": {
+    "EN": "Enter keyword",
+    "FR": "Saisir un mot-clé",
+    "DE": "Suchbegriff eingeben"
+  },
+  "infoBtn": {
+    "EN": "Show info",
+    "FR": "Afficher les informations",
+    "DE": "Informationen anzeigen"
+  },
+  "downloadBtn": {
+    "EN": "download chart image",
+    "FR": "télécharger l'image du graphique",
+    "DE": "Diagrammbild herunterladen"
+  },
+  "shareBtn": {
+    "EN": "share chart",
+    "FR": "partager le graphique",
+    "DE": "Diagramm teilen"
+  },
+  "embebedBtn": {
+    "EN": "Embebed chart iframe",
+    "FR": "Intégrer le graphique en iframe",
+    "DE": "Diagramm als iFrame einbetten"
+  },
+  "shareChart": {
+    "EN": "Share in social media",
+    "FR": "Partager sur les réseaux sociaux",
+    "DE": "In sozialen Medien teilen"
+  },
+  "toggleAgregates": {
+    "EN": "Display aggregates",
+    "FR": "Afficher les agrégats",
+    "DE": "Aggregierte Daten anzeigen"
+  },
+  "tb-togle-order": {
+    "EN": "Select order of the chart",
+    "FR": "Sélectionner l'ordre du graphique",
+    "DE": "Diagrammreihenfolge auswählen"
+  },
+  "tb-togle-table": {
+    "EN": "Display table",
+    "FR": "Afficher le tableau",
+    "DE": "Tabelle anzeigen"
+  },
+  "barChart": {
+    "EN": "Display bar Chart",
+    "FR": "Afficher le diagramme à barres",
+    "DE": "Balkendiagramm anzeigen"
+  },
+  "pieChart": {
+    "EN": "Display pie Chart",
+    "FR": "Afficher le diagramme circulaire",
+    "DE": "Kreisdiagramm anzeigen"
+  },
+  "lineChart": {
+    "EN": "Display line Chart",
+    "FR": "Afficher le diagramme en ligne",
+    "DE": "Liniendiagramm anzeigen"
+  },
+  "depChart": {
+    "EN": "Display dependency wheel chart",
+    "FR": "Afficher le graphique en roue de dépendance",
+    "DE": "Abhängigkeitsdiagramm anzeigen"
+  },
+  "table": {
+    "EN": "Display table",
+    "FR": "Afficher le tableau",
+    "DE": "Tabelle anzeigen"
+  },
+  "createprintChart": {
+    "EN": "Print chart",
+    "FR": "Imprimer le graphique",
+    "DE": "Diagramm drucken"
+  },
+  "downloadChart": {
+    "EN": "Download chart image",
+    "FR": "Télécharger l'image du graphique",
+    "DE": "Diagrammbild herunterladen"
+  },
+  "downloadExcel": {
+    "EN": "Download chart data",
+    "FR": "Télécharger les données du graphique",
+    "DE": "Diagrammdaten herunterladen"
+  },
+  "embebedeChart": {
+    "EN": "Embed chart iframe",
+    "FR": "Intégrer le graphique en iframe",
+    "DE": "Diagramm als iFrame einbetten"
+  },
+  "closeChart": {
+    "EN": "Close",
+    "FR": "Fermer",
+    "DE": "Schließen"
+  },
+  "twitter": {
+    "EN": "X",
+    "FR": "X",
+    "DE": "X"
+  },
+  "linkedin": {
+    "EN": "Linkedin",
+    "FR": "Linkedin",
+    "DE": "Linkedin"
+  },
+  "facebook": {
+    "EN": "Facebook",
+    "FR": "Facebook",
+    "DE": "Facebook"
+  },
+  "ACCESS": {
+    "EN": "Accessibility",
+    "FR": "Accessibilité",
+    "DE": "Barrierefreiheit"
+  },
+  "PRODUCT": {
+    "EN": "Select product",
+    "FR": "Sélectionner un produit",
+    "DE": "Produkt auswählen"
+  },
+  "PRO": {
+    "EN": "Product",
+    "FR": "Produit",
+    "DE": "Produkt"
+  },
+  "TRADETITLE": {
+    "EN": "Energy trade",
+    "FR": "Commerce d'énergie",
+    "DE": "Energiehandel"
+  },
+  "FACTSHEET": {
+    "EN": "Open factsheet",
+    "FR": "Ouvrir la fiche d'information",
+    "DE": "Datenblatt öffnen"
+  },
+  "DEPTITLE": {
+    "EN": "World trade of",
+    "FR": "Commerce mondial de",
+    "DE": "Weltweiter Handel mit"
+  },
+  "top5": {
+    "EN": "Show top 5 countries",
+    "FR": "Afficher les 5 premiers pays",
+    "DE": "Die Top-5-Länder anzeigen"
+  },
+  "OTH": {
+    "EN": "Others",
+    "FR": "Autres",
+    "DE": "Sonstige"
+  },
+
+  "HOME": {
+    "EN": "Home",
+    "FR": "Accueil",
+    "DE": "Startseite"
+  },
+  "ZIN": {
+    "EN": "Zoom in",
+    "FR": "Agrandir",
+    "DE": "Vergrößern"
+  },
+  "ZOUT": {
+    "EN": "Zoom out",
+    "FR": "Réduire",
+    "DE": "Verkleinern"
+  },
+  "FULL": {
+    "EN": "Fullscreen",
+    "FR": "Plein écran",
+    "DE": "Vollbild"
+  },
+  "CLEAR": {
+    "EN": "Clear map",
+    "FR": "Effacer la carte",
+    "DE": "Karte löschen"
+  },
+  "sharemodaltitle": {
+    "EN": "Embed chart",
+    "FR": "Intégrer le graphique",
+    "DE": "Diagramm einbetten"
+  },
+  "SELECTLANGUAGE": {
+    "EN": "Select language",
+    "FR": "Sélectionner la langue",
+    "DE": "Sprache auswählen"
+  },
+  "OFFICIAL": {
+    "EN": "Official EU languages:",
+    "FR": "Langues officielles de l'UE :",
+    "DE": "Amtssprachen der EU:"
+  },
+  "AGGREGATE": {
+    "EN": "Aggregate",
+    "FR": "Agrégat",
+    "DE": "Aggregat"
+  },
+  "EUCTR": {
+    "EN": "European Union (EU)",
+    "DE": "Europäische Union (EU)",
+    "FR": "Union européenne (UE)"
+  },
+  "EFTA": {
+    "EN": "European Free Trade Association (EFTA)",
+    "DE": "Europäische Freihandelsassoziation (EFTA)",
+    "FR": "Association européenne de libre-échange (AELE)"
+  },
+  "ENLARGEMENT": {
+    "EN": "EU Enlargement",
+    "DE": "EU-Erweiterung",
+    "FR": "Élargissement de l'UE"
+  },
+  "OTHERCTR": {
+    "EN": "Other third countries",
+    "DE": "Ländercodes anderer Drittländer",
+    "FR": "Codes d'autres pays tiers"
+  },
+  "NODATA": {
+    "EN": "No data available for the current selection",
+    "FR": "Aucune donnée disponible pour la sélection actuelle",
+    "DE": "Keine Daten für die aktuelle Auswahl verfügbar"
+  }
+}
