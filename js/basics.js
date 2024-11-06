@@ -786,11 +786,11 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		  const totalValue = totalSum.toFixed(dec);
 	  
 		  // Add a row for the total
-		  html += `
-		  <tr class="TOTAL">
-			<td class="TOTAL"> ${languageNameSpace.labels['TOTAL']}</td>
-			<td class="TOTAL">${totalValue}</td>
-		  </tr>`;
+		//   html += `
+		//   <tr class="TOTAL">
+		// 	<td class="TOTAL"> ${languageNameSpace.labels['TOTAL']}</td>
+		// 	<td class="TOTAL">${totalValue}</td>
+		//   </tr>`;
 		}
 	  }    
 	  html += `</table>`; 

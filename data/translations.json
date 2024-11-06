@@ -1776,8 +1776,8 @@
     },
     "RU": {
         "EN": "Russian Federation",
-        "FR": "Fédération de Russie",
-        "DE": "Russische Föderation"
+        "FR": "Russie",
+        "DE": "Russland"
     },
     "RW": {
         "EN": "Rwanda",
@@ -2030,9 +2030,9 @@
           "DE": "Vereinigtes Königreich Großbritannien und Nordirland"
         },
         "US": {
-          "EN": "United States of America",
+          "EN": "United States",
           "FR": "États-Unis d'Amérique",
-          "DE": "Vereinigte Staaten von Amerika"
+          "DE": "Vereinigte Staaten"
         },
         "UM": {
           "EN": "United States Minor Outlying Islands",
