@@ -907,3 +907,34 @@ function enableTooltips() {
     button.addEventListener("blur", hideTooltip); // Hide on blur
   });
 }
+
+
+function observeAriaHidden() {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "aria-hidden"
+      ) {
+        const target = mutation.target;
+        if (
+          target.tagName === "svg" &&
+          target.getAttribute("aria-hidden") === "false"
+        ) {
+          // Remove or correct the attribute
+          target.removeAttribute("aria-hidden");
+          console.log("Corrected aria-hidden on:", target);
+        }
+      }
+    });
+  });
+
+  // Observe the entire document for changes
+  observer.observe(document.body, {
+    attributes: true,
+    subtree: true,
+  });
+}
+
+// Initialize the observer
+document.addEventListener("DOMContentLoaded", observeAriaHidden);
