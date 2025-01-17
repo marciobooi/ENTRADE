@@ -504,13 +504,36 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  }
 
 	  function credits() {
-		const chartCredits = `<span style="font-size: .75rem;">${languageNameSpace.labels["EXPORT_FOOTER_TITLE"]} - </span>
-		<a style="color:blue; text-decoration: underline; font-size: .75rem;"
-		href="https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}">${languageNameSpace.labels['DB']}</a>,
-		<span style="font-size: .875rem;">                           
-	  </span>`;
+
+		  
+
+
+  const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
+
+  // Return SVG-compatible credits text
+  return `
+    <tspan id="credits" style="font-size: 0.9rem;">
+      ${languageNameSpace.labels["EXPORT_FOOTER_TITLE"]} -
+      <tspan
+        tabindex="0"
+        role="link"
+        aria-label="Eurostat dataset link: ${datasetURL}"
+        title="Eurostat dataset link"
+        style="cursor: pointer; fill: blue; text-decoration: underline; font-size: .75rem;"
+        onclick="window.open('${datasetURL}', '_blank')"
+      >
+        ${languageNameSpace.labels["DB"]}
+      </tspan>
+    </tspan>
+  `;
+
+
+
+
+		  
+
+		  
 	  
-		return chartCredits
 	  }
 
 		function openDataset() {
