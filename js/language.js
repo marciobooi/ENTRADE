@@ -115,6 +115,11 @@ var languageNameSpace = {
 			$("#wt-button-zoomin").attr("aria-label", languageNameSpace.labels["ZIN"]);
 			$("#wt-button-fullscreen").attr("aria-label", languageNameSpace.labels["FULL"]);
 			$("#wt-button-clear").attr("aria-label", languageNameSpace.labels["CLEAR"]);
+
+			euGlobanContainer();
+
+			document.documentElement.lang = REF.language.toLowerCase();
+
 		}, 700);
 	  }
 
