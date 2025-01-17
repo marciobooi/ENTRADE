@@ -27,7 +27,7 @@ class SubNavbar {
             </div>
 
           <div class="col-4">
-            <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+            <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
                 
               <div id="switchBtn">  
                 <label class="form-check-label" for="switchTop5">${
@@ -170,7 +170,7 @@ class SubNavbar {
           </div>
           
         <div class="chartMenuMobile d-none">
-          <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
               <li class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
                 <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown"  title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                   <i class="fas fa-info" aria-hidden="true"></i>
