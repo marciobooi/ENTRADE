@@ -212,12 +212,17 @@ tr.introjs-showElement > th {
   color: #212121;
 }
 .introjs-button:focus {
-  outline: 0;
-  text-decoration: none;
-  background-color: #eee;
-  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.5);
-  border: 1px solid #616161;
-  color: #212121;
+  box-shadow: 0 0 0 0.15rem #cca30000 !important;
+  border: 2px solid #0e47cb !important;
+  background-color: white !important;
+  color: #0e47cb !important;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.introjs-relativePosition {
+	@@ -492,16 +491,7 @@ body
+  font-weight: 800;
 }
 .introjs-button:active {
   outline: 0;
@@ -562,3 +567,11 @@ body
 }
 
 
+#tutorialCloser {
+  box-shadow: 0 0 0 0.15rem #cca30000 !important;
+  border: 2px solid #0e47cb !important;
+  background-color: white !important;
+  color: #0e47cb !important;
+  opacity: 1;
+  pointer-events: auto;
+}

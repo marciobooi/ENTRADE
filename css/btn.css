@@ -63,7 +63,12 @@ span.iconText {
 
 button:focus,
 .input:focus {
-    box-shadow: var(--bs-btn-focus-box-shadow);
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white !important;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 ul.dropdown-menu.dropdown-menu-end.show {
@@ -81,10 +86,11 @@ ul.dropdown-menu.dropdown-menu-end.show {
 /* #menu:hover {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 } */
-.min-with--nav:hover:not(.dropdown-toggle) {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300;
-    border-color: #CCA300 ;
+.min-with--nav:hover:not(.dropdown-toggle):not(#tutorialCloser),a.introjs-button.introjs-nextbutton:hover {
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white !important;
+	@@ -371,16 +374,12 @@ button#menu:focus, button#menu:active {
 }
 
 #factSheet {
@@ -275,9 +281,23 @@ li > button {
     text-decoration: none;
 }
 
-.introjs-button:focus {
-    box-shadow: 0 2px 4px rgb(167 186 231 / 19%), 0 0 10px rgb(167 186 231 / 19%), 0 4px 5px rgb(167 186 231 / 19%), 0 -4px 4px rgb(167 186 231 / 19%);
-    text-decoration: none;
-    color: white !important;
+.btn:active, .btn:hover, .btn:focus-visible, .btn.show, .btn:focus, .introjs-button:focus {
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white !important;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
 }
 
+  button#close:focus, button#close:hover {
+    color: white;
+    background-color: #3e6cd5;
+    border-color: #3e6cd5;
+  }
+  button#share:focus, button#share:hover {
+    background-color: #fff;
+    color: #0e47cb;
+    border: 2px solid #0e47cb;
+    box-shadow: none;
+  }
