@@ -217,7 +217,11 @@ class SubNavbar {
           this.closeChartMenuBtn = this.subNavbar.querySelector('#closeChartMenuBtn');
   
           this.closeChartMenuBtn.addEventListener('click', () => {
-              this.toggleChartOptionsMenu();
+            this.toggleChartOptionsMenu();
+
+            setTimeout(() => {
+              this.menuButton.focus();    
+            }, 100);
           });
 
           function toggleSwitch(switchElement) {

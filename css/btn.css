@@ -297,7 +297,7 @@ li > button {
 
 button#menu:focus, button#menu:active {
     background-color: #f3f6fc !important;
-    height: 4rem;
+    height: 2rem;
     align-items: center;
     justify-content: center;
     border-color: var(--tool-1) !important;
