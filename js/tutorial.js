@@ -38,52 +38,52 @@ function tutorial(buttonTimer) {
 	const introProfile = introJs();
 
 	itens = [
-		{
-			title: languageNameSpace.tutorial["START_TOUR_TITLE"],
-			intro: languageNameSpace.tutorial["START_TOUR_TEXT"],
-		},
-		{
-		  element: document.querySelector("#focus411"),
-		  title: languageNameSpace.tutorial["STEP1_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP1_TEXT"],
-		  position: 'auto'
-		},
-		{
-		  element: document.querySelector(".wt-map-menu"),
-		  title: languageNameSpace.tutorial["STEP1_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP1_TEXT"],
-		  position: 'auto'
-		},
-		{
-		  element: document.querySelector("#menu"),
-		  title: languageNameSpace.tutorial["STEP1_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP1_TEXT"],
-		  position: 'auto'
-		},
-		{			
-		  element:document.querySelector("#infoBtnChart"),
-		  title: languageNameSpace.tutorial["STEP6_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP6_TEXT"],
-		  position: 'auto'
-		},
-		{			
-		  element: document.querySelector(".wtfooter"),
-		  title: languageNameSpace.tutorial["STEP7_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP7_TEXT"],
-		  position: 'auto'
-		},
-		{			
-		  element: document.querySelector("#lang-selection"),
-		  title: languageNameSpace.tutorial["STEP8_TITLE"],
-		  intro: languageNameSpace.tutorial["STEP8_TEXT"],
-		  position: 'auto'
-		},
-		{
-			element:document.querySelector("#social-media"),
-			title: languageNameSpace.tutorial["STEP9_TITLE"],			
-			intro: languageNameSpace.tutorial["STEP9_TEXT"],			
-		  }
-		]
+    {
+      title: languageNameSpace.tutorial["START_TOUR_TITLE"],
+      intro: languageNameSpace.tutorial["START_TOUR_TEXT"],
+    },
+    {
+      element: document.querySelector("#focus411"),
+      title: languageNameSpace.tutorial["STEP1_TITLE"],
+      intro: languageNameSpace.tutorial["STEP1_TEXT"],
+      position: "auto",
+    },
+    {
+      element: document.querySelector(".wt-map-menu"),
+      title: languageNameSpace.tutorial["STEP1_TITLE"],
+      intro: languageNameSpace.tutorial["STEP1_TEXT"],
+      position: "auto",
+    },
+    {
+      element: document.querySelector("#menu"),
+      title: languageNameSpace.tutorial["STEP1_TITLE"],
+      intro: languageNameSpace.tutorial["STEP1_TEXT"],
+      position: "auto",
+    },
+    {
+      element: document.querySelector("#infoBtnChart"),
+      title: languageNameSpace.tutorial["STEP6_TITLE"],
+      intro: languageNameSpace.tutorial["STEP6_TEXT"],
+      position: "auto",
+    },
+    // {
+    //   element: document.querySelector(".wtfooter"),
+    //   title: languageNameSpace.tutorial["STEP7_TITLE"],
+    //   intro: languageNameSpace.tutorial["STEP7_TEXT"],
+    //   position: 'auto'
+    // },
+    {
+      element: document.querySelector("#toggleLanguageBtn"),
+      title: languageNameSpace.tutorial["STEP8_TITLE"],
+      intro: languageNameSpace.tutorial["STEP8_TEXT"],
+      position: "auto",
+    },
+    {
+      element: document.querySelector("#social-media"),
+      title: languageNameSpace.tutorial["STEP9_TITLE"],
+      intro: languageNameSpace.tutorial["STEP9_TEXT"],
+    },
+  ];
 
 
 
