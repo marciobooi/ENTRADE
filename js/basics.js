@@ -844,3 +844,17 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
     // If the target value is not found, return null
     return null;
 }
+
+
+ function euGlobanContainer() {
+   $("#euGlobanContainer").remove();
+
+   const euGlobanContainer = $("<div>", { id: "euGlobanContainer" });
+   euGlobanContainer.prependTo("header");
+
+   $wt.render("euGlobanContainer", {
+     utility: "globan",
+     lang: REF.language.toLowerCase(),
+     theme: "dark",
+   });
+ }

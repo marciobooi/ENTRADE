@@ -1,4 +1,9 @@
 {
+  "TITLE": {
+    "EN": "Energy trade",
+    "FR": "Commerce de l'énergie",
+    "DE": "Energiewirtschaft"
+  },
   "C0000X0350-0370": {
     "EN": "Solid fossil fuels",
     "FR": "Combustibles fossiles solides",
