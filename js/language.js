@@ -93,7 +93,7 @@ var languageNameSpace = {
 			$("#footer-access").html(languageNameSpace.labels["ACCESS"]);
 
 	
-				
+					enableTooltips();
 		
 		});
 	},
@@ -118,10 +118,14 @@ var languageNameSpace = {
 
 			euGlobanContainer();
 
+			
+
 			document.documentElement.lang = REF.language.toLowerCase();
 
 		}, 700);
-	  }
+	}
+	
+
 
 };
 
