@@ -199,7 +199,17 @@ $("#wt-button-clear").click(() => {
   clearLines()
   $('#countryInfo').remove()
   clearMap()
-  
+
+  $('path[aria-label]').each(function () {
+    const countryName = $(this).attr("aria-label").trim();
+    if (countryName === languageNameSpace.labels[REF.geo]) {
+      $(this).css({
+        fill: "rgb(115, 140, 229)",
+        stroke: "rgb(75, 89, 139)",
+        "stroke-width": "2px",
+      });
+    } 
+  });
 })
 
 
@@ -454,9 +464,6 @@ function clearMarkers() {
 }
 
 function clearMap() {
-
-  log('here')
-
   $('path').each(function () {    
       $(this).css('fill', 'transparent');    
 });

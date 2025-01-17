@@ -1,19 +1,21 @@
 :root {
-    --main-color: #0026f7;
-    --bs-border-radius: 0.2rem;
-    --width-100: 100vw;
-    --nav-color: #0E47CB;
-    --sub-nav-color: #F3F3F3;
-    --tool-1: #0E47CB;
-    --tool-2: #3E6CD5;
-    --tool-3: #8AA7E8;
-    --btn-color: #0E47CB;
-    --hover-color: #3E6CD5;
-    --text-main-color: #262b38;
+  --main-color: #0026f7;
+  --bs-border-radius: 0.2rem;
+  --width-100: 100vw;
+  --nav-color: #0e47cb;
+  --sub-nav-color: #f3f3f3;
+  --tool-1: #0e47cb;
+  --tool-2: #3e6cd5;
+  --tool-3: #8aa7e8;
+  --btn-color: #0e47cb;
+  --hover-color: #3e6cd5;
+  --text-main-color: #262b38;
 }
 
 /* Modern CSS Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -54,8 +56,8 @@ body {
   }
 }
 
-
-tr.bg-primary.text-white > td:nth-child(2), td.text-right {
+tr.bg-primary.text-white > td:nth-child(2),
+td.text-right {
   text-align: end;
 }
 
@@ -97,12 +99,10 @@ table td:last-child {
   padding-right: 2rem;
 } */
 
-
 .ecl-modal__body-scroll {
   overflow-y: auto;
   word-break: break-all;
 }
-
 
 .ecl-link--standalone {
   text-decoration: none;
@@ -120,7 +120,9 @@ table td:last-child {
   left: 50%;
   transform: translate(-50%, 40%);
   z-index: 99999999;
-  box-shadow: 0 11px 15px rgba(9, 49, 142, .08), 0 9px 46px rgba(9, 49, 142, .04), 0 24px 38px rgba(9, 49, 142, .04), 0 -4px 4px rgba(9, 49, 142, .04);
+  box-shadow: 0 11px 15px rgba(9, 49, 142, 0.08),
+    0 9px 46px rgba(9, 49, 142, 0.04), 0 24px 38px rgba(9, 49, 142, 0.04),
+    0 -4px 4px rgba(9, 49, 142, 0.04);
   align-content: center;
   justify-content: space-between;
   flex-direction: row;
@@ -129,26 +131,25 @@ table td:last-child {
   font-size: 1.2rem;
 }
 
-
-.ecl-link--standalone, .ecl-link {
- text-decoration: none;
- color:black;
+.ecl-link--standalone,
+.ecl-link {
+  text-decoration: none;
+  color: black;
 }
 
-
-.ecl-link--standalone:hover, .ecl-link:hover {
- text-decoration: underline !important;
+.ecl-link--standalone:hover,
+.ecl-link:hover {
+  text-decoration: underline !important;
 }
 
-a.ecl-link.ecl-link--standalone.ecl-site-header__language-link:focus-visible .ecl-site-header__language-link-label {
-  text-decoration: underline
+a.ecl-link.ecl-link--standalone.ecl-site-header__language-link:focus-visible
+  .ecl-site-header__language-link-label {
+  text-decoration: underline;
 }
-
 
 button#closeChartMenuBtn {
-    font-size: 1.5rem !important;
+  font-size: 1.5rem !important;
 }
-
 
 .white-svg path {
   fill: white;
@@ -171,4 +172,18 @@ button#closeChartMenuBtn {
 .tooltip.visible {
   opacity: 1;
   pointer-events: auto;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ddd;
 }
