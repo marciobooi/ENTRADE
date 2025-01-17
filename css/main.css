@@ -143,3 +143,13 @@ table td:last-child {
 a.ecl-link.ecl-link--standalone.ecl-site-header__language-link:focus-visible .ecl-site-header__language-link-label {
   text-decoration: underline
 }
+
+
+button#closeChartMenuBtn {
+    font-size: 1.5rem !important;
+}
+
+
+.white-svg path {
+  fill: white;
+}

@@ -12,6 +12,14 @@ $(document).ready(function () {
     lang: REF.language.toLowerCase(),
     theme: "dark",
   });
+
+setTimeout(() => {
+  document.querySelectorAll("#chartOptionsMenu path").forEach((path) => {
+    path.style.fill = "white";
+  });
+}, 3000);
+
+
 });
 
 function buildComponents() {

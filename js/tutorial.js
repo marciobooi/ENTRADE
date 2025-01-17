@@ -169,6 +169,7 @@ function tutorial(buttonTimer) {
 function closeTutorial() {
 	buttonTimer = setTimeout("introJs().exit()", 4000);	
 	isOpen = false
+	$("button#INFO").focus();
 }
 
 btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton")
@@ -184,8 +185,8 @@ function closeProcess(params) {
 	document.querySelector("#tb-tutorial-btn");
 	// const button = document.getElementById('tb-tutorial-btn');
 	// button.focus();
-	$("button#closeChartMenuBtn").focus();
 	isOpen = false
+	$("button#INFO").focus();
 }
 
 $(document).on("click keydown", "#tutorialClose", function(event) {

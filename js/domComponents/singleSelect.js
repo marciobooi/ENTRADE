@@ -50,10 +50,11 @@ class Singleselect {
 
 
         
-        const singleSelectHTML = /*html*/`
+        const singleSelectHTML = /*html*/ `
         <div class="ecl-form-group" role="application">
         <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
             <div class="ecl-select__container ecl-select__container--l">
+            <p class="sr-only">Your selection will automatically update the map</p>
                 <select class="ecl-select" id="${this.elementId}" name="country" required="">
                     ${optionsHTML}
                 </select>

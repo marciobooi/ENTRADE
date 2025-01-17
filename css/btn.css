@@ -65,7 +65,7 @@ button:focus,
 .input:focus {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
     border: 2px solid #0e47cb !important;
-    background-color: white !important;
+    background-color: white;
     color: #0e47cb !important;
     opacity: 1;
     pointer-events: auto;
@@ -89,7 +89,7 @@ ul.dropdown-menu.dropdown-menu-end.show {
 .min-with--nav:hover:not(.dropdown-toggle):not(#tutorialCloser),a.introjs-button.introjs-nextbutton:hover {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
     border: 2px solid #0e47cb !important;
-    background-color: white !important;
+    background-color: white ;
 }
 
 #factSheet {
@@ -266,7 +266,7 @@ li > button {
 .ecl-button:hover {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
     border: 2px solid #0e47cb !important;
-    background-color: white !important;
+    background-color: white;
     color: #0e47cb !important;
     opacity: 1;
     pointer-events: auto;
@@ -305,18 +305,50 @@ button#menu:focus, button#menu:active {
     color: #0e47cb;
 }
 
+.btn:disabled:hover {
+    background-color: white;
+    border-color: #0e47cb !important;
+    border: 2px solid #0e47cb;
+    box-shadow: 0px 0px 6px 1px #0107152b;
+	@@ -260,7 +260,7 @@ span.agregates.fa-stack.fa-rotate-180 {
+    transform: translate(0, -10%);
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white;
+}
+
 .ecl-button--secondary:active, .ecl-button--secondary:hover, .ecl-button--secondary:focus {
-    background-color: #3e6cd5 !important;
+   background-color: #3e6cd5 !important;
     border-color: #3e6cd5 !important;
     color: #fff !important;
 }
 
 .ecl-button--primary:active, .ecl-button--primary:hover, .ecl-button--primary:focus {
-    background-color: #3e6cd5 !important;
-    background-color: #fff !important;
+    background-color: white;
     border: 2px solid #0e47cb !important;
     color: #0e47cb !important;
 }
+
+.ecl-modal__close {
+    padding: 8px !important;
+    background-color: transparent !important;
+    margin: 2px !important;
+}
+
+
+.ecl-button--tertiary:hover, .ecl-button--tertiary:focus {
+    background-color: #d8e0fb !important;
+    border-color: #546fa6 !important;
+    color: #26324b !important;
+}
+
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
 
 .sr-only {
     position: absolute;
@@ -329,3 +361,6 @@ button#menu:focus, button#menu:active {
     white-space: nowrap; /* Prevents text wrapping */
     border: 0;
   }
+
+
+
