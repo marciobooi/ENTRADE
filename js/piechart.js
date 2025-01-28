@@ -74,7 +74,6 @@ function createPieChart() {
     yAxisFormat: "",
     tooltipFormatter: tooltipFormatter,
     creditsText: credits(),
-    creditsHref: "",
     // series: [
     //   {
     //     data: piedata

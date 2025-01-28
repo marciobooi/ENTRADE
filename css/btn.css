@@ -65,7 +65,7 @@ button:focus,
 .input:focus {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
     border: 2px solid #0e47cb !important;
-    background-color: white;
+    background-color: white !important;
     color: #0e47cb !important;
     opacity: 1;
     pointer-events: auto;
@@ -263,10 +263,10 @@ li > button {
 
 
 
-.ecl-button:hover {
+.ecl-button:hover, .ecl-button:active {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
     border: 2px solid #0e47cb !important;
-    background-color: white;
+    background-color: white !important;
     color: #0e47cb !important;
     opacity: 1;
     pointer-events: auto;

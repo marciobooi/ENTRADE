@@ -202,6 +202,7 @@ $("#wt-button-clear").click(() => {
 
   $('path[aria-label]').each(function () {
     const countryName = $(this).attr("aria-label").trim();
+
     if (countryName === languageNameSpace.labels[REF.geo]) {
       $(this).css({
         fill: "rgb(115, 140, 229)",

@@ -20,7 +20,7 @@ section#map {
   } 
   .wt-map-panels {
     right: -1rem !important;
-    top: 25rem !important;
+    top: 15rem !important;
     bottom: 0rem !important;
     background-color: transparent !important;
     height: 1rem;
@@ -67,7 +67,7 @@ section#map {
 
   #countryInfo {
     position: absolute;
-    top: 25%;
+    top: 30%;
     right: 1rem;
     z-index: 9;
     /* background-color: white; */

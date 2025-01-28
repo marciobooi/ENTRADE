@@ -503,10 +503,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 
 	  }
 
-	  function credits() {
-
-		  
-
+	  function credits() {  
 
   const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
 
@@ -525,15 +522,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
         ${languageNameSpace.labels["DB"]}
       </tspan>
     </tspan>
-  `;
-
-
-
-
-		  
-
-		  
-	  
+  `; 	  
 	  }
 
 		function openDataset() {
@@ -882,28 +871,21 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
    });
 }
  
-function enableTooltips() {
-  // Select all button elements with data-i18n-title or data-i18n-label attributes
+function enableTooltips(suppressDefaultTooltip = false) {
   const buttons = document.querySelectorAll(
     "button[title], button[aria-label]"
   );
 
-  log("here");
-
   buttons.forEach((button) => {
-    log("here");
-    // Get the tooltip content from data-i18n-title or data-i18n-label
     const tooltipText =
       button.getAttribute("title") || button.getAttribute("aria-label");
-    if (!tooltipText) return; // Skip if neither attribute exists
+    if (!tooltipText) return;
 
-    // Create tooltip element
     const tooltip = document.createElement("div");
     tooltip.className = "tooltip";
-    tooltip.textContent = tooltipText; // Add the content
+    tooltip.textContent = tooltipText;
     document.body.appendChild(tooltip);
 
-    // Position tooltip
     const positionTooltip = (element) => {
       const rect = element.getBoundingClientRect();
       tooltip.style.left = `${
@@ -912,24 +894,28 @@ function enableTooltips() {
       tooltip.style.top = `${rect.top - tooltip.offsetHeight - 8}px`;
     };
 
-    // Show tooltip
+    if (suppressDefaultTooltip) {
+      button.onmouseover = null;
+    }
+
     const showTooltip = (event) => {
       tooltip.classList.add("visible");
       positionTooltip(event.target);
     };
 
-    // Hide tooltip
     const hideTooltip = () => {
       tooltip.classList.remove("visible");
     };
 
-    // Event listeners for both mouse and keyboard interactions
     button.addEventListener("mouseover", showTooltip);
     button.addEventListener("mouseout", hideTooltip);
-    button.addEventListener("focus", showTooltip); // For keyboard focus
-    button.addEventListener("blur", hideTooltip); // Hide on blur
+    button.addEventListener("focus", showTooltip);
+    button.addEventListener("blur", hideTooltip);
   });
 }
+
+// Call the function with suppressDefaultTooltip set to true
+enableTooltips(true);
 
 
 function observeAriaHidden() {
@@ -961,3 +947,20 @@ function observeAriaHidden() {
 
 // Initialize the observer
 document.addEventListener("DOMContentLoaded", observeAriaHidden);
+
+
+
+
+
+function openDb (params) {
+	
+
+	const link = document.querySelector("#credits");
+	const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
+	link.addEventListener("click", function () {
+		log(link)
+        window.open(datasetURL, '_blank');
+    });
+
+
+}

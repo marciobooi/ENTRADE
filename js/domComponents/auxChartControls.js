@@ -116,24 +116,28 @@ class ChartControls {
 		  REF.chart = this.value;
 		  createBarChart()
 		  disableBtns()
+		  openDb();
 		});
 		depChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createDepChart()
 		  disableBtns()
+		  openDb()
 		});
 		pieChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createPieChart()
-		  disableBtns()
+			disableBtns()
+			openDb()
 		});
 		lineChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  createLineChart()
-		  disableBtns()
+			disableBtns()
+			openDb()
 		});
 		tableChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);

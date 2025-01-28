@@ -138,7 +138,7 @@ class Navbar {
   <span id="lang-selection-text" class="btn-text">${langLabel}</span>`;
     this.langSelection.setAttribute(
       "aria-label",
-      `Change language, current language is ${langLabel}`
+      `${languageNameSpace.labels["SELECTLANGUAGELABEL"]} ${langLabel}`
     );
   }
 
