@@ -135,12 +135,21 @@ class SubNavbar {
 
             
             <div id="chartOptionsMenu" class="toggleMenu">
-              <div class="close-button-container">
-                <button id="closeChartMenuBtn" class="ecl-button ecl-button--tertiary ecl-modal__close ecl-button--icon-only" aria-controls="chartOptionsMenu" aria-label="Close chart menu">
-                <span class="ecl-button__label sr-only" data-ecl-label="true">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-                </button>
-              </div>
+
+
+
+
+<div class="close-button-container">
+            <button id="closeChartMenuBtn" class="ecl-button ecl-button--primary round-btn close-chart-menu-btn" data-i18n-label="CLOSE" aria-label="Close">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+
+
+
+
+
+
               <div class="dropdown-grid">
                 <div class="row w-75">
                   <div id="containerTrade" class="col-12 col-sm-4 p-2"></div>

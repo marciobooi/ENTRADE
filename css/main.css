@@ -147,9 +147,6 @@ a.ecl-link.ecl-link--standalone.ecl-site-header__language-link:focus-visible
   text-decoration: underline;
 }
 
-button#closeChartMenuBtn {
-  font-size: 1.5rem !important;
-}
 
 .white-svg path {
   fill: white;

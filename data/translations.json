@@ -2,7 +2,7 @@
   "TITLE": {
     "EN": "Energy trade",
     "FR": "Commerce de l'énergie",
-    "DE": "Energiewirtschaft"
+    "DE": "Energiehandel"
   },
   "C0000X0350-0370": {
     "EN": "Solid fossil fuels",
@@ -27,7 +27,7 @@
   "C0129": {
     "EN": "Other bituminous coal",
     "FR": "Autre charbon bitumineux",
-    "DE": "Andere Steinkohle"
+    "DE": "Sonstige bituminöse Kohle"
   },
   "C0200": {
     "EN": "Brown coal",
@@ -36,7 +36,7 @@
   },
   "C0210": {
     "EN": "Sub-bituminous coal",
-    "FR": "Charbon sub-bitumineux",
+    "FR": "Charbon sous-bitumineux",
     "DE": "Subbituminöse Kohle"
   },
   "C0220": {
@@ -47,7 +47,7 @@
   "C0311": {
     "EN": "Coke oven coke",
     "FR": "Coke de four à coke",
-    "DE": "Ofenkoks"
+    "DE": "Kokereikoks"
   },
   "C0320": {
     "EN": "Patent fuel",
@@ -87,7 +87,7 @@
   "O4100_TOT_4200-4500": {
     "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons",
     "FR": "Pétrole brut, LGN, produits d'alimentation et autres hydrocarbures",
-    "DE": "RRohöl, NGL, Einsatzmaterial und sonstige Kohlenwasserstoffe"
+    "DE": "Rohöl, NGL, Einsatzmaterial und sonstige Kohlenwasserstoffe"
   },
   "O4100_TOT_4200-4500XBIO": {
     "EN": "Crude oil, NGL, refinery feedstocks, additives and oxygenates and other hydrocarbons (excluding biofuel portion)",
@@ -325,7 +325,7 @@
     "DE": "Einheit auswählen"
   },
   "BOX_TRADE_TITLE": {
-    "EN": "Select Trade",
+    "EN": "Select trade",
     "FR": "Sélectionnez le commerce",
     "DE": "Handel auswählen"
   },
@@ -435,9 +435,9 @@
     "DE": "Feste fossile Brennstoffe"
   },
   "oil": {
-    "EN": "Oil and petroleum",
+    "EN": "Oil and petroleum products",
     "FR": "Pétrole et produits pétroliers",
-    "DE": "Öl und Mineralöl"
+    "DE": "Öl und Mineralölerzeugnisse"
   },
   "gas": {
     "EN": "Natural gas",
@@ -457,52 +457,52 @@
   "nrg_ti_sff": {
     "EN": "Imports of solid fossil fuels by partner country",
     "FR": "Importations de combustibles fossiles solides par pays partenaire",
-    "DE": "Importe fester fossiler Brennstoffe nach Partnerland"
+    "DE": "Einfuhren fester fossiler Brennstoffe nach Partnerland"
   },
   "nrg_ti_oil": {
     "EN": "Imports of oil and petroleum products by partner country",
     "FR": "Importations de pétrole et de produits pétroliers par pays partenaire",
-    "DE": "Importe von Öl und Erdölprodukten nach Partnerland"
+    "DE": "Einfuhren von Öl und Erdölprodukten nach Partnerland"
   },
   "nrg_ti_gas": {
     "EN": "Imports of natural gas by partner country",
     "FR": "Importations de gaz naturel par pays partenaire",
-    "DE": "Importe von Erdgas nach Partnerland"
+    "DE": "Einfuhren von Erdgas nach Partnerland"
   },
   "nrg_ti_bio": {
     "EN": "Imports of biofuels by partner country",
     "FR": "Importations de biocarburants par pays partenaire",
-    "DE": "Importe von Biobrennstoffen nach Partnerland"
+    "DE": "Einfuhren von Biobrennstoffen nach Partnerland"
   },
   "nrg_ti_eh": {
     "EN": "Imports of electricity and heat by partner country",
     "FR": "Importations d'électricité et de chaleur par pays partenaire",
-    "DE": "Importe von Elektrizität und Wärme nach Partnerland"
+    "DE": "Einfuhren von Elektrizität und Wärme nach Partnerland"
   },
   "nrg_te_sff": {
     "EN": "Exports of solid fossil fuels by partner country",
     "FR": "Exportations de combustibles fossiles solides par pays partenaire",
-    "DE": "Exporte fester fossiler Brennstoffe nach Partnerland"
+    "DE": "Ausfuhren fester fossiler Brennstoffe nach Partnerland"
   },
   "nrg_te_oil": {
     "EN": "Exports of oil and petroleum products by partner country",
     "FR": "Exportations de pétrole et de produits pétroliers par pays partenaire",
-    "DE": "Exporte von Öl und Mineralölerzeugnisse nach Partnerland"
+    "DE": "Ausfuhren von Öl und Mineralölerzeugnisse nach Partnerland"
   },
   "nrg_te_gas": {
     "EN": "Exports of natural gas by partner country",
     "FR": "Exportations de gaz naturel par pays partenaire",
-    "DE": "Exporte von Erdgas nach Partnerland"
+    "DE": "Ausfuhren von Erdgas nach Partnerland"
   },
   "nrg_te_bio": {
     "EN": "Exports of biofuels by partner country",
     "FR": "Exportations de biocarburants par pays partenaire",
-    "DE": "Exporte von Biobrennstoffen nach Partnerland"
+    "DE": "Ausfuhren von Biobrennstoffen nach Partnerland"
   },
   "nrg_te_eh": {
     "EN": "Exports of electricity and heat by partner country",
     "FR": "Exportations d'électricité et de chaleur par pays partenaire",
-    "DE": "Exporte von Elektrizität und Wärme nach Partnerland"
+    "DE": "Ausfuhren von Elektrizität und Wärme nach Partnerland"
   },
   "NSP": {
     "EN": "Not specified",
@@ -2286,13 +2286,13 @@
     "DE": "Informationen anzeigen"
   },
   "downloadBtn": {
-    "EN": "download chart image",
-    "FR": "télécharger l'image du graphique",
+    "EN": "Download chart image",
+    "FR": "Télécharger l'image du graphique",
     "DE": "Diagrammbild herunterladen"
   },
   "shareBtn": {
-    "EN": "share chart",
-    "FR": "partager le graphique",
+    "EN": "Share chart",
+    "FR": "Partager le graphique",
     "DE": "Diagramm teilen"
   },
   "embebedBtn": {
@@ -2321,17 +2321,17 @@
     "DE": "Tabelle anzeigen"
   },
   "barChart": {
-    "EN": "Display bar Chart",
+    "EN": "Display bar chart",
     "FR": "Afficher le diagramme à barres",
     "DE": "Balkendiagramm anzeigen"
   },
   "pieChart": {
-    "EN": "Display pie Chart",
+    "EN": "Display pie chart",
     "FR": "Afficher le diagramme circulaire",
     "DE": "Kreisdiagramm anzeigen"
   },
   "lineChart": {
-    "EN": "Display line Chart",
+    "EN": "Display line chart",
     "FR": "Afficher le diagramme en ligne",
     "DE": "Liniendiagramm anzeigen"
   },
@@ -2461,6 +2461,12 @@
     "FR": "Sélectionner la langue",
     "DE": "Sprache auswählen"
   },
+  "SELECTLANGUAGELABEL": {
+    "EN": "Language selected, ",
+    "FR": "Langue sélectionnée, ",
+    "DE": "Sprache ausgewählt, "
+
+  },
   "OFFICIAL": {
     "EN": "Official EU languages:",
     "FR": "Langues officielles de l'UE :",
@@ -2495,10 +2501,5 @@
     "EN": "No data available for the current selection",
     "FR": "Aucune donnée disponible pour la sélection actuelle",
     "DE": "Keine Daten für die aktuelle Auswahl verfügbar"
-  },
-  "SELECTLANGUAGELABEL": {
-    "EN": "Change language, current language is ",
-    "FR": "Changer de langue, la langue actuelle est ",
-    "DE": "Sprache ändern, die aktuelle Sprache ist "
   }
 }
