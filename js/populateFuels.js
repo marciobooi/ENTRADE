@@ -3,7 +3,7 @@
     const elementId = 'selectFuel';
     const optionsArray = Object.keys(tradeFuel);
     const labelDescription = languageNameSpace.labels["FUEL"];
-    const activeElement = REF.product;
+    const activeElement = REF.fuel;
     const textChange = languageNameSpace.labels["MENU_FUEL"];
   
     const existingSingleSelect = document.getElementById(elementId);

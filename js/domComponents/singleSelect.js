@@ -16,8 +16,6 @@ class Singleselect {
 
     createSingleSelect() {    
 
-
-
         let optionsHTML = '';   
 
        // Sort optionsArray
@@ -42,14 +40,7 @@ class Singleselect {
         </option>
     `).join('');
 
-
-          
-
-
-
-
-
-        
+               
         const singleSelectHTML = /*html*/ `
         <div class="ecl-form-group" role="application">
         <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
