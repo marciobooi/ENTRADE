@@ -64,16 +64,16 @@ function renderMap() {
     },
     layers: {
       countries: [{
-        data: ["all"],
+        data: ["ALL", "KS*0"],
         options: {
           events: {
             click: function (layer) {    
+
+
+
               if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
                 country = layer.feature.properties;
-                loadCountryData(country);  
-
-
-            
+                loadCountryData(country);              
 
                 $('path[aria-label]').each(function () {
                   const countryName = $(this).attr('aria-label').trim();           
@@ -91,28 +91,36 @@ function renderMap() {
                     });
                   }
                 });
-
-              
-
-      
-         
-
-
-
-              }
-
-
-   
+              }  
 
               dataNameSpace.setRefURL();
             },
+            // tooltip: {
+            //   content: "<b>{CNTR_NAME}</b>",
+            //   options: {
+            //     direction: "top",
+            //     sticky: true
+            //   }
+            // }
             tooltip: {
-              content: "<b>{CNTR_NAME}</b>",
+              content: function (layer) {
+                const countryID = layer.properties.CNTR_ID;
+                let tooltipText = ""; 
+                if (countryID === "KS") { 
+                  tooltipText = `<b>${languageNameSpace.labels["KS"]}</b>`;
+                } else {
+                  tooltipText =  "<b>{CNTR_NAME}</b>";
+                }
+
+                return tooltipText;
+                
+                
+              },
               options: {
                 direction: "top",
-                sticky: true
-              }
-            }
+                sticky: true,
+              },
+            },
           },
           label: {
             mode: "fixed",
@@ -130,18 +138,74 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
+
+
+    map.eachLayer(function (layer) {
+      if (layer.feature && layer.feature.properties) {
+          const countryID = layer.feature.properties.CNTR_ID;
+  
+          if (countryID === "KS") {
+              layer.setStyle({  
+                  fillColor: "#738ce5",  
+                  color: "#bcb5b5", // Border color
+                  weight: 1
+              });
+          } else if (countryID === "RS") {
+              layer.defaultOptions.style.fillColor= "#738ce5";      
+              layer.defaultOptions.style.color= "#4b598b";    
+              layer.defaultOptions.style.weight= "2";    
+              layer.setStyle({  
+                fillColor: "#738ce5",  
+                color: "#4b598b", // Border color
+                weight: 2
+            });              
+          } else {
+              layer.setStyle({  
+                  color: "rgb(245, 245, 245)", // Border color
+                  weight: 1,
+                  opacity: 1,
+                  fillColor: "rgb(230, 230, 230)", // Fill color
+                  fillOpacity: 1
+              });
+          }
+      }
+  });
+  
+
     
       setTimeout(() => {
-              defGeos.forEach(key => {    
+
+      //   if (map._useSerbia._path) {        
+      //     let group = map._useSerbia._path.parentNode;          
+      //     if (group) {
+      //         let paths = group.querySelectorAll("path");  
+      //         if (paths.length > 1) {
+      //             let secondPath = paths[1];            
+      //             secondPath.setAttribute("fill", euCtr);
+      //             secondPath.setAttribute("stroke", "#4b598b");
+      //             secondPath.setAttribute("stroke-width", "2"); 
+      //         }   
+      //     } else {
+      //         console.error("Parent <g> not found.");
+      //     }
+      // }         
+      // if (map._useKosovo) {
+      //   map._useKosovo.setStyle({
+      //       fillColor: euCtr,
+      //       color: 'gray', // Border color
+      //       weight: 2,
+      //   });
+      // } 
 
 
 
 
 
 
-          
+
+          defGeos.forEach(key => {              
                   $('path[aria-label]').each(function () {
-                    const countryName = $(this).attr('aria-label').trim();
+                    const countryName = $(this).attr('aria-label').trim();   
                 
                     if (countryName === languageNameSpace.labels[key]) {
                       $(this).css({
@@ -156,30 +220,22 @@ function renderMap() {
                         'stroke-width': '2px'
                       });
                     } 
-                  });
-            
-
-
-
-
-
-              // const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
-        
-              // // Iterate through the found elements
-              // elementsWithClasses.each(function () {
-              //   // Check inner text
-              //   const countryName = $(this).text().trim();
-              
-              //   // Check if the inner text matches the desired name
-              //   // if (!countryName.includes(languageNameSpace.labels[key])) {         
-   
-              //   //   this.style.setProperty('color', 'red', 'important');
-              //   // }
-              // });
-              
+                  });                
             });        
             addClearToMenu()
-      }, 300);
+
+
+
+
+
+
+     
+       
+
+
+ 
+
+      }, 500);
   });
 }
 

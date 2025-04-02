@@ -118,8 +118,8 @@
   "imp": "Einfuhren",
   "exp": "Ausfuhren",
 
-  "solid":l" ,  "Feste fossile Brennstoffe",
-  "oil": "Öl und Erdö
+  "solid": "Feste fossile Brennstoffe",
+  "oil": "Öl und Erdöl",
   "gas": "Erdgas", 
   "biofuels": "Biobrennstoffe", 
   "electricity": "Elektrizität und Wärme",
@@ -239,8 +239,8 @@
   "EL": "Griechenland",
   "UK": "United Kingdom",
   "XK": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)",
-  "KS": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)",
-  "XKmobile": "Kosovo",
+  "KS": "Kosovo*",
+  "XKmobile": "Kosovo*",
 "other": "andere",
    "AF" : "Afghanistan",
    "EG" : "Ägypten",
