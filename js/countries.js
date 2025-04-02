@@ -95,13 +95,6 @@ function renderMap() {
 
               dataNameSpace.setRefURL();
             },
-            // tooltip: {
-            //   content: "<b>{CNTR_NAME}</b>",
-            //   options: {
-            //     direction: "top",
-            //     sticky: true
-            //   }
-            // }
             tooltip: {
               content: function (layer) {
                 const countryID = layer.properties.CNTR_ID;
@@ -138,71 +131,37 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
-
-
-    map.eachLayer(function (layer) {
-      if (layer.feature && layer.feature.properties) {
-          const countryID = layer.feature.properties.CNTR_ID;
-  
-          if (countryID === "KS") {
-              layer.setStyle({  
-                  fillColor: "#738ce5",  
-                  color: "#bcb5b5", // Border color
-                  weight: 1
-              });
-          } else if (countryID === "RS") {
-              layer.defaultOptions.style.fillColor= "#738ce5";      
-              layer.defaultOptions.style.color= "#4b598b";    
-              layer.defaultOptions.style.weight= "2";    
-              layer.setStyle({  
-                fillColor: "#738ce5",  
-                color: "#4b598b", // Border color
-                weight: 2
-            });              
-          } else {
-              layer.setStyle({  
-                  color: "rgb(245, 245, 245)", // Border color
-                  weight: 1,
-                  opacity: 1,
-                  fillColor: "rgb(230, 230, 230)", // Fill color
-                  fillOpacity: 1
-              });
-          }
-      }
-  });
-  
-
-    
       setTimeout(() => {
-
-      //   if (map._useSerbia._path) {        
-      //     let group = map._useSerbia._path.parentNode;          
-      //     if (group) {
-      //         let paths = group.querySelectorAll("path");  
-      //         if (paths.length > 1) {
-      //             let secondPath = paths[1];            
-      //             secondPath.setAttribute("fill", euCtr);
-      //             secondPath.setAttribute("stroke", "#4b598b");
-      //             secondPath.setAttribute("stroke-width", "2"); 
-      //         }   
-      //     } else {
-      //         console.error("Parent <g> not found.");
-      //     }
-      // }         
-      // if (map._useKosovo) {
-      //   map._useKosovo.setStyle({
-      //       fillColor: euCtr,
-      //       color: 'gray', // Border color
-      //       weight: 2,
-      //   });
-      // } 
-
-
-
-
-
-
-
+        map.eachLayer(function (layer) {
+          if (layer.feature && layer.feature.properties) {
+              const countryID = layer.feature.properties.CNTR_ID;
+      
+              if (countryID === "KS") {
+                  layer.setStyle({  
+                      fillColor: "#738ce5",  
+                      color: "#bcb5b5", // Border color
+                      weight: 1
+                  });
+              } else if (countryID === "RS") {
+                  layer.defaultOptions.style.fillColor= "#738ce5";      
+                  layer.defaultOptions.style.color= "#4b598b";    
+                  layer.defaultOptions.style.weight= "2";    
+                  layer.setStyle({  
+                    fillColor: "#738ce5",  
+                    color: "#4b598b", // Border color
+                    weight: 2
+                });              
+              } else {
+                  layer.setStyle({  
+                      color: "rgb(245, 245, 245)", // Border color
+                      weight: 1,
+                      opacity: 1,
+                      fillColor: "rgb(230, 230, 230)", // Fill color
+                      fillOpacity: 1
+                  });
+              }
+          }
+      });
           defGeos.forEach(key => {              
                   $('path[aria-label]').each(function () {
                     const countryName = $(this).attr('aria-label').trim();   
@@ -222,19 +181,7 @@ function renderMap() {
                     } 
                   });                
             });        
-            addClearToMenu()
-
-
-
-
-
-
-     
-       
-
-
- 
-
+            addClearToMenu()  
       }, 500);
   });
 }

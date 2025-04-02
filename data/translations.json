@@ -850,14 +850,14 @@
     "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
   },
   "KS": {
-    "EN": "Kosovo (under United Nations Security Council resolution 1244/99)",
-    "FR": "Kosovo (sous la résolution 1244/99 du Conseil de sécurité des Nations Unies)",
-    "DE": "Kosovo (gemäß Resolution 1244/99 des Sicherheitsrates der Vereinten Nationen)"
+    "EN": "Kosovo*",
+    "FR": "Kosovo*)",
+    "DE": "Kosovo*"
   },
   "XKmobile": {
-    "EN": "Kosovo",
-    "FR": "Kosovo",
-    "DE": "Kosovo"
+    "EN": "Kosovo*",
+    "FR": "Kosovo*",
+    "DE": "Kosovo*"
   },
   "other": {
     "EN": "Other",
