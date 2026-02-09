@@ -1,5 +1,5 @@
 
-var dataNameSpace = {
+const dataNameSpace = {
 
 	version: "2",	
 
@@ -47,7 +47,7 @@ var dataNameSpace = {
 		
 		//calculate the diagram height
 		calculateImgHeight: function (crop, width, margins) {
-			var height = Math.min(width * 9 / 16., crop * ((window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) - margins.top - margins.bottom);
+			const height = Math.min(width * 9 / 16., crop * ((window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) - margins.top - margins.bottom);
 			dataNameSpace.isLargeRes = (height > dataNameSpace.largeResHeightPixelThreshold);
 			return height;
 		},
@@ -58,14 +58,14 @@ var dataNameSpace = {
 		},
 
 	setRefURL: function () {		
-		var url = window.location.href;
-		var end = url.indexOf("?");
+		let url = window.location.href;
+		const end = url.indexOf("?");
 		url = (end > 0) ? url.slice(0, end) : url.slice(0);
-		var iref = 0;
+		let iref = 0;
 		// console.log(dataNameSpace.ref)
-		value = dataNameSpace.ref.geo
+		const value = dataNameSpace.ref.geo;
 		if (typeof value !== 'undefined' && value) {
-			for (ref in dataNameSpace.ref) {		
+			for (const ref in dataNameSpace.ref) {		
 				url += (iref == 0) ? "?" : "&";
 				url += ref + "=" + dataNameSpace.ref[ref].toString();
 				iref++;
@@ -85,8 +85,8 @@ var dataNameSpace = {
 
 	// get global ref variables in URL
 	getRefURL: function () {		
-		var refURL = getUrlVars();
-		for (var ref in dataNameSpace.ref) {
+		const refURL = getUrlVars();
+		for (const ref in dataNameSpace.ref) {
 			if (typeof refURL[ref] === "undefined") continue;
 			dataNameSpace.ref[ref] = refURL[ref];
 			// dataNameSpace.ref.language = refURL.language
@@ -97,15 +97,15 @@ var dataNameSpace = {
 		// set dataset depending on product and band selected
 		setDataset: function () {	
 
-			$.each(codesDataset, function (idataset, dataset) {										
+			codesDataset.forEach((dataset, idataset) => {										
 				// if(REF.siec == dataset.siec && REF.trade == dataset.trade) dataNameSpace.dataset = idataset; //&& $.inArray(REF.consoms, dataset.consoms) > -1				
 				if(dataset.siec.indexOf(REF.siec) > -1 && dataset.trade.indexOf(REF.trade) > -1) dataNameSpace.dataset = idataset; //&& $.inArray(REF.consoms, dataset.consoms) > -1				
 			});	
 
-			if($.inArray(REF.unit, codesDataset[dataNameSpace.dataset].defaultUnit) == -1) {
+			if(!codesDataset[dataNameSpace.dataset].defaultUnit.includes(REF.unit)) {
 				REF.unit = codesDataset[dataNameSpace.dataset].defaultUnit;
 			}	
-			if($.inArray(REF.defaultUnit, codesDataset[dataNameSpace.dataset].defaultUnit) == -1) {
+			if(!codesDataset[dataNameSpace.dataset].defaultUnit.includes(REF.defaultUnit)) {
 				REF.defaultUnit = codesDataset[dataNameSpace.dataset].defaultUnit;
 			}	
 		
@@ -119,14 +119,14 @@ var dataNameSpace = {
 };
 
 // global shortcut to reference setting
-var REF = dataNameSpace.ref;
+const REF = dataNameSpace.ref;
 
 
 
 // general visualisation settings
 dataNameSpace.isLargeRes = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) > dataNameSpace.largeResHeightPixelThreshold;
-var imgWidth = dataNameSpace.calculateImgWidth(dataNameSpace.cropDefaultWidth, (dataNameSpace.isLargeRes ? dataNameSpace.marginLarge : dataNameSpace.marginSmall));
-var imgHeight = dataNameSpace.calculateImgHeight(dataNameSpace.cropDefaultHeight, imgWidth, (dataNameSpace.isLargeRes ? dataNameSpace.marginLarge : dataNameSpace.marginSmall));
+const imgWidth = dataNameSpace.calculateImgWidth(dataNameSpace.cropDefaultWidth, (dataNameSpace.isLargeRes ? dataNameSpace.marginLarge : dataNameSpace.marginSmall));
+const imgHeight = dataNameSpace.calculateImgHeight(dataNameSpace.cropDefaultHeight, imgWidth, (dataNameSpace.isLargeRes ? dataNameSpace.marginLarge : dataNameSpace.marginSmall));
 
 
 

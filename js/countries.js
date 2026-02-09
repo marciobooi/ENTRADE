@@ -75,20 +75,16 @@ function renderMap() {
                 country = layer.feature.properties;
                 loadCountryData(country);              
 
-                $('path[aria-label]').each(function () {
-                  const countryName = $(this).attr('aria-label').trim();           
+                document.querySelectorAll('path[aria-label]').forEach((element) => {
+                  const countryName = element.getAttribute('aria-label').trim();           
                   if (countryName === languageNameSpace.labels[country]) {
-                    $(this).css({
-                      'fill': partnersCtr,
-                      'stroke': '#4b598b',
-                      'stroke-width': '2px'
-                    });
+                    element.style.fill = partnersCtr;
+                    element.style.stroke = '#4b598b';
+                    element.style.strokeWidth = '2px';
                   } else if (countryName === languageNameSpace.labels[REF.geo]) {
-                    $(this).css({
-                      'fill': selectLayer,
-                      'stroke': 'white',
-                      'stroke-width': '2px'
-                    });
+                    element.style.fill = selectLayer;
+                    element.style.stroke = 'white';
+                    element.style.strokeWidth = '2px';
                   }
                 });
               }  
@@ -163,22 +159,18 @@ function renderMap() {
           }
       });
           defGeos.forEach(key => {              
-                  $('path[aria-label]').each(function () {
-                    const countryName = $(this).attr('aria-label').trim();   
+                  document.querySelectorAll('path[aria-label]').forEach((element) => {
+                    const countryName = element.getAttribute('aria-label').trim();   
                 
                     if (countryName === languageNameSpace.labels[key]) {
-                      $(this).css({
-                        'fill': euCtr,
-                        'stroke': '#4b598b',
-                        'stroke-width': '2px'
-                      });
-                    }else if (countryName === languageNameSpace.labels[REF.geo]) {
-                      $(this).css({
-                        'fill': selectLayer,
-                        'stroke': 'white',
-                        'stroke-width': '2px'
-                      });
-                    } 
+                      element.style.fill = euCtr;
+                      element.style.stroke = '#4b598b';
+                      element.style.strokeWidth = '2px';
+                    } else if (countryName === languageNameSpace.labels[REF.geo]) {
+                      element.style.fill = selectLayer;
+                      element.style.stroke = 'white';
+                      element.style.strokeWidth = '2px';
+                    }
                   });                
             });        
             addClearToMenu()  
@@ -190,34 +182,36 @@ function renderMap() {
 
 
 function addClearToMenu() {
-  icon = '<i class="fas fa-eraser"></i>'
- const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="clear" type="button">
+  const icon = '<i class="fas fa-eraser"></i>';
+  const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="clear" type="button">
   <b class="wt-noconflict"></b>
   <span class="wt-noconflict">Clear map</span>
-</button>`
+</button>`;
 
-$(".wt-map-menu").append(content);
+  const mapMenu = document.querySelector(".wt-map-menu");
+  if (mapMenu) {
+    mapMenu.insertAdjacentHTML('beforeend', content);
+  }
 
-$("#wt-button-clear").click(() => { 
-  clearLines()
-  $('#countryInfo').remove()
-  clearMap()
+  const clearBtn = document.querySelector("#wt-button-clear");
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      clearLines();
+      const countryInfo = document.querySelector('#countryInfo');
+      if (countryInfo) countryInfo.remove();
+      clearMap();
 
-  $('path[aria-label]').each(function () {
-    const countryName = $(this).attr("aria-label").trim();
+      document.querySelectorAll('path[aria-label]').forEach((element) => {
+        const countryName = element.getAttribute("aria-label").trim();
 
-    if (countryName === languageNameSpace.labels[REF.geo]) {
-      $(this).css({
-        fill: "rgb(115, 140, 229)",
-        stroke: "rgb(75, 89, 139)",
-        "stroke-width": "2px",
+        if (countryName === languageNameSpace.labels[REF.geo]) {
+          element.style.fill = "rgb(115, 140, 229)";
+          element.style.stroke = "rgb(75, 89, 139)";
+          element.style.strokeWidth = "2px";
+        }
       });
-    } 
-  });
-})
-
-
-  
+    });
+  }
 }
 
 
@@ -250,18 +244,22 @@ function loadCountryData(country) {
     </div>
 `;
 
-$('body').append(content);
+  document.body.insertAdjacentHTML('beforeend', content);
 
-// Function to remove the alert popup
-function removeAlertPopup() {
-    $('.alert-popup').remove();
-}
+  // Function to remove the alert popup
+  function removeAlertPopup() {
+    const popup = document.querySelector('.alert-popup');
+    if (popup) popup.remove();
+  }
 
-// Set timeout to auto-destroy the alert after 3 seconds
-setTimeout(removeAlertPopup, 3000);
+  // Set timeout to auto-destroy the alert after 3 seconds
+  setTimeout(removeAlertPopup, 3000);
 
-// Add a click event listener to close the alert popup manually
-$('#closeAlertPopup').on('click', removeAlertPopup);
+  // Add a click event listener to close the alert popup manually
+  const closeBtn = document.querySelector('#closeAlertPopup');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', removeAlertPopup);
+  }
 
 
 
@@ -274,7 +272,8 @@ $('#closeAlertPopup').on('click', removeAlertPopup);
     chartContainerStatus();
 
     if (isOpenChartContainer) {
-      $('#countryInfo').remove();
+      const countryInfo = document.querySelector('#countryInfo');
+      if (countryInfo) countryInfo.remove();
       removeChartOptions();
       openFactSheet();
     }
@@ -291,13 +290,24 @@ function openFactSheet(country) {
       mapcontainer.style.width = "50%";
       map.setView([mapCenterCoords.CENTROID[0], mapCenterCoords.CENTROID[1] + 30], 4);
   
-      $('#countryInfo').remove();
-      $('#map').removeClass('col-12').addClass('col-6')
+      const countryInfoElem = document.querySelector('#countryInfo');
+      if (countryInfoElem) countryInfoElem.remove();
+      
+      const mapElem = document.querySelector('#map');
+      if (mapElem) {
+        mapElem.classList.remove('col-12');
+        mapElem.classList.add('col-6');
+      }
   } else {
       console.error("Map element not found.");
   }
 
-  $('#chartContainer').removeClass('col-0').addClass('col-6').css('display', 'block')
+  const chartContainer = document.querySelector('#chartContainer');
+  if (chartContainer) {
+    chartContainer.classList.remove('col-0');
+    chartContainer.classList.add('col-6');
+    chartContainer.style.display = 'block';
+  }
 
   addChartOptions()
   createTableChart()
@@ -333,13 +343,19 @@ function countriesDataHandler(d) {
 }
 
 function countryInfo(country) {
-  $('#countryInfo').remove();
-  countryInfoContent = countryInfoMenu(country)
-  $("#map").append(countryInfoContent);
+  const countryInfoElem = document.querySelector('#countryInfo');
+  if (countryInfoElem) countryInfoElem.remove();
+  
+  countryInfoContent = countryInfoMenu(country);
+  const mapElem = document.querySelector("#map");
+  if (mapElem) {
+    mapElem.insertAdjacentHTML('beforeend', countryInfoContent);
+  }
 }
 
 function closeInfo(params) {
-  $('#countryInfo').remove();
+  const countryInfoElem = document.querySelector('#countryInfo');
+  if (countryInfoElem) countryInfoElem.remove();
   clearLinesAndMarkers();
 }
 
@@ -438,15 +454,13 @@ function getMidpoint(sourceCoords, partnerCoords) {
 
 
 function styleCountry(partnerCountry) {
-  $('path[aria-label]').each(function () {
-    const countryName = $(this).attr('aria-label').trim();
+  document.querySelectorAll('path[aria-label]').forEach((element) => {
+    const countryName = element.getAttribute('aria-label').trim();
 
     if (countryName === languageNameSpace.labels[partnerCountry]) {
-      $(this).css({
-        'fill': partnersCtr,
-        'stroke': 'white',
-        'stroke-width': '2px'
-      });
+      element.style.fill = partnersCtr;
+      element.style.stroke = 'white';
+      element.style.strokeWidth = '2px';
     }
   });
 }
@@ -468,41 +482,33 @@ function clearMarkers() {
 }
 
 function clearMap() {
-  $('path').each(function () {    
-      $(this).css('fill', 'transparent');    
-});
+  document.querySelectorAll('path').forEach((element) => {    
+    element.style.fill = 'transparent';    
+  });
 
+  defGeos.forEach(key => {   
 
-defGeos.forEach(key => {   
-
-    $('path[aria-label]').each(function () {
-      const countryName = $(this).attr('aria-label').trim();
+    document.querySelectorAll('path[aria-label]').forEach((element) => {
+      const countryName = element.getAttribute('aria-label').trim();
   
       if (countryName === languageNameSpace.labels[key]) {
-        $(this).css({
-          'fill': euCtr,
-          'stroke': '#4b598b',
-          'stroke-width': '2px'
-        });
+        element.style.fill = euCtr;
+        element.style.stroke = '#4b598b';
+        element.style.strokeWidth = '2px';
       } else if (countryName === languageNameSpace.labels[REF.geo]) {
-        $(this).css({
-          'fill': selectLayer,
-          'stroke': 'white',
-          'stroke-width': '2px'
-        });
+        element.style.fill = selectLayer;
+        element.style.stroke = 'white';
+        element.style.strokeWidth = '2px';
       }
     });
+  });
 
-  
-
-
-
-const elementsWithClasses = $('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+  const elementsWithClasses = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
 
   // Iterate through the found elements
-  elementsWithClasses.each(function () {
+  elementsWithClasses.forEach((element) => {
     // Check inner text
-    var countryName = $(this).text().trim();
+    const countryName = element.textContent.trim();
 
 
   
@@ -647,5 +653,6 @@ function calculateWeight(partners, value) {
 
 
 function chartContainerStatus() {
-  isOpenChartContainer = ($('#chartContainer').css('display') === 'none') ? false : true;
+  const chartContainer = document.querySelector('#chartContainer');
+  isOpenChartContainer = chartContainer && window.getComputedStyle(chartContainer).display !== 'none' ? true : false;
 }

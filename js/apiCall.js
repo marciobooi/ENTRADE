@@ -1,4 +1,4 @@
-var cache = {};
+const cache = {};
 
 function addToCache(query, d) {
   if (!cache[query]) {

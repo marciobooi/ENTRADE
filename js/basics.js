@@ -1,9 +1,9 @@
-var log = console.log.bind(document)
+const log = console.log.bind(document);
 
-var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
+const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
 
 
-const message = (/The ENTRADE tool is down since:     (.*)/)
+const message = (/The ENTRADE tool is down since:     (.*)/);
 
 	function getOrientation() {
 		if(screen.height > screen.width){	    
@@ -17,7 +17,7 @@ const message = (/The ENTRADE tool is down since:     (.*)/)
 // read variables from URL
 // code from http://papermashup.com/read-url-get-variables-withjavascript/
 function getUrlVars() {
-	var vars = {};
+	const vars = {};
 	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
 		vars[key] = value;
 	});

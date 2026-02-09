@@ -5,10 +5,11 @@ function populateYearsData() {
 
   const yearsArray = JSONstat(url).Dataset(0).Dimension("time").id;  
 
-  var numberOfItems = $("#dropdown-years-list").children().length;
+  const dropdownList = document.querySelector("#dropdown-years-list");
+  const numberOfItems = dropdownList ? dropdownList.children.length : 0;
 
   if(numberOfItems !== yearsArray.length) {
-    REF.year = yearsArray[yearsArray.length - 1]
+    REF.year = yearsArray[yearsArray.length - 1];
   }
 
 

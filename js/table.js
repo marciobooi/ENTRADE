@@ -1,5 +1,6 @@
 function createTableChart() {
-  $('#chartContainer').empty();
+  const chartContainer = document.getElementById("chartContainer");
+  chartContainer.textContent = '';
 
   barchartdata();
   const title = document.createElement("h2");

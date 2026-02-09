@@ -132,87 +132,112 @@ function tutorial(buttonTimer) {
 		currentStep = this._currentStep
 
 		if (currentStep === 0) {
-			document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['tutFINISH']
-			setTimeout(() => {
-				$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton.introjs-disabled").addClass( "close" )
-			}, 100);
+			const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+			if (prevButton) {
+				prevButton.textContent = languageNameSpace.labels['tutFINISH'];
+				setTimeout(() => {
+					const disabledButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton.introjs-disabled");
+					if (disabledButton) {
+						disabledButton.classList.add("close");
+					}
+				}, 100);
+			}
 		} else {
-			document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['tutBACK']
-			$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").removeClass( "close" )
+			const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+			if (prevButton) {
+				prevButton.textContent = languageNameSpace.labels['tutBACK'];
+				prevButton.classList.remove("close");
+			}
 
-			$(".introjs-tooltip.customTooltip.introjs-auto").css({
-				"left": "50% !important",
-				"top": "50%",
-				"margin-left": "auto",
-				"margin-top": "auto",
-				"transform": "translate(-50%,-50%)"
-			})
+			const autoTooltip = document.querySelector(".introjs-tooltip.customTooltip.introjs-auto");
+			if (autoTooltip) {
+				autoTooltip.style.left = "50% !important";
+				autoTooltip.style.top = "50%";
+				autoTooltip.style.marginLeft = "auto";
+				autoTooltip.style.marginTop = "auto";
+				autoTooltip.style.transform = "translate(-50%,-50%)";
+			}
+		}
+
+	  });
+
+	const closeHeaderBtn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltip-header > a");
+	if (closeHeaderBtn) {
+		closeHeaderBtn.setAttribute("alt", "Close");
+		closeHeaderBtn.setAttribute("id", "tutorialClose");
+		closeHeaderBtn.setAttribute("tabindex", "0");
+		closeHeaderBtn.setAttribute("href", "javascript:");
+		closeHeaderBtn.setAttribute("class", "btn btn-primary min-with--nav");
 	}
 
-			});
+	const firstPrevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+	if (firstPrevButton) {
+		firstPrevButton.textContent = languageNameSpace.labels['tutFINISH'];
+		firstPrevButton.classList.add("close");
+	}
 
-	$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltip-header > a").attr({
-		"alt": "Close",
-		"id": "tutorialClose",
-		"tabindex": "0",
-		"href": "javascript:",
-		"class": "btn btn-primary min-with--nav"
-	});
-
-	document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['tutFINISH']
-	$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").addClass( "close " )
-
-	traptutorialfocus()
+	traptutorialfocus();
 
 }
 
 function closeTutorial() {
-	buttonTimer = setTimeout("introJs().exit()", 4000);	
-	isOpen = false
-	$("button#INFO").focus();
+	buttonTimer = setTimeout(() => { introJs().exit(); }, 4000);	
+	isOpen = false;
+	const infoBtn = document.querySelector("button#INFO");
+	if (infoBtn) infoBtn.focus();
 }
 
-btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton")
-$(document).on('click', btn, function() {
-	clearTimeout(buttonTimer)	
-});
+const btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton");
+if (btn) {
+	btn.addEventListener('click', () => {
+		clearTimeout(buttonTimer);	
+	});
+}
 
-function closeProcess(params) {
+function closeProcess(event) {
 	event.preventDefault();
-	introJs().exit()
-	buttonTimer = setTimeout("introJs().exit()", 4000);
+	introJs().exit();
+	buttonTimer = setTimeout(() => { introJs().exit(); }, 4000);
 	clearTimeout(buttonTimer);
-	document.querySelector("#tb-tutorial-btn");
-	// const button = document.getElementById('tb-tutorial-btn');
-	// button.focus();
-	isOpen = false
-	$("button#INFO").focus();
+	isOpen = false;
+	const infoBtn = document.querySelector("button#INFO");
+	if (infoBtn) infoBtn.focus();
 }
 
-$(document).on("click keydown", "#tutorialClose", function(event) {
-	const isClickEvent = event.type === "click";
-	const isKeyEvent = event.type === "keydown" && (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13);
-	if (isClickEvent || isKeyEvent) {
-		closeProcess();
-	}
-  });
+const tutorialCloseBtn = document.querySelector("#tutorialClose");
+if (tutorialCloseBtn) {
+	tutorialCloseBtn.addEventListener("click", (event) => {
+		closeProcess(event);
+	});
 
+	tutorialCloseBtn.addEventListener("keydown", (event) => {
+		if (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13) {
+			closeProcess(event);
+		}
+	});
+}
 
-$(document).on("click keydown", ".close", function(event) {
-	const isClickEvent = event.type === "click";
-	const isKeyEvent = event.type === "keydown" && (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13);
-	if (isClickEvent || isKeyEvent) {
-		closeProcess();
+document.addEventListener("click", function(event) {
+	if (event.target && event.target.classList.contains("close")) {
+		closeProcess(event);
 	}
 });
 
-  document.addEventListener('keydown', function(event) {
+document.addEventListener("keydown", function(event) {
+	if (event.target && event.target.classList.contains("close")) {
+		if (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13) {
+			closeProcess(event);
+		}
+	}
+});
+
+document.addEventListener('keydown', function(event) {
 	if (event.key === 'Escape') {
 		if(isOpen){
-			closeProcess()
+			closeProcess(event);
 		} 
 	}
-  });
+});
 
 
 

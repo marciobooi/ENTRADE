@@ -1,7 +1,14 @@
 function exportIframe() {
 
-    $('.ecl-modal__header-content').html(languageNameSpace.labels['sharemodaltitle'])
-    $('.targetUrl').html(window.location.href) 
+    const headerContent = document.querySelector('.ecl-modal__header-content');
+    if (headerContent) {
+        headerContent.textContent = languageNameSpace.labels['sharemodaltitle'];
+    }
+
+    const targetUrl = document.querySelector('.targetUrl');
+    if (targetUrl) {
+        targetUrl.textContent = window.location.href;
+    }
     
     const modal = document.getElementById('iframeModal');
 

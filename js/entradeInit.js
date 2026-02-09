@@ -1,11 +1,17 @@
-$(document).ready(function () {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+async function initApp() {
   // dataNameSpace.getRefURL();
 
-  languageNameSpace.initLanguage(REF.language);
+  await languageNameSpace.initLanguage(REF.language);
 
-  const euGlobanContainer = $("<div>").attr("id", "euGlobanContainer");
-
-  euGlobanContainer.prependTo("header");
+  const euGlobanContainer = document.createElement("div");
+  euGlobanContainer.id = "euGlobanContainer";
+  document.querySelector("header").insertAdjacentElement('afterbegin', euGlobanContainer);
 
   $wt.render("euGlobanContainer", {
     utility: "globan",
@@ -13,14 +19,12 @@ $(document).ready(function () {
     theme: "dark",
   });
 
-setTimeout(() => {
-  document.querySelectorAll("#chartOptionsMenu path").forEach((path) => {
-    path.style.fill = "white";
-  });
-}, 3000);
-
-
-});
+  setTimeout(() => {
+    document.querySelectorAll("#chartOptionsMenu path").forEach((path) => {
+      path.style.fill = "white";
+    });
+  }, 3000);
+}
 
 function buildComponents() {
   const components = [
@@ -38,11 +42,20 @@ function buildComponents() {
 }
 
 function removeComponents() {
-  $("#navbar-container").empty();
-  $("#subnavbar-container").empty();
-  $("#menuSwitch").remove();
-  $("#floatingMenu").empty();
-  $("#componentFooter").empty();
+  const navbarContainer = document.querySelector("#navbar-container");
+  if (navbarContainer) navbarContainer.textContent = '';
+
+  const subnavbarContainer = document.querySelector("#subnavbar-container");
+  if (subnavbarContainer) subnavbarContainer.textContent = '';
+
+  const menuSwitch = document.querySelector("#menuSwitch");
+  if (menuSwitch) menuSwitch.remove();
+
+  const floatingMenu = document.querySelector("#floatingMenu");
+  if (floatingMenu) floatingMenu.textContent = '';
+
+  const componentFooter = document.querySelector("#componentFooter");
+  if (componentFooter) componentFooter.textContent = '';
 }
 
 function populateDropdownData() {

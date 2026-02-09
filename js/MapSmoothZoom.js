@@ -26,7 +26,7 @@ L.Map.SmoothZoom = L.Handler.extend({
   },
 
   setSmoothZoom: function (e) {
-    var delta;
+    let delta;
     if (e.wheelDelta) { // Standard wheel event properties
       delta = e.wheelDelta / 120;
     } else if (e.deltaY) { // Firefox wheel event properties
@@ -35,9 +35,9 @@ L.Map.SmoothZoom = L.Handler.extend({
       return;
     }
 
-    var map = this._map;
+    const map = this._map;
 
-    var newZoom = delta > 0 ? 1 : -1;
+    const newZoom = delta > 0 ? 1 : -1;
 
     map.setZoom(map.getZoom() + newZoom);
   }

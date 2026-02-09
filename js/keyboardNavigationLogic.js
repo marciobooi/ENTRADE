@@ -1,61 +1,55 @@
 function trapTab() {
 
-  var capture = $("#chartOptionsMenu").attr("tabindex", "-1").focus();
+  const capture = document.querySelector("#chartOptionsMenu");
+  if (capture) {
+    capture.setAttribute("tabindex", "-1");
+    capture.focus();
 
-  capture.keydown(function handleKeydown(event) {
-    if (event.key.toLowerCase() !== "tab") {
-      return;
-    }
-
-    var tabbable = $().add(capture.find("button"));
-    var target = $(event.target);
-
-    if (event.shiftKey) {
-      if (target.is(capture) || target.is(tabbable.first())) {
-        event.preventDefault();
-        tabbable.last().focus();
+    capture.addEventListener("keydown", function handleKeydown(event) {
+      if (event.key.toLowerCase() !== "tab") {
+        return;
       }
-    } else {
-      if (target.is(tabbable.last())) {
-        event.preventDefault();
-        tabbable.first().focus();
+
+      const buttons = Array.from(capture.querySelectorAll("button"));
+      const target = event.target;
+      const firstButton = buttons[0];
+      const lastButton = buttons[buttons.length - 1];
+
+      if (event.shiftKey) {
+        if (target === capture || target === firstButton) {
+          event.preventDefault();
+          lastButton?.focus();
+        }
+      } else {
+        if (target === lastButton) {
+          event.preventDefault();
+          firstButton?.focus();
+        }
       }
-    }
-  });
+    });
+  }
 
-
-  $(document).mouseup(function (e) {
-    var container = $("#chartOptionsMenu");
-    var menuBtn = $("#menu");
+  document.addEventListener("mouseup", function (e) {
+    const container = document.querySelector("#chartOptionsMenu");
+    const menuBtn = document.querySelector("#menu");
   
     // Check if the click is outside the container or on the menu button
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      container.addClass('toggleMenu');
+    if (container && !container.contains(e.target)) {
+      container.classList.add('toggleMenu');
     }
   });
   
   // Handle click on the menu button
-  $("#menu").click(function() {
-    var container = $("#chartOptionsMenu");
-    container.toggleClass('toggleMenu');
-  });
-  
-
-  // let popup = document.querySelector('#chartOptionsMenu');
-  
-
-  // window.onclick = e => {
-  //   if (e.target !== popup ) {
-  //     log(true)
-  //     // popup.classList.add('toggleMenu')
-  //     if(!$(e.target).hasClass( "toggleMenu" )) {
-  //       log(true)
-  //         $("#chartOptionsMenu").toggleClass( 'toggleMenu' )
-  //     } else {
-  //       return
-  //     }
-  //   }
-  // }
+  const menuBtn = document.querySelector("#menu");
+  if (menuBtn) {
+    menuBtn.addEventListener("click", function() {
+      const container = document.querySelector("#chartOptionsMenu");
+      if (container) {
+        container.classList.toggle('toggleMenu');
+      }
+    });
+  }
+}
 
 
 

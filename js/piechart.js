@@ -1,6 +1,7 @@
 function createPieChart() {
   REF.chart = "pieChart";
-  $('#chartContainer').empty()
+  const chartContainer = document.getElementById("chartContainer");
+  chartContainer.textContent = '';
 
   piechartdata()
  
@@ -39,7 +40,7 @@ function createPieChart() {
     },
   }
   
-  const fullChart = $(window).width() > 700;
+  const fullChart = window.innerWidth > 700;
 
   const legendBig = {
       align: 'right',

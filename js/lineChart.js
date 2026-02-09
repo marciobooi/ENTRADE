@@ -43,9 +43,12 @@ function createLineChart() {
           stacking: "normal",
           events: {
             mouseOver: function () {
-              var point = this;
-              var color = point.color;
-              $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
+              const point = this;
+              const color = point.color;
+              const tooltipBox = document.querySelector('path.highcharts-label-box.highcharts-tooltip-box');
+              if (tooltipBox) {
+                tooltipBox.setAttribute('stroke', color);
+              }
             }
           }
         },

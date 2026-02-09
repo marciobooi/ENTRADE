@@ -44,11 +44,11 @@ L.Curve = L.Path.extend({
 	},
 
 	_computeBounds: function(){
-		var bound = new L.LatLngBounds();
-		var lastPoint;
-		var lastCommand;
-		var coord;
-		for(var i = 0; i < this._coords.length; i++){
+		const bound = new L.LatLngBounds();
+		let lastPoint;
+		let lastCommand;
+		let coord;
+		for(let i = 0; i < this._coords.length; i++){
 			coord = this._coords[i];
 			if(typeof coord == 'string' || coord instanceof String){
 				lastCommand = coord;
@@ -59,11 +59,11 @@ L.Curve = L.Path.extend({
 				bound.extend([coord[0], lastPoint.lng]);
 				lastPoint = new L.latLng(coord[0], lastPoint.lng);
 			}else if(lastCommand == 'C'){
-				var controlPoint1 = new L.latLng(coord[0], coord[1]);
+				const controlPoint1 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				var controlPoint2 = new L.latLng(coord[0], coord[1]);
+				const controlPoint2 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				var endPoint = new L.latLng(coord[0], coord[1]);
+				const endPoint = new L.latLng(coord[0], coord[1]);
 
 				bound.extend(controlPoint1);
 				bound.extend(controlPoint2);
@@ -73,14 +73,14 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint2 = controlPoint2;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'S'){
-				var controlPoint2 = new L.latLng(coord[0], coord[1]);
+				const controlPoint2 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				var endPoint = new L.latLng(coord[0], coord[1]);
+				const endPoint = new L.latLng(coord[0], coord[1]);
 
-				var controlPoint1 = lastPoint;
+				let controlPoint1 = lastPoint;
 				if(lastPoint.controlPoint2){
-					var diffLat = lastPoint.lat - lastPoint.controlPoint2.lat;
-					var diffLng = lastPoint.lng - lastPoint.controlPoint2.lng;
+					const diffLat = lastPoint.lat - lastPoint.controlPoint2.lat;
+					const diffLng = lastPoint.lng - lastPoint.controlPoint2.lng;
 					controlPoint1 = new L.latLng(lastPoint.lat + diffLat, lastPoint.lng + diffLng);
 				}
 
@@ -92,9 +92,9 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint2 = controlPoint2;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'Q'){
-				var controlPoint = new L.latLng(coord[0], coord[1]);
+				const controlPoint = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				var endPoint = new L.latLng(coord[0], coord[1]);
+				const endPoint = new L.latLng(coord[0], coord[1]);
 
 				bound.extend(controlPoint);
 				bound.extend(endPoint);
@@ -102,12 +102,12 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint = controlPoint;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'T'){
-				var endPoint = new L.latLng(coord[0], coord[1]);
+				const endPoint = new L.latLng(coord[0], coord[1]);
 
-				var controlPoint = lastPoint;
+				let controlPoint = lastPoint;
 				if(lastPoint.controlPoint){
-					var diffLat = lastPoint.lat - lastPoint.controlPoint.lat;
-					var diffLng = lastPoint.lng - lastPoint.controlPoint.lng;
+					const diffLat = lastPoint.lat - lastPoint.controlPoint.lat;
+					const diffLng = lastPoint.lng - lastPoint.controlPoint.lng;
 					controlPoint = new L.latLng(lastPoint.lat + diffLat, lastPoint.lng + diffLng);
 				}
 
@@ -143,11 +143,11 @@ L.Curve = L.Path.extend({
 	},
 
 	_project: function() {
-		var coord, lastCoord, curCommand, curPoint;
+		let coord, lastCoord, curCommand, curPoint;
 
 		this._points = [];
 
-		for(var i = 0; i < this._coords.length; i++){
+		for(let i = 0; i < this._coords.length; i++){
 			coord = this._coords[i];
 			if(typeof coord == 'string' || coord instanceof String){
 				this._points.push(coord);
@@ -174,7 +174,7 @@ L.Curve = L.Path.extend({
 	},
 
 	_curvePointsToPath: function(points){
-		var point, curCommand, str = '';
+		let point, curCommand, str = '';
 		for(var i = 0; i < points.length; i++){
 			point = points[i];
 			if(typeof point == 'string' || point instanceof String){
@@ -248,7 +248,7 @@ L.Curve = L.Path.extend({
 			}
 		}else{
 			if(this.options.animate && this._path.animate){
-				var length = this._svgSetDashArray();
+				const length = this._svgSetDashArray();
 
 				this._path.animate([
 					{strokeDashoffset: length},
@@ -278,8 +278,8 @@ L.Curve = L.Path.extend({
 	},
 
 	_svgSetDashArray: function(){
-		var path = this._path;
-		var length = path.getTotalLength();
+		const path = this._path;
+		const length = path.getTotalLength();
 
 		if(!this.options.dashArray){
 			path.style.strokeDasharray = length + ' ' + length;
@@ -304,7 +304,7 @@ L.Curve = L.Path.extend({
 	},
 
 	_normalizeCanvasAnimationOptions: function(){
-		var opts = {
+		const opts = {
 			delay: 0,
 			duration: 0,
 			iterations:	1
@@ -329,7 +329,7 @@ L.Curve = L.Path.extend({
 	_updateCurveCanvas: function(){
 		this._project();
 
-		var pathString = this._curvePointsToPath(this._points);
+		const pathString = this._curvePointsToPath(this._points);
 		this._pathSvgElement.setAttribute('d', pathString);
 
 		if(this.options.animate && typeof(TWEEN) === 'object' && this._canvasSetDashArray){
@@ -350,7 +350,7 @@ L.Curve = L.Path.extend({
 	_animationCanvasElement: null,
 
 	_resizeCanvas: function() {
-		var size = this._map.getSize();
+		const size = this._map.getSize();
 		this._animationCanvasElement.width = size.x;
 		this._animationCanvasElement.height = size.y;
 
@@ -358,7 +358,7 @@ L.Curve = L.Path.extend({
 	},
 
 	_resetCanvas: function() {
-		var topLeft = this._map.containerPointToLayerPoint([0, 0]);
+		const topLeft = this._map.containerPointToLayerPoint([0, 0]);
 		L.DomUtil.setPosition(this._animationCanvasElement, topLeft);
 
 		this._redrawCanvas();
