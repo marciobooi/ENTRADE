@@ -1,0 +1,295 @@
+/* =================================
+   ENTRADE Custom Styles
+   Using ECL v4 as base component library
+   Minimal custom overrides only
+   ================================= */
+
+/* Support for high zoom levels (200%, 400%) */
+@supports (zoom: 1) {
+  body {
+    zoom: 1;
+  }
+}
+
+/* Accessibility: Ensure content remains readable at 200% zoom */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* =================================
+   DROPDOWN POSITIONING
+   Fix for dropdown menus to display outside nav container
+   ================================= */
+.ecl-dropdown-menu {
+  position: fixed;
+  z-index: 1050;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ecl-dropdown-menu.show {
+  display: block;
+}
+
+.ecl-dropdown-menu-end {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.ecl-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.ecl-dropdown-item:hover,
+.ecl-dropdown-item:focus {
+  color: #16213e;
+  background-color: #f8f9fa;
+}
+
+.ecl-dropdown-item.active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0066cc;
+}
+
+/* =================================
+   NAVBAR CUSTOMIZATIONS
+   ================================= */
+.ecl-navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+}
+
+.ecl-navbar-expand-sm {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.ecl-navbar-nav {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.navbar-nav-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* =================================
+   BUTTON STYLES
+   ================================= */
+.round-btn {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =================================
+   FORM STYLES
+   ================================= */
+.ecl-form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.5rem;
+}
+
+.ecl-form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.5rem;
+}
+
+.ecl-form-check-label {
+  margin-bottom: 0;
+}
+
+.ecl-form-switch .ecl-form-check-input {
+  width: 2.25rem;
+  margin-left: -2.25rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280,0,0,.25%29'/%3e%3c/svg%3e");
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.45rem 1.45rem;
+  border-radius: 2.5rem;
+}
+
+.ecl-form-switch .ecl-form-check-input:checked {
+  background-position: right center;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255,255,255,.25%29'/%3e%3c/svg%3e");
+  background-color: #0066cc;
+  border-color: #0066cc;
+}
+
+.focus-ring:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* =================================
+   UTILITY CLASSES (Not provided by ECL v4)
+   ================================= */
+.d-none {
+  display: none !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.ms-auto {
+  margin-left: auto !important;
+}
+
+.px-1 {
+  padding-left: 0.25rem !important;
+  padding-right: 0.25rem !important;
+}
+
+.my-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.my-3 {
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.my-lg-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.w-75 {
+  width: 75% !important;
+}
+
+.text-end {
+  text-align: right !important;
+}
+
+.text-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+   Ensure proper behavior at different breakpoints and zoom levels
+   ================================= */
+
+/* Mobile-first approach with ECL breakpoints */
+@media (max-width: 576px) {
+  .ecl-navbar-expand-sm {
+    flex-direction: column;
+  }
+
+  .ecl-navbar-nav {
+    flex-direction: column;
+  }
+
+  .my-lg-0 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Tablet and above */
+@media (min-width: 576px) {
+  .ecl-navbar-expand-sm {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .ecl-navbar-nav {
+    flex-direction: row;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .navbar-nav-scroll {
+    --bs-scroll-height: 50vh;
+  }
+}
+
+/* Support for users with zoom at 200% */
+@media (min-width: 200%) {
+  body {
+    font-size: 14px;
+  }
+  
+  .ecl-navbar {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Ensure minimum touch target size for accessible interaction */
+@media (hover: none) {
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .ecl-dropdown-menu {
+    border-width: 2px;
+  }
+
+  .ecl-button--primary {
+    box-shadow: 0 0 0 2px #000;
+  }
+}
+
+/* =================================
+   PRINT STYLES
+   ================================= */
+@media print {
+  .ecl-navbar,
+  .ecl-dropdown-menu,
+  button[aria-label*="Close"],
+  .chart-btn {
+    display: none !important;
+  }
+}
