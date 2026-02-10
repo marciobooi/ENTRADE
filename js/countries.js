@@ -23,6 +23,13 @@ fetch("data/data.json")
     let country = geo;
     
     setTimeout(function () {
+      // Check if map and map._layers exist before accessing
+      if (!map || !map._layers) {
+        console.warn('Map or map._layers not yet initialized, retrying...');
+        fireOnStart(geo); // Retry if map not ready
+        return;
+      }
+
       for (const layerId in map._layers) {
         if (map._layers.hasOwnProperty(layerId)) {
             const layer = map._layers[layerId];
