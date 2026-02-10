@@ -12,12 +12,12 @@ class Navbar {
 
     this.navbar.innerHTML = /*html*/ `  
 
-      <div class="container-fluid" id="es_app_header">
+      <div class="" id="es_app_header">
         <div id="es_app_header_title" class="">
           <h1 id="header-title-label" class="es_app_title">${languageNameSpace.labels["header-title-label"]}</h1>
         </div>
         <div id="lang-section">
-          <button id="toggleLanguageBtn" type="button" class="ecl-button ecl-button--secondary" aria-expanded="false" aria-label="${languageNameSpace.labels["SELECTLANGUAGELABEL"]}">
+          <button id="toggleLanguageBtn" type="button" class="ecl-button ecl-button--primary" aria-expanded="false" aria-label="${languageNameSpace.labels["SELECTLANGUAGELABEL"]}">
             <i class="fas fa-globe" focusable="false" aria-hidden="true"></i>
             <span id="lang-selection-text" class="btn-text">English</span>
           </button>

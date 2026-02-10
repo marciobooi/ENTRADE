@@ -8,7 +8,7 @@ class SubNavbar {
       // const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768
   
 
-      const browser = `<div class="ecl-row">
+      const browser = `<div class="ecl-row subNavBar">
             <div class="ecl-col-1">
               <button id="menu" class="btnGroup" type="button" aria-label="${
                 languageNameSpace.labels["MAINMENU"]
