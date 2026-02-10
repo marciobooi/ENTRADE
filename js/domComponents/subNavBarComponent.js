@@ -19,7 +19,7 @@ class SubNavbar {
               </button>
             </div>
 
-            <div class="ecl-col-7">
+            <div class="ecl-col-6">
               <div class="text-group">
                 <h2 id="title" class="title"></h2>
                 <h6 id="subtitle" class="subtitle"></h6>      
@@ -46,7 +46,7 @@ class SubNavbar {
                 <li class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
                   <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${
                     languageNameSpace.labels["infoBtn"]
-                  }" data-bs-toggle="dropdown"  title="${
+                  }" data-ecl-toggle="dropdown"  title="${
         languageNameSpace.labels["infoBtn"]
       }" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                     <i class="fas fa-info"></i>
@@ -84,7 +84,7 @@ class SubNavbar {
                 <li class="nav-item dropdown px-1" id="social-media" aria-haspopup="menu">
                 <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${
                   languageNameSpace.labels["shareChart"]
-                }" data-bs-toggle="dropdown"  title="${
+                }" data-ecl-toggle="dropdown"  title="${
         languageNameSpace.labels["shareChart"]
       }" aria-haspopup="true" aria-expanded="true" id="shareChart">
                   <i class="fas fa-share-alt" aria-hidden="true"></i>
@@ -181,7 +181,7 @@ class SubNavbar {
         <div class="chartMenuMobile d-none">
           <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
               <li class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
-                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown"  title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-ecl-toggle="dropdown"  title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                   <i class="fas fa-info" aria-hidden="true"></i>
                 </button>
                 <ul class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
@@ -305,12 +305,52 @@ class SubNavbar {
             toggleSwitch(switchElement);
           });
           
-
-
-
-
+          this.initializeDropdowns();
         }     
     }
+
+    initializeDropdowns() {
+      // Handle dropdown toggles
+      const dropdownButtons = this.subNavbar.querySelectorAll('[data-ecl-toggle="dropdown"]');
+      
+      dropdownButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Find the associated dropdown menu (next sibling)
+          const menu = button.nextElementSibling;
+          if (menu && menu.classList.contains('ecl-dropdown-menu')) {
+            // Close other dropdowns
+            const otherMenus = this.subNavbar.querySelectorAll('.ecl-dropdown-menu.show');
+            otherMenus.forEach(m => {
+              if (m !== menu) {
+                m.classList.remove('show');
+              }
+            });
+            
+            // Toggle this menu
+            menu.classList.toggle('show');
+            button.setAttribute('aria-expanded', menu.classList.contains('show') ? 'true' : 'false');
+          }
+        });
+      });
+
+      // Close dropdowns when clicking elsewhere
+      document.addEventListener('click', (e) => {
+        const menus = this.subNavbar.querySelectorAll('.ecl-dropdown-menu.show');
+        menus.forEach(menu => {
+          const button = menu.previousElementSibling;
+          const isClickOnButton = button && button.contains(e.target);
+          const isClickOnMenu = menu.contains(e.target);
+          
+          if (!isClickOnButton && !isClickOnMenu) {
+            menu.classList.remove('show');
+          }
+        });
+      });
+    }
+
     toggleChartOptionsMenu() {
       this.chartOptionsMenu.classList.toggle('toggleMenu');
       this.chartMenuOpen.classList.toggle('menuOpen');   
