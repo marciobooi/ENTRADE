@@ -18,11 +18,11 @@ class FloatingChartControls {
         <li class="nav-item px-1" id="togglePercentage" role="none" style="display:${REF.details == 1 ? "" : "none"}"></li>
         <li class="nav-item px-1" id="Agregates" role="none"></li>			  
           <li class="nav-item dropdown px-1" id="ChartOrder" role="none">
-            <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="select the order of the chart">     					
-              <li><a href="#" class="dropdown-item ${REF.order == "PROTO" ? "selected" : ""}" role="menuitem" aria-label="Protocol order" value="PROTO">${languageNameSpace.labels['PROTO']}</a></li>
-              <li><a href="#" class="dropdown-item ${REF.order == "DESC" ? "selected" : ""}" role="menuitem" aria-label="Descending values" value="DESC" >${languageNameSpace.labels['DESC']}</a></li>
-              <li><a href="#" class="dropdown-item ${REF.order == "ASC" ? "selected" : ""}" aria-selected="true" role="menuitem" aria-label="Ascending values" value="ASC">${languageNameSpace.labels['ASC']}</a></li>
-              <li><a href="#" class="dropdown-item ${REF.order == "ALPHA" ? "selected" : ""}" role="menuitem" aria-label="Alphabetical order" value="ALPHA">${languageNameSpace.labels['ALPHA']}</a></li>                		
+            <ul class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="select the order of the chart">     					
+              <li><a href="#" class="ecl-dropdown-item ${REF.order == "PROTO" ? "selected" : ""}" role="menuitem" aria-label="Protocol order" value="PROTO">${languageNameSpace.labels['PROTO']}</a></li>
+              <li><a href="#" class="ecl-dropdown-item ${REF.order == "DESC" ? "selected" : ""}" role="menuitem" aria-label="Descending values" value="DESC" >${languageNameSpace.labels['DESC']}</a></li>
+              <li><a href="#" class="ecl-dropdown-item ${REF.order == "ASC" ? "selected" : ""}" aria-selected="true" role="menuitem" aria-label="Ascending values" value="ASC">${languageNameSpace.labels['ASC']}</a></li>
+              <li><a href="#" class="ecl-dropdown-item ${REF.order == "ALPHA" ? "selected" : ""}" role="menuitem" aria-label="Alphabetical order" value="ALPHA">${languageNameSpace.labels['ALPHA']}</a></li>                		
             </ul>
           </li>
 
@@ -81,7 +81,7 @@ class FloatingChartControls {
   }
 
   setSelectedOrder() {
-    const dropdownItems = this.chartControls.querySelectorAll('.dropdown-item');
+    const dropdownItems = this.chartControls.querySelectorAll('.ecl-dropdown-item');
     dropdownItems.forEach(item => {
       item.classList.remove('selected');
       if (item.getAttribute('value') === REF.order) {
@@ -91,7 +91,7 @@ class FloatingChartControls {
   }
 
   dopdownListSelect() {
-    const dropdownItems = this.chartControls.querySelectorAll('.dropdown-item');
+    const dropdownItems = this.chartControls.querySelectorAll('.ecl-dropdown-item');
 
     dropdownItems.forEach(item => {
       item.addEventListener('click', () => {
@@ -217,7 +217,7 @@ document.addEventListener('hidden.bs.dropdown', function(event) {
   const dropdown = event.target;
   
   // Set aria-expanded to false        
-  const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+  const dropdownMenu = dropdown.querySelector('.ecl-dropdown-menu');
   if (dropdownMenu) {
     dropdownMenu.setAttribute('aria-expanded', 'false');
   }
