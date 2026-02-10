@@ -152,11 +152,11 @@ class SubNavbar {
 
               <div class="dropdown-grid">
                 <div class="ecl-row w-75">
-                  <div id="containerTrade" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
-                  <div id="containerFuel" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
-                  <div id="containerSiec" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
-                  <div id="containerYear" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
-                  <div id="containerUnit" class="ecl-col-12 ecl-col-sm-4 p-2"></div>      
+                  <div id="containerTrade" class=".ecl-col-12 .ecl-col-m-4 p-2"></div>
+                  <div id="containerFuel" class=".ecl-col-12 .ecl-col-m-4 p-2"></div>
+                  <div id="containerSiec" class=".ecl-col-12 .ecl-col-m-4 p-2"></div>
+                  <div id="containerYear" class=".ecl-col-12 .ecl-col-m-4 p-2"></div>
+                  <div id="containerUnit" class=".ecl-col-12 .ecl-col-m-4 p-2"></div>      
                 </div>
               </div>
             </div>

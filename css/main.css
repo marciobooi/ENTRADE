@@ -130,13 +130,11 @@ button#languageClsBtn {
     align-items: center;
     justify-content: space-between;
     align-content: center;
-}
-
-#menuToolbar {
     background-color: #e9eaeb !important;
     padding: 0;
     height: 4rem;
 }
+
 
 #menu {
     position: relative;
@@ -152,12 +150,24 @@ button#languageClsBtn {
 
 #chartOptionsMenu {
     position: absolute;
-    top: 4rem;
-    left: 0.5rem;
+    top: 0;
+    left: 0;
     z-index: 9;
     background-color: #f3f6fc;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     width: 97vw;
     /* height: 18vh; */
     padding: 1.2rem;
+    transform: translate(1% , 71%);
+}
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#chartOptionsMenu > div.dropdown-grid > div {
+    padding: 1rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
 }
