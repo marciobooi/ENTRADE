@@ -79,7 +79,10 @@ class ChartControls {
 	}
   
 	addToDOM(targetElement) {
-	  $("#menuToolbar").toggle();	
+	  const menuToolbar = document.getElementById("menuToolbar");
+	  if (menuToolbar) {
+	    menuToolbar.style.display = menuToolbar.style.display === "none" ? "block" : "none";
+	  }
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 	    // Create the button instances
@@ -203,7 +206,10 @@ class ChartControls {
 		  parentContainer.parentNode.removeChild(parentContainer);
 		}
 	  }
-	  $("#menuToolbar").toggle();
+	  const menuToolbar = document.getElementById("menuToolbar");
+	  if (menuToolbar) {
+	    menuToolbar.style.display = menuToolbar.style.display === "none" ? "block" : "none";
+	  }
 	
 	}
   }
@@ -211,10 +217,13 @@ class ChartControls {
   function disableChatOptionsBtn(chartid) {
 	const charts = ["barChart", "pieChart", "lineChart", "tableChart", "depChart"];  
 	charts.forEach(chart => {
-	  if (chartid == chart) {
-		$("#" + chart).attr("disabled", "disabled");
-	  } else {
-		$("#" + chart).removeAttr("disabled");
+	  const element = document.getElementById(chart);
+	  if (element) {
+	    if (chartid === chart) {
+	      element.setAttribute("disabled", "disabled");
+	    } else {
+	      element.removeAttribute("disabled");
+	    }
 	  }
 	});
 	

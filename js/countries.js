@@ -501,29 +501,25 @@ function clearMap() {
         element.style.strokeWidth = '2px';
       }
     });
-  });
 
-  const elementsWithClasses = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+    const elementsWithClasses = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
 
-  // Iterate through the found elements
-  elementsWithClasses.forEach((element) => {
-    // Check inner text
-    const countryName = element.textContent.trim();
+    // Iterate through the found elements
+    elementsWithClasses.forEach((element) => {
+      // Check inner text
+      const countryName = element.textContent.trim();
 
-
-  
-    // Check if the inner text matches the desired name
-    if (countryName.includes(languageNameSpace.labels[key])) {         
-      // Change the color property of the div element with !important
-      this.style.setProperty('color', '#fff', 'important');
-    }
+      // Check if the inner text matches the desired name
+      if (countryName.includes(languageNameSpace.labels[key])) {         
+        // Change the color property of the div element with !important
+        element.style.setProperty('color', '#fff', 'important');
+      }
+    });
   });
 
   markers.forEach(function(marker) {
     map.removeLayer(marker);
-});
-  
-}); 
+  });
 }
 
 // Function to clear both lines and markers

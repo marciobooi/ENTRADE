@@ -206,19 +206,26 @@ class FloatingChartControls {
 }
 
 
-$(document).on('shown.bs.dropdown', function(event) {
-const floatingChartControls = new FloatingChartControls(); // Replace this with a reference to the actual instance of the class
+// On dropdown show
+document.addEventListener('shown.bs.dropdown', function(event) {
+  const floatingChartControls = new FloatingChartControls(); // Replace this with a reference to the actual instance of the class
   floatingChartControls.setSelectedOrder();
 });
 
 // On dropdown close
-$(document).on('hidden.bs.dropdown', function(event) {
-  var dropdown = $(event.target);
+document.addEventListener('hidden.bs.dropdown', function(event) {
+  const dropdown = event.target;
   
   // Set aria-expanded to false        
-  dropdown.find('.dropdown-menu').attr('aria-expanded', false);
+  const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+  if (dropdownMenu) {
+    dropdownMenu.setAttribute('aria-expanded', 'false');
+  }
   
   // Set focus back to dropdown toggle
-  dropdown.find('.dropdown-toggle').focus();
+  const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+  if (dropdownToggle) {
+    dropdownToggle.focus();
+  }
 });
 

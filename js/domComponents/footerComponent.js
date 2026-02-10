@@ -52,10 +52,11 @@ class Footer {
   
     addToDOM(targetElement) {
       const container = document.querySelector(targetElement);
-      container.appendChild(this.footer);
-
-    // Call the buildLinksFooter method after inserting the footer into the DOM
-    this.buildLinksFooter();
-  }
+      if (container) {
+        container.appendChild(this.footer);
+        // Call the buildLinksFooter method after inserting the footer into the DOM
+        this.buildLinksFooter();
+      }
+    }
 }
   

@@ -340,18 +340,26 @@ function clearmapclose() {
 		d.remove()
 	  });
 
-	 if($( ".wtinfo" ).hasClass( "open" )){
-	// close the modal
-	$(".wtinfo").addClass("wtinfoshow");
-	$(".wtinfo").removeClass("wtinfo");
-	  } else {
-		$(".wtinfo").addClass("wtinfoshow");
-		$(".wtinfo").removeClass("wtinfo");
+	  const wtinfoEl = document.querySelector(".wtinfo");
+	  if (wtinfoEl && wtinfoEl.classList.contains("open")) {
+	    // close the modal
+	    wtinfoEl.classList.add("wtinfoshow");
+	    wtinfoEl.classList.remove("wtinfo");
+	  } else if (wtinfoEl) {
+	    wtinfoEl.classList.add("wtinfoshow");
+	    wtinfoEl.classList.remove("wtinfo");
 	  }
 
-	// clean toggler modal btn          
-	$("#toggleMenu").remove();
-	$('#clean').remove();	
+	  // clean toggler modal btn          
+	  const toggleMenuEl = document.getElementById("toggleMenu");
+	  if (toggleMenuEl) {
+	    toggleMenuEl.remove();
+	  }
+	  
+	  const cleanEl = document.getElementById("clean");
+	  if (cleanEl) {
+	    cleanEl.remove();
+	  }
 	   
 	   
 }
@@ -492,15 +500,25 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		if (mapcontainer) {
 		  mapcontainer.style.width = "100%";
 			map.setView([50, 10], 4);
-			$('#countryInfo').remove();
-			$('#map').removeClass('col-6').addClass('col-12')
+			const countryInfoEl = document.getElementById('countryInfo');
+			if (countryInfoEl) {
+			  countryInfoEl.remove();
+			}
+			const mapEl = document.getElementById('map');
+			if (mapEl) {
+			  mapEl.classList.remove('col-6');
+			  mapEl.classList.add('col-12');
+			}
 		} else {
 			console.error("Map element not found.");
 		}
 	
-		$('#chartContainer').removeClass('col-6').addClass('col-0').css('display', 'none')
-
-
+		const chartContainerEl = document.getElementById('chartContainer');
+		if (chartContainerEl) {
+		  chartContainerEl.classList.remove('col-6');
+		  chartContainerEl.classList.add('col-0');
+		  chartContainerEl.style.display = 'none';
+		}
 	  }
 
 	  function credits() {  
@@ -538,14 +556,55 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 
 
 
-		function printChart() { $("#chartContainer").highcharts().print()};
-		function exportPngChart() { $("#chartContainer").highcharts().exportChart()};
-		function exportJpegChart() { $("#chartContainer").highcharts().exportChart({type: 'image/jpeg'})};
-		function exportPdfChart() { $("#chartContainer").highcharts().exportChart({type: 'application/pdf'})};
-		function exportSvgChart() { $("#chartContainer").highcharts().exportChart({type: 'image/svg+xml'})};
+
+		function printChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().print();
+		  }
+		}
 		
-		function exportXlsChart() { $("#chartContainer").highcharts().downloadXLS()};
-		function exportCsvChart() { $("#chartContainer").highcharts().downloadCSV()};
+		function exportPngChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().exportChart();
+		  }
+		}
+		
+		function exportJpegChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().exportChart({type: 'image/jpeg'});
+		  }
+		}
+		
+		function exportPdfChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().exportChart({type: 'application/pdf'});
+		  }
+		}
+		
+		function exportSvgChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().exportChart({type: 'image/svg+xml'});
+		  }
+		}
+		
+		function exportXlsChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().downloadXLS();
+		  }
+		}
+		
+		function exportCsvChart() { 
+		  const container = document.getElementById("chartContainer");
+		  if (container && container.highcharts && container.highcharts()) {
+		    container.highcharts().downloadCSV();
+		  }
+		}
 
 		
 		
@@ -555,7 +614,10 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		}
 		
 		function exportTable() {
-		  window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('.highcharts-data-table').html()));
+		  const table = document.querySelector('.highcharts-data-table');
+		  if (table) {
+		    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(table.innerHTML));
+		  }
 		}
 
 
@@ -636,8 +698,15 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	  subtitle = "";   
 	}
   
-	$("#title").html(title);
-	$("#subtitle").html(subtitle);	
+	const titleElement = document.getElementById("title");
+	if (titleElement) {
+	  titleElement.innerHTML = title;
+	}
+	
+	const subtitleElement = document.getElementById("subtitle");
+	if (subtitleElement) {
+	  subtitleElement.innerHTML = subtitle;
+	}
   
 	return chartTitle;
   }
@@ -859,16 +928,26 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 
 
  function euGlobanContainer() {
-   $("#euGlobanContainer").remove();
+   const existingContainer = document.getElementById("euGlobanContainer");
+   if (existingContainer) {
+     existingContainer.remove();
+   }
 
-   const euGlobanContainer = $("<div>", { id: "euGlobanContainer" });
-   euGlobanContainer.prependTo("header");
+   const euGlobanContainer = document.createElement("div");
+   euGlobanContainer.id = "euGlobanContainer";
+   
+   const header = document.querySelector("header");
+   if (header) {
+     header.insertBefore(euGlobanContainer, header.firstChild);
+   }
 
-   $wt.render("euGlobanContainer", {
-     utility: "globan",
-     lang: REF.language.toLowerCase(),
-     theme: "dark",
-   });
+   if (window.$wt && window.$wt.render) {
+     $wt.render("euGlobanContainer", {
+       utility: "globan",
+       lang: REF.language.toLowerCase(),
+       theme: "dark",
+     });
+   }
 }
  
 function enableTooltips(suppressDefaultTooltip = false) {

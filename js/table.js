@@ -61,11 +61,11 @@ function createTableChart() {
   });
 
   // Get the container element by ID
-  const chartContainer = document.getElementById("chartContainer");
-
-  // Append the title, thead, and table to the chartContainer
-  chartContainer.appendChild(title);
-  chartContainer.appendChild(table);
+  if (chartContainer) {
+    // Append the title, thead, and table to the chartContainer
+    chartContainer.appendChild(title);
+    chartContainer.appendChild(table);
+  }
 }
 
  
