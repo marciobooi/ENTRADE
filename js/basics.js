@@ -515,8 +515,8 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 	
 		const chartContainerEl = document.getElementById('chartContainer');
 		if (chartContainerEl) {
-		  chartContainerEl.classList.remove('col-6');
-		  chartContainerEl.classList.add('col-0');
+		  chartContainerEl.classList.remove('ecl-col-6');
+		  chartContainerEl.classList.add('ecl-col-0');
 		  chartContainerEl.style.display = 'none';
 		}
 	  }

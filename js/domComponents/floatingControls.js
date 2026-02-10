@@ -1,14 +1,14 @@
 class FloatingChartControls {
   constructor() {
     this.chartControls = document.createElement('div');
-    this.chartControls.className = 'menuSwitch d-none';
+    this.chartControls.className = 'menuSwitch ecl-hidden';
     this.chartControls.id = 'menuSwitch';
 
     this.chartControls.innerHTML = `
       <div>
-        <div class="form-check form-switch form-check-reverse">
-          <input class="form-check-input focus-ring" type="checkbox" value="${REF.details == 1 ? 1 : 0}" role="switch" id="switchDetails" ${REF.details == 1 ? 'checked' : ''}>
-          <label class="form-check-label" for="switchDetails">${languageNameSpace.labels['details']}</label>
+        <div class="ecl-form-check ecl-form-switch ecl-form-check-reverse">
+          <input class="ecl-form-check-input focus-ring" type="checkbox" value="${REF.details == 1 ? 1 : 0}" role="switch" id="switchDetails" ${REF.details == 1 ? 'checked' : ''}">
+          <label class="ecl-form-check-label" for="switchDetails">${languageNameSpace.labels['details']}</label>
         </div>
 
       </div>

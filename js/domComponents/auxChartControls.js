@@ -9,14 +9,14 @@ class ChartControls {
   
 	  const notMobileContent = `
 		<div class="container-fluid">
-		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navbar-light bg-light navChartControls">
+		  <nav aria-label=\"Chart controls\" id=\"chartControls\" class=\"ecl-navbar ecl-navbar-expand-sm ecl-navbar-light bg-light navChartControls\">
 			<div class="container-fluid">
 			  <div id="auxChartTitle">
 				<h2 id="title" class="title">title</h2>
 				<h6 id="subtitle" class="subtitle">subtitle</h6>
 			  </div>
 			  <div class="menu">
-				<ul id="chartBtns"  aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				<ul id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
@@ -35,13 +35,13 @@ class ChartControls {
   
 	  const mobileContent = `
 		<div id="chartOptions">
-		  <div class="col-12 subNavOne auxChartbtn">
+		  <div class="ecl-col-12 subNavOne auxChartbtn">
 			<button id="tools" class="btnGroup pe-2" type="button" aria-label="${languageNameSpace.labels["TOOLS"]}" title="${languageNameSpace.labels["TOOLS"]}" aria-haspopup="true">
 			  <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
 			  <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>
 			</button>
-			<div class="menu d-none">
-			  <ul id="chartBtns"  aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+			<div class="menu ecl-hidden">
+			  <ul id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 				<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
@@ -55,7 +55,7 @@ class ChartControls {
 			  </ul>
 			</div>
 		  </div>
-		  <div class="col-12 subNavTwo">
+		  <div class="ecl-col-12 subNavTwo">
 			<div id="auxChartTitle">
 			  <h2 id="title" class="title">title</h2>
 			  <h6 id="subtitle" class="subtitle">subtitle</h6>
@@ -70,7 +70,7 @@ class ChartControls {
 		this.chartToolsMenu = this.controls.querySelector(".menu");
   
 		this.toolsButton.addEventListener("click", () => {
-		  this.chartToolsMenu.classList.toggle("d-none");
+		  this.chartToolsMenu.classList.toggle("ecl-hidden");
 		  this.toolsButton.style.display = "none";
 		});
 	  } else {		

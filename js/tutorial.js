@@ -167,13 +167,7 @@ function tutorial(buttonTimer) {
 		closeHeaderBtn.setAttribute("id", "tutorialClose");
 		closeHeaderBtn.setAttribute("tabindex", "0");
 		closeHeaderBtn.setAttribute("href", "javascript:");
-		closeHeaderBtn.setAttribute("class", "btn btn-primary min-with--nav");
-	}
-
-	const firstPrevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
-	if (firstPrevButton) {
-		firstPrevButton.textContent = languageNameSpace.labels['tutFINISH'];
-		firstPrevButton.classList.add("close");
+                closeHeaderBtn.setAttribute("class", "ecl-button ecl-button--secondary min-with--nav");
 	}
 
 	traptutorialfocus();

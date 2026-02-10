@@ -32,7 +32,7 @@ class Modal {
                         <div class="card-body">
                           <h5 class="card-title"><b>${languageNameSpace.labels[this.info]}</b></h5>
                           <p class="card-text text-left text-wrap">${this.obj[REF.language]}</p>
-                          <div class="d-flex justify-content-end p-2">
+                          <div class="ecl-flex ecl-justify-end p-2">
                             <button type="button" onclick="openLink('https://ec.europa.eu/eurostat/cache/metadata/en/nrg_bal_esms.htm')" class="btn btn-primary min-with--nav Metadata" aria-label="Open metadata">${languageNameSpace.labels["POPMETA"]}</button>
                             <button type="button" onclick="openLink('https://ec.europa.eu/eurostat/databrowser/view/nrg_bal_c/default/table?lang=en')" class="btn btn-primary min-with--nav Dataset" aria-label="Open database">${languageNameSpace.labels["POPDB"]}</button>
                           </div>
@@ -62,8 +62,7 @@ class Modal {
     }
   
     open() {
-      const bootstrapModal = new bootstrap.Modal(this.modal);
-      bootstrapModal.show();
+      // Display the modal without Bootstrap dependency
       this.modal.style.display = 'block';
       this.modal.setAttribute('aria-hidden', 'false');
     

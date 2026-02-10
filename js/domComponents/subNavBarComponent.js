@@ -3,38 +3,38 @@ class SubNavbar {
       this.subNavbar = document.createElement('nav');
       this.subNavbar.setAttribute('aria-label', 'Menu toolbar');
       this.subNavbar.setAttribute('id', 'menuToolbar');
-      this.subNavbar.setAttribute('class', 'navbar navbar-expand-sm navbar-light bg-light');
+      this.subNavbar.setAttribute('class', 'ecl-navbar ecl-navbar-expand-sm ecl-navbar-light bg-light');
 
       // const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768
   
 
-      const browser = `<div class="container-fluid">
-            <div class="col-1">              
+      const browser = `<div class="ecl-row">
+            <div class="ecl-col-1">
               <button id="menu" class="btnGroup" type="button" aria-label="${
                 languageNameSpace.labels["MAINMENU"]
               }" title="${
         languageNameSpace.labels["MAINMENU"]
       }" aria-haspopup="true">
-                <i class="fas fa-bars" aria-hidden="true"></i>             
+                <i class="fas fa-bars" aria-hidden="true"></i>
               </button>
             </div>
 
-            <div class="col-7">
+            <div class="ecl-col-7">
               <div class="text-group">
                 <h2 id="title" class="title"></h2>
                 <h6 id="subtitle" class="subtitle"></h6>      
               </div>
             </div>
 
-          <div class="col-4">
-            <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <div class="ecl-col-4">
+            <ul id="chartBtns"  aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
                 
               <div id="switchBtn">  
-                <label class="form-check-label" for="switchTop5">${
+                <label class="ecl-form-check-label" for="switchTop5">${
                   languageNameSpace.labels["top5"]
                 }</label>
-                <div class="form-check form-switch d-inline-block">
-                  <input class="form-check-input focus-ring" type="checkbox" value="${
+                <div class="ecl-form-check ecl-form-switch d-inline-block">
+                  <input class="ecl-form-check-input focus-ring" type="checkbox" value="${
                     REF.filter
                   }" role="switch" id="switchTop5" ${
         REF.filter == "top5" ? "checked" : ""
@@ -151,12 +151,12 @@ class SubNavbar {
 
 
               <div class="dropdown-grid">
-                <div class="row w-75">
-                  <div id="containerTrade" class="col-12 col-sm-4 p-2"></div>
-                  <div id="containerFuel" class="col-12 col-sm-4 p-2"></div>
-                  <div id="containerSiec" class="col-12 col-sm-4 p-2"></div>
-                  <div id="containerYear" class="col-12 col-sm-4 p-2"></div>
-                  <div id="containerUnit" class="col-12 col-sm-4 p-2"></div>      
+                <div class="ecl-row w-75">
+                  <div id="containerTrade" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
+                  <div id="containerFuel" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
+                  <div id="containerSiec" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
+                  <div id="containerYear" class="ecl-col-12 ecl-col-sm-4 p-2"></div>
+                  <div id="containerUnit" class="ecl-col-12 ecl-col-sm-4 p-2"></div>      
                 </div>
               </div>
             </div>
@@ -164,7 +164,7 @@ class SubNavbar {
 
 
       const mobileContent = /*html*/ `<div class="">
-        <div class="col-12 subNavOne">
+        <div class="ecl-col-12 subNavOne">
           <div class="">              
               <button id="tools" class="btnGroup" type="button" aria-label="${languageNameSpace.labels["TOOLS"]}" title="${languageNameSpace.labels["TOOLS"]}" aria-haspopup="true">
                 <i class="fas fa-ellipsis-h" aria-hidden="true"></i>      

@@ -295,8 +295,8 @@ function openFactSheet(country) {
       
       const mapElem = document.querySelector('#map');
       if (mapElem) {
-        mapElem.classList.remove('col-12');
-        mapElem.classList.add('col-6');
+        mapElem.classList.remove('ecl-col-12');
+        mapElem.classList.add('ecl-col-6');
       }
   } else {
       console.error("Map element not found.");
@@ -304,8 +304,8 @@ function openFactSheet(country) {
 
   const chartContainer = document.querySelector('#chartContainer');
   if (chartContainer) {
-    chartContainer.classList.remove('col-0');
-    chartContainer.classList.add('col-6');
+    chartContainer.classList.remove('ecl-col-0');
+    chartContainer.classList.add('ecl-col-6');
     chartContainer.style.display = 'block';
   }
 

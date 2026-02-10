@@ -24,6 +24,8 @@ async function initApp() {
       path.style.fill = "white";
     });
   }, 3000);
+
+  ECL.autoInit();
 }
 
 function buildComponents() {
