@@ -1,6 +1,6 @@
 /*
- * Leaflet.curve v0.6.0 - a plugin for Leaflet mapping library. https://github.com/elfalem/Leaflet.curve
- * (c) elfalem 2015-2020
+ * Leaflet.curve v0.9.2 - a plugin for Leaflet mapping library. https://github.com/elfalem/Leaflet.curve
+ * (c) elfalem 2015-2023
  */
 /*
  * note that SVG (x, y) corresponds to (long, lat)
@@ -21,10 +21,21 @@ L.Curve = L.Path.extend({
 		return this.setPath(path);
 	},
 
-	_updateBounds: function() {
-		// Empty function to satisfy L.Path.setStyle() method
+	getLatLngs: function() {
+		return this.getPath();
 	},
-
+	
+	_updateBounds: function() {
+		var tolerance = this._clickTolerance();
+		var tolerancePoint = new L.Point(tolerance, tolerance);
+		
+		//_pxBounds is critical for canvas renderer, used to determine area that needs redrawing
+		this._pxBounds = new L.Bounds([
+			this._rawPxBounds.min.subtract(tolerancePoint),
+			this._rawPxBounds.max.add(tolerancePoint)
+		]);
+	},
+	
 	getPath: function(){
 		return this._coords;
 	},
@@ -44,11 +55,11 @@ L.Curve = L.Path.extend({
 	},
 
 	_computeBounds: function(){
-		const bound = new L.LatLngBounds();
-		let lastPoint;
-		let lastCommand;
-		let coord;
-		for(let i = 0; i < this._coords.length; i++){
+		var bound = new L.LatLngBounds();
+		var lastPoint;
+		var lastCommand;
+		var coord;
+		for(var i = 0; i < this._coords.length; i++){
 			coord = this._coords[i];
 			if(typeof coord == 'string' || coord instanceof String){
 				lastCommand = coord;
@@ -59,11 +70,11 @@ L.Curve = L.Path.extend({
 				bound.extend([coord[0], lastPoint.lng]);
 				lastPoint = new L.latLng(coord[0], lastPoint.lng);
 			}else if(lastCommand == 'C'){
-				const controlPoint1 = new L.latLng(coord[0], coord[1]);
+				var controlPoint1 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				const controlPoint2 = new L.latLng(coord[0], coord[1]);
+				var controlPoint2 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				const endPoint = new L.latLng(coord[0], coord[1]);
+				var endPoint = new L.latLng(coord[0], coord[1]);
 
 				bound.extend(controlPoint1);
 				bound.extend(controlPoint2);
@@ -73,14 +84,14 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint2 = controlPoint2;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'S'){
-				const controlPoint2 = new L.latLng(coord[0], coord[1]);
+				var controlPoint2 = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				const endPoint = new L.latLng(coord[0], coord[1]);
+				var endPoint = new L.latLng(coord[0], coord[1]);
 
-				let controlPoint1 = lastPoint;
+				var controlPoint1 = lastPoint;
 				if(lastPoint.controlPoint2){
-					const diffLat = lastPoint.lat - lastPoint.controlPoint2.lat;
-					const diffLng = lastPoint.lng - lastPoint.controlPoint2.lng;
+					var diffLat = lastPoint.lat - lastPoint.controlPoint2.lat;
+					var diffLng = lastPoint.lng - lastPoint.controlPoint2.lng;
 					controlPoint1 = new L.latLng(lastPoint.lat + diffLat, lastPoint.lng + diffLng);
 				}
 
@@ -92,9 +103,9 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint2 = controlPoint2;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'Q'){
-				const controlPoint = new L.latLng(coord[0], coord[1]);
+				var controlPoint = new L.latLng(coord[0], coord[1]);
 				coord = this._coords[++i];
-				const endPoint = new L.latLng(coord[0], coord[1]);
+				var endPoint = new L.latLng(coord[0], coord[1]);
 
 				bound.extend(controlPoint);
 				bound.extend(endPoint);
@@ -102,12 +113,12 @@ L.Curve = L.Path.extend({
 				endPoint.controlPoint = controlPoint;
 				lastPoint = endPoint;
 			}else if(lastCommand == 'T'){
-				const endPoint = new L.latLng(coord[0], coord[1]);
+				var endPoint = new L.latLng(coord[0], coord[1]);
 
-				let controlPoint = lastPoint;
+				var controlPoint = lastPoint;
 				if(lastPoint.controlPoint){
-					const diffLat = lastPoint.lat - lastPoint.controlPoint.lat;
-					const diffLng = lastPoint.lng - lastPoint.controlPoint.lng;
+					var diffLat = lastPoint.lat - lastPoint.controlPoint.lat;
+					var diffLng = lastPoint.lng - lastPoint.controlPoint.lng;
 					controlPoint = new L.latLng(lastPoint.lat + diffLat, lastPoint.lng + diffLng);
 				}
 
@@ -128,13 +139,17 @@ L.Curve = L.Path.extend({
 		return this._bounds.getCenter();
 	},
 
+	// _update() is invoked by Path._reset()
 	_update: function(){
 		if (!this._map) { return; }
 
+		// TODO: consider implementing this._clipPoints(); and this._simplifyPoints(); to improve performance
 		this._updatePath();
 	},
 
 	_updatePath: function() {
+		// the following can be thought of as this._renderer.updateCurve() in both SVG/Canvas renderers
+		// similar to Canvas._updatePoly(), Canvas._updateCircle(), etc...
 		if(this._usingCanvas){
 			this._updateCurveCanvas();
 		}else{
@@ -142,12 +157,13 @@ L.Curve = L.Path.extend({
 		}
 	},
 
+	//_project() is invoked by Path._reset()
 	_project: function() {
-		let coord, lastCoord, curCommand, curPoint;
+		var coord, lastCoord, curCommand, curPoint;
 
 		this._points = [];
 
-		for(let i = 0; i < this._coords.length; i++){
+		for(var i = 0; i < this._coords.length; i++){
 			coord = this._coords[i];
 			if(typeof coord == 'string' || coord instanceof String){
 				this._points.push(coord);
@@ -155,15 +171,15 @@ L.Curve = L.Path.extend({
 			}else {
 				switch(coord.length){
 					case 2:
-						curPoint = this._latLngToPointFn.call(this._map, coord);
+						curPoint = this._map.latLngToLayerPoint(coord);
 						lastCoord = coord;
 					break;
 					case 1:
 						if(curCommand == 'H'){
-							curPoint = this._latLngToPointFn.call(this._map, [lastCoord[0], coord[0]]);
+							curPoint = this._map.latLngToLayerPoint([lastCoord[0], coord[0]]);
 							lastCoord = [lastCoord[0], coord[0]];
 						}else{
-							curPoint = this._latLngToPointFn.call(this._map, [coord[0], lastCoord[1]]);
+							curPoint = this._map.latLngToLayerPoint([coord[0], lastCoord[1]]);
 							lastCoord = [coord[0], lastCoord[1]];
 						}
 					break;
@@ -171,10 +187,17 @@ L.Curve = L.Path.extend({
 				this._points.push(curPoint);
 			}
 		}
+
+		if(this._bounds.isValid()){
+			var northWestLayerPoint = this._map.latLngToLayerPoint(this._bounds.getNorthWest());
+			var southEastLayerPoint = this._map.latLngToLayerPoint(this._bounds.getSouthEast());
+			this._rawPxBounds = new L.Bounds(northWestLayerPoint, southEastLayerPoint);
+			this._updateBounds();
+		}
 	},
 
 	_curvePointsToPath: function(points){
-		let point, curCommand, str = '';
+		var point, curCommand, str = '';
 		for(var i = 0; i < points.length; i++){
 			point = points[i];
 			if(typeof point == 'string' || point instanceof String){
@@ -202,7 +225,6 @@ L.Curve = L.Path.extend({
 
 		this._usingCanvas = this._renderer instanceof L.Canvas;
 
-		this._latLngToPointFn = this._usingCanvas ? map.latLngToContainerPoint : map.latLngToLayerPoint;
 		if(this._usingCanvas){
 			this._pathSvgElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 		}
@@ -217,18 +239,10 @@ L.Curve = L.Path.extend({
 		L.Path.prototype.onAdd.call(this, map); // calls _update()
 
 		if(this._usingCanvas){
-			this._animationCanvasElement = this._insertCustomCanvasElement();
-
-			this._resizeCanvas();
-
-			map.on('resize', this._resizeCanvas, this);
-
 			if(this.options.animate && typeof(TWEEN) === 'object'){
-				this._pathLength = this._pathSvgElement.getTotalLength();
-
 				this._normalizeCanvasAnimationOptions();
 
-				this._tweenedObject = {offset: this._pathLength};
+				this._tweenedObject = {offset: this._pathSvgElement.getTotalLength()};
 				this._tween = new TWEEN.Tween(this._tweenedObject)
 					.to({offset: 0}, this.options.animate.duration)
 					// difference of behavior with SVG, delay occurs on every iteration
@@ -248,23 +262,10 @@ L.Curve = L.Path.extend({
 			}
 		}else{
 			if(this.options.animate && this._path.animate){
-				const length = this._svgSetDashArray();
-
-				this._path.animate([
-					{strokeDashoffset: length},
-					{strokeDashoffset: 0}
-				], this.options.animate);
+                var length = Math.min(this._svgSetDashArray(), 1000);
+                this._path.pathLength.baseVal = length;
+                this._path.animate([{ strokeDashoffset: length }, { strokeDashoffset: 0 }], this.options.animate);
 			}
-		}
-	},
-
-	onRemove: function(map){
-		L.Path.prototype.onRemove.call(this, map);
-
-		if(this._usingCanvas){
-			this._clearCanvas();
-			L.DomUtil.remove(this._animationCanvasElement);
-			map.off('resize', this._resizeCanvas, this);
 		}
 	},
 
@@ -278,8 +279,8 @@ L.Curve = L.Path.extend({
 	},
 
 	_svgSetDashArray: function(){
-		const path = this._path;
-		const length = path.getTotalLength();
+		var path = this._path;
+		var length = path.getTotalLength();
 
 		if(!this.options.dashArray){
 			path.style.strokeDasharray = length + ' ' + length;
@@ -289,22 +290,15 @@ L.Curve = L.Path.extend({
 
 	// Needed by the `Canvas` renderer for interactivity
 	_containsPoint: function(layerPoint) {
+		if (!this._bounds.isValid()) {
+			return false;
+		}
 		return this._bounds.contains(this._map.layerPointToLatLng(layerPoint));
 	},
 
 	// Canvas specific logic below here
-	_insertCustomCanvasElement: function(){
-		var element = L.DomUtil.create('canvas', 'leaflet-zoom-animated');
-		var originProp = L.DomUtil.testProp(['transformOrigin', 'WebkitTransformOrigin', 'msTransformOrigin']);
-		element.style[originProp] = '50% 50%';
-		var pane = this._map.getPane(this.options.pane);
-		pane.insertBefore(element, pane.firstChild);
-
-		return element;
-	},
-
 	_normalizeCanvasAnimationOptions: function(){
-		const opts = {
+		var opts = {
 			delay: 0,
 			duration: 0,
 			iterations:	1
@@ -327,63 +321,22 @@ L.Curve = L.Path.extend({
 	},
 
 	_updateCurveCanvas: function(){
-		this._project();
-
-		const pathString = this._curvePointsToPath(this._points);
+		var pathString = this._curvePointsToPath(this._points);
 		this._pathSvgElement.setAttribute('d', pathString);
 
 		if(this.options.animate && typeof(TWEEN) === 'object' && this._canvasSetDashArray){
-			this._pathLength = this._pathSvgElement.getTotalLength();
-			this.options.dashArray = this._pathLength + '';
+			this.options.dashArray = this._pathSvgElement.getTotalLength() + '';
 			this._renderer._updateDashArray(this);
 		}
 
-		this._path2d = new Path2D(pathString);
-
-		if(this._animationCanvasElement){
-			this._resetCanvas();
-		}
-
-
+		this._curveFillStroke(new Path2D(pathString), this._renderer._ctx);
 	},
 
-	_animationCanvasElement: null,
-
-	_resizeCanvas: function() {
-		const size = this._map.getSize();
-		this._animationCanvasElement.width = size.x;
-		this._animationCanvasElement.height = size.y;
-
-		this._resetCanvas();
-	},
-
-	_resetCanvas: function() {
-		const topLeft = this._map.containerPointToLayerPoint([0, 0]);
-		L.DomUtil.setPosition(this._animationCanvasElement, topLeft);
-
-		this._redrawCanvas();
-	},
-
-	_redrawCanvas: function(){
-		if(!this._canvasAnimating){
-			this._clearCanvas();
-			var ctx = this._animationCanvasElement.getContext('2d');
-			this._curveFillStroke(this._path2d, ctx);
-		}
-	},
-
-	_clearCanvas: function() {
-		this._animationCanvasElement.getContext('2d').clearRect(0, 0, this._animationCanvasElement.width, this._animationCanvasElement.height);
-	},
-
-	_animateCanvas: function(time){
-		TWEEN.update(time);
-
-		var ctx = this._animationCanvasElement.getContext('2d');
-		ctx.clearRect(0, 0, this._animationCanvasElement.width, this._animationCanvasElement.height);
-		ctx.lineDashOffset = this._tweenedObject.offset;
-
-		this._curveFillStroke(this._path2d, ctx);
+	_animateCanvas: function(){
+		TWEEN.update();
+		
+		// clear out area and re-render all layers
+		this._renderer._updatePaths();
 
 		if(this._canvasAnimating){
 			this._animationFrameId = L.Util.requestAnimFrame(this._animateCanvas, this);
@@ -391,7 +344,9 @@ L.Curve = L.Path.extend({
 	},
 
 	// similar to Canvas._fillStroke(ctx, layer)
-	_curveFillStroke: function (path2d, ctx) {
+	_curveFillStroke: function (path2d, ctx) {		
+		ctx.lineDashOffset = this._canvasAnimating ? this._tweenedObject.offset : 0.0;
+
 		var options = this.options;
 
 		if (options.fill) {
@@ -415,6 +370,12 @@ L.Curve = L.Path.extend({
 
 	// path tracing logic below here
 	trace: function(t){
+		// initially map is undefined, but then null if curve was added and removed
+		if(this._map === undefined || this._map === null)
+		{
+			return [];
+		}
+
 		t = t.filter(function(element){
 			return element >= 0 && element <= 1;
 		});
