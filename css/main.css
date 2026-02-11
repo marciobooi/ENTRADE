@@ -201,6 +201,7 @@ button#languageClsBtn {
 /* options btns */
 .nav-item {
     padding: .5rem;
+    position: relative;
 }
 
 #switchBtn {
@@ -230,22 +231,46 @@ label[for="switchTop5"] {
 
 .ecl-dropdown-menu {
     z-index: 9999999999;
-    width: 20.3rem;
     border: transparent;
     border-radius: 2px;
     box-shadow: 0 7px 8px rgb(9 49 142 / 8%), 0 0 22px rgb(9 49 142 / 4%), 0 12px 17px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
     line-height: 1.15;
     background-color: #f9f9f9;
     padding: 12px;
-    width: auto;
     display: none;
-    position: absolute;
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(-45%, 102%);
+    transform: translate(-4%, 30%);
+    width: auto;
 }
+
+.ecl-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .5rem;
+    clear: both;
+    font-weight: 400;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+.ecl-dropdown-item:hover {
+    color: white;
+    background-color: var(--tool-3);
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.ecl-dropdown-item:not(:last-child) {
+    border-bottom: 1px solid lightgray;
+}
+
 .ecl-dropdown-menu.show {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
