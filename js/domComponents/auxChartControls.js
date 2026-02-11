@@ -16,18 +16,18 @@ class ChartControls {
 				<h6 id="subtitle" class="subtitle">subtitle</h6>
 			  </div>
 			  <div class="menu">
-				<ul id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
-				  <li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
-				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
-				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
-				  <li class="nav-item button px-1" id="toggleTable" role="none" style="margin-right: 2rem;"></li>
-				  <li class="nav-item button px-1" id="printChart" role="none"></li>
-				  <li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
-				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
-				  <li class="nav-item button px-1" id="embebedChart" role="none" style="margin-right: 2rem;"></li>
-				  <li class="nav-item button px-1" id="closeChart" role="none"></li>
-				</ul>
+				<div id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				  <div class="nav-item button px-1" id="toggleBarChart" role="none"></div>
+				  <div class="nav-item button px-1" id="toggleDepChart" role="none"></div>
+				  <div class="nav-item button px-1" id="togglePieChart" role="none"></div>
+				  <div class="nav-item button px-1" id="toggleLineChart" role="none"></div>
+				  <div class="nav-item button px-1" id="toggleTable" role="none" style="margin-right: 2rem;"></div>
+				  <div class="nav-item button px-1" id="printChart" role="none"></div>
+				  <div class="nav-item dropdown px-1" id="downloadChart" role="none"></div>
+				  <div class="nav-item button px-1" id="downloadExcel" role="none"></div>
+				  <div class="nav-item button px-1" id="embebedChart" role="none" style="margin-right: 2rem;"></div>
+				  <div class="nav-item button px-1" id="closeChart" role="none"></div>
+				</div>
 			  </div>
 			</div>
 		  </nav>
@@ -41,18 +41,18 @@ class ChartControls {
 			  <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>
 			</button>
 			<div class="menu ecl-hidden">
-			  <ul id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-				<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
-				<li class="nav-item button px-1" id="toggleDepChart" role="none"></li>
-				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
-				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
-				<li class="nav-item button px-1" id="toggleTable" role="none"></li>
-				<li class="nav-item button px-1" id="printChart" role="none"></li>
-				<li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
-				<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
-				<li class="nav-item button px-1" id="embebedChart" role="none"></li>
-				<li class="nav-item button px-1" id="closeChart" role="none"></li>
-			  </ul>
+			  <div id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				<div class="nav-item button px-1" id="toggleBarChart" role="none"></div>
+				<div class="nav-item button px-1" id="toggleDepChart" role="none"></div>
+				<div class="nav-item button px-1" id="togglePieChart" role="none"></div>
+				<div class="nav-item button px-1" id="toggleLineChart" role="none"></div>
+				<div class="nav-item button px-1" id="toggleTable" role="none"></div>
+				<div class="nav-item button px-1" id="printChart" role="none"></div>
+				<div class="nav-item dropdown px-1" id="downloadChart" role="none"></div>
+				<div class="nav-item button px-1" id="downloadExcel" role="none"></div>
+				<div class="nav-item button px-1" id="embebedChart" role="none"></div>
+				<div class="nav-item button px-1" id="closeChart" role="none"></div>
+			  </div>
 			</div>
 		  </div>
 		  <div class="ecl-col-12 subNavTwo">

@@ -16,8 +16,7 @@ class SubNavbar {
         languageNameSpace.labels["MAINMENU"]
       }" aria-haspopup="true">
                 <i class="fas fa-bars" aria-hidden="true"></i>
-                <span></span>
-                <span data-i18n="${languageNameSpace.labels["MENU"]}">${languageNameSpace.labels["MENU"]}</span>
+                <span data-i18n="${languageNameSpace.labels["MAINMENU"]}">${languageNameSpace.labels["MENU"]}</span>
               </button>
             </div>
 
@@ -29,7 +28,7 @@ class SubNavbar {
             </div>
 
           <div class="ecl-col-4">
-            <ul id="chartBtns"  aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+            <div id="chartBtns"  aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
                 
               <div id="switchBtn">  
                 <label class="ecl-form-check-label" for="switchTop5">${
@@ -45,7 +44,7 @@ class SubNavbar {
               </div>
             
             
-                <li class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
+                <div class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
                   <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${
                     languageNameSpace.labels["infoBtn"]
                   }" data-ecl-toggle="dropdown"  title="${
@@ -53,7 +52,7 @@ class SubNavbar {
       }" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                     <i class="fas fa-info"></i>
                   </button>
-                  <ul class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+                  <div class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
                     <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="tutorial()" aria-label="${
                       languageNameSpace.labels["TUTORIAL"]
                     }" value="Tutorial">${
@@ -69,11 +68,11 @@ class SubNavbar {
                     }" value="Feedback">${
         languageNameSpace.labels["CONTACT"]
       }</button>          		
-                  </ul>
-                </li>
+                  </div>
+                </div>
    
 
-                <li class="nav-item button px-1" id="embebedChart" aria-haspopup="menu">
+                <div class="nav-item button px-1" id="embebedChart" aria-haspopup="menu">
                   <button id="embebedBtn" title="${
                     languageNameSpace.labels["embebedBtn"]
                   }" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="${
@@ -81,9 +80,9 @@ class SubNavbar {
       }" onclick="exportIframe()">
                     <i class="fas fa-code" aria-hidden="true"></i>
                   </button>
-                </li>
+                </div>
 
-                <li class="nav-item dropdown px-1" id="social-media" aria-haspopup="menu">
+                <div class="nav-item dropdown px-1" id="social-media" aria-haspopup="menu">
                 <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="${
                   languageNameSpace.labels["shareChart"]
                 }" data-ecl-toggle="dropdown"  title="${
@@ -93,7 +92,7 @@ class SubNavbar {
                 </button>
 
 
-                <ul class="ecl-dropdown-menu ecl-dropdown-menu-end" style="padding: 12px;" role="menu" aria-labelledby="Share chart">     			
+                <div class="ecl-dropdown-menu ecl-dropdown-menu-end" style="padding: 12px;" role="menu" aria-labelledby="Share chart">     			
                 <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;">Share this page</p>   		
 
                 <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.twitter()" aria-label="${
@@ -128,12 +127,10 @@ class SubNavbar {
                     languageNameSpace.labels["linkedin"]
                   }</span>                  
                 </button>
-               </ul>                
-              </li>    
+               </div>                
+              </div>    
 
-              </ul>
-            </div>
-            </div>
+              </div>
 
             
             <div id="chartOptionsMenu" class="toggleMenu">
@@ -181,28 +178,28 @@ class SubNavbar {
           </div>
           
         <div class="chartMenuMobile d-none">
-          <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-              <li class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
+          <div id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+              <div class="nav-item dropdown px-1" id="infoBtnChart" aria-haspopup="menu">
                 <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-ecl-toggle="dropdown"  title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                   <i class="fas fa-info" aria-hidden="true"></i>
                 </button>
-                <ul class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
+                <div class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
                   <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="tutorial()" aria-label="${languageNameSpace.labels["TUTORIAL"]}" value="Tutorial">${languageNameSpace.labels["TUTORIAL"]}</button>
                   <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="openMeta()" aria-label="${languageNameSpace.labels["METADATA"]}" value="Metadata" >${languageNameSpace.labels["METADATA"]}</button>
                   <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="mailContact()" aria-label="${languageNameSpace.labels["CONTACT"]}" value="Feedback">${languageNameSpace.labels["CONTACT"]}</button>
-                </ul>
-              </li> 
-              <li class="nav-item button px-1" id="shareChart" aria-haspopup="menu">
+                </div>
+              </div> 
+              <div class="nav-item button px-1" id="shareChart" aria-haspopup="menu">
                 <button id="shareBtn" title="share chart" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="share chart" onclick="">
                   <i class="fas fa-share-alt" aria-hidden="true"></i>
                 </button>
-              </li>
-              <li class="nav-item button px-1" id="embebedChart" aria-haspopup="menu">
+              </div>
+              <div class="nav-item button px-1" id="embebedChart" aria-haspopup="menu">
                 <button id="embebedBtn" title="Embebed chart iframe" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
                   <i class="fas fa-code" aria-hidden="true"></i>
                 </button>
-              </li>
-          </ul>
+              </div>
+          </div>
         </div>
 
             <div id="chartOptionsMenu" class="toggleMenu">

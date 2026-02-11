@@ -2501,5 +2501,10 @@
     "EN": "No data available for the current selection",
     "FR": "Aucune donnée disponible pour la sélection actuelle",
     "DE": "Keine Daten für die aktuelle Auswahl verfügbar"
+  },
+  "MENU": {
+    "EN": "Menu",
+    "FR": "Menu",
+    "DE": "Menu"
   }
 }
