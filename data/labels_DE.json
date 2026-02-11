@@ -574,7 +574,8 @@
    "ENLARGEMENT": "Erweiterungsländer",
    "OTHERCTR": "Andere Drittländer",
    "PERCENTAGE": "Prozentsatz",
-	"NODATA": "Keine Daten für die aktuelle Auswahl verfügbar."
+	"NODATA": "Keine Daten für die aktuelle Auswahl verfügbar.",
+	"MENU": "Menu"
   
 
 }

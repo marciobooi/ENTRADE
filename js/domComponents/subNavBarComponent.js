@@ -16,6 +16,8 @@ class SubNavbar {
         languageNameSpace.labels["MAINMENU"]
       }" aria-haspopup="true">
                 <i class="fas fa-bars" aria-hidden="true"></i>
+                <span></span>
+                <span data-i18n="${languageNameSpace.labels["MENU"]}">${languageNameSpace.labels["MENU"]}</span>
               </button>
             </div>
 
@@ -174,7 +176,7 @@ class SubNavbar {
           <div class="">              
               <button id="menu" class="btnGroup" type="button" aria-label="${languageNameSpace.labels["MAINMENU"]}" title="${languageNameSpace.labels["MAINMENU"]}" aria-haspopup="true">
                 <i class="fas fa-bars" aria-hidden="true"></i>                    
-                <span class="iconText">Menu</span>           
+                <span class="iconText"></span>           
               </button>
           </div>
           

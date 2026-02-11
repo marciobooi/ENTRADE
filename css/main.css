@@ -47,10 +47,21 @@ font-family: var(--font-family-main);
     color: var(--eublue)
 }
 
+.btnGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--tool-1);
+    font-size: 1.2rem;
+}
+
 .toggleMenu {
     display: none;
 }
 
+.round-btn {
+    border-radius: 50%;
+}
 
 /* nav section */
 
@@ -170,4 +181,10 @@ button#languageClsBtn {
     padding: 1rem;
     column-gap: 1rem;
     row-gap: 1rem;
+}
+
+/* options btns */
+#chartBtns {
+    display: flex;
+    justify-content: flex-end;
 }

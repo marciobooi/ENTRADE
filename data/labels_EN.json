@@ -554,7 +554,8 @@
 	"EFTA": "EFTA countries",
 	"ENLARGEMENT": "Enlargement countries",
 	"OTHERCTR": "Other third countries",
-	"NODATA": "No data available for the current selection"
+	"NODATA": "No data available for the current selection",
+	"MENU": "Menu"
 
 
 }
