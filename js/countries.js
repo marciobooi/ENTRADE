@@ -54,8 +54,13 @@ function renderMap() {
     map: {
       scrollWheelZoom: true,
       center: [50, 10],
-      smoothZoom: true,
+      smoothZoom: false,
       zoom: 4,
+      zoomSnap: 1,
+      zoomDelta: 1,
+      zoomAnimation: false,
+      fadeAnimation: true,
+      markerZoomAnimation: false,
       continuousWorld: true,
       worldCopyJump: true,
       inertia: true,
@@ -134,6 +139,7 @@ function renderMap() {
     }
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
+
       setTimeout(() => {
         map.eachLayer(function (layer) {
           if (layer.feature && layer.feature.properties) {
@@ -165,21 +171,23 @@ function renderMap() {
               }
           }
       });
-          defGeos.forEach(key => {              
-                  document.querySelectorAll('path[aria-label]').forEach((element) => {
-                    const countryName = element.getAttribute('aria-label').trim();   
-                
-                    if (countryName === languageNameSpace.labels[key]) {
-                      element.style.fill = euCtr;
-                      element.style.stroke = '#4b598b';
-                      element.style.strokeWidth = '2px';
-                    } else if (countryName === languageNameSpace.labels[REF.geo]) {
-                      element.style.fill = selectLayer;
-                      element.style.stroke = 'white';
-                      element.style.strokeWidth = '2px';
-                    }
-                  });                
-            });        
+          // Build label lookup once, then single pass over paths
+          const geoLabels = {};
+          defGeos.forEach(key => { geoLabels[languageNameSpace.labels[key]] = true; });
+          const selectedGeoLabel = languageNameSpace.labels[REF.geo];
+
+          document.querySelectorAll('path[aria-label]').forEach((element) => {
+            const countryName = element.getAttribute('aria-label').trim();
+            if (geoLabels[countryName]) {
+              element.style.fill = euCtr;
+              element.style.stroke = '#4b598b';
+              element.style.strokeWidth = '2px';
+            } else if (countryName === selectedGeoLabel) {
+              element.style.fill = selectLayer;
+              element.style.stroke = 'white';
+              element.style.strokeWidth = '2px';
+            }
+          });        
             addClearToMenu()  
       }, 500);
   });
@@ -376,6 +384,9 @@ function drawLines(sourceCountry, partners) {
 
   clearLinesAndMarkers();
 
+  // Store radii so the single zoom handler can reference them
+  const markerRadii = [];
+
   partners.forEach(partner => {
     const partnerCountry = partner[0];
     const value = partner[1];
@@ -402,7 +413,8 @@ function drawLines(sourceCountry, partners) {
       this.closeTooltip();
     }).addTo(map);
 
-    const radius = calculateRadius(partners, value); // Declare radius outside forEach loop
+    const radius = calculateRadius(partners, value);
+    markerRadii.push(radius);
 
     const marker = L.circle(partnerCoords, {
       color: 'rgb(170 95 24)', // Set the color of the circle's border to transparent
@@ -416,21 +428,25 @@ function drawLines(sourceCountry, partners) {
 
     marker._path.classList.add('marker');
 
-    // Function to update circle sizes based on current zoom level
-    function updateCircleSize() {
-      const zoomLevel = map.getZoom();
-      const scale = Math.pow(2, 5 - zoomLevel); // Adjust the power according to your starting zoom level
-      const newRadius = radius * scale; // Adjust radius based on zoom level
-      marker.setRadius(newRadius);
-    }
-
-    // Listen for 'zoom' event on the map and update circle size
-    map.on('zoom', updateCircleSize);
-
     lines.push(line);
     markers.push(marker);
     styleCountry(partnerCountry);
   });
+
+  // Single zoom handler for ALL markers (instead of one per marker)
+  function updateAllCircleSizes() {
+    const zoomLevel = map.getZoom();
+    const scale = Math.pow(2, 5 - zoomLevel);
+    markers.forEach((m, i) => {
+      const r = markerRadii[i];
+      if (r !== undefined) {
+        m.setRadius(r * scale);
+      }
+    });
+  }
+
+  map.on('zoom', updateAllCircleSizes);
+  zoomHandlers.push(updateAllCircleSizes);
 }
 
 
@@ -461,31 +477,38 @@ function getMidpoint(sourceCoords, partnerCoords) {
 
 
 function styleCountry(partnerCountry) {
-  document.querySelectorAll('path[aria-label]').forEach((element) => {
-    const countryName = element.getAttribute('aria-label').trim();
-
-    if (countryName === languageNameSpace.labels[partnerCountry]) {
-      element.style.fill = partnersCtr;
-      element.style.stroke = 'white';
-      element.style.strokeWidth = '2px';
+  const label = languageNameSpace.labels[partnerCountry];
+  if (!label) return;
+  const paths = document.querySelectorAll('path[aria-label]');
+  for (let i = 0; i < paths.length; i++) {
+    if (paths[i].getAttribute('aria-label').trim() === label) {
+      paths[i].style.fill = partnersCtr;
+      paths[i].style.stroke = 'white';
+      paths[i].style.strokeWidth = '2px';
+      break; // Each country has one path, stop once found
     }
-  });
+  }
 }
 
 
 const lines = [];
 const markers = [];
+const zoomHandlers = [];
 
 // Function to clear lines
 function clearLines() {
   lines.forEach(line => map.removeLayer(line));
-  lines.length = 0; // Clear the lines array
+  lines.length = 0;
 }
 
-// Function to clear markers
+// Function to clear markers and their zoom handlers
 function clearMarkers() {
+  // Remove all accumulated zoom handlers
+  zoomHandlers.forEach(handler => map.off('zoom', handler));
+  zoomHandlers.length = 0;
+
   markers.forEach(marker => map.removeLayer(marker));
-  markers.length = 0; // Clear the markers array
+  markers.length = 0;
 }
 
 function clearMap() {
@@ -493,35 +516,36 @@ function clearMap() {
     element.style.fill = 'transparent';    
   });
 
-  defGeos.forEach(key => {   
+  // Build a lookup map for defGeos labels to avoid repeated lookups
+  const geoLabelMap = {};
+  defGeos.forEach(key => { geoLabelMap[languageNameSpace.labels[key]] = key; });
+  const selectedLabel = languageNameSpace.labels[REF.geo];
 
-    document.querySelectorAll('path[aria-label]').forEach((element) => {
-      const countryName = element.getAttribute('aria-label').trim();
-  
-      if (countryName === languageNameSpace.labels[key]) {
-        element.style.fill = euCtr;
-        element.style.stroke = '#4b598b';
-        element.style.strokeWidth = '2px';
-      } else if (countryName === languageNameSpace.labels[REF.geo]) {
-        element.style.fill = selectLayer;
-        element.style.stroke = 'white';
-        element.style.strokeWidth = '2px';
-      }
-    });
+  // Single pass over all labelled paths
+  document.querySelectorAll('path[aria-label]').forEach((element) => {
+    const countryName = element.getAttribute('aria-label').trim();
 
-    const elementsWithClasses = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+    if (geoLabelMap[countryName]) {
+      element.style.fill = euCtr;
+      element.style.stroke = '#4b598b';
+      element.style.strokeWidth = '2px';
+    } else if (countryName === selectedLabel) {
+      element.style.fill = selectLayer;
+      element.style.stroke = 'white';
+      element.style.strokeWidth = '2px';
+    }
+  });
 
-    // Iterate through the found elements
-    elementsWithClasses.forEach((element) => {
-      // Check inner text
-      const countryName = element.textContent.trim();
-
-      // Check if the inner text matches the desired name
-      if (countryName.includes(languageNameSpace.labels[key])) {         
-        // Change the color property of the div element with !important
+  // Single pass over tooltips
+  const tooltipElements = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
+  tooltipElements.forEach((element) => {
+    const text = element.textContent.trim();
+    for (const label in geoLabelMap) {
+      if (text.includes(label)) {
         element.style.setProperty('color', '#fff', 'important');
+        break;
       }
-    });
+    }
   });
 
   markers.forEach(function(marker) {
