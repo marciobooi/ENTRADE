@@ -322,3 +322,40 @@ display: none;
     z-index: 99;
 }
 
+
+/* footer */
+
+.wtfooter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    min-height: 5rem;
+}
+
+
+#footerCredits {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+ul#footerCredits {
+    list-style: none;
+}
+
+.ecl-site-footer__list-item a {
+    padding: 0.3rem 1rem;
+}
+.ecl-site-footer__list-item:not(:last-child) a {
+    border-right: 1px solid #0e47cb;
+}
+
+
+/* tooltips */
+
+.tooltip {
+    display: none;
+}
