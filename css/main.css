@@ -290,3 +290,15 @@ width: 100%;
     min-width: 15rem;
 }
 
+/* map menu */
+.wt-map-panels, .wt-map-menu .wt-btn, .wt-map-menu .wt-btn:focus, .wt-map-menu .wt-btn:active {
+  
+
+  
+ border-color: var(--tool-1) !important;
+
+
+
+}
+
+
