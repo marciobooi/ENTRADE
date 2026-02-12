@@ -298,39 +298,20 @@ function loadCountryData(country) {
 
 
 function openFactSheet(country) {
-
-  const mapcontainer = document.querySelector(".wt-map-content");
-  
-  if (mapcontainer) {
-
-      mapcontainer.style.width = "50%";
-      map.setView([mapCenterCoords.CENTROID[0], mapCenterCoords.CENTROID[1] + 30], 4);
-  
-      const countryInfoElem = document.querySelector('#countryInfo');
-      if (countryInfoElem) countryInfoElem.remove();
-      
-      const mapElem = document.querySelector('#map');
-      if (mapElem) {
-        mapElem.classList.remove('ecl-col-12');
-        mapElem.classList.add('ecl-col-6');
-      }
-  } else {
-      console.error("Map element not found.");
-  }
-
   const chartContainer = document.querySelector('#chartContainer');
-  if (chartContainer) {
-    chartContainer.classList.remove('ecl-col-0');
-    chartContainer.classList.add('ecl-col-6');
-    chartContainer.style.display = 'block';
+  if (!chartContainer) {
+    console.error('chartContainer not found');
+    return;
   }
+chartContainer.style.display = 'block';
+  // Only initialize and show the chart container if it's currently empty
+  const isEmpty = chartContainer.innerHTML.trim() === '';
+  if (!isEmpty) return; // already open — nothing to do
 
-  addChartOptions()
-  createTableChart()
-
-  getTitle()
-
-  disableBtns()
+  addChartOptions();
+  createTableChart();
+  getTitle();
+  disableBtns();
 }
 
 function countriesDataHandler(d) {

@@ -513,12 +513,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 			console.error("Map element not found.");
 		}
 	
-		const chartContainerEl = document.getElementById('chartContainer');
-		if (chartContainerEl) {
-		  chartContainerEl.classList.remove('ecl-col-6');
-		  chartContainerEl.classList.add('ecl-col-0');
-		  chartContainerEl.style.display = 'none';
-		}
+	
 	  }
 
 	  function credits() {  

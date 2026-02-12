@@ -301,4 +301,24 @@ width: 100%;
 
 }
 
+#factSheet {
+    position: fixed;
+    top: 30%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    z-index: 999999999999999999999 !important;
+    background: red;
+}
+
+/* chart container */
+#chartContainer {
+display: none;
+    width: 100vw;
+    height: 56vw;
+    position: absolute;
+    top: 221px;
+    left: 0;
+    background-color: white;
+    z-index: 99;
+}
 
