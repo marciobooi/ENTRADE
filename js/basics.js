@@ -504,16 +504,16 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 			if (countryInfoEl) {
 			  countryInfoEl.remove();
 			}
-			const mapEl = document.getElementById('map');
-			if (mapEl) {
-			  mapEl.classList.remove('col-6');
-			  mapEl.classList.add('col-12');
-			}
 		} else {
 			console.error("Map element not found.");
 		}
 	
-	
+		const chartContainerEl = document.getElementById('chartContainer');
+		if (chartContainerEl) {
+		  chartContainerEl.style.display = 'none';
+		  chartContainerEl.innerHTML = '';
+		  if (typeof resetChartContainerPosition === 'function') resetChartContainerPosition();
+		}
 	  }
 
 	  function credits() {  

@@ -314,9 +314,9 @@ width: 100%;
 #chartContainer {
 display: none;
     width: 100vw;
-    height: 56vw;
+    /* height: 56vw; */
     position: absolute;
-    top: 221px;
+    /* top: 221px; */
     left: 0;
     background-color: white;
     z-index: 99;

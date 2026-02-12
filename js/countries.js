@@ -1,11 +1,17 @@
 let countryTotal = 0;
 let coords = []; // Declare coords at the global scope
 let map; // Initialize the map variable
-let isOpenChartContainer
-let mapCenterCoords
+let isOpenChartContainer = false;
+let mapCenterCoords = null;
 let euCtr = '#738ce5';
 let partnersCtr = '#17256b';
-let selectLayer = "#0b39a2"
+let selectLayer = "#0b39a2";
+
+// chart container position helpers
+let chartTopResizeObserver = null;
+let chartTopResizeHandler = null;
+
+
 
 // Fetch coordination data asynchronously
 fetch("data/data.json")
@@ -303,15 +309,80 @@ function openFactSheet(country) {
     console.error('chartContainer not found');
     return;
   }
-chartContainer.style.display = 'block';
+
   // Only initialize and show the chart container if it's currently empty
-  const isEmpty = chartContainer.innerHTML.trim() === '';
+  const isEmpty = chartContainer.innerHTML.trim() === '' && window.getComputedStyle(chartContainer).display === 'none';
   if (!isEmpty) return; // already open — nothing to do
 
+
+  chartContainer.style.display = 'block';
+
+  // initialize content
   addChartOptions();
   createTableChart();
   getTitle();
   disableBtns();
+
+  // position the container correctly under header + subnav
+  updateChartContainerTop();
+
+  // observe size changes so top is always correct
+  const headerEl = document.querySelector('header') || document.querySelector('.es_app_top');
+  const subnavEl = document.querySelector('#menuToolbar') || document.querySelector('.subNavBar');
+
+log(headerEl, subnavEl)
+
+
+  if (typeof ResizeObserver !== 'undefined') {
+    if (chartTopResizeObserver) chartTopResizeObserver.disconnect();
+    chartTopResizeObserver = new ResizeObserver(updateChartContainerTop);
+    if (headerEl) chartTopResizeObserver.observe(headerEl);
+    if (subnavEl) chartTopResizeObserver.observe(subnavEl);
+  } else {
+    if (chartTopResizeHandler) { window.removeEventListener('resize', chartTopResizeHandler); window.removeEventListener('scroll', chartTopResizeHandler); }
+    chartTopResizeHandler = () => updateChartContainerTop();
+    window.addEventListener('resize', chartTopResizeHandler);
+    window.addEventListener('scroll', chartTopResizeHandler);
+  }
+
+  isOpenChartContainer = true;
+}
+
+/**
+ * Compute and apply the exact `top` for `#chartContainer` so it sits
+ * immediately beneath header + subnav (and adjusts height accordingly).
+ */
+function updateChartContainerTop() {
+  const chart = document.getElementById('chartContainer');
+  if (!chart) return;
+
+  const header = document.querySelector('header') || document.querySelector('.es_app_top');
+  const subnav = document.querySelector('#menuToolbar') || document.querySelector('.subNavBar');
+  const aux = document.querySelector('#auxChartControls');
+
+  let offset = 0;
+  if (header) offset += Math.round(header.getBoundingClientRect().height);
+  if (subnav) offset += Math.round(subnav.getBoundingClientRect().height);
+  if (aux) offset += Math.round(aux.getBoundingClientRect().height);
+
+  chart.style.top = offset + 'px';
+  chart.style.height = `calc(100vh - ${offset}px)`;
+}
+
+/**
+ * Reset chart container inline styles and disconnect observers/listeners.
+ */
+function resetChartContainerPosition() {
+  const chart = document.getElementById('chartContainer');
+  if (!chart) return;
+
+  chart.style.top = '';
+  chart.style.height = '';
+
+  if (chartTopResizeObserver) { chartTopResizeObserver.disconnect(); chartTopResizeObserver = null; }
+  if (chartTopResizeHandler) { window.removeEventListener('resize', chartTopResizeHandler); window.removeEventListener('scroll', chartTopResizeHandler); chartTopResizeHandler = null; }
+
+  isOpenChartContainer = false;
 }
 
 function countriesDataHandler(d) {
