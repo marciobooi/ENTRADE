@@ -52,18 +52,19 @@ function renderMap() {
  
   map = $wt.map.render({
     map: {
-      scrollWheelZoom: true,
+      // scrollWheelZoom: true,
       center: [50, 10],
       smoothZoom: false,
       zoom: 4,
-      zoomSnap: 1,
       zoomDelta: 1,
+      zoomSnap: 0.25,
       zoomAnimation: false,
       fadeAnimation: true,
       markerZoomAnimation: false,
       continuousWorld: true,
       worldCopyJump: true,
       inertia: true,
+      scrollWheelZoom: false, smoothWheelZoom: true, smoothSensitivity: 2,
       smoothFactor: 1,
       language: REF.language,
       background : ["positron_background"],
