@@ -192,6 +192,30 @@ function renderMap() {
             }
           });        
             addClearToMenu()  
+
+            // Ensure that any focusable content inside aria-hidden map panes is neutralized
+            removeFocusableFromHiddenMapPanes();
+
+            // Observe the map container for aria-hidden changes and neutralize focusable nodes inside hidden panes
+            const mapContainer = document.querySelector('.wt-map-content') || document.querySelector('#map');
+            if (mapContainer && !mapContainer.__a11yObserverAttached) {
+              const observer = new MutationObserver((mutations) => {
+                let shouldRun = false;
+                for (const m of mutations) {
+                  if (m.type === 'attributes' && m.attributeName === 'aria-hidden') {
+                    shouldRun = true;
+                    break;
+                  }
+                  if (m.type === 'childList') {
+                    shouldRun = true;
+                    break;
+                  }
+                }
+                if (shouldRun) removeFocusableFromHiddenMapPanes(mapContainer);
+              });
+              observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
+              mapContainer.__a11yObserverAttached = true;
+            }
       }, 500);
   });
 }
@@ -453,6 +477,10 @@ function drawLines(sourceCountry, partners) {
         g.removeAttribute('clip-path');
       });
     }
+
+    // Ensure that any content inside an aria-hidden pane is not focusable
+    // (addresses axe: "Ensure aria-hidden elements are not focusable nor contain focusable elements")
+    removeFocusableFromHiddenMapPanes();
   }
 
   // Debounced redraw on zoomend/moveend
@@ -583,6 +611,31 @@ function clearMap() {
   markers.forEach(function(marker) {
     map.removeLayer(marker);
   });
+}
+
+
+// Accessibility helper: ensure focusable elements inside aria-hidden map panes are not tabbable
+function removeFocusableFromHiddenMapPanes(root = document) {
+  try {
+    // Select map-related panes that may be aria-hidden by Leaflet/webtools
+    const hiddenPanes = Array.from(root.querySelectorAll('.leaflet-pane[aria-hidden="true"], .leaflet-overlay-pane[aria-hidden="true"], .leaflet-subOverlay-pane[aria-hidden="true"]'));
+    hiddenPanes.forEach(pane => {
+      // Generic focusable selector (covers anchors, controls and elements with tabindex >= 0)
+      const focusableSelector = '[tabindex]:not([tabindex="-1"]), a[href], button, input, select, textarea, iframe, object, embed, [contenteditable="true"], [role="button"]';
+      pane.querySelectorAll(focusableSelector).forEach(el => {
+        // only neutralise elements that would otherwise be reachable
+        el.setAttribute('tabindex', '-1');
+        // for SVG elements, mark as not focusable in some browsers
+        if (el instanceof SVGElement) el.setAttribute('focusable', 'false');
+      });
+
+      // Leaflet often sets tabindex on SVG <path> directly — ensure those are non-focusable
+      pane.querySelectorAll('path[tabindex]').forEach(p => p.setAttribute('tabindex', '-1'));
+    });
+  } catch (e) {
+    // fail silently; accessibility fix is best-effort
+    console.warn('removeFocusableFromHiddenMapPanes error', e);
+  }
 }
 
 // Function to clear both lines and markers

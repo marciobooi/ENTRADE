@@ -25,7 +25,7 @@ class SubNavbar {
             <div class="">
               <div class="text-group">
                 <h2 id="title" class="title"></h2>
-                <h6 id="subtitle" class="subtitle"></h6>      
+                      
               </div>
             </div>
 
@@ -226,7 +226,7 @@ class SubNavbar {
         <div class="col-12 subNavTwo">
           <div class="text-group">
               <h2 id="title" class="title"></h2>
-              <h6 id="subtitle" class="subtitle"></h6>      
+                    
             </div>
         </div>
       </div>`;
