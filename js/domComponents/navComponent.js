@@ -67,7 +67,7 @@ class Navbar {
         <div id="es_app_header_ribbon" style="">
           <img alt="" src="https://ec.europa.eu/eurostat/cache/countryfacts/img/banner-graphical-element.svg">
         </div>
-        <a id="es_app_title" tabindex="0" href="https://ec.europa.eu/eurostat/" target="_blank">
+        <a id="es_app_title" tabindex="0" href="https://ec.europa.eu/eurostat/" target="_blank" rel="noopener noreferrer">
           <img alt="Home - Eurostat" src="https://ec.europa.eu/eurostat/cache/countryfacts/img/estat-logo-horizontal.svg" class="d-inline es_logo">
         </a>
       </div>
@@ -77,6 +77,14 @@ class Navbar {
     const closeButton = this.navbar.querySelector(
       ".ecl-site-header__language-close"
     );
+
+    // Provide a clear accessible name for this icon-only button so
+    // screen readers can announce it (fixes axe "buttons must have discernible text").
+    const closeSr = closeButton.querySelector('.ecl-u-sr-only');
+    if (closeSr) {
+      closeSr.textContent = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['CLOSE']) || 'Close';
+    }
+    closeButton.setAttribute('aria-label', (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['CLOSE']) || 'Close');
 
     closeButton.addEventListener("click", this.toggleDropdown.bind(this));
 

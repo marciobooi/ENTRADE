@@ -150,6 +150,16 @@ button#languageClsBtn {
     cursor: pointer;
 }
 
+/* Ensure active language label has sufficient contrast (WCAG AAA)
+   Active item uses a light background (#e7edfa) — override the
+   inherited blue link color so text meets 7:1 contrast. */
+.ecl-site-header__language-link--active .ecl-site-header__language-link-label,
+.ecl-site-header__language-link--active .ecl-site-header__language-link-label:visited,
+.ecl-site-header__language-link--active .ecl-site-header__language-link-label:hover,
+.ecl-site-header__language-link--active .ecl-site-header__language-link-label:focus {
+    color: #171a22 !important;
+}
+
 /* subnav section */
 
 .subNavBar {
