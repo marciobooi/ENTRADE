@@ -103,6 +103,13 @@ class Chart {
           series: this.seriesOptions,
       },
         series: this.series,
+        accessibility: {
+          // Use h2 for chart titles in the screen-reader region to preserve
+          // a sensible, non-skipping heading order on the page.
+          screenReaderSection: {
+            beforeChartFormat: '<h2>{chartTitle}</h2><div>{typeDescription}</div><div>{chartSubtitle}</div><div>{chartLongdesc}</div><div>{playAsSoundButton}</div><div>{viewTableButton}</div><div>{xAxisDescription}</div><div>{yAxisDescription}</div><div>{annotationsTitle}{annotationsList}</div>'
+          }
+        },
         exporting: {      
           enabled: true,
           allowHTML: true,

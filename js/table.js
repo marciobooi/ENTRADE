@@ -17,17 +17,23 @@ function createTableChart() {
   thead.classList.add("ecl-table__head");
   table.appendChild(thead);
 
-  const headerRow = thead.insertRow(0);
-  headerRow.classList.add("ecl-table__row");
-  const headerCell1 = headerRow.insertCell(0);
-  const headerCell2 = headerRow.insertCell(1);
-  headerCell1.classList.add("ecl-table__header");
-  headerCell2.classList.add("ecl-table__header");
+  // Create a semantic header row using <th> elements (scope allowed only on <th>)
+  const headerRow = document.createElement('tr');
+  headerRow.classList.add('ecl-table__row');
 
-  headerCell1.innerHTML = "Country";
-  headerCell1.setAttribute("scope", "col"); // Specify that this cell is a header for a column
-  headerCell2.innerHTML = "Value";
-  headerCell2.setAttribute("scope", "col"); // Specify that this cell is a header for a column
+  const headerCell1 = document.createElement('th');
+  headerCell1.classList.add('ecl-table__header');
+  headerCell1.setAttribute('scope', 'col'); // scope is valid on <th>
+  headerCell1.innerHTML = 'Country';
+
+  const headerCell2 = document.createElement('th');
+  headerCell2.classList.add('ecl-table__header');
+  headerCell2.setAttribute('scope', 'col');
+  headerCell2.innerHTML = 'Value';
+
+  headerRow.appendChild(headerCell1);
+  headerRow.appendChild(headerCell2);
+  thead.appendChild(headerRow);
 
   // Create tbody (table body) for data rows
   const tbody = document.createElement("tbody");
