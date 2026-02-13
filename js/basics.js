@@ -945,51 +945,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
    }
 }
  
-function enableTooltips(suppressDefaultTooltip = false) {
-  const buttons = document.querySelectorAll(
-    "button[title], button[aria-label]"
-  );
 
-  buttons.forEach((button) => {
-    const tooltipText =
-      button.getAttribute("title") || button.getAttribute("aria-label");
-    if (!tooltipText) return;
-
-    const tooltip = document.createElement("div");
-    tooltip.className = "tooltip";
-    tooltip.textContent = tooltipText;
-    document.body.appendChild(tooltip);
-
-    const positionTooltip = (element) => {
-      const rect = element.getBoundingClientRect();
-      tooltip.style.left = `${
-        rect.left + rect.width / 2 - tooltip.offsetWidth / 2
-      }px`;
-      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 8}px`;
-    };
-
-    if (suppressDefaultTooltip) {
-      button.onmouseover = null;
-    }
-
-    const showTooltip = (event) => {
-      tooltip.classList.add("visible");
-      positionTooltip(event.target);
-    };
-
-    const hideTooltip = () => {
-      tooltip.classList.remove("visible");
-    };
-
-    button.addEventListener("mouseover", showTooltip);
-    button.addEventListener("mouseout", hideTooltip);
-    button.addEventListener("focus", showTooltip);
-    button.addEventListener("blur", hideTooltip);
-  });
-}
-
-// Call the function with suppressDefaultTooltip set to true
-enableTooltips(true);
 
 
 function observeAriaHidden() {

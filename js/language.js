@@ -71,8 +71,6 @@ const languageNameSpace = {
 		buildComponents();		
 		
 
-
-
 		
 		addCredits();
 
@@ -96,7 +94,11 @@ const languageNameSpace = {
 			footerAccess.textContent = languageNameSpace.labels["ACCESS"];
 		}
 
-		enableTooltips();
+		// Clean up any existing tooltips before re-initializing
+    cleanupTooltips();
+
+
+    enableTooltips();
 	},
 		
 	ChangeLanguage: function (val) {

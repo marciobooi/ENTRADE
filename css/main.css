@@ -302,11 +302,24 @@ width: 100%;
 
 #factSheet {
     position: fixed;
-    top: 30%;
-    left: 80%;
+    top: 26%;
+    left: 90%;
     transform: translate(-50%, -50%);
-    z-index: 999999999999999999999 !important;
-    background: red;
+    z-index: 9 !important;
+    background: var(--tool-1);
+    color: white;
+    font-weight: 800;
+    box-shadow: 0 2px 4px rgba(9, 49, 142, .08), 0 0 10px rgba(9, 49, 142, .04), 0 4px 5px rgba(9, 49, 142, .04), 0 -4px 4px rgba(9, 49, 142, .04)
+
+}
+
+#factSheet:hover, #factSheet:focus-visible {
+    border: double 2px var(--tool-1);;
+    outline: solid 2px var(--tool-1);;
+    outline-offset: 4px;
+    color: var(--tool-1);
+    background: white;
+    box-shadow: 0 7px 8px rgba(9, 49, 142, .08), 0 0 22px rgba(9, 49, 142, .04), 0 12px 17px rgba(9, 49, 142, .04), 0 -4px 4px rgba(9, 49, 142, .04)
 }
 
 /* chart container */
@@ -354,5 +367,82 @@ ul#footerCredits {
 /* tooltips */
 
 .tooltip {
-    display: none;
+  position: absolute;
+  background: #fffffff6;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  border: 4px solid #0e47cb;
+  border-radius: 10px;
+  top:0
+}
+
+/* Tooltip positioned below element */
+.tooltip.tooltip-below::before {
+  top: -12px;
+  border-top-color: transparent;
+  border-bottom-color: rgba(46, 62, 78, 0.95);
+}
+
+/* Visible tooltip states */
+.tooltip[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tooltip {
+    background: black;
+    border: 2px solid white;
+    backdrop-filter: none;
+  }
+
+  .tooltip::before {
+    border-top-color: black;
+  }
+
+  .tooltip.tooltip-below::before {
+    border-bottom-color: black;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}
+
+/* WCAG 2.3.3: Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .skip-link {
+    transition: none;
+  }
+}
+
+.ecl-button:focus-visible {
+    border: double 2px var(--tool-1);;
+    outline: solid 2px var(--tool-1);;
+    outline-offset: 4px;
+    color: var(--tool-1);
+}
+
+.tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
