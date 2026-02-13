@@ -461,6 +461,30 @@ ul#footerCredits {
   pointer-events: auto;
 }
 
+/* If a tooltip contains a .pop-card, make the tooltip container transparent
+   and hide the tooltip arrow. Use :has() for modern browsers and provide a
+   descendant fallback for environments without :has(). */
+.leaflet-tooltip:has(.pop-card),
+.tooltip:has(.pop-card) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.leaflet-tooltip:has(.pop-card)::before,
+.tooltip:has(.pop-card)::before {
+  display: none !important;
+}
+/* Fallback: ensure pop-card itself renders correctly when placed inside a tooltip */
+.leaflet-tooltip .pop-card,
+.tooltip .pop-card {
+  background: var(--_bg) !important; /* keep pop-card styling */
+  border: 1px solid var(--_border) !important;
+  box-shadow: var(--_shadow) !important;
+  padding: 0 !important; /* tooltip container handles spacing */
+}
+
+
 
 /* ------------------------------------------------------------------ */
 /*  Pop-card (map tooltip / popup)                                     */
@@ -488,6 +512,8 @@ ul#footerCredits {
 }
 
 /* ---- header ---- */
+
+
 .pop-card__header {
   display: flex;
   align-items: center;
