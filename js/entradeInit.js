@@ -27,6 +27,17 @@ if (typeof cckManager !== 'undefined') {
   }, 3000);
 
   ECL.autoInit();
+
+  // Global default: ensure Highcharts screen-reader chart title uses an H2
+  if (typeof Highcharts !== 'undefined' && Highcharts.setOptions) {
+    Highcharts.setOptions({
+      accessibility: {
+        screenReaderSection: {
+          beforeChartFormat: '<h2>{chartTitle}</h2><div>{typeDescription}</div><div>{chartSubtitle}</div><div>{chartLongdesc}</div><div>{playAsSoundButton}</div><div>{viewTableButton}</div><div>{xAxisDescription}</div><div>{yAxisDescription}</div><div>{annotationsTitle}{annotationsList}</div>'
+        }
+      }
+    });
+  }
 }
 
 function buildComponents() {

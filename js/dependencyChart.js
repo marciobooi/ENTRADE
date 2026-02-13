@@ -159,6 +159,10 @@ function createDepChart() {
           accessibility: {
               point: {
                   valueDescriptionFormat: '{index}. From {point.from} to {point.to}: {point.weight}.'
+              },
+              // Ensure screen-reader region uses an H2 so heading order stays valid on the page
+              screenReaderSection: {
+                beforeChartFormat: '<h2>{chartTitle}</h2><div>{typeDescription}</div><div>{chartSubtitle}</div><div>{chartLongdesc}</div><div>{playAsSoundButton}</div><div>{viewTableButton}</div><div>{xAxisDescription}</div><div>{yAxisDescription}</div><div>{annotationsTitle}{annotationsList}</div>'
               }
           },        
           plotOptions: {
