@@ -291,14 +291,13 @@ width: 100%;
 }
 
 /* map menu */
+.wtmap .wt-map-content {
+    border: none !important;
+    height: 70dvh;
+}
+
 .wt-map-panels, .wt-map-menu .wt-btn, .wt-map-menu .wt-btn:focus, .wt-map-menu .wt-btn:active {
-  
-
-  
- border-color: var(--tool-1) !important;
-
-
-
+   border-color: var(--tool-1) !important;
 }
 
 #factSheet {
@@ -312,14 +311,12 @@ width: 100%;
 
 /* chart container */
 #chartContainer {
-display: none;
+    display: none;
     width: 100vw;
-    /* height: 56vw; */
-    position: absolute;
-    /* top: 221px; */
-    left: 0;
+    height: 67dvh;
     background-color: white;
     z-index: 99;
+    padding:0 2rem;
 }
 
 

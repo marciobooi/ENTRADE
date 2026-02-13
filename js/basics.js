@@ -499,7 +499,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
     
 		if (mapcontainer) {
 		  mapcontainer.style.width = "100%";
-			map.setView([50, 10], 4);
+		  mapcontainer.style.display = "block";
 			const countryInfoEl = document.getElementById('countryInfo');
 			if (countryInfoEl) {
 			  countryInfoEl.remove();

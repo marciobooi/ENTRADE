@@ -69,7 +69,7 @@ function renderMap() {
       smoothFactor: 1,
       language: REF.language,
       background : ["positron_background"],
-      height: "60vh",
+      height: "100%",
       width: "100%",
       maxBounds: [
         [-90, -Infinity],
@@ -300,6 +300,7 @@ function loadCountryData(country) {
 
 function openFactSheet(country) {
   const chartContainer = document.querySelector('#chartContainer');
+  const mapContainer = document.querySelector('.wt-map-content');
   if (!chartContainer) {
     console.error('chartContainer not found');
     return;
@@ -311,6 +312,8 @@ function openFactSheet(country) {
 
 
   chartContainer.style.display = 'block';
+  mapContainer.style.display = 'none';
+  
 
   // initialize content
   addChartOptions();
