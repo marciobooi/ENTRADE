@@ -210,6 +210,12 @@ button#languageClsBtn {
     transform: translate(-67%, 20%);
 }
 
+/* Ensure form labels inside the chart options menu meet WCAG AAA contrast */
+#chartOptionsMenu .ecl-form-label {
+    color: #171a22 !important; /* dark neutral to meet 7:1 on #f3f6fc */
+}
+
+
 .close-button-container {
     display: flex;
     justify-content: flex-end;
