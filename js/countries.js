@@ -403,7 +403,7 @@ function drawLines(sourceCountry, partners) {
       className: "myClass",
     }).on('mouseover', function (event) {
       const tooltipContent = lineTooltip(partnerCountry, value, countryName);
-      this.bindTooltip(tooltipContent, { sticky: true }).openTooltip();
+      this.bindTooltip(tooltipContent, { sticky: true, opacity: 1 }).openTooltip();
     }).on('mouseout', function (event) {
       this.closeTooltip();
     }).addTo(map);
@@ -417,7 +417,7 @@ function drawLines(sourceCountry, partners) {
       fillOpacity: 1, // Set the opacity of the fill color
       radius: radius // Set the radius of the circle in meters
     }).addTo(map)
-    .bindPopup(lineTooltip(partnerCountry, value, countryName))
+    .bindPopup(lineTooltip(partnerCountry, value, countryName), { className: 'pop-card-popup' })
     .on('mouseover', function (e) { this.openPopup(); })
     .on('mouseout', function (e) { this.closePopup(); });
 
@@ -621,7 +621,7 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   const flag = partnerCountry
 
   const tooltipContent = `
-  <div class="pop-card">
+  <div class="pop-card pop-card--solid">
     <div class="pop-card__header">
       <div class="pop-card__icon-wrap">
         <img src="img/fuel-family/${icon}.png" alt="${labelFuel}">

@@ -470,9 +470,26 @@ ul#footerCredits {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  opacity: 1 !important;          /* override Leaflet default 0.9 */
 }
 .leaflet-tooltip:has(.pop-card)::before,
 .tooltip:has(.pop-card)::before {
+  display: none !important;
+}
+
+/* Override Leaflet popup wrapper styles when it contains a pop-card */
+.pop-card-popup .leaflet-popup-content-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+.pop-card-popup .leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+}
+.pop-card-popup .leaflet-popup-tip-container {
   display: none !important;
 }
 /* Fallback: ensure pop-card itself renders correctly when placed inside a tooltip */
@@ -483,6 +500,8 @@ ul#footerCredits {
   box-shadow: var(--_shadow) !important;
   padding: 0 !important; /* tooltip container handles spacing */
 }
+
+
 
 
 
@@ -510,6 +529,7 @@ ul#footerCredits {
   color: var(--text-main-color, #262b38);
   line-height: 1.4;
 }
+
 
 /* ---- header ---- */
 
@@ -619,3 +639,6 @@ ul#footerCredits {
   text-transform: uppercase;
   letter-spacing: .03em;
 }
+
+
+
