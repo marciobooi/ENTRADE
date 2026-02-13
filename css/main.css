@@ -332,6 +332,20 @@ width: 100%;
     padding:0 2rem;
 }
 
+/* Smooth fade for leaflet.curve paths (class `myClass`) */
+.leaflet-overlay-pane path.myClass {
+  transition: opacity 220ms ease, stroke-opacity 220ms ease;
+  opacity: 1;
+}
+
+/* Prevent SVG clip-path from truncating long curves on zoom */
+.leaflet-overlay-pane svg {
+  overflow: visible !important;
+}
+.leaflet-overlay-pane svg > g {
+  clip-path: none !important;
+}
+
 
 /* footer */
 

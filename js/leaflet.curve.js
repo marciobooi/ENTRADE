@@ -192,6 +192,15 @@ L.Curve = L.Path.extend({
 			var northWestLayerPoint = this._map.latLngToLayerPoint(this._bounds.getNorthWest());
 			var southEastLayerPoint = this._map.latLngToLayerPoint(this._bounds.getSouthEast());
 			this._rawPxBounds = new L.Bounds(northWestLayerPoint, southEastLayerPoint);
+
+			// Inflate pixel bounds so the SVG renderer allocates a container
+			// large enough for long curves (prevents clipping on zoom-out)
+			var inflate = new L.Point(5000, 5000);
+			this._rawPxBounds = new L.Bounds(
+				this._rawPxBounds.min.subtract(inflate),
+				this._rawPxBounds.max.add(inflate)
+			);
+
 			this._updateBounds();
 		}
 	},
@@ -284,6 +293,13 @@ L.Curve = L.Path.extend({
 
 		if(!this.options.dashArray){
 			path.style.strokeDasharray = length + ' ' + length;
+		}
+		// Keep pathLength in sync so the dash pattern always covers the full path
+		// (pathLength is set once during onAdd for animation; it must be updated
+		//  whenever the path reprojects, otherwise the browser interprets
+		//  strokeDasharray values relative to the stale pathLength, causing gaps)
+		if(path.hasAttribute('pathLength')){
+			path.pathLength.baseVal = length;
 		}
 		return length;
 	},

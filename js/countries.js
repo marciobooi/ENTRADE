@@ -53,7 +53,7 @@ function renderMap() {
  
   map = $wt.map.render({
     map: {
-      // scrollWheelZoom: true,
+      scrollWheelZoom: true,
       center: [50, 10],
       smoothZoom: false,
       zoom: 4,
@@ -65,7 +65,8 @@ function renderMap() {
       continuousWorld: true,
       worldCopyJump: true,
       inertia: true,
-      scrollWheelZoom: false, smoothWheelZoom: true, smoothSensitivity: 2,
+      smoothWheelZoom: true, 
+      smoothSensitivity: 2,
       smoothFactor: 1,
       language: REF.language,
       background : ["positron_background"],
@@ -431,6 +432,8 @@ function drawLines(sourceCountry, partners) {
   function updateAllCircleSizes() {
     const zoomLevel = map.getZoom();
     const scale = Math.pow(2, 5 - zoomLevel);
+
+    // update circle marker radii only (fast, runs during zoom)
     markers.forEach((m, i) => {
       const r = markerRadii[i];
       if (r !== undefined) {
@@ -439,8 +442,39 @@ function drawLines(sourceCountry, partners) {
     });
   }
 
+  // Force overflow:visible on every SVG in the overlay pane (prevents clipping)
+  function forceSvgOverflow() {
+    const pane = document.querySelector('.leaflet-overlay-pane');
+    if (pane) {
+      pane.querySelectorAll('svg').forEach(svg => {
+        svg.style.overflow = 'visible';
+      });
+      pane.querySelectorAll('g').forEach(g => {
+        g.removeAttribute('clip-path');
+      });
+    }
+  }
+
+  // Debounced redraw on zoomend/moveend
+  let _redrawTimer = null;
+  function debouncedRedrawCurves() {
+    if (_redrawTimer) clearTimeout(_redrawTimer);
+    _redrawTimer = setTimeout(() => {
+      lines.forEach(l => {
+        try { if (typeof l.redraw === 'function') l.redraw(); } catch (e) { /* ignore */ }
+      });
+      forceSvgOverflow();
+    }, 120);
+  }
+
+  // Apply overflow fix immediately after first draw
+  forceSvgOverflow();
+
   map.on('zoom', updateAllCircleSizes);
+  map.on('zoomend', debouncedRedrawCurves);
+  map.on('moveend', debouncedRedrawCurves);
   zoomHandlers.push(updateAllCircleSizes);
+  zoomHandlers.push(debouncedRedrawCurves);
 }
 
 
@@ -497,8 +531,12 @@ function clearLines() {
 
 // Function to clear markers and their zoom handlers
 function clearMarkers() {
-  // Remove all accumulated zoom handlers
-  zoomHandlers.forEach(handler => map.off('zoom', handler));
+  // Remove all accumulated zoom/zoomend/moveend handlers
+  zoomHandlers.forEach(handler => {
+    map.off('zoom', handler);
+    map.off('zoomend', handler);
+    map.off('moveend', handler);
+  });
   zoomHandlers.length = 0;
 
   markers.forEach(marker => map.removeLayer(marker));
