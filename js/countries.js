@@ -621,18 +621,32 @@ function lineTooltip(partnerCountry, value , countryNAme) {
   const flag = partnerCountry
 
   const tooltipContent = `
-  <div id="popCard">
-  <div id="sectionOne">
-    <img id="popImg" src="img/fuel-family/${icon}.png" alt="fuel-family ${icon}">
-    <p id="popDescription">${labelFuel}</p>
-  </div>
-  <hr class="vertical-hr">
-  <div id="sectionTwo">
-    <h5 id="popTitle">${title}</h5>
-    <h6 id="popSubtitle">${countryOne} ${orientation} ${countryTwo}</h6>            
-    <p id="popValue">${countryValue} ${unit}</p>
-  </div>
-</div>`
+  <div class="pop-card">
+    <div class="pop-card__header">
+      <div class="pop-card__icon-wrap">
+        <img src="img/fuel-family/${icon}.png" alt="${labelFuel}">
+      </div>
+      <div class="pop-card__titles">
+        <span class="pop-card__label">${title}</span>
+        <span class="pop-card__fuel">${labelFuel}</span>
+      </div>
+    </div>
+    <div class="pop-card__body">
+      <div class="pop-card__route">
+        <span class="pop-card__country">${countryOne}</span>
+        <span class="pop-card__arrow">
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+            <path d="M0 6h20m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="pop-card__country">${countryTwo}</span>
+      </div>
+      <div class="pop-card__value-wrap">
+        <span class="pop-card__value">${countryValue}</span>
+        <span class="pop-card__unit">${unit}</span>
+      </div>
+    </div>
+  </div>`
   return tooltipContent  
 }
 
