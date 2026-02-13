@@ -9,15 +9,16 @@ async function initApp() {
 
   await languageNameSpace.initLanguage(REF.language);
 
-  const euGlobanContainer = document.createElement("div");
-  euGlobanContainer.id = "euGlobanContainer";
-  document.querySelector("header").insertAdjacentElement('afterbegin', euGlobanContainer);
+  // Initialize GLOBAN after language is set
+if (typeof globanManager !== 'undefined') {
+  globanManager.init();
+}
 
-  $wt.render("euGlobanContainer", {
-    utility: "globan",
-    lang: REF.language.toLowerCase(),
-    theme: "dark",
-  });
+// Regenerate CCK with the current language
+if (typeof cckManager !== 'undefined') {
+  cckManager.regenerate(REF.language);
+}
+
 
   setTimeout(() => {
     document.querySelectorAll("#chartOptionsMenu path").forEach((path) => {

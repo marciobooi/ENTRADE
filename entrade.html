@@ -79,6 +79,9 @@
   
   <!-- Bootstrap removed - using ECL instead -->
   <script src="js/external/intro7.0.1.js"></script>
+
+  <script src="js/cck.js"></script>
+  <script src="js/globan.js"></script>
   
   <script src="js/basics.js"></script>
   <script src="js/language.js"></script>
@@ -127,7 +130,15 @@
   <script src="js/populateProduct.js"></script>
   <script src="js/keyboardNavigationLogic.js"></script>
 
+    <script src="js/tooltip.js"></script>
 
+  <!-- Cookie Consent Kit Configuration -->
+  <script type="application/json">
+  {
+    "utility": "cck",
+    "url": "https://commission.europa.eu/cookies-policy_{lang}"
+  }
+  </script>
 
 
   <script type="application/json"> { "utility" : "analytics", "siteID" : "59", "instance" : "ec.europa.eu" } </script>
@@ -138,7 +149,7 @@
 
 
 
-
+<div id="euGlobanContainer"></div>
   <noscript>
     <p class="no-script"> Your browser does not support Javascript or Javascript is disabled. <br /> Please enable Javascript to use the ENBAL tool.</p>
   </noscript>
@@ -225,11 +236,7 @@
     window.initializeECLComponents = initializeECLComponents;
   </script>
 
-    <script type="application/json">{
-    "utility": "cck",
-    "url": "http://ec.europa.eu/cookies/index_en.htm",
-    "target": true
-  }</script>
+
 </body>
 
 </html>
