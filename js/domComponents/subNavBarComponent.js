@@ -24,7 +24,7 @@ class SubNavbar {
 
             <div class="">
               <div class="text-group">
-                <h2 id="title" class="title"></h2>
+                <h2 class="title">${languageNameSpace.labels["header-title-label"]}</h2>
                       
               </div>
             </div>
@@ -225,7 +225,7 @@ class SubNavbar {
         </div>
         <div class="col-12 subNavTwo">
           <div class="text-group">
-              <h2 id="title" class="title"></h2>
+              <h2 class="title">${languageNameSpace.labels["header-title-label"]}</h2>
                     
             </div>
         </div>
