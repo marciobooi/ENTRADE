@@ -495,7 +495,7 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		const chartOptions = new ChartControls();
 		chartOptions.removeFromDOM(); 
 
-		const mapcontainer = document.querySelector(".wt-map-content");
+		const mapcontainer = document.querySelector("#map");
     
 		if (mapcontainer) {
 		  mapcontainer.style.width = "100%";
@@ -988,7 +988,9 @@ function observeAriaHidden() {
 }
 
 // Initialize the observer
-document.addEventListener("DOMContentLoaded", observeAriaHidden);
+
+
+
 
 
 /**

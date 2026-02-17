@@ -325,7 +325,7 @@ async function loadCountryData(country) {
 
 async function openFactSheet(country) {
   const chartContainer = document.querySelector('#chartContainer');
-  const mapContainer = document.querySelector('.wt-map-content');
+  const mapContainer = document.querySelector('#map');
   if (!chartContainer) {
     console.error('chartContainer not found');
     return;
