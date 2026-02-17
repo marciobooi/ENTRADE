@@ -1,32 +1,43 @@
 function populateTrade() {
   const target = document.querySelector("#containerTrade");
-  const elementId = 'selectTrade';
+  if (!target) return console.error("containerTrade not found in DOM");
+
+  const elementId = "selectTrade";
   const optionsArray = Object.keys(trade);
   const labelDescription = languageNameSpace.labels["TRADE"];
-  const activeElement = REF.product;
+  const activeElement = REF.trade;
   const textChange = languageNameSpace.labels["MENU_TRADE"];
 
-  const existingSingleSelect = document.getElementById(elementId);
-  if (existingSingleSelect) {    
-      existingSingleSelect.parentElement.parentElement.remove();
-  }
+  // Remove old widget safely
+  document.getElementById(elementId)
+    ?.closest(".single-select-wrapper")
+    ?.remove();
 
-  const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
-    REF.trade = selectedValue;
+  // Build new select widget
+  const singleSelect = new Singleselect(
+    elementId,
+    optionsArray,
+    labelDescription,
+    activeElement,
+    textChange,
+    handleTradeSelection
+  );
 
-      const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
-
-      REF.dataset = apiParam.name; 
-      REF.siec = apiParam.defSiec
-      populateUnit()
-
-  });
-
-  const singleSelectHTML = singleSelect.createSingleSelect();
-  target.insertAdjacentHTML('beforeend', singleSelectHTML);
-
-
-
+  // Render and mount new component
+  target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
   singleSelect.attachEventListeners();
 
+  // Callback for selection
+  function handleTradeSelection(selectedValue) {
+    REF.trade = selectedValue;
+
+    const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
+
+    Object.assign(REF, {
+      dataset: apiParam.name,
+      siec: apiParam.defSiec
+    });
+
+    populateUnit();
+  }
 }

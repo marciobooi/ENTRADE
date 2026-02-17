@@ -119,28 +119,28 @@ class ChartControls {
 		  REF.chart = this.value;
 		  await createBarChart();
 		  disableBtns();
-		  openDb();
+		  credits();
 		});
 		depChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  await createDepChart();
 		  disableBtns();
-		  openDb();
+		  credits();
 		});
 		pieChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  await createPieChart();
 			disableBtns();
-			openDb();
+			credits();
 		});
 		lineChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
 		  await createLineChart();
 			disableBtns();
-			openDb();
+			credits();
 		});
 		tableChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);

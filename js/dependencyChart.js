@@ -196,7 +196,7 @@ async function createDepChart() {
             },
         credits: {
             text: credits(),
-            href: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
+            href: `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`,
             position:{
               align:'center',
             },   

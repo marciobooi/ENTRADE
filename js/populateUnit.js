@@ -1,29 +1,37 @@
-  function populateUnit() {
-  
+function populateUnit() {
   const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
+  const units = apiParam.unit;
 
-  const units = apiParam.unit
+  const target = document.querySelector("#containerUnit");
+  if (!target) return console.error("containerUnit not found in DOM");
 
-    const target = document.querySelector("#containerUnit");
-    const elementId = 'selectUnit';
-    const optionsArray = units;
-    const labelDescription = languageNameSpace.labels["UNIT"];
-    const activeElement = REF.unit;
-    const textChange = languageNameSpace.labels["MENU_UNIT"];
+  const elementId = "selectUnit";
+  const optionsArray = units;
+  const labelDescription = languageNameSpace.labels["UNIT"];
+  const activeElement = REF.unit;
+  const textChange = languageNameSpace.labels["MENU_UNIT"];
 
-    const existingSingleSelect = document.getElementById(elementId);
-    if (existingSingleSelect) {
-        existingSingleSelect.parentElement.parentElement.remove();
-    }  
-  
-    const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
-        REF.unit = selectedValue;
-   
-    });
-  
-    const singleSelectHTML = singleSelect.createSingleSelect();
-    target.insertAdjacentHTML('beforeend', singleSelectHTML);
-  
-    singleSelect.attachEventListeners();
+  // Remove any existing widget safely
+  document.getElementById(elementId)
+    ?.closest(".single-select-wrapper")
+    ?.remove();
 
+  // Create new single select component
+  const singleSelect = new Singleselect(
+    elementId,
+    optionsArray,
+    labelDescription,
+    activeElement,
+    textChange,
+    handleUnitSelection
+  );
+
+  // Render and mount
+  target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
+  singleSelect.attachEventListeners();
+
+  // Callback handler
+  function handleUnitSelection(selectedValue) {
+    REF.unit = selectedValue;
   }
+}

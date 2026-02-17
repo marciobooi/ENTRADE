@@ -72,7 +72,7 @@ async function createBarChart() {
     yAxisTitle:  yAxisTitle,
     tooltipFormatter: tooltipFormatter,
     creditsText: credits(),
-    creditsHref: "",
+    creditsHref: `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`,
     series: [{name:languageNameSpace.labels[REF.dataset],data:barChartSeries}],
     colors: colors,
     legend: { enabled: false},

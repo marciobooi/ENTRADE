@@ -991,18 +991,31 @@ function observeAriaHidden() {
 document.addEventListener("DOMContentLoaded", observeAriaHidden);
 
 
+/**
+ * Return chart credits text (language-aware).
+ * Keep this function side-effect free so it can be used synchronously
+ * when building chart options (Highcharts expects a simple string).
+ */
+function credits() {
+  const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
+  const sourceLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels["EXPORT_FOOTER_TITLE"]) || "Source: Eurostat";
+  const accessLabel = (languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels.DB || languageNameSpace.labels["DB_LINK"])) || "Access to dataset";
 
-
-
-function openDb (params) {
-	
-
-	const link = document.querySelector("#credits");
-	const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
-	link.addEventListener("click", function () {
-		log(link)
-        window.open(datasetURL, '_blank');
-    });
-
-
+  // Return SVG-compatible credits text (no DOM access here).
+  return `
+    <tspan id="credits" style="font-size: 0.9rem;">
+      ${sourceLabel} - 
+      <tspan
+        tabindex="0"
+        role="link"
+        aria-label="Eurostat dataset link: ${datasetURL}"
+        title="${accessLabel}"
+        style="cursor: pointer; fill: #0a328e; text-decoration: underline;"
+        onclick="window.open('${datasetURL}', '_blank')"
+      >
+        ${accessLabel}
+      </tspan>
+    </tspan>
+  `;
 }
+

@@ -18,7 +18,7 @@ async function createLineChart() {
       yAxisFormat: "{value:.0f}",
       tooltipFormatter: tooltipFormatter,
       creditsText: credits(),
-      creditsHref: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
+      creditsHref: `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`,
       series: lineChartData.sort((a, b) => a.name.localeCompare(b.name)),
       colors: colors,
       legend: {

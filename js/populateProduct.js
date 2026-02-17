@@ -1,28 +1,37 @@
 function populateProduct() {
-
   const apiParam = getDatasetNameByDefaultSIECAndTrade(REF.fuel, REF.trade);
-
-  const siecs = apiParam.siecs
+  const siecs = apiParam.siecs;
 
   const target = document.querySelector("#containerSiec");
-  const elementId = 'selectSiec';
+  if (!target) return console.error("containerSiec not found in DOM");
+
+  const elementId = "selectSiec";
   const optionsArray = siecs;
   const labelDescription = languageNameSpace.labels["PRO"];
   const activeElement = REF.siec;
   const textChange = languageNameSpace.labels["PRODUCT"];
 
-  const existingSingleSelect = document.getElementById(elementId);
-  if (existingSingleSelect) {
-      existingSingleSelect.parentElement.parentElement.remove();
-  }
+  // Remove previous select component safely
+  document.getElementById(elementId)
+    ?.closest(".single-select-wrapper")
+    ?.remove();
 
-  const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
-    REF.siec = selectedValue;
+  // Create new widget
+  const singleSelect = new Singleselect(
+    elementId,
+    optionsArray,
+    labelDescription,
+    activeElement,
+    textChange,
+    handleSiecSelection
+  );
 
-  });
-
-  const singleSelectHTML = singleSelect.createSingleSelect();
-  target.insertAdjacentHTML('beforeend', singleSelectHTML);
-
+  // Render & mount
+  target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
   singleSelect.attachEventListeners();
+
+  // Callback
+  function handleSiecSelection(selectedValue) {
+    REF.siec = selectedValue;
+  }
 }

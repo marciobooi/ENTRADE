@@ -44,6 +44,7 @@ async function createPieChart() {
       yAxisFormat: "",
       tooltipFormatter: tooltipFormatter,
       creditsText: credits(),
+      creditsHref: `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`,
       series: [{ data: piedata, name: languageNameSpace.labels[REF.dataset] }],
       colors: colors,
       legend: legendSmall,
