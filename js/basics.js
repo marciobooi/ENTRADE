@@ -719,20 +719,196 @@ function hideChartLoader() {
   }
 
   function enableScreenREader(params) {
-	const titleElement = document.querySelector("text.highcharts-title")
+	const titleElement = document.querySelector("text.highcharts-title");
 	if (titleElement) {
 	  titleElement.setAttribute('aria-hidden', 'false');
 	}
-  
+
 	// Find and update the subtitle element
 	const subtitleElement = document.querySelector('text.highcharts-subtitle');
 	if (subtitleElement) {
 	  subtitleElement.setAttribute('aria-hidden', 'false');
 	}
 
-	const container = document.querySelector(".highcharts-root")
+	const container = document.querySelector(".highcharts-root");
+	if (container) container.removeAttribute('aria-hidden');
 
-	container.removeAttribute('aria-hidden');
+	// Ensure Highcharts credits are keyboard-accessible (tab / Enter / Space)
+	try {
+	  const creditsEl = document.querySelector('.highcharts-credits');
+	  if (creditsEl) {
+        // prefer making the SVG text focusable in all browsers
+        creditsEl.setAttribute('tabindex', '0');
+        creditsEl.setAttribute('focusable', 'true');
+        creditsEl.setAttribute('role', 'link');
+
+        // remove tabindex from inner <tspan id="credits"> (browsers commonly ignore tabindex on <tspan>)
+        const innerTspan = creditsEl.querySelector('tspan#credits');
+        if (innerTspan && innerTspan.hasAttribute('tabindex')) innerTspan.removeAttribute('tabindex');
+
+        // set aria-label using available translations (fallbacks)
+        const sourceLabel = (window.languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['EXPORT_FOOTER_TITLE']) || 'Source: Eurostat';
+        const accessLabel = (window.languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels.DB || languageNameSpace.labels['DB_LINK'])) || 'Access to dataset';
+        creditsEl.setAttribute('aria-label', `${sourceLabel} - ${accessLabel}`);
+
+        // ensure visible pointer cursor
+        creditsEl.style.cursor = 'pointer';
+
+        // attach key handler to open the dataset URL in a new tab (preferred)
+        const datasetURL = (typeof REF !== 'undefined' && REF.dataset)
+          ? `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language || 'EN'}`
+          : null;
+
+        // ensure anchor (if any) inside credits is focusable
+        const anchorInside = creditsEl.querySelector('a');
+        if (anchorInside) {
+          anchorInside.setAttribute('tabindex', '0');
+          anchorInside.setAttribute('role', 'link');
+          anchorInside.setAttribute('aria-label', `${sourceLabel} - ${accessLabel}`);
+        }
+
+        if (!creditsEl._keyboardHandlerInstalled) {
+          creditsEl.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
+              ev.preventDefault();
+              if (datasetURL) window.open(datasetURL, '_blank');
+              else creditsEl.click();
+            }
+          });
+
+          // prefer opening in new tab on click as well
+          creditsEl.addEventListener('click', () => {
+            if (datasetURL) window.open(datasetURL, '_blank');
+          });
+
+          creditsEl._keyboardHandlerInstalled = true;
+        }
+
+        // re-apply after a short delay in case Highcharts redraw replaces the node
+        setTimeout(() => {
+          const again = document.querySelector('.highcharts-credits');
+          if (again) {
+            again.setAttribute('tabindex', '0');
+            again.setAttribute('focusable', 'true');
+          }
+        }, 250);
+
+      // ---------------------------------------
+      // Accessible credits overlay (HTML <a>)
+      // Append to the OUTER chart container (#chartContainer) so it remains in the
+      // accessibility tree and tabbable. This is a reliable fallback for SVG text.
+      // ---------------------------------------
+      setTimeout(() => {
+        const chartContainer = document.querySelector('#chartContainer');
+        if (!chartContainer) return;
+
+        // Remove existing accessible credits overlay if any
+        const prev = chartContainer.querySelector('.accessible-credits-overlay');
+        if (prev) prev.remove();
+
+        // Build URL
+        const url = (typeof REF !== 'undefined' && REF.dataset)
+          ? `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language || 'EN'}`
+          : '#';
+
+        const sourceLabel = (window.languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['EXPORT_FOOTER_TITLE']) || 'Source: Eurostat';
+        const linkLabel = (window.languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels.DB || languageNameSpace.labels['DB_LINK'])) || 'Access to dataset';
+
+        // Wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'accessible-credits-overlay';
+        wrapper.setAttribute('aria-hidden', 'false');
+
+        // Styling (inline to avoid needing a CSS change deployment)
+        Object.assign(wrapper.style, {
+          position: 'absolute',
+          bottom: '8px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: '12',
+          fontFamily: 'arial, sans-serif',
+          fontSize: '0.9rem',
+          lineHeight: '1',
+          color: '#666666',
+          whiteSpace: 'nowrap',
+          background: 'transparent',
+          pointerEvents: 'auto'
+        });
+
+        const prefix = document.createElement('span');
+        prefix.textContent = `${sourceLabel} - `;
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.setAttribute('aria-label', `${linkLabel}: ${url}`);
+        a.textContent = linkLabel;
+        Object.assign(a.style, {
+          color: '#0a328e',
+          textDecoration: 'underline',
+          cursor: 'pointer',
+          outline: 'none'
+        });
+
+        a.addEventListener('focus', () => { a.style.outline = '2px solid #005ea2'; a.style.outlineOffset = '2px'; });
+        a.addEventListener('blur', () => { a.style.outline = 'none'; });
+
+        wrapper.appendChild(prefix);
+        wrapper.appendChild(a);
+
+        // Ensure the outer container is positioned so absolute works
+        if (getComputedStyle(chartContainer).position === 'static') {
+          chartContainer.style.position = 'relative';
+        }
+
+        chartContainer.appendChild(wrapper);
+
+        // Hide the original Highcharts SVG credits (prevent duplicate UI)
+        const svgCredits = chartContainer.querySelector('.highcharts-credits');
+        if (svgCredits) {
+          svgCredits.setAttribute('aria-hidden', 'true');
+          svgCredits.style.display = 'none';
+          svgCredits.style.pointerEvents = 'none';
+          svgCredits.removeAttribute('tabindex');
+          svgCredits.dataset.hiddenByOverlay = 'true';
+        }
+
+        // Observe chartContainer for reinsertion of Highcharts credits and hide them
+        if (!chartContainer._creditsHideObserver) {
+          const obs = new MutationObserver((mutations) => {
+            for (const m of mutations) {
+              if (!m.addedNodes) continue;
+              m.addedNodes.forEach(node => {
+                try {
+                  if (!(node instanceof Element)) return;
+                  if (node.matches('.highcharts-credits')) {
+                    node.setAttribute('aria-hidden', 'true');
+                    node.style.display = 'none';
+                    node.style.pointerEvents = 'none';
+                  } else {
+                    const nested = node.querySelector && node.querySelector('.highcharts-credits');
+                    if (nested) {
+                      nested.setAttribute('aria-hidden', 'true');
+                      nested.style.display = 'none';
+                      nested.style.pointerEvents = 'none';
+                    }
+                  }
+                } catch (e) {
+                  /* ignore */
+                }
+              });
+            }
+          });
+          obs.observe(chartContainer, { childList: true, subtree: true });
+          chartContainer._creditsHideObserver = obs;
+        }
+      }, 500);
+    }
+	} catch (e) {
+	  // non-fatal; leave original behaviour
+	  console.warn('enableScreenREader: credits accessibility patch failed', e);
+	}
   }
 
   function chartNormalTooltip(points) {
