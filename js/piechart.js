@@ -54,7 +54,10 @@ async function createPieChart() {
 
     const chart = new Chart(chartOptions);
     chart.createChart();
-
+  } finally {
+    hideChartLoader();
+  }
+}
 
 async function piechartdata() {
    piedata = [];
