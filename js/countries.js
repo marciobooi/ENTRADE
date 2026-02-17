@@ -257,13 +257,13 @@ function addClearToMenu() {
 }
 
 
-function loadCountryData(country) {  
+async function loadCountryData(country) {  
   REF.dataset = REF.dataset;  // Consider whether this line is necessary if you're not changing anything
   REF.geo = country.CNTR_ID;
   REF.chart = "map";
 
   // Assuming chartApiCall returns an object with a 'value' property
-  let d = chartApiCall();
+  let d = await chartApiCall();
 
   let values = d.value;
   let allZero = values.every(value => value === 0);
@@ -317,13 +317,13 @@ function loadCountryData(country) {
       const countryInfo = document.querySelector('#countryInfo');
       if (countryInfo) countryInfo.remove();
       removeChartOptions();
-      openFactSheet();
+      await openFactSheet();
     }
   }
 }
 
 
-function openFactSheet(country) {
+async function openFactSheet(country) {
   const chartContainer = document.querySelector('#chartContainer');
   const mapContainer = document.querySelector('.wt-map-content');
   if (!chartContainer) {
@@ -335,14 +335,12 @@ function openFactSheet(country) {
   const isEmpty = chartContainer.innerHTML.trim() === '' && window.getComputedStyle(chartContainer).display === 'none';
   if (!isEmpty) return; // already open — nothing to do
 
-
   chartContainer.style.display = 'block';
   mapContainer.style.display = 'none';
-  
 
   // initialize content
   addChartOptions();
-  createTableChart();
+  await createTableChart();
   getTitle();
   disableBtns();
 

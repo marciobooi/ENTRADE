@@ -8,7 +8,7 @@ class SubNavbar {
       "ecl-navbar ecl-navbar-expand-sm ecl-navbar-light bg-light",
     );
 
-    // const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768
+    const mobileFlag = (typeof window !== 'undefined' && typeof window.isMobile !== 'undefined') ? window.isMobile : (/Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768);
 
     const browser = `<div class="ecl-row subNavBar">
             <div class="">
@@ -22,12 +22,12 @@ class SubNavbar {
               </button>
             </div>
 
-            <div class="">
+           
               <div class="text-group">
                 <h2 class="title">${languageNameSpace.labels["header-title-label"]}</h2>
                       
               </div>
-            </div>
+          
 
           <div class="ecl-col-4">
             <div id="chartBtns"  aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
@@ -231,7 +231,7 @@ class SubNavbar {
         </div>
       </div>`;
 
-    if (isMobile) {
+    if (mobileFlag) {
       this.subNavbar.innerHTML = mobileContent;
 
       this.toolsButton = this.subNavbar.querySelector("#tools");

@@ -114,39 +114,39 @@ class ChartControls {
 		closeChart.setInnerHtml('<i class="fas fa-times" aria-hidden="true"></i>');
 	
 		// Set click handlers for each button
-		barChart.setClickHandler(function() {
+		barChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
-		  createBarChart()
-		  disableBtns()
+		  await createBarChart();
+		  disableBtns();
 		  openDb();
 		});
-		depChart.setClickHandler(function() {
+		depChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
-		  createDepChart()
-		  disableBtns()
-		  openDb()
+		  await createDepChart();
+		  disableBtns();
+		  openDb();
 		});
-		pieChart.setClickHandler(function() {
+		pieChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
-		  createPieChart()
-			disableBtns()
-			openDb()
+		  await createPieChart();
+			disableBtns();
+			openDb();
 		});
-		lineChart.setClickHandler(function() {
+		lineChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
-		  createLineChart()
-			disableBtns()
-			openDb()
+		  await createLineChart();
+			disableBtns();
+			openDb();
 		});
-		tableChart.setClickHandler(function() {
+		tableChart.setClickHandler(async function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chart = this.value;
-		  createTableChart()
-		  disableBtns()
+		  await createTableChart();
+		  disableBtns();
 		});
 		createprintChart.setClickHandler(function() {
 			printChart();

@@ -44,15 +44,15 @@ const languageNameSpace = {
 		
 		// Set labels for the selected language when DOM is ready
 		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', () => {
-				languageNameSpace.updatePageLabels();
+			document.addEventListener('DOMContentLoaded', async () => {
+				await languageNameSpace.updatePageLabels();
 			});
 		} else {
-			languageNameSpace.updatePageLabels();
-		}
+			await languageNameSpace.updatePageLabels();
+		} 
 	},
 
-	updatePageLabels() {
+	async updatePageLabels() {
 		const elementsId = ["#header-title-label"];
 	
 		elementsId.forEach(id => {
@@ -68,7 +68,7 @@ const languageNameSpace = {
 		});
 
 		removeComponents();
-		buildComponents();		
+		await buildComponents();		
 		
 
 		

@@ -8,7 +8,7 @@ function addToCache(query, d) {
   cache[query].push(d);
 }
 
-function chartApiCall(query) {
+async function chartApiCall(query) {
   try {
     let url =
       "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" +
@@ -24,19 +24,6 @@ function chartApiCall(query) {
         url += "&unit=" + REF.unit;
         break;
 
-      //  case "barChart":
-      //     url += "&geo=" + REF.geo;
-      //     url += "&siec=" + REF.siec;
-      //     url += "&unit=" + REF.unit;
-      //     url += "&time=" + REF.year;
-      //   break
-      //   case "pieChart":
-      //     url += "&geo=" + REF.geo;
-      //     url += "&siec=" + REF.siec;
-      //     url += "&unit=" + REF.unit;
-      //     url += "&time=" + REF.year;
-      //     break
-
       default:
         url += "&geo=" + REF.geo;
         url += "&siec=" + REF.siec;
@@ -45,21 +32,21 @@ function chartApiCall(query) {
         break;
     }
 
+    // return cached Dataset if available
     if (cache[url] && cache[url].length > 0) {
-      d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);
-      return d;
-    } else {
-      const request = new XMLHttpRequest();
-      request.open("GET", url, false); // Setting the third parameter to 'false' makes it synchronous
-      request.send();
-
-      const d = JSONstat(url).Dataset(0);
-
-      addToCache(url, d);
-
-      return d;
+      return cache[url][cache[url].length - 1];
     }
+
+    // async fetch JSON, parse and wrap with JSONstat
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`Network response was not ok: ${resp.status}`);
+    const json = await resp.json();
+    const d = JSONstat(json).Dataset(0);
+
+    addToCache(url, d);
+    return d;
   } catch (error) {
     console.error("API call failed:", error);
+    return null;
   }
-}
+} 

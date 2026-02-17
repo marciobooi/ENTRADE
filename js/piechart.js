@@ -1,114 +1,65 @@
-function createPieChart() {
+async function createPieChart() {
   REF.chart = "pieChart";
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.textContent = '';
 
-  piechartdata()
- 
-  const chartTitle = getTitle()  
+  showChartLoader();
+  try {
+    await piechartdata();
 
-  const emptyResponse = d==null || Object.values(d.value).some(x => (x == null && x == ''))
+    const chartTitle = getTitle();
 
+    const emptyResponse = d==null || Object.values(d.value).some(x => (x == null && x == ''));
 
-  if (emptyResponse) {
-    nullishChart();
-    return
-  }
-  
-  const seriesOpt = {
-    showInLegend: true,
-    dataLabels: {
-      enabled: true,
-    },
-  };
-
-
-  const pieOpt = {  
-    allowPointSelect: true,
-    // size: "75%",
-    innerSize: "75%",
-    showInLegend: true,
-    animation: true,
-    cursor: "pointer",
-    dataLabels: {
-      enabled: true,
-      style: {
-        fontSize: '.8rem',
-        fontWeight: 'normal'
-    },
-    format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + languageNameSpace.labels["abr_"+REF.unit],
-    },
-  }
-  
-  const fullChart = window.innerWidth > 700;
-
-  const legendBig = {
-      align: 'right',
-      verticalAlign: 'middle',
-      layout: 'vertical'
-  };
-  
-  const legendSmall = {     
-    layout: 'horizontal',
-    padding: 3,   
-    itemMarginTop: 5,
-    itemMarginBottom: 5,
-    itemHiddenStyle: {
-      color: '#767676'
-    },
-    itemStyle: {
-      fontSize: '.9rem',
-      fontWeight: 'light'
+    if (emptyResponse) {
+      nullishChart();
+      return;
     }
-}
 
-  const tooltipFormatter = function() {
-    return pieTolltip(this.point);
-  };
+    const seriesOpt = {
+      showInLegend: true,
+      dataLabels: { enabled: true },
+    };
 
-  const chartOptions = {
-    containerId: "chartContainer",
-    type: "pie",
-    title: chartTitle,
-    subtitle: null,
-    xAxis: null,
-    yAxisFormat: "",
-    tooltipFormatter: tooltipFormatter,
-    creditsText: credits(),
-    // series: [
-    //   {
-    //     data: piedata
-    //       .filter(arr => arr[1] > 0) // Filter out zero or negative values
-    //       .sort((a, b) => b[1] - a[1]), // Sort by value in descending order
-    //       // .reverse(), // Reverse to arrange for clockwise direction
-    //       name: languageNameSpace.labels[REF.dataset],
-    //   },
-    // ],
-    series: [
-      {
-        data: piedata,
-        name: languageNameSpace.labels[REF.dataset],
-      },
-    ],
-    colors: colors,
-    legend: legendSmall,
-    pieOptions: pieOpt,
-    columnOptions: null,
-    seriesOptions: seriesOpt,
-  
-  };
-  
-  const chart = new Chart(chartOptions);
-  chart.createChart();
+    const pieOpt = {
+      allowPointSelect: true,
+      innerSize: "75%",
+      showInLegend: true,
+      animation: true,
+      cursor: "pointer",
+      dataLabels: { enabled: true, style: { fontSize: '.8rem', fontWeight: 'normal' }, format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + languageNameSpace.labels["abr_"+REF.unit], },
+    };
 
+    const fullChart = window.innerWidth > 700;
+    const legendSmall = { layout: 'horizontal', padding: 3, itemMarginTop: 5, itemMarginBottom: 5, itemHiddenStyle: { color: '#767676' }, itemStyle: { fontSize: '.9rem', fontWeight: 'light' } };
 
-}
+    const tooltipFormatter = function() { return pieTolltip(this.point); };
+
+    const chartOptions = {
+      containerId: "chartContainer",
+      type: "pie",
+      title: chartTitle,
+      subtitle: null,
+      xAxis: null,
+      yAxisFormat: "",
+      tooltipFormatter: tooltipFormatter,
+      creditsText: credits(),
+      series: [{ data: piedata, name: languageNameSpace.labels[REF.dataset] }],
+      colors: colors,
+      legend: legendSmall,
+      pieOptions: pieOpt,
+      columnOptions: null,
+      seriesOptions: seriesOpt,
+    };
+
+    const chart = new Chart(chartOptions);
+    chart.createChart();
 
 
-function piechartdata() {
+async function piechartdata() {
    piedata = [];
 
-  const d = chartApiCall();
+  const d = await chartApiCall();
 
   if (d === null) {
     return []; 

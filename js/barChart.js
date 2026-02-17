@@ -1,9 +1,9 @@
-function barchartdata() {
+async function barchartdata() {
   barChartSeries = [];
 
-  d = chartApiCall();
+  const d = await chartApiCall();
 
-  const indicator = d.Dimension("partner").id;
+  const indicator = d?.Dimension("partner").id || [];
 
   const data = indicator.map((indicator, index) => {
     if (!excludedPartners.includes(indicator) && d.value[index] > 0) {
@@ -37,14 +37,16 @@ function barchartdata() {
 }
 
 
-function createBarChart() {
+async function createBarChart() {
+  showChartLoader();
+  try {
 
   const type = "column"   
   REF.chart = "barChart"
 
 
 
-  barchartdata();   
+  await barchartdata();   
 
  
 
@@ -91,6 +93,9 @@ function createBarChart() {
 
 const customChart = new Chart(chartOptions);
 barChart = customChart.createChart();
+  } finally {
+    hideChartLoader();
+  }
 
 
 

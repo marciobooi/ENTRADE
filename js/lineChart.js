@@ -1,19 +1,13 @@
-function createLineChart() {
+async function createLineChart() {
+  REF.chart = "lineChart";
+  showChartLoader();
+  try {
+    const d = await chartApiCall();
+    const years = d.Dimension("time").id;
 
-  REF.chart = "lineChart"
+    linechartdata(d);
 
-  d = chartApiCall();
-
-
-  const years = d.Dimension("time").id;
-
-
-  linechartdata(d)
-
-  const tooltipFormatter = function () { return tooltipTable(this.points);}; 
-   
-
-
+    const tooltipFormatter = function () { return tooltipTable(this.points); };
 
     const chartOptions = {
       containerId: "chartContainer",
@@ -28,36 +22,22 @@ function createLineChart() {
       series: lineChartData.sort((a, b) => a.name.localeCompare(b.name)),
       colors: colors,
       legend: {
-        padding: 3,   
+        padding: 3,
         itemMarginTop: 5,
         itemMarginBottom: 5,
-        itemHiddenStyle: {
-          color: '#767676'
-        },
-        itemStyle: {
-          fontSize: '.9rem',
-          fontWeight: 'light'
-        }
-      },       
-      columnOptions: {
-          stacking: "normal",
-          events: {
-            mouseOver: function () {
-              const point = this;
-              const color = point.color;
-              const tooltipBox = document.querySelector('path.highcharts-label-box.highcharts-tooltip-box');
-              if (tooltipBox) {
-                tooltipBox.setAttribute('stroke', color);
-              }
-            }
-          }
-        },
-      seriesOptions: ""      
+        itemHiddenStyle: { color: '#767676' },
+        itemStyle: { fontSize: '.9rem', fontWeight: 'light' }
+      },
+      columnOptions: { stacking: "normal", events: { mouseOver: function () { const point = this; const color = point.color; const tooltipBox = document.querySelector('path.highcharts-label-box.highcharts-tooltip-box'); if (tooltipBox) { tooltipBox.setAttribute('stroke', color); } } } },
+      seriesOptions: ""
     };
-    
+
     const chart = new Chart(chartOptions);
-    chart.createChart();    
-}
+    chart.createChart();
+  } finally {
+    hideChartLoader();
+  }
+} 
 
 
 

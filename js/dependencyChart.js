@@ -1,7 +1,9 @@
-function depData(params) {
+async function depData(params) {
     const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/${REF.dataset}?format=JSON&time=${REF.year}&unit=${REF.unit}&siec=${REF.siec}&lang=${REF.language}`;
 
-    const data = JSONstat(url).Dataset(0);
+    const resp = await fetch(url);
+    const json = await resp.json();
+    const data = JSONstat(json).Dataset(0);
     
     // Get dimensions
     const geoDimension = data.Dimension("geo");
@@ -73,10 +75,12 @@ function depData(params) {
 
 
 
-function createDepChart() {
-    REF.chart = "depChart"
-    depData()
-    const unit = languageNameSpace.labels[REF.unit];
+async function createDepChart() {
+    REF.chart = "depChart";
+    showChartLoader();
+    try {
+      await depData();
+      const unit = languageNameSpace.labels[REF.unit];
 
     var arrow = REF.trade === "imp" ? '\u2192' : '\u2190';
 
@@ -238,10 +242,10 @@ function createDepChart() {
               }
           }
       }
-      
       });
-
-
+    } finally {
+      hideChartLoader();
+    }
   }
   
   

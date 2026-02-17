@@ -1,8 +1,8 @@
-function createTableChart() {
+async function createTableChart() {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.textContent = '';
 
-  barchartdata();
+  await barchartdata();
   const title = document.createElement("h2");
   title.classList.add("tableTitle");
   title.innerHTML = getTitle();
@@ -72,6 +72,7 @@ function createTableChart() {
     chartContainer.appendChild(title);
     chartContainer.appendChild(table);
   }
+  hideChartLoader();
 }
 
  

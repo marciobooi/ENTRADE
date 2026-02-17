@@ -38,7 +38,7 @@ class FloatingChartControls {
 
     // Add event listeners for keyboard navigation
     switchElements.forEach(switchElement => {
-      switchElement.addEventListener('keyup', e => {
+      switchElement.addEventListener('keyup', async e => {
         if (e.keyCode === 13 || e.keyCode === 32) {
           // Prevent scrolling when the spacebar or enter key is pressed
           e.preventDefault();
@@ -54,12 +54,12 @@ class FloatingChartControls {
             REF.component = switchElement.value === '1' ? 1 : 0;
           }
 
-          createBarChart()
+          await createBarChart();
           
         }
       });
 
-      switchElement.addEventListener('click', () => {
+      switchElement.addEventListener('click', async () => {
         
         // Toggle the switch value between 1 and 0 when clicked
         switchElement.value = switchElement.value === '1' ? '0' : '1';    
@@ -73,8 +73,8 @@ class FloatingChartControls {
         const percentageButton = this.chartControls.querySelector('#togglePercentage');
         percentageButton.style.display = REF.details == 1 ? '' : 'none';
         REF.stacking = "normal"
-        populateDropdownData()
-        createBarChart()
+        await populateDropdownData();
+        await createBarChart();
 
       });
     });
@@ -94,7 +94,7 @@ class FloatingChartControls {
     const dropdownItems = this.chartControls.querySelectorAll('.ecl-dropdown-item');
 
     dropdownItems.forEach(item => {
-      item.addEventListener('click', () => {
+      item.addEventListener('click', async () => {
         // Remove 'selected' class from all items
         dropdownItems.forEach(item => {
           item.classList.remove('selected');
@@ -113,22 +113,20 @@ class FloatingChartControls {
         REF.order = selectedValue; // Update REF.order with the selected value
 
         this.setSelectedOrder();
-        createBarChart()
+        await createBarChart();
 
       });
     });
   }
 
-  toggleChartPercentage() {
+  async toggleChartPercentage() {
     REF.stacking = REF.stacking == "normal" ? "percent" : "normal";
-    createBarChart()
+    await createBarChart();
   }
 
-  toggleChartAgregates() {
-
+  async toggleChartAgregates() {
     REF.agregates = REF.agregates == 0 ? 1 : 0;
-
-    createBarChart();
+    await createBarChart();
   }
 
   toggleIcons() {
@@ -169,12 +167,12 @@ class FloatingChartControls {
     tableButton.setInnerHtml('<i id="table-icon" class="fas fa-table" aria-hidden="true"></i><i id="chart-icon" class="fas fa-chart-bar" style="display: none;" aria-hidden="true"></i>');
     orderButton.setInnerHtml('<i class="fas fa-sort-amount-down" aria-hidden="true"></i>');
 
-    percentageButton.setClickHandler(function() {
-      self.toggleChartPercentage(); // Call the class method using the stored reference
+    percentageButton.setClickHandler(async function() {
+      await self.toggleChartPercentage(); // Call the class method using the stored reference
     });
 
-    agregatesButton.setClickHandler(function() {
-      self.toggleChartAgregates(); // Call the class method using the stored reference
+    agregatesButton.setClickHandler(async function() {
+      await self.toggleChartAgregates(); // Call the class method using the stored reference
     });
 
     tableButton.setClickHandler(function() {

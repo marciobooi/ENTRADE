@@ -40,7 +40,7 @@ if (typeof cckManager !== 'undefined') {
   }
 }
 
-function buildComponents() {
+async function buildComponents() {
   const components = [
     { instance: new SubNavbar(), target: "#subnavbar-container" },
       // { instance: new Footer(), target: '#componentFooter' },
@@ -52,7 +52,7 @@ function buildComponents() {
     instance.addToDOM(target);
   });
 
-  populateDropdownData();
+  await populateDropdownData();
 }
 
 function removeComponents() {
@@ -72,11 +72,11 @@ function removeComponents() {
   if (componentFooter) componentFooter.textContent = '';
 }
 
-function populateDropdownData() {
+async function populateDropdownData() {
   populateTrade();
   populateProduct();
   populateUnit();
   populateFuel();
-  populateYearsData();
+  await populateYearsData();
   ECL.autoInit();
-}
+} 

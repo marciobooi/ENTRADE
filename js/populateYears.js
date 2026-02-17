@@ -1,9 +1,11 @@
 
-function populateYearsData() {
+async function populateYearsData() {
 
   const url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"+REF.dataset+"?format=JSON&geo=EU27_2020&unit=TJ_GCV&siec=G3000&partner=BE&lang=en";
 
-  const yearsArray = JSONstat(url).Dataset(0).Dimension("time").id;  
+  const resp = await fetch(url);
+  const json = await resp.json();
+  const yearsArray = JSONstat(json).Dataset(0).Dimension("time").id;  
 
   const dropdownList = document.querySelector("#dropdown-years-list");
   const numberOfItems = dropdownList ? dropdownList.children.length : 0;

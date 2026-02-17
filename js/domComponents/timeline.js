@@ -37,19 +37,24 @@ class Timeline {
                 const rangeWidth = this.calculateRangeWidth(ui.value, minYear, maxYear);
                 $(this.timeline).find(".ui-slider-range").css("width", rangeWidth + "%");
             },
-            stop: (event, ui) => {
+            stop: async (event, ui) => {
                 REF.chartOpt = "compareChart";
                 REF.year = ui.value;
                 if(REF.chartCreated === true) {
                     if(REF.chartType === "barChart") {
-                        createBarChart()
+                        await createBarChart();
+                    } else if (REF.chartType === "pieChart") {
+                        await createPieChart();
+                    } else if (REF.chartType === "lineChart") {
+                        await createLineChart();
+                    } else if (REF.chartType === "depChart") {
+                        await createDepChart();
                     } else {
-                        piechartdata()
-                    }                    
+                        await createBarChart();
+                    }
                 } else {
                     compareCountries();
                 }
-                
             },
             animate: "slow"
         });

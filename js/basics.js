@@ -523,27 +523,32 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		}
 	  }
 
-	  function credits() {  
+/* Chart loader (small ECL spinner overlay) */
+function showChartLoader(message = '') {
+  const container = document.getElementById('chartContainer');
+  if (!container) return;
+  // ensure the container is visible while loading
+  container.style.display = 'block';
+  // prevent duplicate
+  if (container.querySelector('.chart-loader-wrapper')) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'chart-loader-wrapper';
+  wrapper.innerHTML = `
+    <div class="ecl-spinner ecl-spinner--visible ecl-spinner--small ecl-spinner--centered" role="status" aria-live="polite">
+      <span class="ecl-spinner__loader" aria-hidden="true"></span>
+      ${message ? `<span class="ecl-spinner__text">${message}</span>` : ''}
+    </div>
+  `;
+  container.appendChild(wrapper);
+}
 
-  const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
+function hideChartLoader() {
+  const container = document.getElementById('chartContainer');
+  if (!container) return;
+  const wrapper = container.querySelector('.chart-loader-wrapper');
+  if (wrapper) wrapper.remove();
+}
 
-  // Return SVG-compatible credits text
-  return `
-    <tspan id="credits" style="font-size: 0.9rem;">
-      ${languageNameSpace.labels["EXPORT_FOOTER_TITLE"]} -
-      <tspan
-        tabindex="0"
-        role="link"
-        aria-label="Eurostat dataset link: ${datasetURL}"
-        title="Eurostat dataset link"
-        style="cursor: pointer; fill: blue; text-decoration: underline; font-size: .75rem;"
-        onclick="window.open('${datasetURL}', '_blank')"
-      >
-        ${languageNameSpace.labels["DB"]}
-      </tspan>
-    </tspan>
-  `; 	  
-	  }
 
 		function openDataset() {
 			window.open(" https://ec.europa.eu/eurostat/databrowser/view/"+ REF.dataset +"/default/table?lang="+ REF.language, "_self");	
