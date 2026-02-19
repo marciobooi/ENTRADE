@@ -8,6 +8,8 @@ class SubNavbar {
       "ecl-navbar ecl-navbar-expand-sm ecl-navbar-light bg-light",
     );
 
+    const title = getTitle ()
+
     const mobileFlag = (typeof window !== 'undefined' && typeof window.isMobile !== 'undefined') ? window.isMobile : (/Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768);
 
     const browser = `<div class="ecl-row subNavBar">
@@ -23,9 +25,8 @@ class SubNavbar {
             </div>
 
            
-              <div class="text-group">
-                <h2 class="title">${languageNameSpace.labels["header-title-label"]}</h2>
-                      
+              <div class="text-group ecl-col-7 ">
+                <h2 class="title">${title}</h2>                      
               </div>
           
 

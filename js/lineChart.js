@@ -7,7 +7,14 @@ async function createLineChart() {
 
     linechartdata(d);
 
-    const tooltipFormatter = function () { return tooltipTable(this.points); };
+    // If the dataset produced no non-zero series, show a popup and an empty placeholder
+    if (!lineChartData || lineChartData.length === 0) {
+      showNoDataPopup(languageNameSpace.labels['NODATA']);
+      showNoDataInChartContainer(languageNameSpace.labels['NODATA']);
+      return;
+    }
+
+    const tooltipFormatter = function () { return tooltipTable(this.points); }; 
 
     const chartOptions = {
       containerId: "chartContainer",

@@ -12,6 +12,8 @@ async function createPieChart() {
     const emptyResponse = !piedata || piedata.length === 0 || piedata.every(pt => pt.y === 0);
 
     if (emptyResponse) {
+      showNoDataPopup(languageNameSpace.labels['NODATA']);
+      showNoDataInChartContainer(languageNameSpace.labels['NODATA']);
       nullishChart();
       return;
     }

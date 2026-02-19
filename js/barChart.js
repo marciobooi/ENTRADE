@@ -46,7 +46,14 @@ async function createBarChart() {
 
 
 
-  await barchartdata();   
+  await barchartdata();
+
+  // If there is no data (all zeros / filtered out), show popup + container fallback and stop
+  if (!barChartSeries || barChartSeries.length === 0 || barChartSeries.every(s => !s?.y)) {
+    showNoDataPopup(languageNameSpace.labels['NODATA']);
+    showNoDataInChartContainer(languageNameSpace.labels['NODATA']);
+    return;
+  }   
 
  
 

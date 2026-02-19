@@ -99,11 +99,11 @@ const languageNameSpace = {
 
 
     enableTooltips();
-	},
-		
-	ChangeLanguage: function (val) {
-		REF.language = val;
-		languageNameSpace.initLanguage(REF.language);	
+
+    // ensure UI titles that depend on language (charts / map labels) are refreshed
+    if (typeof getTitle === 'function') {
+      try { getTitle(); } catch (e) { /* non-fatal */ }
+    }
 		removeChartOptions();	
 		renderMap();
 		setTimeout(() => {

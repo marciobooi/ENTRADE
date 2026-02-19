@@ -325,10 +325,6 @@ async function loadCountryData(country) {
   if (closeBtn) {
     closeBtn.addEventListener('click', removeAlertPopup);
   }
-
-
-
-
   } else {
     let partners = countriesDataHandler(d);
     countryInfo(country);

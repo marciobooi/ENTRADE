@@ -79,7 +79,14 @@ async function createDepChart() {
     REF.chart = "depChart";
     showChartLoader();
     try {
-      await depData();
+      const processed = await depData();
+      // if there are no positive link weights, surface a no-data popup and stop
+      const hasPositiveLinks = processed && processed.some(p => p.weight && p.weight > 0);
+      if (!hasPositiveLinks) {
+        showNoDataPopup(languageNameSpace.labels['NODATA']);
+        showNoDataInChartContainer(languageNameSpace.labels['NODATA']);
+        return;
+      }
       const unit = languageNameSpace.labels[REF.unit];
 
     var arrow = REF.trade === "imp" ? '\u2192' : '\u2190';

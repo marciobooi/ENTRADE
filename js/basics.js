@@ -549,6 +549,63 @@ function hideChartLoader() {
   if (wrapper) wrapper.remove();
 }
 
+// Show a small, accessible transient popup used across map/chart/table when a dataset contains only zeros
+function showNoDataPopup(message = languageNameSpace.labels['NODATA'], duration = 3000) {
+  if (!message) message = 'No data available';
+  // avoid duplicates
+  if (document.querySelector('.alert-popup')) return;
+
+  const content = /*html*/ `
+    <div class="alert-popup" role="status" aria-live="polite">
+      <div style="display: flex; align-items: center; margin-right: 16px;">
+        <i class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;" aria-hidden="true"></i>
+        <p style="display: inline-block; margin: 0;">${message}</p>
+      </div>
+      <div>
+        <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', content);
+
+  const removeAlertPopup = () => {
+    const popup = document.querySelector('.alert-popup');
+    if (popup) popup.remove();
+  };
+
+  // auto-dismiss
+  const timer = setTimeout(removeAlertPopup, duration);
+
+  const closeBtn = document.querySelector('#closeAlertPopup');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      clearTimeout(timer);
+      removeAlertPopup();
+    });
+  }
+}
+
+// Insert a visible, accessible "no data" message inside the main chart container (visual fallback)
+function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']) {
+  const container = document.getElementById('chartContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  const titleEl = document.createElement('h2');
+  titleEl.className = 'chartTitle';
+  titleEl.textContent = getTitle();
+
+  const msg = document.createElement('div');
+  msg.className = 'no-data-message';
+  msg.setAttribute('role', 'status');
+  msg.setAttribute('aria-live', 'polite');
+  msg.textContent = message || languageNameSpace.labels['NODATA'];
+
+  container.appendChild(titleEl);
+  container.appendChild(msg);
+}
 
 		function openDataset() {
 			window.open(" https://ec.europa.eu/eurostat/databrowser/view/"+ REF.dataset +"/default/table?lang="+ REF.language, "_self");	
@@ -673,6 +730,7 @@ function hideChartLoader() {
 	const dataset = languageNameSpace.labels[REF.dataset];
 	const unit = languageNameSpace.labels[REF.unit];
 	const unitAbbr = languageNameSpace.labels['abr_'+REF.unit];
+	
 
 	let title = ""
 	let subtitle = ""
@@ -700,14 +758,26 @@ function hideChartLoader() {
 		subtitle = "";
 		break;
 	  default:    	 
-	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}) <br> ${time}`;
+	  if(REF.geo) {
+	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}), ${time}`;
 	  title = `${dataset} - ${geoLabel} ${time}`;
+	  } else {
+	  chartTitle = `${dataset} (${unitAbbr}) - ${time}`;
+	  title = `${dataset} - ${geoLabel} ${time}`;
+	  }
+
 	  subtitle = "";   
 	}
+
+
   
 	const titleElement = document.getElementById("title");
 	if (titleElement) {
 	  titleElement.innerHTML = title;
+	}
+	const subNavTitle = document.getElementsByClassName("title");
+	if (subNavTitle) {
+	  subNavTitle.innerHTML = title;
 	}
 	
 	const subtitleElement = document.getElementById("subtitle");
