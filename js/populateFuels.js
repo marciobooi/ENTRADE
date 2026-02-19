@@ -9,7 +9,9 @@ function populateFuel() {
   const textChange = languageNameSpace.labels["MENU_FUEL"];
 
   // Remove previous widget if it exists
-  document.getElementById(elementId)?.closest(".single-select-wrapper")?.remove();
+  document.getElementById(elementId)?.closest(".ecl-form-group")?.remove();
+  // Defensive cleanup — remove any stray duplicates that may have been rendered previously
+  Array.from(target.querySelectorAll(`#${elementId}`)).forEach(el => el.closest('.ecl-form-group')?.remove());
 
   // Create the new select component
   const singleSelect = new Singleselect(

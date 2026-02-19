@@ -10,8 +10,12 @@ function populateTrade() {
 
   // Remove old widget safely
   document.getElementById(elementId)
-    ?.closest(".single-select-wrapper")
+    ?.closest(".ecl-form-group")
     ?.remove();
+  // Defensive cleanup — remove any stray duplicates that may have been rendered previously
+  Array.from(target.querySelectorAll(`#${elementId}`)).forEach(el => el.closest('.ecl-form-group')?.remove());
+
+    
 
   // Build new select widget
   const singleSelect = new Singleselect(
