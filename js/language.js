@@ -44,15 +44,15 @@ const languageNameSpace = {
 		
 		// Set labels for the selected language when DOM is ready
 		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', async () => {
-				await languageNameSpace.updatePageLabels();
+			document.addEventListener('DOMContentLoaded', () => {
+				languageNameSpace.updatePageLabels();
 			});
 		} else {
-			await languageNameSpace.updatePageLabels();
-		} 
+			languageNameSpace.updatePageLabels();
+		}
 	},
 
-	async updatePageLabels() {
+	updatePageLabels() {
 		const elementsId = ["#header-title-label"];
 	
 		elementsId.forEach(id => {
@@ -68,7 +68,7 @@ const languageNameSpace = {
 		});
 
 		removeComponents();
-		await buildComponents();		
+		buildComponents();		
 		
 
 		
@@ -97,13 +97,13 @@ const languageNameSpace = {
 		// Clean up any existing tooltips before re-initializing
     cleanupTooltips();
 
-
+    getTitle();
     enableTooltips();
-
-    // ensure UI titles that depend on language (charts / map labels) are refreshed
-    if (typeof getTitle === 'function') {
-      try { getTitle(); } catch (e) { /* non-fatal */ }
-    }
+	},
+		
+	ChangeLanguage: function (val) {
+		REF.language = val;
+		languageNameSpace.initLanguage(REF.language);	
 		removeChartOptions();	
 		renderMap();
 		setTimeout(() => {

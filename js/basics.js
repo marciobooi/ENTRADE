@@ -730,7 +730,7 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 	const dataset = languageNameSpace.labels[REF.dataset];
 	const unit = languageNameSpace.labels[REF.unit];
 	const unitAbbr = languageNameSpace.labels['abr_'+REF.unit];
-	
+	log('here')
 
 	let title = ""
 	let subtitle = ""
@@ -757,28 +757,19 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 		title = `${dataset} - ${geoLabel} ${time}`;
 		subtitle = "";
 		break;
-	  default:    	 
-	  if(REF.geo) {
+	  default:    	 	 
 	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}), ${time}`;
 	  title = `${dataset} - ${geoLabel} ${time}`;
-	  } else {
-	  chartTitle = `${dataset} (${unitAbbr}) - ${time}`;
-	  title = `${dataset} - ${geoLabel} ${time}`;
-	  }
-
 	  subtitle = "";   
 	}
 
 
   
 	const titleElement = document.getElementById("title");
-	if (titleElement) {
+	if (titleElement && REF.geo) {
 	  titleElement.innerHTML = title;
 	}
-	const subNavTitle = document.getElementsByClassName("title");
-	if (subNavTitle) {
-	  subNavTitle.innerHTML = title;
-	}
+
 	
 	const subtitleElement = document.getElementById("subtitle");
 	if (subtitleElement) {
