@@ -89,16 +89,50 @@ font-family: var(--font-family-main);
     padding: 0rem 1rem !important;
     background-color: #082B7A;
     background: linear-gradient(125deg, #082b7a 35%, #AFDFE9 75%, white 100%);
+    width: 100vw;
 }
 
 #es_app_header {
     display: grid;
-    grid-template-columns: auto 116px 165px 207px;
+    /* desktop-first: preserve original fixed column widths on large screens */
+    grid-template-columns: 720px 300px 215px 1fr;
+    gap: 1rem;
     min-height: 70px;
     padding: 0px;
     align-items: center;
     margin: 0 !important;
 }
+
+/* slight downscale for large but narrower viewports to keep layout intact */
+@media (max-width: 1199px) {
+  #es_app_header {
+    grid-template-columns: clamp(520px, 46vw, 720px) clamp(220px, 20vw, 300px) clamp(160px, 18vw, 245px) 1fr;
+  }
+  #header-title-label { font-size: 2.0rem; }
+}
+
+/* tablet: keep two-column appearance but preserve visual ordering */
+@media (max-width: 991px) {
+  #es_app_header {
+    grid-template-columns: 1fr 300px; /* main area + stacked side column */
+    grid-auto-rows: auto;
+    align-items: center;
+  }
+  #header-title-label { font-size: 1.8rem; white-space: normal; }
+}
+
+/* mobile: single-column stack to avoid overflow and keep content readable */
+@media (max-width: 767px) {
+  #es_app_header {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: .5rem;
+    padding: .5rem 1rem;
+  }
+  #header-title-label { font-size: 1.4rem; line-height: 1.2; white-space: normal; overflow-wrap: break-word; }
+  #es_app_header_ribbon img { max-height: 54px; }
+}
+
 
 #header-title-label {
     font-weight: 1000;
