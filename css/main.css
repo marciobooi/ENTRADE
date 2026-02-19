@@ -40,6 +40,10 @@ font-family: var(--font-family-main);
 
 
 /* globals */
+h2 {
+      font-weight: normal;
+    font-size: 1.2rem;
+}
 /* btns */
 .ecl-button--primary {
     background-color: white;
