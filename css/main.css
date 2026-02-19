@@ -695,4 +695,12 @@ ul#footerCredits {
   outline-offset: 2px;
 }
 
+/* Map curve/marker keyboard focus styles */
+.map-curve:focus, .map-marker:focus {
+  outline: 3px solid #005ea2;
+  outline-offset: 2px;
+}
+.map-curve, .map-marker {
+  cursor: pointer;
+}
 

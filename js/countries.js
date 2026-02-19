@@ -181,6 +181,10 @@ function renderMap() {
 
           document.querySelectorAll('path[aria-label]').forEach((element) => {
             const countryName = element.getAttribute('aria-label').trim();
+            // ensure a visible/title string for tooltips and assistive tech
+            if (!element.getAttribute('title')) {
+              element.setAttribute('title', countryName);
+            }
             if (geoLabels[countryName]) {
               element.style.fill = euCtr;
               element.style.stroke = '#4b598b';
@@ -196,25 +200,43 @@ function renderMap() {
             // Ensure that any focusable content inside aria-hidden map panes is neutralized
             removeFocusableFromHiddenMapPanes();
 
-            // Observe the map container for aria-hidden changes and neutralize focusable nodes inside hidden panes
+            // Give the map a programmatic name and a short, screen-reader-only description
             const mapContainer = document.querySelector('.wt-map-content') || document.querySelector('#map');
-            if (mapContainer && !mapContainer.__a11yObserverAttached) {
-              const observer = new MutationObserver((mutations) => {
-                let shouldRun = false;
-                for (const m of mutations) {
-                  if (m.type === 'attributes' && m.attributeName === 'aria-hidden') {
-                    shouldRun = true;
-                    break;
+            if (mapContainer) {
+              // role and accessible name
+              mapContainer.setAttribute('role', 'region');
+              const mapLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['header-title-label']) ? `${languageNameSpace.labels['header-title-label']} map` : 'Interactive map';
+              mapContainer.setAttribute('aria-label', mapLabel);
+
+              // create (or reuse) a visually-hidden description for screen readers
+              if (!document.getElementById('mapDescription')) {
+                const desc = document.createElement('div');
+                desc.id = 'mapDescription';
+                desc.className = 'ecl-u-sr-only';
+                desc.textContent = `${mapLabel}. Use Tab to move through map routes and markers. Press Enter or Space to open details.`;
+                mapContainer.parentNode && mapContainer.parentNode.insertBefore(desc, mapContainer.nextSibling);
+              }
+              mapContainer.setAttribute('aria-describedby', 'mapDescription');
+
+              // Observe the map container for aria-hidden changes and neutralize focusable nodes inside hidden panes
+              if (!mapContainer.__a11yObserverAttached) {
+                const observer = new MutationObserver((mutations) => {
+                  let shouldRun = false;
+                  for (const m of mutations) {
+                    if (m.type === 'attributes' && m.attributeName === 'aria-hidden') {
+                      shouldRun = true;
+                      break;
+                    }
+                    if (m.type === 'childList') {
+                      shouldRun = true;
+                      break;
+                    }
                   }
-                  if (m.type === 'childList') {
-                    shouldRun = true;
-                    break;
-                  }
-                }
-                if (shouldRun) removeFocusableFromHiddenMapPanes(mapContainer);
-              });
-              observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
-              mapContainer.__a11yObserverAttached = true;
+                  if (shouldRun) removeFocusableFromHiddenMapPanes(mapContainer);
+                });
+                observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
+                mapContainer.__a11yObserverAttached = true;
+              }
             }
       }, 500);
   });
@@ -225,9 +247,10 @@ function renderMap() {
 
 function addClearToMenu() {
   const icon = '<i class="fas fa-eraser"></i>';
-  const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="clear" type="button">
+  const clearLabel = (languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels['CLEAR'] || languageNameSpace.labels['btn7'])) ? (languageNameSpace.labels['CLEAR'] || languageNameSpace.labels['btn7']) : 'Clear map';
+  const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="${clearLabel}" type="button">
   <b class="wt-noconflict"></b>
-  <span class="wt-noconflict">Clear map</span>
+  <span class="wt-noconflict">${clearLabel}</span>
 </button>`;
 
   const mapMenu = document.querySelector(".wt-map-menu");
@@ -309,9 +332,12 @@ async function loadCountryData(country) {
   } else {
     let partners = countriesDataHandler(d);
     countryInfo(country);
-    drawLines(country, partners);
+    await drawLines(country, partners);
     getTitle();
     chartContainerStatus();
+
+    // move keyboard focus to first curve line (if any) so Tab order begins with the lines
+    setTimeout(() => focusFirstMapCurve(), 120);
 
     if (isOpenChartContainer) {
       const countryInfo = document.querySelector('#countryInfo');
@@ -430,6 +456,38 @@ function drawLines(sourceCountry, partners) {
       this.closeTooltip();
     }).addTo(map);
 
+    // Make the underlying SVG path for the curve keyboard-focusable and accessible
+    try {
+      if (line._path) {
+        const pathEl = line._path;
+        pathEl.classList.add('map-curve');
+        pathEl.setAttribute('tabindex', '0');
+        pathEl.setAttribute('focusable', 'true');
+        pathEl.setAttribute('role', 'link');
+        const pathLabel = `${languageNameSpace.labels[partnerCountry]} — ${value} ${languageNameSpace.labels['abr_'+REF.unit]}`;
+        pathEl.setAttribute('aria-label', pathLabel);
+        if (!pathEl.getAttribute('title')) pathEl.setAttribute('title', pathLabel);
+
+        // Keyboard: Enter/Space opens tooltip; Arrow keys move between curves
+        pathEl.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
+            ev.preventDefault();
+            try { line.openTooltip(); } catch (e) {}
+          }
+          if (ev.key === 'ArrowRight' || ev.keyCode === 39) {
+            ev.preventDefault();
+            focusNextMapCurve(pathEl);
+          }
+          if (ev.key === 'ArrowLeft' || ev.keyCode === 37) {
+            ev.preventDefault();
+            focusPrevMapCurve(pathEl);
+          }
+        });
+      }
+    } catch (e) {
+      /* ignore — best-effort */
+    }
+
     const radius = calculateRadius(partners, value);
     markerRadii.push(radius);
 
@@ -442,6 +500,26 @@ function drawLines(sourceCountry, partners) {
     .bindPopup(lineTooltip(partnerCountry, value, countryName), { className: 'pop-card-popup' })
     .on('mouseover', function (e) { this.openPopup(); })
     .on('mouseout', function (e) { this.closePopup(); });
+
+    // make the marker path keyboard-focusable
+    try {
+      if (marker._path) {
+        marker._path.setAttribute('tabindex', '0');
+        marker._path.setAttribute('role', 'button');
+        const markerLabel = `${languageNameSpace.labels[partnerCountry]} — ${value} ${languageNameSpace.labels['abr_'+REF.unit]}`;
+        marker._path.setAttribute('aria-label', markerLabel);
+        if (!marker._path.getAttribute('title')) marker._path.setAttribute('title', markerLabel);
+        marker._path.classList.add('map-marker');
+        marker._path.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
+            ev.preventDefault();
+            marker.openPopup();
+          }
+        });
+      }
+    } catch (e) {
+      /* best-effort */
+    }
 
     marker._path.classList.add('marker');
 
@@ -506,6 +584,47 @@ function drawLines(sourceCountry, partners) {
 
 
 
+function focusNextMapCurve(current) {
+  const curves = Array.from(document.querySelectorAll('.map-curve'));
+  const idx = curves.indexOf(current);
+  if (idx === -1) return;
+  const next = curves[idx + 1];
+  if (next) next.focus();
+  else {
+    // no more curves -> focus the country info or map menu
+    const fact = document.querySelector('#factSheet');
+    const clearBtn = document.querySelector('#wt-button-clear');
+    if (fact) fact.focus();
+    else if (clearBtn) clearBtn.focus();
+    else {
+      const mapEl = document.querySelector('.wt-map-content') || document.querySelector('#map');
+      if (mapEl) mapEl.focus();
+    }
+  }
+}
+
+function focusPrevMapCurve(current) {
+  const curves = Array.from(document.querySelectorAll('.map-curve'));
+  const idx = curves.indexOf(current);
+  if (idx > 0) curves[idx - 1].focus();
+  else {
+    // focus back to the selected country path if present
+    const selectedLabel = languageNameSpace.labels[REF.geo];
+    const countryPath = Array.from(document.querySelectorAll('path[aria-label]')).find(p => p.getAttribute('aria-label').trim() === selectedLabel);
+    if (countryPath) countryPath.focus();
+  }
+}
+
+function focusFirstMapCurve() {
+  // focus first curve if exists
+  const first = document.querySelector('.map-curve');
+  if (first) {
+    first.focus();
+    return true;
+  }
+  return false;
+}
+
 function getMidpoint(sourceCoords, partnerCoords) {
   const sourceLat = sourceCoords[0];
   const sourceLng = sourceCoords[1];
@@ -539,6 +658,8 @@ function styleCountry(partnerCountry) {
       paths[i].style.fill = partnersCtr;
       paths[i].style.stroke = 'white';
       paths[i].style.strokeWidth = '2px';
+      // add title for screen readers / tooltips
+      if (!paths[i].getAttribute('title')) paths[i].setAttribute('title', label);
       break; // Each country has one path, stop once found
     }
   }
