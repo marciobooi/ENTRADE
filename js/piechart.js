@@ -9,7 +9,7 @@ async function createPieChart() {
 
     const chartTitle = getTitle();
 
-    const emptyResponse = d==null || Object.values(d.value).some(x => (x == null && x == ''));
+    const emptyResponse = !piedata || piedata.length === 0 || piedata.every(pt => pt.y === 0);
 
     if (emptyResponse) {
       nullishChart();
