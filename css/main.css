@@ -742,3 +742,14 @@ ul#footerCredits {
   cursor: pointer;
 }
 
+/* Ensure highcharts data table captions meet WCAG contrast (>=7:1) */
+.highcharts-data-table .highcharts-table-caption {
+    color: #111827; /* ~12:1 contrast vs #fff */
+    font-weight: 600;
+    position: absolute ;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
+}
