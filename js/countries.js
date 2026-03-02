@@ -238,6 +238,76 @@ function renderMap() {
                 mapContainer.__a11yObserverAttached = true;
               }
             }
+
+      // Show country codes (CNTR_ID) at zoom 3 to <6, full names when zoom >= 6
+      // Build TWO lookups: name → code AND code → name
+      const _nameToCntrId = {};
+      const _cntrIdToName = {};
+      map.eachLayer(function (layer) {
+        if (layer.feature && layer.feature.properties) {
+          const props = layer.feature.properties;
+          const name = props.CNTR_NAME || props.NAME || props.name;
+          if (name && props.CNTR_ID) {
+            _nameToCntrId[name] = props.CNTR_ID;
+            _cntrIdToName[props.CNTR_ID] = name;
+          }
+          // Also map from languageNameSpace labels
+          if (props.CNTR_ID && languageNameSpace && languageNameSpace.labels && languageNameSpace.labels[props.CNTR_ID]) {
+            _nameToCntrId[languageNameSpace.labels[props.CNTR_ID]] = props.CNTR_ID;
+            _cntrIdToName[props.CNTR_ID] = languageNameSpace.labels[props.CNTR_ID];
+          }
+        }
+      });
+      console.log('[ENTRADE labels] name→code lookup:', _nameToCntrId);
+      console.log('[ENTRADE labels] code→name lookup:', _cntrIdToName);
+      console.log('[ENTRADE labels] Initial zoom:', map.getZoom());
+
+      function updateMapLabels() {
+        const zoomLevel = map.getZoom();
+        const showCodes = zoomLevel >= 4 && zoomLevel < 5;
+        console.log(`[ENTRADE labels] zoomLevel=${zoomLevel}, showCodes=${showCodes}`);
+
+        // Target the fixed label DOM elements rendered by webtools
+        const labelEls = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix');
+        console.log(`[ENTRADE labels] zoom=${zoomLevel} | Found ${labelEls.length} label elements`);
+
+        labelEls.forEach((el) => {
+          const currentText = el.textContent.trim();
+
+          // Store original text on first encounter (only if it's a full name, not a code)
+          if (!el.dataset.originalLabel) {
+            // If currentText is a 2-3 char code that we know, resolve the full name
+            if (_cntrIdToName[currentText]) {
+              el.dataset.originalLabel = _cntrIdToName[currentText];
+            } else {
+              el.dataset.originalLabel = currentText;
+            }
+          }
+          const originalText = el.dataset.originalLabel;
+
+          // Find CNTR_ID for this label (try original name first, then current text)
+          const cntrId = _nameToCntrId[originalText] || _nameToCntrId[currentText] || (currentText.length <= 3 && _cntrIdToName[currentText] ? currentText : null);
+
+          if (showCodes && cntrId) {
+            el.textContent = cntrId;
+            console.log(`[ENTRADE labels]   zoom=${zoomLevel} | "${originalText}" → "${cntrId}"`);
+          } else if (!showCodes) {
+            // Restore full name — use stored original, or resolve from code→name lookup
+            const fullName = originalText || _cntrIdToName[currentText] || currentText;
+            if (el.textContent !== fullName) {
+              console.log(`[ENTRADE labels]   zoom=${zoomLevel} | restoring "${currentText}" → "${fullName}"`);
+            }
+            el.textContent = fullName;
+          }
+        });
+      }
+
+      map.on('zoomend', function () {
+        setTimeout(updateMapLabels, 200);
+      });
+      // Initial label update
+      setTimeout(updateMapLabels, 600);
+
       }, 500);
   });
 }
