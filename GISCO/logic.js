@@ -159,16 +159,18 @@ function populateCountriesDefinitionsFromMap() {
     return countriesDefinitions;
 }
 
+let applyCountryFillColorsMissingIdWarned = false;
+
 function applyCountryFillColors() {
     const regionPaths = Array.from(document.querySelectorAll('#map path, #em-worldrg path, #em-nutsrg path, #em-cntrg path'));
-    let missingIdLogged = false;
+    let missingIdCount = 0;
 
     regionPaths.forEach(path => {
         const datum = path.__data__;
         const props = datum && datum.properties ? datum.properties : null;
 
         if (!props && !path.id) {
-            // non-region path (e.g., background shapes, complex UI shapes), skip
+            // non-region path (e.g., background shapes, complex UI shapes), skip silently
             return;
         }
 
@@ -176,11 +178,13 @@ function applyCountryFillColors() {
         id = normalizeCountryId(id);
 
         if (!id) {
-            if (!missingIdLogged) {
-                console.warn('applyCountryFillColors: some paths have no normalized id and are skipped (expected for non-data paths)');
-                missingIdLogged = true;
-            }
+            missingIdCount++;
             return;
+        }
+
+        if (!applyCountryFillColorsMissingIdWarned && missingIdCount > 0) {
+            console.warn(`applyCountryFillColors: ${missingIdCount} paths have no normalized id and are skipped (expected for non-data paths).`);
+            applyCountryFillColorsMissingIdWarned = true;
         }
 
         const makeBlue = EU_MEMBER_COUNTRY_CODES.has(id);
@@ -193,6 +197,11 @@ function applyCountryFillColors() {
         path.setAttribute('stroke', strokeColor);
     });
     return null;
+}
+
+function applyCountryFillColorsAndLog() {
+    const result = applyCountryFillColors();    
+    return result;
 }
 
 
@@ -214,20 +223,36 @@ function applyCountryFillColors() {
                 .colors([])
                 .legend(false)
                 .zoomButtons(true)
-                .scale("20M")
-                .position({x: 10, y: 29.999999999999996, z: 6766.917293233083})
-                .seaFillStyle('#FFFFFF')
+                .scale("03M")
+                .zoomExtent([1, 100])
+                .position({x: 3100000, y: 1970000, z:1900 })
                 .onBuild(() => {
+                    // ensure world sea and coast margin colors from CSS (more reliable for deprecated style API)
+                    const mapStylesId = 'em-map-custom-style';
+                    if (!document.getElementById(mapStylesId)) {
+                        const styleEl = document.createElement('style');
+                        styleEl.id = mapStylesId;
+                        styleEl.textContent = `
+                            .em-sea { fill: #ffffff !important; }
+                            #em-coast-margin { fill: #bbbbbb !important; }
+                            #em-worldrg path, #em-nutsrg path, #em-cntrg path { stroke-width: 0.35 !important; }
+                        `;
+                        document.head.appendChild(styleEl);
+                    }
+
                     populateCountriesDefinitionsFromMap();
 
-                    // ensure final style after eurostat-map internal fill logic runs
-                    setTimeout(() => applyCountryFillColors(), 40);
+                    const applyAll = () => {
+                        applyCountryFillColorsAndLog();
+                    };
+
+                    setTimeout(applyAll, 150);
 
                     const originalUpdateStyle = map.updateStyle?.bind(map);
                     if (typeof originalUpdateStyle === 'function') {
                         map.updateStyle = function () {
                             const res = originalUpdateStyle();
-                            applyCountryFillColors();
+                            applyAll();
                             return res;
                         };
                     }
@@ -235,7 +260,27 @@ function applyCountryFillColors() {
           
                 map.statData().setData(data)
 
+         
+
+         
+
                 map.build();      
+
+                function attachFallbackRegionClick() {
+                    const regionPaths = document.querySelectorAll('#map path, #em-worldrg path, #em-nutsrg path, #em-cntrg path');
+                    regionPaths.forEach(path => {
+                        if (path.__emClickBound) return;
+                        path.__emClickBound = true;
+                        path.addEventListener('click', (event) => {
+                            const data = path.__data__;
+                            const rawId = data?.properties?.id || data?.id || path.id || '';
+                            const regionId = normalizeCountryId(rawId);
+                            console.log('fallback-path-click', { regionId, rawId, event, path });
+                        });
+                    });
+                }
+
+                setTimeout(attachFallbackRegionClick, 500);
 
      
 
@@ -260,12 +305,3 @@ function applyCountryFillColors() {
 
 
 
-document.getElementById('map').addEventListener('click', function(evt) {
-                    var path = evt.target.closest('path');
-                    if (path) {
-                        var datum = path.__data__ || (path.__data__ && path.__data__.properties ? path.__data__ : null);
-                        var regionId = datum && datum.properties && datum.properties.id ? datum.properties.id : null;
-                        console.log('Direct container delegation click', {regionId: regionId});
-                        
-                    }
-                });
