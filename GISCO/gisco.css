@@ -1,0 +1,44 @@
+
+    #g_worldbn,
+.em-worldrg,
+.em-worldbn,
+.em-worldbn-halo {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.em-worldbn {
+    stroke: #4d4d4d;
+    stroke-width: 0.5px;
+}
+
+.em-worldbn,
+.em-worldbn-halo {
+    fill: none;
+}
+
+.em-worldrg {
+    fill: #efefef;
+    cursor: pointer;
+}
+
+.em-bn-d {
+    /* disputed */
+    stroke: #4d4d4d;
+    stroke-width: 0.1;
+    opacity: 0.9;
+    fill: none;
+    stroke-dasharray: 1 1;
+}
+
+/* world boundary halo (not coastline) */
+.em-worldbn-halo:not(.em-bn-co) {
+    stroke: rgba(216, 216, 216, 0.3);
+    stroke-width: 1px;
+}
+/* world boundary halo (not coastline, disputed) */
+.em-worldbn-halo:not(.em-bn-co) .em-bn-d {
+    stroke: rgba(141, 141, 141, 0.3);
+    stroke-width: 1px;
+    stroke-dasharray: 1 1;
+}
