@@ -363,7 +363,7 @@ width: 100%;
 #factSheet {
     position: absolute;
     top: 8%;
-    right: 0%;
+    left: 8%;
     transform: translate(-50%, -50%);
     z-index: 9 !important;
     background: var(--tool-1);

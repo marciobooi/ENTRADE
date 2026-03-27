@@ -628,19 +628,52 @@ function getMidpoint(sourceCoords, partnerCoords) {
   const partnerLat = partnerCoords[0];
   const partnerLng = partnerCoords[1];
 
-  // Calculate the distance between source and partner coordinates
-  const distance = Math.sqrt(Math.pow(partnerLat - sourceLat, 2) + Math.pow(partnerLng - sourceLng, 2));
+  // Haversine-style distance in degrees (approx) used to scale arc peaks
+  const dLat = partnerLat - sourceLat;
+  const dLng = partnerLng - sourceLng;
+  const distance = Math.sqrt(dLat * dLat + dLng * dLng);
 
-  // Adjust the curve factor based on the distance using a logarithmic function
-  const curveFactor = distance > 35 ? Math.log(distance + 1) * 3.5 : 1.1  
+  // Spherical midpoint calculation (more robust than a simple average)
+  const toRad = (deg) => deg * Math.PI / 180;
+  const toDeg = (rad) => rad * 180 / Math.PI;
+  const φ1 = toRad(sourceLat);
+  const λ1 = toRad(sourceLng);
+  const φ2 = toRad(partnerLat);
+  const λ2 = toRad(partnerLng);
 
-  // Calculate the midpoint
-  const midLat = (sourceLat + partnerLat) / 2;
-  const midLng = (sourceLng + partnerLng) / 2;
+  const bx = Math.cos(φ2) * Math.cos(λ2 - λ1);
+  const by = Math.cos(φ2) * Math.sin(λ2 - λ1);
+  const φm = Math.atan2(Math.sin(φ1) + Math.sin(φ2), Math.sqrt((Math.cos(φ1) + bx) * (Math.cos(φ1) + bx) + by * by));
+  const λm = λ1 + Math.atan2(by, Math.cos(φ1) + bx);
 
-  // Use the midpoint as the control point for the quadratic Bezier curve, multiplied by the curve factor
-  const controlPoint = [midLat + curveFactor, midLng + curveFactor];
+  const midLat = toDeg(φm);
+  const midLng = (toDeg(λm) + 540) % 360 - 180; // normalize to [-180,180]
 
+  // Bearing from source to partner
+  const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+  const initialBearing = (toDeg(Math.atan2(y, x)) + 360) % 360;
+
+  // Perpendicular bearing for arc peak
+  const perpBearing = (initialBearing + 90) % 360;
+
+  // Convert distance to approximate kilometers (1 degree ≈ 111 km)
+  const distKm = distance * 111;
+
+  // control distance from midpoint: larger for short lines, smaller for very long lines
+  const arcHeightKm = Math.min(500, Math.max(25, 0.25 * distKm));
+
+  // Destination from midpoint using bearing + offset (simple geodesic approximation)
+  const R = 6371; // Earth radius km
+  const δ = arcHeightKm / R;
+  const θ = toRad(perpBearing);
+  const φmRad = toRad(midLat);
+  const λmRad = toRad(midLng);
+
+  const φc = Math.asin(Math.sin(φmRad) * Math.cos(δ) + Math.cos(φmRad) * Math.sin(δ) * Math.cos(θ));
+  const λc = λmRad + Math.atan2(Math.sin(θ) * Math.sin(δ) * Math.cos(φmRad), Math.cos(δ) - Math.sin(φmRad) * Math.sin(φc));
+
+  const controlPoint = [toDeg(φc), (toDeg(λc) + 540) % 360 - 180];
   return controlPoint;
 }
 
