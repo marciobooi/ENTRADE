@@ -345,6 +345,12 @@ width: 100%;
 }
 
 /* map menu */
+
+#map {
+  position: relative;
+}
+
+
 .wtmap .wt-map-content {
     border: none !important;
     height: 70dvh;
@@ -355,16 +361,15 @@ width: 100%;
 }
 
 #factSheet {
-    position: fixed;
-    top: 30%;
-    left: 90%;
+    position: absolute;
+    top: 8%;
+    right: 0%;
     transform: translate(-50%, -50%);
     z-index: 9 !important;
     background: var(--tool-1);
     color: white;
     font-weight: 800;
     box-shadow: 0 2px 4px rgba(9, 49, 142, .08), 0 0 10px rgba(9, 49, 142, .04), 0 4px 5px rgba(9, 49, 142, .04), 0 -4px 4px rgba(9, 49, 142, .04)
-
 }
 
 #factSheet:hover, #factSheet:focus-visible {
@@ -753,3 +758,5 @@ ul#footerCredits {
     top: auto;
     overflow: hidden;
 }
+
+
