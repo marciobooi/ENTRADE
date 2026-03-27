@@ -16,7 +16,7 @@ class ChartControls {
 				
 			  </div>
 			  <div class="menu">
-				<div id="chartBtns"  aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				<div id="chartBtns" role="toolbar"role="toolbar" aria-label="options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 				  <div class="nav-item button px-1" id="toggleBarChart" role="none"></div>
 				  <div class="nav-item button px-1" id="toggleDepChart" role="none"></div>
 				  <div class="nav-item button px-1" id="togglePieChart" role="none"></div>

@@ -29,7 +29,7 @@ class SubNavbar {
           
 
           <div class="ecl-col-4">
-            <div id="chartBtns"  aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+            <div id="chartBtns" role="toolbar" aria-label="Options graph toolbox" class="ecl-navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
                 
               <div id="switchBtn">  
                 <label class="ecl-form-check-label" for="switchTop5">${

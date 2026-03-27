@@ -87,6 +87,11 @@ function renderMap() {
 
 
               if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
+                // sync REF.trade with current trade selector value before loading data
+                const selectTradeElem = document.querySelector('#selectTrade');
+                if (selectTradeElem && selectTradeElem.value) {
+                  REF.trade = selectTradeElem.value;
+                }
                 country = layer.feature.properties;
                 loadCountryData(country);              
 
@@ -237,6 +242,19 @@ function renderMap() {
                 observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
                 mapContainer.__a11yObserverAttached = true;
               }
+
+              // Apply a11y fixes to Leaflet SVG and tooltips
+              const mapSvg = mapContainer.querySelector('svg');
+              if (mapSvg && !mapSvg.hasAttribute('role')) {
+                mapSvg.setAttribute('role', 'img');
+              }
+
+              document.querySelectorAll('[aria-describedby]').forEach((el) => {
+                const describedId = el.getAttribute('aria-describedby');
+                if (describedId && !document.getElementById(describedId)) {
+                  el.removeAttribute('aria-describedby');
+                }
+              });
             }
 
       }, 500);
@@ -812,11 +830,12 @@ function getCountryCoordinates(countryCode) {
 
 function lineTooltip(partnerCountry, value , countryNAme) {
 
-  const title = languageNameSpace.labels[REF.dataset]
-  const countryOne = REF.trade == "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme]
-  const countryTwo = REF.trade == "imp" ?  languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry]
-  const orientation = "&#8594" 
-  const labelFuel = languageNameSpace.labels[REF.fuel]
+  // Use trade mode label (import/export) instead of static dataset label for tooltip header.
+  const title = languageNameSpace.labels[REF.trade] || languageNameSpace.labels[REF.dataset] || '';
+  const countryOne = REF.trade === "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme];
+  const countryTwo = REF.trade === "imp" ? languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry];
+  const orientation = REF.trade === "imp" ? "&#8592" : "&#8594";
+  const labelFuel = languageNameSpace.labels[REF.fuel] || '';
   const countryValue = value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   const unit = languageNameSpace.labels["abr_"+REF.unit]
   const icon = REF.fuel
