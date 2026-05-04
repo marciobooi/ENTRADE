@@ -293,7 +293,26 @@
     box-shadow: 0 0 0 5px rgba(14, 71, 203, 0.3) !important;
 }
 
+.driver-popover-navigation-btns {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
 
+.driver-popover-footer {
+    padding-top: 10px;
+    margin-top: 10px;
+    text-align: right;
+    zoom: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(14, 71, 203, 0.3);
+}
+
+.driver-popover-navigation-btns button+button {
+    margin-left: auto;
+}
 
 
 

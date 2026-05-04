@@ -54,6 +54,24 @@ function closeAllDropdowns() {
     }
 }
 
+function openChartMenu() {
+    const menu = document.querySelector("#chartOptionsMenu");
+    const btn = document.querySelector("#menu");
+    if (menu && menu.classList.contains("toggleMenu")) {
+        menu.classList.remove("toggleMenu");
+        if (btn) btn.classList.add("menuOpen");
+    }
+}
+
+function closeChartMenu() {
+    const menu = document.querySelector("#chartOptionsMenu");
+    const btn = document.querySelector("#menu");
+    if (menu && !menu.classList.contains("toggleMenu")) {
+        menu.classList.add("toggleMenu");
+        if (btn) btn.classList.remove("menuOpen");
+    }
+}
+
 function tutorial() {
     closeAllDropdowns();
     closeTutorial();
@@ -68,49 +86,117 @@ function tutorial() {
                 showButtons: ["next", "close"],
             },
         },
+                {
+            element: "#focus150",
+            popover: {
+                title: languageNameSpace.tutorial["STEP0_TITLE"],
+                description: languageNameSpace.tutorial["STEP0_TEXT"],
+            },
+        },
+        // Step 1 — menu button: clicking Next opens the chart options menu
         {
             element: "#menu",
             popover: {
                 title: languageNameSpace.tutorial["STEP1_TITLE"],
                 description: languageNameSpace.tutorial["STEP1_TEXT"],
+                onNextClick: () => {
+                    openChartMenu();
+                    driverObj.moveNext();
+                },
+            },
+        },
+        // Steps 2-4 are inside the open chart options menu
+        {
+            element: "#containerTrade",
+            popover: {
+                title: languageNameSpace.tutorial["STEP2_TITLE"],
+                description: languageNameSpace.tutorial["STEP2_TEXT"],
+                // Going back from here closes the menu and returns to the menu button
+                onPrevClick: () => {
+                    closeChartMenu();
+                    driverObj.movePrevious();
+                },
             },
         },
         {
-            element: ".wt-map-menu",
+            element: "#containerFuel",
             popover: {
-                title: languageNameSpace.tutorial["STEP1_TITLE"],
-                description: languageNameSpace.tutorial["STEP1_TEXT"],
+                title: languageNameSpace.tutorial["STEP3_TITLE"],
+                description: languageNameSpace.tutorial["STEP3_TEXT"],
             },
         },
         {
-            element: "#menu",
+            element: "#containerSiec",
             popover: {
-                title: languageNameSpace.tutorial["STEP1_TITLE"],
-                description: languageNameSpace.tutorial["STEP1_TEXT"],
+                title: languageNameSpace.tutorial["STEP4_TITLE"],
+                description: languageNameSpace.tutorial["STEP4_TEXT"],
+            },
+        },
+        {
+            element: "#containerYear",
+            popover: {
+                title: languageNameSpace.tutorial["STEP5_TITLE"],
+                description: languageNameSpace.tutorial["STEP5_TEXT"],
+            },
+        },
+        {
+            element: "#containerUnit",
+            popover: {
+                title: languageNameSpace.tutorial["STEP6_TITLE"],
+                description: languageNameSpace.tutorial["STEP6_TEXT"],
+                // Last menu step: clicking Next closes the menu before advancing
+                onNextClick: () => {
+                    closeChartMenu();
+                    driverObj.moveNext();
+                },
+            },
+        },
+        // Steps 5+ are outside the menu
+        {
+            element: "#switchBtn",
+            popover: {
+                title: languageNameSpace.tutorial["STEP7_TITLE"],
+                description: languageNameSpace.tutorial["STEP7_TEXT"],
+                // Going back re-opens the menu so the user returns to the last menu step
+                onPrevClick: () => {
+                    openChartMenu();
+                    driverObj.movePrevious();
+                },
             },
         },
         {
             element: "#infoBtnChart",
-            popover: {
-                title: languageNameSpace.tutorial["STEP6_TITLE"],
-                description: languageNameSpace.tutorial["STEP6_TEXT"],
-            },
-        },
-        {
-            element: "#toggleLanguageBtn",
             popover: {
                 title: languageNameSpace.tutorial["STEP8_TITLE"],
                 description: languageNameSpace.tutorial["STEP8_TEXT"],
             },
         },
         {
-            element: "#social-media",
+            element: "#embebedBtn",
             popover: {
                 title: languageNameSpace.tutorial["STEP9_TITLE"],
                 description: languageNameSpace.tutorial["STEP9_TEXT"],
             },
         },
+
+        
+        {
+            element: "#toggleLanguageBtn",
+            popover: {
+                title: languageNameSpace.tutorial["STEP11_TITLE"],
+                description: languageNameSpace.tutorial["STEP11_TEXT"],
+            },
+        },
+        {
+            element: "#shareChart",
+            popover: {
+                title: languageNameSpace.tutorial["STEP12_TITLE"],
+                description: languageNameSpace.tutorial["STEP13_TEXT"],
+            },
+        },
     ];
+
+    let _lastStepIndex = 0;
 
     driverObj = driver({
         showProgress: false,
@@ -129,8 +215,25 @@ function tutorial() {
                 popover.title.id = titleId;
                 popover.wrapper.setAttribute('aria-labelledby', titleId);
             }
+
+            // driver.js always focuses _[0] (the close button, first in DOM).
+            // Queue a rAF so it runs AFTER that focus theft and redirects to the
+            // correct navigation button based on travel direction.
+            const goingBack = idx < _lastStepIndex;
+            _lastStepIndex = idx;
+            requestAnimationFrame(() => {
+                const preferred = goingBack ? popover.previousButton : popover.nextButton;
+                const fallback  = goingBack ? popover.nextButton     : popover.previousButton;
+                const btn = (preferred && !preferred.disabled && preferred.offsetParent !== null)
+                    ? preferred
+                    : (fallback && !fallback.disabled && fallback.offsetParent !== null)
+                    ? fallback
+                    : popover.closeButton;
+                if (btn) btn.focus();
+            });
         },
         onDestroyed: () => {
+            closeChartMenu();
             window.scrollTo(0, 0);
             isOpen = false;
             driverObj = null;
