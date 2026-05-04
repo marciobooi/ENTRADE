@@ -270,6 +270,12 @@ function renderMap() {
             // touch-target space around nearby UI buttons to < 24 px (WCAG 2.5.8).
             neutralizeNonInteractivePaths();
 
+            // If a country was already selected before the language change,
+            // re-draw its trade lines now that the map is ready.
+            if (REF.geo) {
+              fireOnStart(REF.geo);
+            }
+
       }, 500);
   });
 }
@@ -711,6 +717,28 @@ function getMidpoint(sourceCoords, partnerCoords) {
 
 
 function styleCountry(partnerCountry) {
+  // Primary: find the SVG path via Leaflet layer (matches by CNTR_ID — immune
+  // to label translation mismatches like "United States" vs "United States of America").
+  let found = false;
+  for (const layerId in map._layers) {
+    const layer = map._layers[layerId];
+    if (
+      layer.feature &&
+      layer.feature.properties &&
+      layer.feature.properties.CNTR_ID === partnerCountry &&
+      layer._path
+    ) {
+      layer._path.style.fill = partnersCtr;
+      layer._path.style.stroke = 'white';
+      layer._path.style.strokeWidth = '2px';
+      found = true;
+      // A country can have multiple polygons (e.g. islands) — style all of them
+    }
+  }
+  if (found) return;
+
+  // Fallback: match by translated label (works for countries whose GeoJSON name
+  // matches the label exactly, e.g. Algeria → "Algeria").
   const label = languageNameSpace.labels[partnerCountry];
   if (!label) return;
   const paths = document.querySelectorAll('path[aria-label]');
@@ -719,9 +747,8 @@ function styleCountry(partnerCountry) {
       paths[i].style.fill = partnersCtr;
       paths[i].style.stroke = 'white';
       paths[i].style.strokeWidth = '2px';
-      // add title for screen readers / tooltips
       if (!paths[i].getAttribute('title')) paths[i].setAttribute('title', label);
-      break; // Each country has one path, stop once found
+      break;
     }
   }
 }
