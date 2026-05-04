@@ -66,6 +66,7 @@ let variableName = value;    // for variables that change
 - `js/lineChart.js` - Changed jQuery CSS manipulation to vanilla JS
 - `js/table.js` - Changed jQuery `.empty()` to `textContent = ''`
 - `js/populateYears.js` - Changed jQuery selector to `querySelector`
+- `js/externa/intro.js change to driver.js legacy stops being free and avoid licence issues
 
 ### 3. Modern JavaScript Features Used
 
@@ -155,7 +156,7 @@ The refactored code uses ES2026 features that are supported in all modern browse
 
 - Code now requires a modern browser with ES2026 support
 - No breaking API changes - all functionality preserved
-- Some external libraries (Leaflet, Highcharts, Intro.js) may still work with their own documentation
+- Some external libraries (Leaflet, Highcharts) may still work with their own documentation
 
 ### 8. Testing Recommendations
 
