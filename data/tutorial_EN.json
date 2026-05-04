@@ -2,7 +2,7 @@
 	"START_TOUR_TITLE": "Tutorial",
 	"START_TOUR_TEXT": "Welcome to the tutorial of Eurostat's Energy trade visualization tool. This guided tour will show you the main ways of interacting with the tool.",
 	"STEP1_TITLE": "Menu",
-	"STEP1_TEXT": "In addition to graphic options, the tool contains a menu for additional features. Hover over it with your mouse to expand it. Click next to learn about the menu options.",
+	"STEP1_TEXT": "The tool contains a menu for additional features. Click on the menu icon to customize the map view. Click next to learn about the menu options.",
 	"STEP2_TITLE": "Trade feature",
 	"STEP2_TEXT": "Use this option to change between imports and exports.",
 	"STEP3_TITLE": "Select the fuel type",
@@ -19,5 +19,4 @@
 	"STEP8_TEXT": "Use this option to select French, English or German.",
 	"STEP9_TITLE": "That is it for our tour.",
 	"STEP9_TEXT": "If you find this visualization tool useful, please show your support by sharing it with others on X, Facebook, email, and LinkedIn. Thank you!"
-
 }

@@ -69,7 +69,7 @@ function tutorial() {
             },
         },
         {
-            element: "#focus411",
+            element: "#menu",
             popover: {
                 title: languageNameSpace.tutorial["STEP1_TITLE"],
                 description: languageNameSpace.tutorial["STEP1_TEXT"],
