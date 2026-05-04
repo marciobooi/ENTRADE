@@ -806,13 +806,38 @@ ul#footerCredits {
   overflow-y: auto;
 }
 
+.insights-panel:focus {
+  outline: 3px solid var(--tool-1);
+  outline-offset: 3px;
+}
+
 .insights-title {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--tool-1);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--tool-1);
+}
+
+.insights-summary {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+  background: #eef1fb;
+  border-left: 4px solid var(--tool-1);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 0.6rem;
+}
+
+.insights-note {
+  font-size: 0.75rem;
+  color: #4c5563;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .insights-sections {
@@ -841,7 +866,7 @@ ul#footerCredits {
 .insights-year-label {
   font-size: 0.78rem;
   font-weight: 400;
-  color: #666;
+  color: #4c5563;
   margin-left: 0.4rem;
 }
 
@@ -875,7 +900,7 @@ ul#footerCredits {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #777;
+  color: #4c5563;
   margin-bottom: 0.25rem;
 }
 
@@ -890,6 +915,13 @@ ul#footerCredits {
   font-size: 0.75rem;
   color: #555;
   margin-top: 0.2rem;
+}
+
+.insight-card__note {
+  font-size: 0.68rem;
+  color: #4c5563;
+  margin-top: 0.25rem;
+  font-style: italic;
 }
 
 /* ── Rank table ── */
@@ -929,15 +961,33 @@ ul#footerCredits {
   padding: 0.18rem 0.55rem;
   border-radius: 3px;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-.insight-rank-up   { color: #28a745; font-weight: 700; }
-.insight-rank-down { color: #dc3545; font-weight: 700; }
-.insight-rank-same { color: #999; }
-.insight-rank-new  { color: #17a2b8; font-weight: 700; }
+.insight-rank-num {
+  font-weight: 700;
+  color: #555;
+  min-width: 1.1em;
+}
 
-.insight-stable  { color: #28a745; font-weight: 700; }
-.insight-changed { color: #dc3545; font-weight: 700; }
+.insight-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0 0.3em;
+  border-radius: 2px;
+}
+
+
+.insight-rank-up   { color: #155724; font-weight: 700; }
+.insight-rank-down { color: #8b1e1a; font-weight: 700; }
+.insight-rank-same { color: #4c5563; }
+.insight-rank-new  { color: #0b5563; font-weight: 700; }
+
+.insight-stable  { color: #155724; font-weight: 700; }
+.insight-changed { color: #8b1e1a; font-weight: 700; }
 
 .insights-no-prev {
   font-size: 0.85rem;

@@ -5,18 +5,50 @@
  * energy product and reference year.
  *
  * Depends on globals:  REF, languageNameSpace, barChartSeries,
- *                      barchartdata(), chartApiCall(), getTitle(),
- *                      formatNumber() (table.js),
+ *                      barchartdata(), getTitle(), formatNumber() (table.js),
  *                      showChartLoader(), hideChartLoader(),
  *                      showNoDataPopup(), showNoDataInChartContainer()
  */
 
+/* ── Narrative summary ─────────────────────────────────────────────────── */
+function buildInsightNarrative({
+  geoLabel, tradeLabel, productLabel, year, prevYear,
+  topPartner, topPartnerShare, top3Share, hhiConc,
+  changePct, biggestIncrease, biggestDecrease, L
+}) {
+  if (!topPartner) return '';
+
+  const trendText = changePct == null
+    ? ''
+    : changePct > 0
+      ? ` ${L['INS_NAR_INCREASED'] || 'Compared with'} ${prevYear}, ${L['INS_NAR_TRADE_ROSE'] || 'total trade increased by'} ${Math.abs(changePct).toFixed(1)}%.`
+      : changePct < 0
+        ? ` ${L['INS_NAR_COMPARED'] || 'Compared with'} ${prevYear}, ${L['INS_NAR_TRADE_FELL'] || 'total trade fell by'} ${Math.abs(changePct).toFixed(1)}%.`
+        : ` ${L['INS_NAR_COMPARED'] || 'Compared with'} ${prevYear}, ${L['INS_NAR_UNCHANGED'] || 'total trade was unchanged.'}`;
+
+  const moversText = biggestIncrease && biggestDecrease
+    ? ` ${L['INS_NAR_LARGEST_INC'] || 'The largest increase came from'} ${biggestIncrease.name}, ${L['INS_NAR_WHILE'] || 'while'} ${biggestDecrease.name} ${L['INS_NAR_LARGEST_DEC'] || 'showed the largest decrease.'}`
+    : biggestIncrease
+      ? ` ${L['INS_NAR_LARGEST_INC'] || 'The largest increase came from'} ${biggestIncrease.name}.`
+      : biggestDecrease
+        ? ` ${biggestDecrease.name} ${L['INS_NAR_LARGEST_DEC'] || 'showed the largest decrease.'}`
+        : '';
+
+  const partners2to3 = ''; // placeholder — could list 2nd/3rd name if needed
+  return `${geoLabel}'s ${productLabel} ${tradeLabel.toLowerCase()} ${L['INS_NAR_IN'] || 'in'} ${year} ${L['INS_NAR_LED'] || 'were led by'} ${topPartner.name}, ${L['INS_NAR_WHICH'] || 'which accounted for'} ${topPartnerShare.toFixed(1)}% ${L['INS_OF_TOTAL'] || 'of total trade'}. ${L['INS_NAR_TOP3'] || 'The top 3 partners represented'} ${top3Share.toFixed(1)}%, ${L['INS_NAR_INDICATING'] || 'indicating'} ${hhiConc.toLowerCase()}.${trendText}${moversText}`;
+}
+
+/* ── Main render function ───────────────────────────────────────────────── */
 async function createInsightsChart() {
   REF.chart = 'insightsChart';
 
   const chartContainer = document.getElementById('chartContainer');
   chartContainer.textContent = '';
+  chartContainer.setAttribute('aria-busy', 'true');
   showChartLoader();
+
+  // Snapshot full REF state so we can restore it safely in finally block
+  const snapshot = { year: REF.year, filter: REF.filter, chart: REF.chart };
 
   try {
     const L = languageNameSpace.labels; // shorthand
@@ -24,24 +56,24 @@ async function createInsightsChart() {
     /* ------------------------------------------------------------------ */
     /* 1. Fetch current-year data (always use "all" partners for metrics)  */
     /* ------------------------------------------------------------------ */
-    const savedFilter = REF.filter;
     REF.filter = 'all';
+    REF.chart  = 'insightsChart'; // keep chart set for correct getTitle()
     await barchartdata();
     const currentSeries = [...barChartSeries];
 
     /* ------------------------------------------------------------------ */
     /* 2. Fetch previous-year data                                         */
     /* ------------------------------------------------------------------ */
-    const savedYear  = REF.year;
-    const prevYear   = String(parseInt(REF.year, 10) - 1);
+    const prevYear = String(parseInt(snapshot.year, 10) - 1);
     REF.year = prevYear;
     await barchartdata();
     const prevSeries = [...barChartSeries];
 
-    /* Restore state */
-    REF.year   = savedYear;
-    REF.filter = savedFilter;
-    barChartSeries = currentSeries; // restore global
+    /* Restore state — also done in finally, but do it here so getTitle()  */
+    /* uses the correct year for the panel header.                         */
+    REF.year   = snapshot.year;
+    REF.filter = snapshot.filter;
+    barChartSeries = currentSeries; // restore global for other consumers
 
     if (!currentSeries.length) {
       showNoDataPopup(L['NODATA']);
@@ -52,24 +84,26 @@ async function createInsightsChart() {
     /* ------------------------------------------------------------------ */
     /* 3. Compute core metrics                                             */
     /* ------------------------------------------------------------------ */
-    const othLabel   = L['OTH'];
-    const partners   = currentSeries.filter(d => d.name !== othLabel);
-    const total      = currentSeries.reduce((s, d) => s + d.y, 0);
-    const prevTotal  = prevSeries.reduce((s, d) => s + d.y, 0);
+    const othLabel  = L['OTH'];
+    const partners  = currentSeries.filter(d => d.name !== othLabel);
+    const total     = currentSeries.reduce((s, d) => s + d.y, 0);
+    const prevTotal = prevSeries.reduce((s, d) => s + d.y, 0);
 
     const topPartner      = partners[0] || null;
     const topPartnerShare = (topPartner && total > 0) ? (topPartner.y / total * 100) : 0;
     const top3Share       = total > 0
       ? (partners.slice(0, 3).reduce((s, d) => s + d.y, 0) / total * 100)
       : 0;
-    const partnersTotal = partners.reduce((s, d) => s + d.y, 0);
-    const othersShare   = total > 0 ? ((total - partnersTotal) / total * 100) : 0;
-    const visiblePartners = partners.length;
+    const reportedPartners = partners.length;
+
+    // Others share — only meaningful when an explicit Others row is present
+    const othersRow   = currentSeries.find(d => d.name === othLabel);
+    const othersShare = (othersRow && total > 0) ? (othersRow.y / total * 100) : null;
 
     /* ------------------------------------------------------------------ */
     /* 4. Structural metrics (HHI / diversification)                      */
     /* ------------------------------------------------------------------ */
-    // Herfindahl-Hirschman Index over all non-Others partners (0–10 000)
+    // Herfindahl-Hirschman Index over named partners (0–10 000)
     const hhi = Math.round(
       partners.reduce((s, d) => {
         const pct = total > 0 ? (d.y / total * 100) : 0;
@@ -95,8 +129,8 @@ async function createInsightsChart() {
     let droppedOut       = [];
     let rankMovements    = [];
     let topPartnerStable = null;
-    let fullChurnNew     = 0;
-    let fullChurnGone    = 0;
+    let churnNew         = 0;
+    let churnGone        = 0;
 
     const hasPrev = prevSeries.length > 0;
 
@@ -108,21 +142,23 @@ async function createInsightsChart() {
       const currNames = new Set(partners.map(d => d.name));
       const prevNames = new Set(prevPartners.map(d => d.name));
 
-      /* Partner churn across the full list */
-      fullChurnNew  = partners.filter(d => !prevNames.has(d.name)).length;
-      fullChurnGone = prevPartners.filter(d => !currNames.has(d.name)).length;
+      /* Partner churn (all visible partners) */
+      churnNew  = partners.filter(d => !prevNames.has(d.name)).length;
+      churnGone = prevPartners.filter(d => !currNames.has(d.name)).length;
 
-      /* Biggest movers (absolute TJ change per partner) */
+      /* Biggest movers — only report genuine positive/negative changes */
       const changes = partners.map(d => {
         const prev = prevByName.get(d.name);
         return { name: d.name, change: prev != null ? d.y - prev.value : d.y };
       });
-      biggestIncrease = changes.reduce(
-        (best, d) => !best || d.change > best.change ? d : best, null
-      );
-      biggestDecrease = changes.reduce(
-        (best, d) => !best || d.change < best.change ? d : best, null
-      );
+      const positiveChanges = changes.filter(d => d.change > 0);
+      const negativeChanges = changes.filter(d => d.change < 0);
+      biggestIncrease = positiveChanges.length
+        ? positiveChanges.reduce((best, d) => d.change > best.change ? d : best)
+        : null;
+      biggestDecrease = negativeChanges.length
+        ? negativeChanges.reduce((best, d) => d.change < best.change ? d : best)
+        : null;
 
       /* Top-5 entrants / dropouts */
       const currTop5Names = new Set(partners.slice(0, 5).map(d => d.name));
@@ -148,8 +184,8 @@ async function createInsightsChart() {
     /* ------------------------------------------------------------------ */
     /* 6. Formatting helpers                                               */
     /* ------------------------------------------------------------------ */
-    const unitLabel  = L['abr_' + REF.unit] || L[REF.unit] || REF.unit;
-    const NBSP       = '\u202F'; // narrow no-break space before unit
+    const unitLabel = L['abr_' + REF.unit] || L[REF.unit] || REF.unit;
+    const NBSP      = '\u202F'; // narrow no-break space before unit
 
     const fmtVal = v =>
       v != null ? formatNumber(v) + NBSP + unitLabel : '–';
@@ -170,21 +206,34 @@ async function createInsightsChart() {
     };
 
     /* ------------------------------------------------------------------ */
-    /* 7. Build HTML sub-sections                                         */
+    /* 7. Narrative summary                                                */
+    /* ------------------------------------------------------------------ */
+    const tradeLabel   = L[REF.trade] || REF.trade;
+    const productLabel = L[REF.siec]  || REF.siec;
+    const geoLabel     = L[REF.geo]   || REF.geo;
+    const narrative    = buildInsightNarrative({
+      geoLabel, tradeLabel, productLabel,
+      year: snapshot.year, prevYear,
+      topPartner, topPartnerShare, top3Share, hhiConc,
+      changePct, biggestIncrease, biggestDecrease, L
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* 8. Build HTML sub-sections                                         */
     /* ------------------------------------------------------------------ */
 
     /* Rank movement pills */
     const rankMoveHtml = rankMovements.map(m => {
-      let arrow = '';
+      let badge;
       if (m.diff == null)
-        arrow = `<span class="insight-rank-new">&#9733;&nbsp;${L['INS_NEW'] || 'new'}</span>`;
+        badge = `<span class="insight-badge insight-rank-new">&#9733; ${L['INS_NEW'] || 'new'}</span>`;
       else if (m.diff > 0)
-        arrow = `<span class="insight-rank-up">&#9650;${m.diff}</span>`;
+        badge = `<span class="insight-badge insight-rank-up">&#9650;${m.diff}</span>`;
       else if (m.diff < 0)
-        arrow = `<span class="insight-rank-down">&#9660;${Math.abs(m.diff)}</span>`;
+        badge = `<span class="insight-badge insight-rank-down">&#9660;${Math.abs(m.diff)}</span>`;
       else
-        arrow = '<span class="insight-rank-same">&mdash;</span>';
-      return `<span class="insight-rank-item">${m.rank}.&nbsp;${m.name}&nbsp;${arrow}</span>`;
+        badge = '<span class="insight-badge insight-rank-same">&mdash;</span>';
+      return `<span class="insight-rank-item"><span class="insight-rank-num">${m.rank}</span>${m.name}${badge}</span>`;
     }).join('');
 
     /* Rank table rows */
@@ -201,15 +250,29 @@ async function createInsightsChart() {
       : 'insight-card--negative';
 
     /* ------------------------------------------------------------------ */
-    /* 8. Render                                                           */
+    /* 9. Render                                                           */
     /* ------------------------------------------------------------------ */
+    const titleId = 'insights-panel-title';
+    const noteId = 'insights-panel-note';
     const panel = document.createElement('div');
+    panel.id = 'insights-panel';
     panel.className = 'insights-panel';
+    panel.tabIndex = 0;
     panel.setAttribute('role', 'region');
-    panel.setAttribute('aria-label', L['insightsChart'] || 'Country insights');
+    panel.setAttribute('aria-labelledby', titleId);
+    panel.setAttribute('aria-describedby', noteId);
 
     panel.innerHTML = `
-      <h2 class="insights-title">${getTitle()}</h2>
+      <h2 class="insights-title" id="${titleId}">${getTitle()}</h2>
+
+      ${narrative
+        ? `<p class="insights-summary">${narrative}</p>`
+        : ''}
+
+      <p class="insights-note" id="${noteId}">
+        <i class="fas fa-info-circle" aria-hidden="true"></i>
+        ${L['INS_DATA_NOTE'] || 'Metrics are calculated using all available partner countries for the selected year.'}
+      </p>
 
       <div class="insights-sections">
 
@@ -235,18 +298,19 @@ async function createInsightsChart() {
               <div class="insight-card__value">${fmtPct(top3Share)}</div>
             </div>
             <div class="insight-card">
-              <div class="insight-card__label">${L['INS_VISIBLE'] || 'Visible partners'}</div>
-              <div class="insight-card__value">${visiblePartners}</div>
+              <div class="insight-card__label">${L['INS_REPORTED'] || 'Partners with reported trade'}</div>
+              <div class="insight-card__value">${reportedPartners}</div>
             </div>
+            ${othersShare != null ? `
             <div class="insight-card">
               <div class="insight-card__label">${L['INS_OTHERS_SHARE'] || 'Others share'}</div>
               <div class="insight-card__value">${fmtPct(othersShare)}</div>
-            </div>
+            </div>` : ''}
           </div>
 
           <div class="insights-rank-table-wrapper">
             <table class="ecl-table insights-rank-table"
-                   aria-label="${L['INS_CORE'] || 'Core metrics'}">
+                   aria-label="${L['INS_RANK_LIST'] || 'Partner ranking'}">
               <thead class="ecl-table__head">
                 <tr class="ecl-table__row">
                   <th class="ecl-table__header" scope="col">#</th>
@@ -276,35 +340,44 @@ async function createInsightsChart() {
                   <div class="insight-card__value">${fmtChg(changeTotal)}</div>
                   <div class="insight-card__sub">${fmtChgPct(changePct)}</div>
                 </div>
-                <div class="insight-card insight-card--positive">
+                <div class="insight-card ${biggestIncrease ? 'insight-card--positive' : ''}">
                   <div class="insight-card__label">${L['INS_BIG_INC'] || 'Biggest increase'}</div>
-                  <div class="insight-card__value">${biggestIncrease ? biggestIncrease.name : '–'}</div>
-                  <div class="insight-card__sub">${biggestIncrease ? fmtChg(biggestIncrease.change) : ''}</div>
+                  <div class="insight-card__value">${biggestIncrease ? biggestIncrease.name : '\u2013'}</div>
+                  <div class="insight-card__sub">${biggestIncrease ? fmtChg(biggestIncrease.change) : (L['INS_NONE_INC'] || 'No partner increased')}</div>
                 </div>
-                <div class="insight-card insight-card--negative">
+                <div class="insight-card ${biggestDecrease ? 'insight-card--negative' : ''}">
                   <div class="insight-card__label">${L['INS_BIG_DEC'] || 'Biggest decrease'}</div>
-                  <div class="insight-card__value">${biggestDecrease ? biggestDecrease.name : '–'}</div>
-                  <div class="insight-card__sub">${biggestDecrease ? fmtChg(biggestDecrease.change) : ''}</div>
+                  <div class="insight-card__value">${biggestDecrease ? biggestDecrease.name : '\u2013'}</div>
+                  <div class="insight-card__sub">${biggestDecrease ? fmtChg(biggestDecrease.change) : (L['INS_NONE_DEC'] || 'No partner decreased')}</div>
                 </div>
                 <div class="insight-card">
                   <div class="insight-card__label">${L['INS_NEW_TOP5'] || 'New top-5 entrant'}</div>
-                  <div class="insight-card__value">${newEntrants.length ? newEntrants.join(', ') : '–'}</div>
+                  <div class="insight-card__value">${newEntrants.length ? newEntrants.join(', ') : '\u2013'}</div>
                 </div>
                 <div class="insight-card">
                   <div class="insight-card__label">${L['INS_DROPPED'] || 'Dropped from top 5'}</div>
-                  <div class="insight-card__value">${droppedOut.length ? droppedOut.join(', ') : '–'}</div>
+                  <div class="insight-card__value">${droppedOut.length ? droppedOut.join(', ') : '\u2013'}</div>
+                </div>
+                <div class="insight-card">
+                  <div class="insight-card__label">${L['INS_STABILITY'] || 'Top partner stability'}</div>
+                  <div class="insight-card__value">
+                    ${topPartnerStable
+                      ? `<span class="insight-stable">${L['INS_STABLE']  || '&#10003; Stable'}</span>`
+                      : `<span class="insight-changed">${L['INS_CHANGED'] || '&#8597; Changed'}</span>`}
+                  </div>
+                  <div class="insight-card__sub">${L['INS_SAME_AS'] || 'same #1 as'}&nbsp;${prevYear}</div>
                 </div>
               </div>
               <div class="insights-rank-movement">
                 <p class="insights-rank-movement__label">
                   <strong>${L['INS_RANK_MOVE'] || 'Rank movement (top 5)'}:</strong>
                 </p>
-                <div class="insights-rank-movement__items">${rankMoveHtml || '–'}</div>
+                <div class="insights-rank-movement__items">${rankMoveHtml || '\u2013'}</div>
               </div>`
           }
         </section>
 
-        <!-- ═══ STRUCTURAL METRICS ═══ -->
+        <!-- \u2550\u2550\u2550 STRUCTURAL METRICS \u2550\u2550\u2550 -->
         <section class="insights-section" aria-labelledby="ins-struct-heading">
           <h3 class="insights-section__title" id="ins-struct-heading">
             <i class="fas fa-sitemap" aria-hidden="true"></i>
@@ -315,30 +388,21 @@ async function createInsightsChart() {
               <div class="insight-card__label">${L['INS_HHI'] || 'Concentration score (HHI)'}</div>
               <div class="insight-card__value">${hhi.toLocaleString()}</div>
               <div class="insight-card__sub">${hhiConc}</div>
+              <div class="insight-card__note">${L['INS_HHI_NOTE'] || 'Higher values indicate more dependence on fewer partners.'}</div>
             </div>
             <div class="insight-card">
               <div class="insight-card__label">${L['INS_DIV'] || 'Diversification score'}</div>
               <div class="insight-card__value">${diversification}</div>
-              <div class="insight-card__sub">${L['INS_EFF_PARTNERS'] || 'effective equal partners'}</div>
+              <div class="insight-card__sub">${L['INS_EFF_PARTNERS_FULL'] || 'Equivalent to about'}&nbsp;${diversification}&nbsp;${L['INS_EFF_EQUAL'] || 'equally sized partners'}</div>
             </div>
             ${hasPrev ? `
             <div class="insight-card">
-              <div class="insight-card__label">${L['INS_CHURN'] || 'Partner churn'}</div>
-              <div class="insight-card__value">
-                ${fullChurnNew}&nbsp;${L['INS_IN'] || 'in'}
-                &bull;
-                ${fullChurnGone}&nbsp;${L['INS_OUT'] || 'out'}
-              </div>
-              <div class="insight-card__sub">${L['INS_VS_PREV'] || 'vs'}&nbsp;${prevYear}</div>
+              <div class="insight-card__label">${L['INS_CHURN_NEW'] || 'New partners'}&nbsp;${L['INS_VS_PREV'] || 'vs'}&nbsp;${prevYear}</div>
+              <div class="insight-card__value">${churnNew}</div>
             </div>
             <div class="insight-card">
-              <div class="insight-card__label">${L['INS_STABILITY'] || 'Top partner stability'}</div>
-              <div class="insight-card__value">
-                ${topPartnerStable
-                  ? `<span class="insight-stable">${L['INS_STABLE']  || '&#10003; Stable'}</span>`
-                  : `<span class="insight-changed">${L['INS_CHANGED'] || '&#8597; Changed'}</span>`}
-              </div>
-              <div class="insight-card__sub">${L['INS_SAME_AS'] || 'same #1 as'}&nbsp;${prevYear}?</div>
+              <div class="insight-card__label">${L['INS_CHURN_GONE'] || 'No longer present'}&nbsp;${L['INS_VS_PREV'] || 'vs'}&nbsp;${prevYear}</div>
+              <div class="insight-card__value">${churnGone}</div>
             </div>` : ''}
           </div>
         </section>
@@ -347,7 +411,14 @@ async function createInsightsChart() {
     `;
 
     chartContainer.appendChild(panel);
+    chartContainer.setAttribute('aria-busy', 'false');
+    panel.focus();
   } finally {
+    // Always restore REF to its pre-insights state
+    REF.year   = snapshot.year;
+    REF.filter = snapshot.filter;
+    REF.chart  = snapshot.chart;
+    chartContainer.setAttribute('aria-busy', 'false');
     hideChartLoader();
   }
 }

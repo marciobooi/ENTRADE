@@ -2673,14 +2673,119 @@
     "FR": "nouveau",
     "DE": "neu"
   },
-  "INS_IN": {
-    "EN": "in",
-    "FR": "entrant",
-    "DE": "eingetreten"
+  "INS_REPORTED": {
+    "EN": "Partners with reported trade",
+    "FR": "Partenaires avec échanges déclarés",
+    "DE": "Partner mit gemeldeten Handelsdaten"
   },
-  "INS_OUT": {
-    "EN": "out",
-    "FR": "sortant",
-    "DE": "ausgetreten"
+  "INS_RANK_LIST": {
+    "EN": "Partner ranking",
+    "FR": "Classement des partenaires",
+    "DE": "Partnerrangliste"
+  },
+  "INS_DATA_NOTE": {
+    "EN": "Metrics are calculated using all available partner countries for the selected year.",
+    "FR": "Les métriques sont calculées en utilisant tous les pays partenaires disponibles pour l'année sélectionnée.",
+    "DE": "Die Metriken werden auf Basis aller verfügbaren Partnerländer für das ausgewählte Jahr berechnet."
+  },
+  "INS_HHI_NOTE": {
+    "EN": "Higher values indicate more dependence on fewer partners.",
+    "FR": "Des valeurs plus élevées indiquent une dépendance accrue à un nombre réduit de partenaires.",
+    "DE": "Höhere Werte bedeuten eine stärkere Abhängigkeit von weniger Partnern."
+  },
+  "INS_EFF_PARTNERS_FULL": {
+    "EN": "Equivalent to about",
+    "FR": "Équivalent à environ",
+    "DE": "Entspricht etwa"
+  },
+  "INS_EFF_EQUAL": {
+    "EN": "equally sized partners",
+    "FR": "partenaires de taille égale",
+    "DE": "gleichgroßen Partnern"
+  },
+  "INS_CHURN_NEW": {
+    "EN": "New partners",
+    "FR": "Nouveaux partenaires",
+    "DE": "Neue Partner"
+  },
+  "INS_CHURN_GONE": {
+    "EN": "No longer present",
+    "FR": "Plus présents",
+    "DE": "Nicht mehr vorhanden"
+  },
+  "INS_NONE_INC": {
+    "EN": "No partner increased",
+    "FR": "Aucun partenaire n'a augmenté",
+    "DE": "Kein Partner gestiegen"
+  },
+  "INS_NONE_DEC": {
+    "EN": "No partner decreased",
+    "FR": "Aucun partenaire n'a diminué",
+    "DE": "Kein Partner gesunken"
+  },
+  "INS_NAR_COMPARED": {
+    "EN": "Compared with",
+    "FR": "Par rapport à",
+    "DE": "Im Vergleich zu"
+  },
+  "INS_NAR_INCREASED": {
+    "EN": "Compared with",
+    "FR": "Par rapport à",
+    "DE": "Im Vergleich zu"
+  },
+  "INS_NAR_TRADE_ROSE": {
+    "EN": "total trade increased by",
+    "FR": "le commerce total a augmenté de",
+    "DE": "der Gesamthandel stieg um"
+  },
+  "INS_NAR_TRADE_FELL": {
+    "EN": "total trade fell by",
+    "FR": "le commerce total a diminué de",
+    "DE": "der Gesamthandel sank um"
+  },
+  "INS_NAR_UNCHANGED": {
+    "EN": "total trade was unchanged.",
+    "FR": "le commerce total est resté stable.",
+    "DE": "der Gesamthandel blieb unverändert."
+  },
+  "INS_NAR_LARGEST_INC": {
+    "EN": "The largest increase came from",
+    "FR": "La plus forte augmentation provient de",
+    "DE": "Der größte Anstieg kam von"
+  },
+  "INS_NAR_LARGEST_DEC": {
+    "EN": "showed the largest decrease.",
+    "FR": "a enregistré la plus forte baisse.",
+    "DE": "verzeichnete den größten Rückgang."
+  },
+  "INS_NAR_WHILE": {
+    "EN": "while",
+    "FR": "tandis que",
+    "DE": "während"
+  },
+  "INS_NAR_IN": {
+    "EN": "in",
+    "FR": "en",
+    "DE": "im Jahr"
+  },
+  "INS_NAR_LED": {
+    "EN": "were led by",
+    "FR": "étaient dominées par",
+    "DE": "wurden angeführt von"
+  },
+  "INS_NAR_WHICH": {
+    "EN": "which accounted for",
+    "FR": "qui représentait",
+    "DE": "der/die/das"
+  },
+  "INS_NAR_TOP3": {
+    "EN": "The top 3 partners represented",
+    "FR": "Les 3 premiers partenaires représentaient",
+    "DE": "Die 3 wichtigsten Partner machten"
+  },
+  "INS_NAR_INDICATING": {
+    "EN": "indicating",
+    "FR": "ce qui indique une",
+    "DE": "was auf"
   }
 }
