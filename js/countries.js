@@ -314,9 +314,13 @@ function addClearToMenu() {
 
 
 async function loadCountryData(country) {  
-  REF.dataset = REF.dataset;  // Consider whether this line is necessary if you're not changing anything
+  REF.dataset = REF.dataset;
   REF.geo = country.CNTR_ID;
   REF.chart = "map";
+
+  // Clear any previous country selection before loading the new one.
+  // This enforces single-country selection and prevents curves/markers accumulating.
+  clearMap();
 
   // Assuming chartApiCall returns an object with a 'value' property
   let d = await chartApiCall();
@@ -327,37 +331,8 @@ async function loadCountryData(country) {
   let allUndefined = d.value.every(value => typeof value === 'undefined');
 
   if (allZero || allNull || allUndefined) {
-
-    let content = /*html*/`
-    <div class="alert-popup">
-        <div style="display: flex; align-items: center; margin-right: 16px;">
-            <i class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></i>
-            <p style="display: inline-block; margin: 0;">${languageNameSpace.labels['NODATA']}</p>
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-`;
-
-  document.body.insertAdjacentHTML('beforeend', content);
-
-  // Function to remove the alert popup
-  function removeAlertPopup() {
-    const popup = document.querySelector('.alert-popup');
-    if (popup) popup.remove();
-  }
-
-  // Set timeout to auto-destroy the alert after 3 seconds
-  setTimeout(removeAlertPopup, 3000);
-
-  // Add a click event listener to close the alert popup manually
-  const closeBtn = document.querySelector('#closeAlertPopup');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', removeAlertPopup);
-  }
+    // Delegate to the shared popup helper (also calls clearMap and manages focus).
+    showNoDataPopup();
   } else {
     let partners = countriesDataHandler(d);
     countryInfo(country);
@@ -822,16 +797,18 @@ function reapplyCountryColors() {
   });
 
   // Paths with aria-label are country polygons — set final colour in one pass
-  // (EU countries never pass through transparent, avoiding flash-of-white)
+  // (EU countries never pass through transparent, avoiding flash-of-white).
+  // Selected country is checked FIRST because it is also in defGeos; without
+  // priority it would always get euCtr instead of the darker selectLayer.
   document.querySelectorAll('path[aria-label]').forEach((element) => {
     const countryName = element.getAttribute('aria-label').trim();
-    if (geoLabelMap[countryName]) {
-      element.style.fill = euCtr;
-      element.style.stroke = '#4b598b';
-      element.style.strokeWidth = '2px';
-    } else if (countryName === selectedLabel) {
+    if (selectedLabel && countryName === selectedLabel) {
       element.style.fill = selectLayer;
       element.style.stroke = 'white';
+      element.style.strokeWidth = '2px';
+    } else if (geoLabelMap[countryName]) {
+      element.style.fill = euCtr;
+      element.style.stroke = '#4b598b';
       element.style.strokeWidth = '2px';
     } else {
       element.style.fill = 'transparent';
@@ -840,6 +817,11 @@ function reapplyCountryColors() {
 }
 
 function clearMap() {
+  // Remove all trade curves and circle markers (also empties the arrays and
+  // detaches zoom handlers so they don't accumulate across selections).
+  clearLines();
+  clearMarkers();
+
   // Apply colours in a single pass — EU paths go straight to blue, never transparent
   reapplyCountryColors();
 
@@ -857,10 +839,6 @@ function clearMap() {
         break;
       }
     }
-  });
-
-  markers.forEach(function(marker) {
-    map.removeLayer(marker);
   });
 }
 
