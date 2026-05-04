@@ -307,10 +307,10 @@ async function loadCountryData(country) {
   // Assuming chartApiCall returns an object with a 'value' property
   let d = await chartApiCall();
 
-  let values = d.value;
-  let allZero = values.every(value => value === 0);
-  let allNull = values.every(value => value === null);
-  let allUndefined = values.every(value => typeof value === 'undefined');
+  let values = d.value.map(v => Number(v));
+  let allZero = values.every(value => !isNaN(value) && value === 0);
+  let allNull = d.value.every(value => value === null);
+  let allUndefined = d.value.every(value => typeof value === 'undefined');
 
   if (allZero || allNull || allUndefined) {
 
@@ -398,12 +398,27 @@ function countriesDataHandler(d) {
 
   const partnerIds = d.Dimension("partner").id;
 
+  console.log('[countriesDataHandler] values length', d.value.length);
+
+  const MIN_LINE_VALUE = 0.5; // use 0.001 or 0.1 to avoid tiny lines if needed
+
   let partners = partnerIds.map((currentPartnerId, index) => {
-    if (!excludedPartners.includes(currentPartnerId) && d.value[index] > 0) {
-      return [currentPartnerId, d.value[index]]
+    let raw = d.value[index];
+    if (raw === null || raw === undefined || raw === '' || raw <= 0) return null;
+
+    const numericValue = Number(raw);
+    if (
+      !excludedPartners.includes(currentPartnerId) &&
+      !isNaN(numericValue) &&
+      numericValue > MIN_LINE_VALUE
+    ) {
+      return [currentPartnerId, numericValue];
     }
     return null;
   }).filter(partner => partner !== null);
+
+  console.log('[countriesDataHandler] filtered partners count', partners.length);
+  console.log('[countriesDataHandler] partner list', partners.map(p => [p[0], p[1]]));
 
   countryTotal = Math.floor(partners.reduce((acc, currentValue) => acc + currentValue[1], 0));
 
@@ -448,6 +463,9 @@ function drawLines(sourceCountry, partners) {
   partners.forEach(partner => {
     const partnerCountry = partner[0];
     const value = partner[1];
+    if (typeof value !== 'number' || isNaN(value) || value <= 0.000001) {
+      return; // skip effectively zero / invalid partners
+    }
     const sourceCoords = sourceCountry.CENTROID;
     const partnerCoords = getCountryCoordinates(partnerCountry);
     const countryName = sourceCountry.CNTR_ID;
