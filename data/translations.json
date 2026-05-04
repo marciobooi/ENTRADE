@@ -2528,6 +2528,11 @@
     "FR": "Métriques structurelles",
     "DE": "Strukturelle Metriken"
   },
+  "INS_HISTORY": {
+    "EN": "Historical context",
+    "FR": "Contexte historique",
+    "DE": "Historischer Kontext"
+  },
   "INS_TOTAL": {
     "EN": "Total trade value",
     "FR": "Valeur totale du commerce",
@@ -2542,6 +2547,16 @@
     "EN": "Top 3 share",
     "FR": "Part du top 3",
     "DE": "Anteil Top 3"
+  },
+  "INS_LEAD_OVER_2": {
+    "EN": "Lead over #2",
+    "FR": "Avance sur le n°2",
+    "DE": "Vorsprung vor Nr. 2"
+  },
+  "INS_AHEAD_OF": {
+    "EN": "ahead of",
+    "FR": "devant",
+    "DE": "vor"
   },
   "INS_VISIBLE": {
     "EN": "Visible partners",
@@ -2588,6 +2603,26 @@
     "FR": "Plus forte baisse",
     "DE": "Größter Rückgang"
   },
+  "INS_BIG_SHARE_GAIN": {
+    "EN": "Biggest share gainer",
+    "FR": "Plus forte hausse de part",
+    "DE": "Größter Anteilsgewinner"
+  },
+  "INS_BIG_SHARE_LOSS": {
+    "EN": "Biggest share loser",
+    "FR": "Plus forte baisse de part",
+    "DE": "Größter Anteilsverlierer"
+  },
+  "INS_NO_SHARE_GAIN": {
+    "EN": "No partner gained share",
+    "FR": "Aucun partenaire n'a gagné de part",
+    "DE": "Kein Partner gewann Anteil"
+  },
+  "INS_NO_SHARE_LOSS": {
+    "EN": "No partner lost share",
+    "FR": "Aucun partenaire n'a perdu de part",
+    "DE": "Kein Partner verlor Anteil"
+  },
   "INS_NEW_TOP5": {
     "EN": "New top-5 entrant",
     "FR": "Nouveau entrant top 5",
@@ -2607,6 +2642,26 @@
     "EN": "Concentration score (HHI)",
     "FR": "Score de concentration (IHH)",
     "DE": "Konzentrationsgrad (HHI)"
+  },
+  "INS_CONC_CHANGE": {
+    "EN": "Concentration change",
+    "FR": "Variation de concentration",
+    "DE": "Konzentrationsänderung"
+  },
+  "INS_CONC_UP": {
+    "EN": "More concentrated than",
+    "FR": "Plus concentré qu'en",
+    "DE": "Stärker konzentriert als"
+  },
+  "INS_CONC_DOWN": {
+    "EN": "Less concentrated than",
+    "FR": "Moins concentré qu'en",
+    "DE": "Weniger konzentriert als"
+  },
+  "INS_CONC_FLAT": {
+    "EN": "Unchanged vs",
+    "FR": "Stable par rapport à",
+    "DE": "Unverändert ggü."
   },
   "INS_DIV": {
     "EN": "Diversification score",
@@ -2658,6 +2713,11 @@
     "FR": "Aucune donnée pour l'année précédente.",
     "DE": "Keine Daten für das Vorjahr verfügbar."
   },
+  "INS_NO_HISTORY": {
+    "EN": "No historical series available for the selected year.",
+    "FR": "Aucune série historique disponible pour l'année sélectionnée.",
+    "DE": "Keine historische Zeitreihe für das ausgewählte Jahr verfügbar."
+  },
   "INS_VS_PREV": {
     "EN": "vs",
     "FR": "par rapport à",
@@ -2702,6 +2762,71 @@
     "EN": "equally sized partners",
     "FR": "partenaires de taille égale",
     "DE": "gleichgroßen Partnern"
+  },
+  "INS_EU_NON_EU": {
+    "EN": "EU vs non-EU share",
+    "FR": "Part UE vs hors UE",
+    "DE": "EU- vs Nicht-EU-Anteil"
+  },
+  "INS_EU_NON_EU_SUB": {
+    "EN": "EU / non-EU",
+    "FR": "UE / hors UE",
+    "DE": "EU / Nicht-EU"
+  },
+  "INS_PP": {
+    "EN": "pp",
+    "FR": "pts",
+    "DE": "Pkt."
+  },
+  "INS_HISTORY_SPAN": {
+    "EN": "History span",
+    "FR": "Période couverte",
+    "DE": "Historische Spanne"
+  },
+  "INS_HISTORY_YEARS": {
+    "EN": "years with reported trade",
+    "FR": "années avec échanges déclarés",
+    "DE": "Jahre mit gemeldetem Handel"
+  },
+  "INS_HIST_PEAK": {
+    "EN": "Historical peak",
+    "FR": "Pic historique",
+    "DE": "Historischer Höchstwert"
+  },
+  "INS_CURRENT_VS_PEAK": {
+    "EN": "Current vs peak",
+    "FR": "Année sélectionnée vs pic",
+    "DE": "Ausgewähltes Jahr vs Höchstwert"
+  },
+  "INS_PEAK_REF": {
+    "EN": "peak",
+    "FR": "pic",
+    "DE": "Höchstwert"
+  },
+  "INS_RECENT_AVG": {
+    "EN": "Current vs recent average",
+    "FR": "Année sélectionnée vs moyenne récente",
+    "DE": "Ausgewähltes Jahr vs jüngerer Durchschnitt"
+  },
+  "INS_AVERAGE": {
+    "EN": "average",
+    "FR": "moyenne",
+    "DE": "Durchschnitt"
+  },
+  "INS_TOP_STREAK": {
+    "EN": "Top partner streak",
+    "FR": "Série du premier partenaire",
+    "DE": "Serie des Hauptpartners"
+  },
+  "INS_STREAK_YEARS": {
+    "EN": "consecutive years as #1",
+    "FR": "années consécutives comme n°1",
+    "DE": "aufeinanderfolgende Jahre auf Platz 1"
+  },
+  "INS_SINCE": {
+    "EN": "since",
+    "FR": "depuis",
+    "DE": "seit"
   },
   "INS_CHURN_NEW": {
     "EN": "New partners",
@@ -2787,5 +2912,45 @@
     "EN": "indicating",
     "FR": "ce qui indique une",
     "DE": "was auf"
+  },
+  "INS_NAR_AHEAD_OF": {
+    "EN": "ahead of",
+    "FR": "devant",
+    "DE": "vor"
+  },
+  "INS_NAR_VS": {
+    "EN": "vs",
+    "FR": "par rapport à",
+    "DE": "ggü."
+  },
+  "INS_NAR_CONC_UP": {
+    "EN": "concentration increased",
+    "FR": "la concentration a augmenté",
+    "DE": "die Konzentration stieg"
+  },
+  "INS_NAR_CONC_DOWN": {
+    "EN": "concentration eased",
+    "FR": "la concentration s'est atténuée",
+    "DE": "die Konzentration nahm ab"
+  },
+  "INS_NAR_CONC_FLAT": {
+    "EN": "concentration was stable",
+    "FR": "la concentration est restée stable",
+    "DE": "die Konzentration blieb stabil"
+  },
+  "INS_NAR_SHARE_GAIN": {
+    "EN": "largest share gain",
+    "FR": "le plus fort gain de part",
+    "DE": "der größte Anteilsgewinn"
+  },
+  "INS_NAR_SHARE_LOSS": {
+    "EN": "largest share loss",
+    "FR": "la plus forte perte de part",
+    "DE": "der größte Anteilsverlust"
+  },
+  "INS_NAR_CAME_FROM": {
+    "EN": "came from",
+    "FR": "provient de",
+    "DE": "kam von"
   }
 }

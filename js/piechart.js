@@ -66,6 +66,7 @@ async function piechartdata() {
    piedata = [];
 
   const d = await chartApiCall();
+  const selectedYearValues = getPartnerValuesForYear(d, REF.year);
 
   if (d === null) {
     return []; 
@@ -75,8 +76,9 @@ async function piechartdata() {
 
   // Filter out excluded partners and values of 0 or less
   const data = indicator.map((indicator, index) => {
-    if (!excludedPartners.includes(indicator) && d.value[index] > 0) {
-      return {name: languageNameSpace.labels[indicator], y: d.value[index]};    
+    const value = Number(selectedYearValues[index]);
+    if (!excludedPartners.includes(indicator) && !isNaN(value) && value > 0) {
+      return {name: languageNameSpace.labels[indicator], y: value};    
     }
     return null;
   }).filter(partner => partner !== null);

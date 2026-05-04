@@ -330,16 +330,12 @@ async function loadCountryData(country) {
   // Assuming chartApiCall returns an object with a 'value' property
   let d = await chartApiCall();
 
-  let values = d.value.map(v => Number(v));
-  let allZero = values.every(value => !isNaN(value) && value === 0);
-  let allNull = d.value.every(value => value === null);
-  let allUndefined = d.value.every(value => typeof value === 'undefined');
+  let partners = countriesDataHandler(d);
 
-  if (allZero || allNull || allUndefined) {
+  if (!partners.length) {
     // Delegate to the shared popup helper (also calls clearMap and manages focus).
     showNoDataPopup();
   } else {
-    let partners = countriesDataHandler(d);
     countryInfo(country);
     await drawLines(country, partners);
     getTitle();
@@ -392,11 +388,12 @@ function countriesDataHandler(d) {
   }
 
   const partnerIds = d.Dimension("partner").id;
+  const selectedYearValues = getPartnerValuesForYear(d, REF.year);
 
   const MIN_LINE_VALUE = 0.5; // use 0.001 or 0.1 to avoid tiny lines if needed
 
   let partners = partnerIds.map((currentPartnerId, index) => {
-    let raw = d.value[index];
+    let raw = selectedYearValues[index];
     if (raw === null || raw === undefined || raw === '' || raw <= 0) return null;
 
     const numericValue = Number(raw);
