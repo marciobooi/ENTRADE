@@ -390,6 +390,11 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 		title = `${dataset} - ${geoLabel} ${time}`;
 		subtitle = "";
 		break;
+	  case "tableChart":
+		chartTitle = `${geoLabel}, ${dataset} (${unitAbbr}), ${time}`;
+		title = `${dataset} - ${geoLabel} ${time}`;
+		subtitle = "";
+		break;
 	  default:    	 	 
 	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}), ${time}`;
 	  title = `${dataset} - ${geoLabel} ${time}`;

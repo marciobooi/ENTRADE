@@ -12,7 +12,7 @@ async function createTableChart() {
 
   const title = document.createElement("h2");
   title.classList.add("tableTitle");
-  title.textContent = getTitle();
+  title.innerHTML = getTitle();
 
   // Create a new table element
   const table = document.createElement("table");

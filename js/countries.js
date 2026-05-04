@@ -374,6 +374,7 @@ async function openFactSheet(country) {
   mapContainer.style.display = 'none';
 
   // initialize content
+  REF.chart = "tableChart";
   addChartOptions();
   await createTableChart();
   getTitle();
