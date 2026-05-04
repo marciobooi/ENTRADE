@@ -1,47 +1,28 @@
 {
 	"START_TOUR_TITLE": "Tutorial",
 	"START_TOUR_TEXT": "Welcome to the tutorial of Eurostat's Energy trade visualization tool. This guided tour will show you the main ways of interacting with the tool.",
-	
-	
 	"STEP0_TITLE": "Map view",
 	"STEP0_TEXT": "The map view is the default view of the tool. It shows the energy trade flows between countries. Click on a country to see detailed information regarding its energy trade.",
-	
-	
 	"STEP1_TITLE": "Menu",
 	"STEP1_TEXT": "The tool contains a menu for additional features. Click on the menu icon to customize the map view. Click next to learn about the menu options.",
-	
-	
-	"STEP2_TITLE": "select trade feature",
+	"STEP2_TITLE": "Select trade feature",
 	"STEP2_TEXT": "Use this option to change between imports and exports.",
-
 	"STEP3_TITLE": "Select the fuel type",
 	"STEP3_TEXT": "Use this option to change between different fuel types, coal, gas, oil, electricity/heat and biofuels.",
-	
-	"STEP4_TITLE":"Select the sub-fuel type",
-	"STEP4_TEXT":"Use this option to change between different sub-fuels when avalable.",
-	
+	"STEP4_TITLE": "Select the sub-fuel type",
+	"STEP4_TEXT": "Use this option to change between different sub-fuels when available.",
 	"STEP5_TITLE": "Select year",
-	"STEP5_TEXT": "Use this option to change between different years..",	
-	
-	
+	"STEP5_TEXT": "Use this option to change between different years.",
 	"STEP6_TITLE": "Select unit",
-	"STEP6_TEXT": "Use this option to change between different units when avalable.",	
-
-
-
-
-
+	"STEP6_TEXT": "Use this option to change between different units when available.",
 	"STEP7_TITLE": "Filter feature",
-	"STEP7_TEXT": "Use this option to filter the countries, top 5, top 10, top 25 or all countries.",	
+	"STEP7_TEXT": "Use this option to filter the countries, top 5, top 10, top 25 or all countries.",
 	"STEP8_TITLE": "Definitions",
-	"STEP8_TEXT" : "Whenever you see this icon, click on it to learn more. The Eurostat visualization tool for the energy trade is linked to definitions, metadata and data sets.",    
-	"STEP9_TITLE": "embed",
+	"STEP8_TEXT": "Whenever you see this icon, click on it to learn more. The Eurostat visualization tool for the energy trade is linked to definitions, metadata and data sets.",
+	"STEP9_TITLE": "Embed",
 	"STEP9_TEXT": "Use this option to embed the visualization in your website.",
 	"STEP10_TITLE": "Share",
 	"STEP10_TEXT": "Use this option to share the visualization in social media or email.",
-
-
-	
 	"STEP11_TITLE": "Select Language",
 	"STEP11_TEXT": "Use this option to select French, English or German.",
 	"STEP12_TITLE": "That is it for our tour.",
