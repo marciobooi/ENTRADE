@@ -1,6 +1,5 @@
-let buttonTimer;
-let currentStep;
-let isOpen = false
+let isOpen = false;
+let driverObj = null;
 
 function setCookie(name, value, days = 30) {
     const date = new Date();
@@ -15,7 +14,7 @@ function getCookie(name) {
     const cookieArray = decodedCookie.split(';');
     for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i].trim();
-        if (cookie.indexOf(nameEQ) == 0) return cookie.substring(nameEQ.length, cookie.length);
+        if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
     }
     return null;
 }
@@ -23,254 +22,148 @@ function getCookie(name) {
 function checkAndShowTutorial() {
     const tutorialCookie = getCookie("tutorialShown");
     if (!tutorialCookie) {
-        // If the cookie doesn't exist, show the tutorial and set the cookie
         setTimeout(() => {
-            tutorial(); // Function to show the tutorial
-            setCookie("tutorialShown", "true", 30); // Set cookie for 30 days
+            tutorial();
+            setCookie("tutorialShown", "true", 30);
         }, 600);
     }
 }
 
-function tutorial(buttonTimer) {
+function closeAllDropdowns() {
+    // Close ECL dropdown menus (info button, share button)
+    document.querySelectorAll(".ecl-dropdown-menu.show").forEach((menu) => {
+        menu.classList.remove("show");
+        const btn = menu.previousElementSibling;
+        if (btn) btn.setAttribute("aria-expanded", "false");
+    });
 
-	closeTutorial()
+    // Close language dropdown
+    const langContainer = document.querySelector(".ecl-site-header__language-container.visible");
+    if (langContainer) {
+        langContainer.classList.remove("visible");
+        const langBtn = document.querySelector("#toggleLanguageBtn");
+        if (langBtn) langBtn.setAttribute("aria-expanded", "false");
+    }
 
-	const introProfile = introJs();
+    // Close chart options menu (absent toggleMenu class = open)
+    const chartOptionsMenu = document.querySelector("#chartOptionsMenu:not(.toggleMenu)");
+    if (chartOptionsMenu) {
+        chartOptionsMenu.classList.add("toggleMenu");
+        const menuBtn = document.querySelector("#menu");
+        if (menuBtn) menuBtn.classList.remove("menuOpen");
+    }
+}
 
-	const itens = [
-    {
-      title: languageNameSpace.tutorial["START_TOUR_TITLE"],
-      intro: languageNameSpace.tutorial["START_TOUR_TEXT"],
-    },
-    {
-      element: document.querySelector("#focus411"),
-      title: languageNameSpace.tutorial["STEP1_TITLE"],
-      intro: languageNameSpace.tutorial["STEP1_TEXT"],
-      position: "auto",
-    },
-    {
-      element: document.querySelector(".wt-map-menu"),
-      title: languageNameSpace.tutorial["STEP1_TITLE"],
-      intro: languageNameSpace.tutorial["STEP1_TEXT"],
-      position: "auto",
-    },
-    {
-      element: document.querySelector("#menu"),
-      title: languageNameSpace.tutorial["STEP1_TITLE"],
-      intro: languageNameSpace.tutorial["STEP1_TEXT"],
-      position: "auto",
-    },
-    {
-      element: document.querySelector("#infoBtnChart"),
-      title: languageNameSpace.tutorial["STEP6_TITLE"],
-      intro: languageNameSpace.tutorial["STEP6_TEXT"],
-      position: "auto",
-    },
-    // {
-    //   element: document.querySelector(".wtfooter"),
-    //   title: languageNameSpace.tutorial["STEP7_TITLE"],
-    //   intro: languageNameSpace.tutorial["STEP7_TEXT"],
-    //   position: 'auto'
-    // },
-    {
-      element: document.querySelector("#toggleLanguageBtn"),
-      title: languageNameSpace.tutorial["STEP8_TITLE"],
-      intro: languageNameSpace.tutorial["STEP8_TEXT"],
-      position: "auto",
-    },
-    {
-      element: document.querySelector("#social-media"),
-      title: languageNameSpace.tutorial["STEP9_TITLE"],
-      intro: languageNameSpace.tutorial["STEP9_TEXT"],
-    },
-  ];
+function tutorial() {
+    closeAllDropdowns();
+    closeTutorial();
 
+    const { driver } = window.driver.js;
 
+    const steps = [
+        {
+            popover: {
+                title: languageNameSpace.tutorial["START_TOUR_TITLE"],
+                description: languageNameSpace.tutorial["START_TOUR_TEXT"],
+                showButtons: ["next", "close"],
+            },
+        },
+        {
+            element: "#focus411",
+            popover: {
+                title: languageNameSpace.tutorial["STEP1_TITLE"],
+                description: languageNameSpace.tutorial["STEP1_TEXT"],
+            },
+        },
+        {
+            element: ".wt-map-menu",
+            popover: {
+                title: languageNameSpace.tutorial["STEP1_TITLE"],
+                description: languageNameSpace.tutorial["STEP1_TEXT"],
+            },
+        },
+        {
+            element: "#menu",
+            popover: {
+                title: languageNameSpace.tutorial["STEP1_TITLE"],
+                description: languageNameSpace.tutorial["STEP1_TEXT"],
+            },
+        },
+        {
+            element: "#infoBtnChart",
+            popover: {
+                title: languageNameSpace.tutorial["STEP6_TITLE"],
+                description: languageNameSpace.tutorial["STEP6_TEXT"],
+            },
+        },
+        {
+            element: "#toggleLanguageBtn",
+            popover: {
+                title: languageNameSpace.tutorial["STEP8_TITLE"],
+                description: languageNameSpace.tutorial["STEP8_TEXT"],
+            },
+        },
+        {
+            element: "#social-media",
+            popover: {
+                title: languageNameSpace.tutorial["STEP9_TITLE"],
+                description: languageNameSpace.tutorial["STEP9_TEXT"],
+            },
+        },
+    ];
 
-	introProfile.setOptions({
-		showProgress: false,
-		scrollToElement: false,
-		showBullets: false,
-		autoPosition:false,
-		tooltipClass: "customTooltip",
-		exitOnEsc: true,
-		nextLabel:  languageNameSpace.labels['tutNEXT'],
-		prevLabel: languageNameSpace.labels['tutBACK'],
-		doneLabel: languageNameSpace.labels['tutFINISH'],
-		steps: itens
-	  });  	 
-	  
-	introProfile.onexit(() => { window.scrollTo(0, 0) });
-	
-		  const observer = new MutationObserver(() => {
-        // Locate the tooltip and title elements
-        const tooltip = document.querySelector(".introjs-tooltip");
-        const currentStep = introProfile._currentStep;
+    driverObj = driver({
+        showProgress: false,
+        smoothScroll: false,
+        allowKeyboardControl: true,
+        popoverClass: "customTooltip",
+        nextBtnText: languageNameSpace.labels['tutNEXT'],
+        prevBtnText: languageNameSpace.labels['tutBACK'],
+        doneBtnText: languageNameSpace.labels['tutFINISH'],
+        steps,
+        onPopoverRender: (popover, { state }) => {
+            // Set unique per-step id so aria-labelledby on the popover wrapper is accurate
+            const idx = state.activeIndex ?? 0;
+            const titleId = `driver-title-${idx}`;
+            if (popover.title) {
+                popover.title.id = titleId;
+                popover.wrapper.setAttribute('aria-labelledby', titleId);
+            }
+        },
+        onDestroyed: () => {
+            window.scrollTo(0, 0);
+            isOpen = false;
+            driverObj = null;
+            const infoBtn = document.querySelector("button#INFO");
+            if (infoBtn) infoBtn.focus();
+        },
+    });
 
-        if (tooltip && itens[currentStep].title) {
-          const titleId = `introjs-title-${currentStep}`;
-
-          const titleElement = tooltip.querySelector(".introjs-tooltip-title");
-          if (titleElement) {
-            titleElement.id = titleId;
-            tooltip.setAttribute("aria-labelledby", titleId);
-          }
-        }
-      });
-
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
-
-	  introProfile.start();
-  
-	  isOpen = true
-
-	  introProfile.onchange(() => {
-
-		currentStep = this._currentStep
-
-		if (currentStep === 0) {
-			const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
-			if (prevButton) {
-				prevButton.textContent = languageNameSpace.labels['tutFINISH'];
-				setTimeout(() => {
-					const disabledButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton.introjs-disabled");
-					if (disabledButton) {
-						disabledButton.classList.add("close");
-					}
-				}, 100);
-			}
-		} else {
-			const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
-			if (prevButton) {
-				prevButton.textContent = languageNameSpace.labels['tutBACK'];
-				prevButton.classList.remove("close");
-			}
-
-			const autoTooltip = document.querySelector(".introjs-tooltip.customTooltip.introjs-auto");
-			if (autoTooltip) {
-				autoTooltip.style.left = "50% !important";
-				autoTooltip.style.top = "50%";
-				autoTooltip.style.marginLeft = "auto";
-				autoTooltip.style.marginTop = "auto";
-				autoTooltip.style.transform = "translate(-50%,-50%)";
-			}
-		}
-
-	  });
-
-	const closeHeaderBtn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltip-header > a");
-	if (closeHeaderBtn) {
-		closeHeaderBtn.setAttribute("alt", "Close");
-		closeHeaderBtn.setAttribute("id", "tutorialClose");
-		closeHeaderBtn.setAttribute("tabindex", "0");
-		closeHeaderBtn.setAttribute("href", "#");
-                closeHeaderBtn.setAttribute("class", "ecl-button ecl-button--secondary min-with--nav");
-	}
-
-	traptutorialfocus();
-
+    driverObj.drive();
+    isOpen = true;
 }
 
 function closeTutorial() {
-	buttonTimer = setTimeout(() => { introJs().exit(); }, 4000);	
-	isOpen = false;
-	const infoBtn = document.querySelector("button#INFO");
-	if (infoBtn) infoBtn.focus();
-}
-
-const btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton");
-if (btn) {
-	btn.addEventListener('click', () => {
-		clearTimeout(buttonTimer);	
-	});
+    if (driverObj) {
+        driverObj.destroy();
+        // driverObj is nulled out inside onDestroyed
+    }
+    isOpen = false;
 }
 
 function closeProcess(event) {
-	event.preventDefault();
-	introJs().exit();
-	buttonTimer = setTimeout(() => { introJs().exit(); }, 4000);
-	clearTimeout(buttonTimer);
-	isOpen = false;
-	const infoBtn = document.querySelector("button#INFO");
-	if (infoBtn) infoBtn.focus();
+    if (event) event.preventDefault();
+    closeTutorial();
 }
 
-const tutorialCloseBtn = document.querySelector("#tutorialClose");
-if (tutorialCloseBtn) {
-	tutorialCloseBtn.addEventListener("click", (event) => {
-		closeProcess(event);
-	});
-
-	tutorialCloseBtn.addEventListener("keydown", (event) => {
-		if (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13) {
-			closeProcess(event);
-		}
-	});
-}
-
-document.addEventListener("click", function(event) {
-	if (event.target && event.target.classList.contains("close")) {
-		closeProcess(event);
-	}
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.classList.contains("close")) {
+        closeProcess(event);
+    }
 });
 
-document.addEventListener("keydown", function(event) {
-	if (event.target && event.target.classList.contains("close")) {
-		if (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13) {
-			closeProcess(event);
-		}
-	}
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && isOpen) {
+        closeProcess(event);
+    }
 });
-
-document.addEventListener('keydown', function(event) {
-	if (event.key === 'Escape') {
-		if(isOpen){
-			closeProcess(event);
-		} 
-	}
-});
-
-
-
-  function traptutorialfocus() {	
-
-	const focusableElements = '.introjs-tooltip.customTooltip.introjs-floating a[role="button"][tabindex="0"]:not([tabindex="-1"])';
-	const element = document.querySelector('.introjs-tooltip.customTooltip.introjs-floating');
-  
-	if (element) {
-	  const focusableContent = element.querySelectorAll(focusableElements);
-	  const firstFocusableElement = focusableContent[0];
-	  const lastFocusableElement = focusableContent[focusableContent.length - 1];
-  
-	  document.addEventListener('keydown', function (e) {
-		const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
-  
-		if (!isTabPressed) {
-		  return;
-		}
-  
-		if (e.shiftKey) {
-		  if (document.activeElement === firstFocusableElement) {
-			lastFocusableElement.focus();
-			e.preventDefault();
-		  }
-		} else {
-		  if (document.activeElement === lastFocusableElement) {
-			firstFocusableElement.focus();
-			e.preventDefault();
-		  }
-		}
-	  });
-  
-	  // Set initial focus on the first focusable element
-	  if (focusableContent.length > 0) {
-		firstFocusableElement.focus();
-	  }
-	}
-  };
-  
-
-
