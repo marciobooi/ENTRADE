@@ -799,3 +799,7 @@ ul#footerCredits {
     outline: 3px solid #0b39a2;
     outline-offset: 2px;
 }
+
+#wt-button-print {
+    display: none;
+}
