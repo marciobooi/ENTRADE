@@ -965,6 +965,110 @@ ul#footerCredits {
   font-size: 0.83rem;
 }
 
+.insights-rank-table [hidden] {
+  display: none !important;
+}
+
+.insights-rank-table__header--rank,
+.insights-rank-table__cell--rank {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.insights-rank-table__header--numeric,
+.insights-rank-table__cell--numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.insights-rank-table__row--top {
+  background: rgba(11, 57, 162, 0.04);
+}
+
+.insights-rank-table__row--top .insights-rank-table__cell--partner {
+  font-weight: 700;
+}
+
+.insights-rank-table-toggle {
+  margin-top: 0.65rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #b8c6e3;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--tool-1);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.insights-rank-table-toggle:hover,
+.insights-rank-table-toggle:focus-visible {
+  border-color: var(--tool-1);
+  background: #eef1fb;
+  outline: none;
+}
+
+.insights-rank-cards {
+  display: none;
+}
+
+.insights-rank-card {
+  border: 1px solid #dce3f0;
+  border-radius: 6px;
+  background: #fff;
+  padding: 0.75rem 0.8rem;
+}
+
+.insights-rank-card--top {
+  border-left: 3px solid var(--tool-1);
+}
+
+.insights-rank-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+  margin-bottom: 0.55rem;
+}
+
+.insights-rank-card__rank {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4c5563;
+}
+
+.insights-rank-card__partner {
+  color: var(--tool-1);
+  text-align: right;
+}
+
+.insights-rank-card__stats {
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.insights-rank-card__stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.insights-rank-card__stat dt {
+  margin: 0;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4c5563;
+}
+
+.insights-rank-card__stat dd {
+  margin: 0;
+  text-align: right;
+}
+
 .insights-mini-profile {
   display: flex;
   flex-wrap: wrap;
@@ -1007,6 +1111,12 @@ ul#footerCredits {
   margin-bottom: 0.45rem;
 }
 
+.insights-history-trend__meta {
+  margin-left: 0.45rem;
+  font-weight: 400;
+  color: #5f6978;
+}
+
 .insights-sparkline {
   color: var(--tool-1);
 }
@@ -1033,6 +1143,12 @@ ul#footerCredits {
   fill: #fff;
   stroke: currentColor;
   stroke-width: 2;
+}
+
+.insights-sparkline__point--peak {
+  fill: currentColor;
+  opacity: 0.45;
+  stroke: none;
 }
 
 .insights-sparkline__axis {
@@ -1102,4 +1218,21 @@ ul#footerCredits {
   color: #888;
   font-style: italic;
   margin: 0;
+}
+
+@media (max-width: 640px) {
+  .insights-rank-table-wrapper {
+    overflow-x: hidden;
+  }
+
+  .insights-rank-table {
+    display: none;
+  }
+
+  .insights-rank-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+  }
 }

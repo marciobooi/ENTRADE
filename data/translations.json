@@ -2538,6 +2538,16 @@
     "FR": "Valeur totale du commerce",
     "DE": "Gesamthandelswert"
   },
+  "INS_TOTAL_IMPORTS": {
+    "EN": "Total imports",
+    "FR": "Importations totales",
+    "DE": "Gesamtimporte"
+  },
+  "INS_TOTAL_EXPORTS": {
+    "EN": "Total exports",
+    "FR": "Exportations totales",
+    "DE": "Gesamtexporte"
+  },
   "INS_TOP_PARTNER": {
     "EN": "Top partner",
     "FR": "Premier partenaire",
@@ -2547,6 +2557,11 @@
     "EN": "Top 3 share",
     "FR": "Part du top 3",
     "DE": "Anteil Top 3"
+  },
+  "INS_TOP3_SHORT": {
+    "EN": "Top 3",
+    "FR": "Top 3",
+    "DE": "Top 3"
   },
   "INS_TOP1": {
     "EN": "Top 1",
@@ -2592,6 +2607,11 @@
     "EN": "Partner",
     "FR": "Partenaire",
     "DE": "Partner"
+  },
+  "INS_RANK": {
+    "EN": "Rank",
+    "FR": "Rang",
+    "DE": "Rang"
   },
   "INS_VALUE": {
     "EN": "Value",
@@ -2658,6 +2678,16 @@
     "FR": "Aucun partenaire n'a perdu de part",
     "DE": "Kein Partner verlor Anteil"
   },
+  "INS_TOP5_ENTRIES": {
+    "EN": "Top-5 entries",
+    "FR": "Entrées dans le top 5",
+    "DE": "Top-5-Eintritte"
+  },
+  "INS_TOP5_EXITS": {
+    "EN": "Top-5 exits",
+    "FR": "Sorties du top 5",
+    "DE": "Top-5-Austritte"
+  },
   "INS_NEW_TOP5": {
     "EN": "New top-5 entrant",
     "FR": "Nouveau entrant top 5",
@@ -2672,6 +2702,36 @@
     "EN": "Rank movement (top 5)",
     "FR": "Mouvement de classement (top 5)",
     "DE": "Rangveränderung (Top 5)"
+  },
+  "INS_RANK_UP_ARIA": {
+    "EN": "Moved up {count} {placeWord}",
+    "FR": "A gagné {count} {placeWord}",
+    "DE": "Um {count} {placeWord} gestiegen"
+  },
+  "INS_RANK_DOWN_ARIA": {
+    "EN": "Moved down {count} {placeWord}",
+    "FR": "A perdu {count} {placeWord}",
+    "DE": "Um {count} {placeWord} gefallen"
+  },
+  "INS_RANK_PLACE_SINGULAR": {
+    "EN": "place",
+    "FR": "place",
+    "DE": "Platz"
+  },
+  "INS_RANK_PLACE_PLURAL": {
+    "EN": "places",
+    "FR": "places",
+    "DE": "Plätze"
+  },
+  "INS_RANK_SAME_ARIA": {
+    "EN": "No rank change",
+    "FR": "Aucun changement de rang",
+    "DE": "Keine Rangänderung"
+  },
+  "INS_RANK_NEW_ARIA": {
+    "EN": "New entrant",
+    "FR": "Nouvel entrant",
+    "DE": "Neuer Einsteiger"
   },
   "INS_HHI": {
     "EN": "Concentration score (HHI)",
@@ -2823,10 +2883,30 @@
     "FR": "Les métriques sont calculées en utilisant tous les pays partenaires disponibles pour l'année sélectionnée.",
     "DE": "Die Metriken werden auf Basis aller verfügbaren Partnerländer für das ausgewählte Jahr berechnet."
   },
+  "INS_DATA_NOTE_THRESHOLD": {
+    "EN": "Metrics are calculated using partners with reported {direction} of at least {threshold} {unit} for the selected year. Changes versus the previous year use the same rule.",
+    "FR": "Les métriques sont calculées à partir des partenaires ayant des {direction} déclarés d'au moins {threshold} {unit} pour l'année sélectionnée. Les variations par rapport à l'année précédente utilisent la même règle.",
+    "DE": "Die Metriken werden anhand von Partnern mit gemeldeten {direction} von mindestens {threshold} {unit} für das ausgewählte Jahr berechnet. Veränderungen gegenüber dem Vorjahr verwenden dieselbe Regel."
+  },
   "INS_HHI_NOTE": {
-    "EN": "Higher values indicate more dependence on fewer partners.",
-    "FR": "Des valeurs plus élevées indiquent une dépendance accrue à un nombre réduit de partenaires.",
-    "DE": "Höhere Werte bedeuten eine stärkere Abhängigkeit von weniger Partnern."
+    "EN": "Higher values indicate a more concentrated supplier base.",
+    "FR": "Des valeurs plus élevées indiquent une base de fournisseurs plus concentrée.",
+    "DE": "Höhere Werte deuten auf eine stärker konzentrierte Lieferantenbasis hin."
+  },
+  "INS_TABLE_CAPTION": {
+    "EN": "{ranking} for {geo} {product} {direction} in {year}, including share change and rank change versus {prevYear}.",
+    "FR": "{ranking} pour {geo} {product} {direction} en {year}, avec évolution de part et de rang par rapport à {prevYear}.",
+    "DE": "{ranking} für {geo} {product} {direction} im Jahr {year}, einschließlich Anteils- und Rangänderung gegenüber {prevYear}."
+  },
+  "INS_SHOW_ALL_PARTNERS": {
+    "EN": "Show all partners ({count})",
+    "FR": "Afficher tous les partenaires ({count})",
+    "DE": "Alle Partner anzeigen ({count})"
+  },
+  "INS_SHOW_TOP_N": {
+    "EN": "Show top {count}",
+    "FR": "Afficher le top {count}",
+    "DE": "Top {count} anzeigen"
   },
   "INS_EFF_PARTNERS_FULL": {
     "EN": "Equivalent to about",
@@ -2854,9 +2934,9 @@
     "DE": "Lieferantenumschlagsrate"
   },
   "INS_TURNOVER_NOTE": {
-    "EN": "Share of the active partner roster that changed vs previous year",
-    "FR": "Part du portefeuille de partenaires actifs qui a changé par rapport à l'année précédente",
-    "DE": "Anteil des aktiven Partnerbestands, der sich ggü. dem Vorjahr verändert hat"
+    "EN": "Calculated from partner entries and exits relative to the average active roster size across the two years",
+    "FR": "Calculé à partir des entrées et sorties de partenaires par rapport à la taille moyenne du portefeuille actif sur les deux années",
+    "DE": "Berechnet aus Partnerzugängen und -abgängen im Verhältnis zur durchschnittlichen Größe des aktiven Partnerbestands über beide Jahre"
   },
   "INS_EU_NON_EU": {
     "EN": "EU vs non-EU share",
@@ -2872,6 +2952,11 @@
     "EN": "pp",
     "FR": "pts",
     "DE": "Pkt."
+  },
+  "INS_PP_FULL": {
+    "EN": "percentage points",
+    "FR": "points de pourcentage",
+    "DE": "Prozentpunkte"
   },
   "INS_HISTORY_SPAN": {
     "EN": "History span",
@@ -3009,7 +3094,7 @@
     "DE": "der/die/das"
   },
   "INS_NAR_TOP3": {
-    "EN": "The top 3 partners represented",
+    "EN": "The top 3 partners accounted for",
     "FR": "Les 3 premiers partenaires représentaient",
     "DE": "Die 3 wichtigsten Partner machten"
   },
@@ -3024,7 +3109,7 @@
     "DE": "vor"
   },
   "INS_NAR_VS": {
-    "EN": "vs",
+    "EN": "versus",
     "FR": "par rapport à",
     "DE": "ggü."
   },
