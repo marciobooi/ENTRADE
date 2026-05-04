@@ -263,6 +263,13 @@ function renderMap() {
               });
             }
 
+            // Remove interactive attributes from non-clickable country paths.
+            // Webtools adds role="button" + tabindex="0" to every Leaflet path;
+            // non-defGeos paths (e.g. Russia) have huge bounding boxes that the
+            // browser counts as interactive neighbours, shrinking the safe
+            // touch-target space around nearby UI buttons to < 24 px (WCAG 2.5.8).
+            neutralizeNonInteractivePaths();
+
       }, 500);
   });
 }
@@ -617,6 +624,8 @@ function drawLines(sourceCountry, partners) {
           styleCountry(m.options._partnerCountry);
         }
       });
+      // Leaflet recreates path elements on zoom — re-neutralize non-interactive paths
+      neutralizeNonInteractivePaths();
     }, 120);
   }
 
@@ -770,6 +779,32 @@ function clearMarkers() {
 
   markers.forEach(marker => map.removeLayer(marker));
   markers.length = 0;
+}
+
+// Remove role="button" / tabindex="0" from country paths that are NOT in defGeos.
+// Webtools/Leaflet adds these attributes to every country path; non-interactive
+// paths (e.g. Russia, China) have huge bounding boxes that the browser counts as
+// interactive neighbours, collapsing the safe touch-target space around nearby
+// UI buttons below the WCAG 2.5.8 minimum of 24 px.
+function neutralizeNonInteractivePaths() {
+  const geoLabelSet = new Set(defGeos.map(key => languageNameSpace.labels[key]));
+
+  // Only target paths created by webtools (leaflet-interactive), not our own
+  // curve / marker paths which must remain focusable.
+  document.querySelectorAll('path.leaflet-interactive').forEach(path => {
+    if (path.classList.contains('map-curve') ||
+        path.classList.contains('map-marker') ||
+        path.classList.contains('marker')) return;
+
+    const label = (path.getAttribute('aria-label') || '').trim();
+    if (!geoLabelSet.has(label)) {
+      // Strip interactive attributes so the element is invisible to AT and
+      // not counted as an interactive neighbour by touch-target audits.
+      path.setAttribute('tabindex', '-1');
+      path.setAttribute('aria-hidden', 'true');
+      path.removeAttribute('role');
+    }
+  });
 }
 
 // Reusable helper: apply correct fill colours to all country paths in one DOM pass.
