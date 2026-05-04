@@ -555,14 +555,17 @@ function showNoDataPopup(message = languageNameSpace.labels['NODATA'], duration 
   // avoid duplicates
   if (document.querySelector('.alert-popup')) return;
 
+  // role="alert" triggers an assertive live-region announcement so screen readers
+  // immediately read the message without waiting for a natural pause (role="status"
+  // uses polite/"wait", which is too passive for a "no data" error state).
   const content = /*html*/ `
-    <div class="alert-popup" role="status" aria-live="polite">
+    <div class="alert-popup" role="alert">
       <div style="display: flex; align-items: center; margin-right: 16px;">
         <i class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;" aria-hidden="true"></i>
         <p style="display: inline-block; margin: 0;">${message}</p>
       </div>
       <div>
-        <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close">
+        <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close notification">
           <i class="fas fa-times" aria-hidden="true"></i>
         </button>
       </div>
@@ -571,9 +574,16 @@ function showNoDataPopup(message = languageNameSpace.labels['NODATA'], duration 
 
   document.body.insertAdjacentHTML('beforeend', content);
 
+  // Save the element that triggered the popup so focus can be restored after dismissal.
+  const previouslyFocused = document.activeElement;
+
   const removeAlertPopup = () => {
     const popup = document.querySelector('.alert-popup');
     if (popup) popup.remove();
+    // Return focus so keyboard users don't lose their position in the page.
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      previouslyFocused.focus();
+    }
   };
 
   // auto-dismiss
@@ -585,6 +595,8 @@ function showNoDataPopup(message = languageNameSpace.labels['NODATA'], duration 
       clearTimeout(timer);
       removeAlertPopup();
     });
+    // Move focus to the close button so keyboard users can dismiss it immediately.
+    closeBtn.focus();
   }
 }
 

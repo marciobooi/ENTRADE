@@ -30,47 +30,37 @@ function closeModalUrl(params) {
 
 
 function copyUrl() {
-    dataNameSpace.setRefURL()
-    var currentUrl = window.location.href;
-    
-    // Modify the "share" parameter to "true" in the URL
-    currentUrl = currentUrl.replace("share=false", "share=true");
-    
-    // Create a temporary input element
-    var tempInput = document.createElement("input");
-    tempInput.setAttribute("type", "text");
+    // Sync current state into the browser URL first
+    dataNameSpace.setRefURL();
 
-    // Create a text node with the iframe code and append it to the tempInput
-    var iframeCode = '<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="'+ currentUrl +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-    tempInput.appendChild(document.createTextNode(iframeCode));
+    // Build the embed URL by setting share=true via URLSearchParams so it is
+    // always appended reliably regardless of the current URL's query string.
+    const embedUrl = new URL(window.location.href);
+    embedUrl.searchParams.set('share', 'true');
 
-    document.body.appendChild(tempInput);
+    const iframeCode = '<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="' + embedUrl.toString() + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 
-    // Select the input content
-    tempInput.select();
-    tempInput.setSelectionRange(0, 99999); // For mobile devices
-
-    // Use the Clipboard API to copy the text to the clipboard
-    navigator.clipboard.writeText(iframeCode).then(function() {
-        // Success callback (optional)
-        // alert("URL copied to clipboard: " + currentUrl);
-    }).catch(function(error) {
-        // Error callback (optional)
+    navigator.clipboard.writeText(iframeCode).catch(function(error) {
         console.error("Unable to copy URL to clipboard: ", error);
     });
-
-    // Remove the temporary input element
-    document.body.removeChild(tempInput);
-    
 }
 
 function hideForIframe() {
-    if(REF.share == "true") {
-        document.querySelector("#body > header").style.display = 'none'
-        document.querySelector("#allContainer").style.display = 'none'
-        document.querySelector("#menuSwitch").style.display = 'none'
-        document.querySelector("#floatingMenu").style.display = 'none'
-        document.querySelector("#componentFooter").style.display = 'none'
-        document.querySelector(".highcharts-title").style.display = 'block'
-    }    
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('share') !== 'true') return;
+
+    const selectors = [
+        '#body > header',
+        '#allContainer',
+        '#menuSwitch',
+        '#floatingMenu',
+        '#componentFooter'
+    ];
+    selectors.forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el) el.style.display = 'none';
+    });
+
+    const chartTitle = document.querySelector('.highcharts-title');
+    if (chartTitle) chartTitle.style.display = 'block';
 }

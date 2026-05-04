@@ -15,6 +15,7 @@ fetch("data/data.json")
     coords.push(data);
     dataNameSpace.getRefURL()
     renderMap();
+    hideForIframe();
     if (REF.geo !== "") {
       fireOnStart(REF.geo)
     }

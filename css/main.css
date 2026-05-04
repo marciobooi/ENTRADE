@@ -774,3 +774,24 @@ ul#footerCredits {
 }
 
 
+.alert-popup {
+    /* fixed keeps the popup in the viewport regardless of scroll position */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: white;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 3px solid #0b39a2;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#closeAlertPopup:focus-visible {
+    outline: 3px solid #0b39a2;
+    outline-offset: 2px;
+}
