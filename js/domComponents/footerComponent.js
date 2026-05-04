@@ -22,20 +22,24 @@ class Footer {
     buildLinksFooter() {
       const footerCredits = document.querySelector('#footerCredits');
       footerCredits.innerHTML = '';
+      // Allowlist language code to prevent URL injection
+      const ALLOWED_LANGS = ['en', 'fr', 'de'];
+      const rawLang = (REF.language || 'en').toLowerCase();
+      const safeLang = ALLOWED_LANGS.includes(rawLang) ? rawLang : 'en';
       const linksContent = /*html*/`
       <li class="ecl-site-footer__list-item">
-      <a id="footer-privacy" href="https://ec.europa.eu/info/privacy-policy_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+      <a id="footer-privacy" href="https://ec.europa.eu/info/privacy-policy_${safeLang}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
       ${languageNameSpace.labels["PRIVACY"]}</a>
       </li>
       
       <li class="ecl-site-footer__list-item">
-        <a id="footer-legal" href="https://ec.europa.eu/info/legal-notice_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener"  class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        <a id="footer-legal" href="https://ec.europa.eu/info/legal-notice_${safeLang}" target="_self" rel="noreferrer noopener"  class="ecl-link ecl-link--standalone ecl-site-footer__link">
         ${languageNameSpace.labels["LEGAL"]}</a>
         </li>
       
 
       <li class="ecl-site-footer__list-item">
-        <a id="footer-cookies" href="https://ec.europa.eu/info/cookies_${REF.language.toLowerCase()}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        <a id="footer-cookies" href="https://ec.europa.eu/info/cookies_${safeLang}" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
         ${languageNameSpace.labels["COOKIES"]}</a>
         </li class="ecl-site-footer__list-item">
       

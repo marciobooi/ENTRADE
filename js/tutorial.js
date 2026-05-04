@@ -37,7 +37,7 @@ function tutorial(buttonTimer) {
 
 	const introProfile = introJs();
 
-	itens = [
+	const itens = [
     {
       title: languageNameSpace.tutorial["START_TOUR_TITLE"],
       intro: languageNameSpace.tutorial["START_TOUR_TEXT"],
@@ -100,7 +100,7 @@ function tutorial(buttonTimer) {
 		steps: itens
 	  });  	 
 	  
-	introProfile.onexit(function () { window.scrollTo(0, 0) });
+	introProfile.onexit(() => { window.scrollTo(0, 0) });
 	
 		  const observer = new MutationObserver(() => {
         // Locate the tooltip and title elements
@@ -127,7 +127,7 @@ function tutorial(buttonTimer) {
   
 	  isOpen = true
 
-	  introProfile.onchange(function () {
+	  introProfile.onchange(() => {
 
 		currentStep = this._currentStep
 
@@ -166,7 +166,7 @@ function tutorial(buttonTimer) {
 		closeHeaderBtn.setAttribute("alt", "Close");
 		closeHeaderBtn.setAttribute("id", "tutorialClose");
 		closeHeaderBtn.setAttribute("tabindex", "0");
-		closeHeaderBtn.setAttribute("href", "javascript:");
+		closeHeaderBtn.setAttribute("href", "#");
                 closeHeaderBtn.setAttribute("class", "ecl-button ecl-button--secondary min-with--nav");
 	}
 
@@ -239,8 +239,6 @@ document.addEventListener('keydown', function(event) {
 
 	const focusableElements = '.introjs-tooltip.customTooltip.introjs-floating a[role="button"][tabindex="0"]:not([tabindex="-1"])';
 	const element = document.querySelector('.introjs-tooltip.customTooltip.introjs-floating');
-
-	log(element)
   
 	if (element) {
 	  const focusableContent = element.querySelectorAll(focusableElements);

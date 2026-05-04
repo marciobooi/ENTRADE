@@ -102,8 +102,7 @@ class TooltipManager {
   switchMode(newMode, currentTooltip = null) {
     if (this.currentMode && this.currentMode !== newMode) {
       // Hide all existing tooltips when switching modes
-      console.log(`Switching from ${this.currentMode} to ${newMode} mode - hiding all tooltips`);
-      this.hideAllTooltips();
+    this.hideAllTooltips();
     } else if (newMode === 'mouse' && this.activeTooltip && this.activeTooltip !== currentTooltip) {
       // Same interaction mode (mouse) but a different tooltip is requested - hide existing one(s)
       this.hideAllTooltips();
@@ -157,7 +156,7 @@ class TooltipManager {
     tooltip.setAttribute('role', 'tooltip');
     tooltip.setAttribute('aria-hidden', 'true');
     tooltip.setAttribute('tabindex', '0'); // Make tooltip focusable
-    tooltip.id = `tooltip-${buttonId || Math.random().toString(36).substr(2, 9)}`;
+    tooltip.id = `tooltip-${buttonId || Math.random().toString(36).substring(2, 11)}`;
     
     // Apply styles
     Object.assign(tooltip.style, {
@@ -309,7 +308,7 @@ class TooltipManager {
 
       // Ensure button has an ID for accessibility
       if (!button.id) {
-        button.id = `btn-${Math.random().toString(36).substr(2, 9)}`;
+        button.id = `btn-${Math.random().toString(36).substring(2, 11)}`;
       }
 
       // Remove title attribute to prevent default browser tooltip

@@ -25,46 +25,58 @@ class Timeline {
         const minYear = 1990;
         const maxYear = 2022;
 
-        // Initialize the slider using jQuery
-        $(this.timeline).find("#chartSlider").slider({
-            range: "min",
-            value: REF.year,
-            min: minYear,
-            max: maxYear,
-            slide: (event, ui) => {
-                $(this.timeline).find("#sliderTimePeriod span").text(ui.value);
-                $(this.timeline).find("#chartSlider").attr("aria-valuenow", ui.value);
-                const rangeWidth = this.calculateRangeWidth(ui.value, minYear, maxYear);
-                $(this.timeline).find(".ui-slider-range").css("width", rangeWidth + "%");
-            },
-            stop: async (event, ui) => {
-                REF.chartOpt = "compareChart";
-                REF.year = ui.value;
-                if(REF.chartCreated === true) {
-                    if(REF.chartType === "barChart") {
-                        await createBarChart();
-                    } else if (REF.chartType === "pieChart") {
-                        await createPieChart();
-                    } else if (REF.chartType === "lineChart") {
-                        await createLineChart();
-                    } else if (REF.chartType === "depChart") {
-                        await createDepChart();
-                    } else {
-                        await createBarChart();
-                    }
-                } else {
-                    compareCountries();
-                }
-            },
-            animate: "slow"
+        const sliderContainer = this.timeline.querySelector('#chartSlider');
+        const rangeEl = this.timeline.querySelector('.ui-slider-range');
+        const handleEl = this.timeline.querySelector('.ui-slider-handle');
+        const labelEl = this.timeline.querySelector('#sliderTimePeriod span');
+
+        // Create a native range input and overlay it on the slider track
+        const input = document.createElement('input');
+        input.type = 'range';
+        input.min = minYear;
+        input.max = maxYear;
+        input.value = REF.year || 2013;
+        input.setAttribute('aria-label', 'Year');
+        input.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;';
+        sliderContainer.style.position = 'relative';
+        sliderContainer.appendChild(input);
+
+        const updateVisuals = (value) => {
+            const pct = this.calculateRangeWidth(value, minYear, maxYear);
+            rangeEl.style.width = pct + '%';
+            handleEl.style.left = pct + '%';
+            handleEl.setAttribute('aria-valuenow', value);
+            sliderContainer.setAttribute('aria-valuenow', value);
+            labelEl.textContent = value;
+        };
+
+        updateVisuals(input.value);
+
+        input.addEventListener('input', () => {
+            updateVisuals(input.value);
         });
 
-        const currentValue = $(this.timeline).find("#chartSlider").slider("value");
-        $(this.timeline).find("#chartSlider").attr("aria-valuenow", currentValue);
-        $(this.timeline).find("#sliderTimePeriod span").text(currentValue);
+        input.addEventListener('change', async () => {
+            REF.chartOpt = 'compareChart';
+            REF.year = parseInt(input.value, 10);
+            if (REF.chartCreated === true) {
+                if (REF.chartType === 'barChart') {
+                    await createBarChart();
+                } else if (REF.chartType === 'pieChart') {
+                    await createPieChart();
+                } else if (REF.chartType === 'lineChart') {
+                    await createLineChart();
+                } else if (REF.chartType === 'depChart') {
+                    await createDepChart();
+                } else {
+                    await createBarChart();
+                }
+            } else {
+                compareCountries();
+            }
+        });
 
-        const initialRangeWidth = this.calculateRangeWidth(currentValue, minYear, maxYear);
-        $(this.timeline).find(".ui-slider-range").css("width", initialRangeWidth + "%");
+        this._input = input;
     }
 
     calculateRangeWidth(value, minValue, maxValue) {

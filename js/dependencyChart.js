@@ -89,15 +89,15 @@ async function createDepChart() {
       }
       const unit = languageNameSpace.labels[REF.unit];
 
-    var arrow = REF.trade === "imp" ? '\u2192' : '\u2190';
+    const arrow = REF.trade === "imp" ? '\u2192' : '\u2190';
 
     
 
     Highcharts.seriesTypes.dependencywheel.prototype.pointClass.prototype.getDataLabelPath = function(a){
-        var c = this.series.chart.renderer,
-        f = this.shapeArgs,
-        e = 0 > this.angle || this.angle > Math.PI,
-        g = f.start,
+        const c = this.series.chart.renderer,
+        f = this.shapeArgs;
+        let e = 0 > this.angle || this.angle > Math.PI;
+        const g = f.start,
         b = f.end;
         // Create a dummy text element to get the bounding box width
         let tmpText = c.text("xx")
@@ -105,7 +105,7 @@ async function createDepChart() {
             .attr({style: 'font-size: ' + a.text.styles.fontSize + '; font-weight: ' + a.text.styles.fontWeight })
             // We don't get the real box until it's been added
             .add();
-        var width = tmpText.getBBox().width;
+        const width = tmpText.getBBox().width;
         // Clean up the dummy text element
         tmpText.destroy(); 
         // if (width < (f.r + (a.options.distance || 0))*(b-g) ) {
@@ -122,7 +122,7 @@ async function createDepChart() {
         //     a.textStr = getKeyByValue(languageNameSpace.labels, this.id.toString())
         // } else {
             // go for radial
-            var 
+            const
             x = (f.r + (a.options.distance / 2 || 0)) * Math.cos(this.angle) + f.x,
             y = (f.r + (a.options.distance / 2 || 0)) * Math.sin(this.angle) + f.y,
             p1 = [
@@ -134,7 +134,7 @@ async function createDepChart() {
                 Math.round(y + Math.sin(this.angle) * width)
             ];
             e = -Math.PI/2 > this.angle || this.angle > Math.PI/2;
-            var svg_path = e ? ['M', p2[0], p2[1], 'L', p1[0], p1[1]] : ['M', p1[0], p1[1], 'L', p2[0], p2[1]] ;
+            const svg_path = e ? ['M', p2[0], p2[1], 'L', p1[0], p1[1]] : ['M', p1[0], p1[1], 'L', p2[0], p2[1]] ;
             if (b - g === 0) {
                 a.options.enabled = false;             
             } 

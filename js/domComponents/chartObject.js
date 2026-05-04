@@ -49,19 +49,19 @@ class Chart {
               }
 
               // Define an array with abbreviated suffixes
-              var suffixes = ['k', 'M', 'G', 'T', 'P', 'E'];
+              const suffixes = ['k', 'M', 'G', 'T', 'P', 'E'];
 
               // Get the absolute value of the label
-              var value = Math.abs(this.value);
+              const value = Math.abs(this.value);
 
               // Find the appropriate suffix based on the magnitude of the value
-              var suffixIndex = Math.floor(Math.log10(value) / 3);
+              const suffixIndex = Math.floor(Math.log10(value) / 3);
 
               // Calculate the abbreviated value
-              var abbreviatedValue = value / Math.pow(10, suffixIndex * 3);
+              const abbreviatedValue = value / Math.pow(10, suffixIndex * 3);
 
               // Format the abbreviated value with at most one decimal place
-              var formattedValue = abbreviatedValue.toFixed(1).replace(/\.0+$/, '');
+              const formattedValue = abbreviatedValue.toFixed(1).replace(/\.0+$/, '');
 
               // Return the formatted label with the appropriate suffix
               return formattedValue + suffixes[suffixIndex];
@@ -161,7 +161,6 @@ class Chart {
                 };                    
                 // Default label for unknown chart types
                 const defaultLabel = languageNameSpace.labels["YEAR"];  
-                log(chartLabels[REF.chartId])
                 const label = chartLabels[REF.chartId] || defaultLabel;
                 return label;                   
                 } else {
@@ -177,9 +176,8 @@ class Chart {
     redrawChart() {
       if (this.chart) {
           this.chart.redraw();
-          console.log('Chart redrawn');
       } else {
-          console.log('Chart has not been created yet');
+          // no chart yet
       }
   }
     

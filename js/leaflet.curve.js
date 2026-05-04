@@ -161,7 +161,7 @@ L.Curve = L.Path.extend({
     const t = [];
     for (let i = 0; i <= segments; i++) { t.push(i / segments); }
     const points = this.trace(t);
-    const coords = points.map(function (p) { return [p.lng, p.lat]; });
+    const coords = points.map(p => [p.lng, p.lat]);
     return {
       type: 'Feature',
       geometry: { type: 'LineString', coordinates: coords },

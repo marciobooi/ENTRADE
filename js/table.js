@@ -12,7 +12,7 @@ async function createTableChart() {
 
   const title = document.createElement("h2");
   title.classList.add("tableTitle");
-  title.innerHTML = getTitle();
+  title.textContent = getTitle();
 
   // Create a new table element
   const table = document.createElement("table");
@@ -59,8 +59,8 @@ async function createTableChart() {
 
 
 
-    cell1.innerHTML = dataPoint.name;
-    cell2.innerHTML = formatNumber(dataPoint.y);
+    cell1.textContent = dataPoint.name;
+    cell2.textContent = formatNumber(dataPoint.y);
   
 
     // Add attributes for screen readers
@@ -87,7 +87,6 @@ async function createTableChart() {
  function handleRowKeyPress(event, row) {
    if (event.key === "Enter" || event.key === " ") {
      // Handle key press (e.g., open details for the selected row)
-     console.log("Row selected:", row);
    }
  }
  

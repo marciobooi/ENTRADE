@@ -33,7 +33,6 @@ const cckManager = {
         $wt.cck.regenerate({
           lang: langLower
         });
-        console.log('[CCK] Cookie Consent Kit regenerated for language:', langLower);
       } catch (error) {
         console.error('[CCK] Error regenerating CCK:', error);
       }
@@ -49,13 +48,11 @@ const cckManager = {
    */
   getCookiePreference: function() {
     if (typeof $wt === 'undefined' || !$wt.cookie || !$wt.cookie.get) {
-      console.warn('[CCK] Cannot get cookie - webtools API not available');
       return null;
     }
 
     try {
       const cookieValue = $wt.cookie.get('cck1');
-      console.log('[CCK] Cookie preference:', cookieValue);
       return cookieValue;
     } catch (error) {
       console.error('[CCK] Error getting cookie:', error);
@@ -89,18 +86,15 @@ function setupCCKEventListeners() {
   // Banner is displayed
   if (typeof window !== 'undefined') {
     window.addEventListener('cck_banner_displayed', () => {
-      console.log('[CCK] Banner displayed to user');
     });
 
     // All cookies accepted
     window.addEventListener('cck_all_accepted', () => {
-      console.log('[CCK] User accepted all cookies');
       // You can add tracking or other logic here
     });
 
     // Only technical/essential cookies accepted
     window.addEventListener('cck_technical_accepted', () => {
-      console.log('[CCK] User accepted only essential cookies');
       // You can disable non-essential tracking here
     });
   }

@@ -2,7 +2,7 @@
 Definition, mapping and handling of Eurobase codes
 */
 
-geoCountries = {	
+const geoCountries = {	
 	"EA": "",
 	"BE": "",
 	"BG": "",
@@ -45,7 +45,7 @@ geoCountries = {
 	"UA": ""
 };
 
-partner = {
+const partner = {
 	// "BE":"",	
 	// "BG":"",	
 	// "CZ":"",	
@@ -146,10 +146,9 @@ partner = {
 // 	"#005C99",
 // ];
 
-colors = [	
-	"#0e47cb",
+const colors = [
 	
-	'#06D7FF',
+	'#17256B',
 	'#19FF99',
 	'#4C99FF',
 	'#FFD900',
@@ -174,15 +173,15 @@ colors = [
 	'#0573FF',
 	]
 
-trade = {
+const trade = {
 	"exp":"", "imp":"",
 }
 
-tradeFuel = {
+const tradeFuel = {
 	"solid":"", "oil":"" , "gas":"", "bio":"", "electricity":""
 }
 
-tradeSiec = {
+const tradeSiec = {
 			"C0000X0350-0370":"","C0100":"","C0110":"","C0121":"","C0129":"","C0200":"","C0210":"","C0220":"","C0311":"","C0320":"","C0330":"","C0340":"","P1100":"","P1200":"",
 			"O4000":"", "O4000XBIO":"", "O4100_TOT_4200-4500":"", "O4100_TOT_4200-4500XBIO":"", "O4100_TOT":"", "O4200":"", "O4300":"", "O4400X4410":"", "O4400":"", "O4500":"", "O4600":"", "O4600XBIO":"", "O4620":"", "O4630":"", "O4640":"", "O4651":"", "O4652":"", "O4652XR5210B":"", "O4653":"", "O4661":"", "O4661XR5230B":"", "O4669":"", "O4671":"", "O4671XR5220B":"", "O46711":"", "O46712":"", "O4680":"", "O4681":"", "O4682":"", "O4691":"", "O4692":"", "O4693":"", "O4694":"", "O4695":"", "O4699":"", "R5210B":"", "R5220B":"", "R5230B":"",
 			"G3000":"", "G3200":"",
@@ -190,22 +189,22 @@ tradeSiec = {
 			"E7000":"", "H8000":"",
 }
 
-agreegates = { "TOTAL":"", "NSP":"", "ASI_OTH":"", "ASI_NME_OTH":"", "AFR_OTH":"", "EUR_OTH":"",
+const agreegates = { "TOTAL":"", "NSP":"", "ASI_OTH":"", "ASI_NME_OTH":"", "AFR_OTH":"", "EUR_OTH":"",
 
 }
 
 
-tradeUnit = {
+const tradeUnit = {
 			"THS_T":"", "MIO_M3":"", "TJ_GCV":"","GWH":"","TJ":""
 
 }
 
-tradeFilter = {
+const tradeFilter = {
 			"all":"","top5":"","top10":"","top25":""
 }
 
 
-codesEntrade = {
+const codesEntrade = {
 	"trade": Object.keys(trade),
 	"partner":Object.keys(partner),
 	"tradeFuel": Object.keys(tradeFuel),
@@ -216,7 +215,7 @@ codesEntrade = {
 	"geo":Object.keys(geoCountries),	
 };
 
-codesDataset = {
+const codesDataset = {
 	nrg_ti_gas: {
 		siec: ["G3000", "G3200"],
 		unit: ["MIO_M3", "TJ_GCV"],
@@ -301,7 +300,7 @@ codesDataset = {
 };
 
 
-defGeos = ["BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE",]
+const defGeos = ["BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE",]
 
 const allCountries = ["BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE"];
 

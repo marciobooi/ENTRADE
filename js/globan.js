@@ -13,14 +13,12 @@ const globanManager = {
   init: function() {
     // Check if REF and language are available
     if (typeof REF === 'undefined' || !REF.language) {
-      console.warn('[GLOBAN] REF or language not yet available, retrying...');
       setTimeout(() => this.init(), 100);
       return;
     }
 
     // Wait for webtools to be available
     if (typeof $wt === 'undefined' || !$wt.render) {
-      console.warn('[GLOBAN] Webtools not yet available, retrying...');
       setTimeout(() => this.init(), 100);
       return;
     }
@@ -34,13 +32,11 @@ const globanManager = {
    */
   render: function(lang = 'EN') {
     if (typeof $wt === 'undefined' || !$wt.render) {
-      console.warn('[GLOBAN] Webtools not available');
       return;
     }
 
     const globanContainer = document.getElementById('euGlobanContainer');
     if (!globanContainer) {
-      console.warn('[GLOBAN] Container element not found');
       return;
     }
 
@@ -54,7 +50,6 @@ const globanManager = {
         mode: false,
         zindex: 40
       });
-      console.log('[GLOBAN] Widget rendered successfully in language:', lang);
       this.initialized = true;
     } catch (error) {
       console.error('[GLOBAN] Error rendering widget:', error);
@@ -67,14 +62,12 @@ const globanManager = {
    */
   regenerate: function(lang) {
     if (typeof $wt === 'undefined' || !$wt.globan || !$wt.globan.regenerate) {
-      console.warn('[GLOBAN] Cannot regenerate - globan API not available');
       return;
     }
 
     try {
       const params = lang ? { lang: lang.toLowerCase() } : {};
       $wt.globan.regenerate(params);
-      console.log('[GLOBAN] Widget regenerated for language:', lang || 'auto-detect');
     } catch (error) {
       console.error('[GLOBAN] Error regenerating widget:', error);
     }

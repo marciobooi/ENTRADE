@@ -17,6 +17,9 @@ class Modal {
         }
       
         create() {
+          const ALLOWED_LANGS = ['EN', 'FR', 'DE'];
+          const safeLang = ALLOWED_LANGS.includes(REF.language) ? REF.language : 'EN';
+          const safeDescription = Object.prototype.hasOwnProperty.call(this.obj, safeLang) ? this.obj[safeLang] : '';
 
           this.modal.innerHTML = `
             <div  style="display: block" >
@@ -31,7 +34,7 @@ class Modal {
                         </div>
                         <div class="card-body">
                           <h5 class="card-title"><b>${languageNameSpace.labels[this.info]}</b></h5>
-                          <p class="card-text text-left text-wrap">${this.obj[REF.language]}</p>
+                          <p class="card-text text-left text-wrap">${safeDescription}</p>
                           <div class="ecl-flex ecl-justify-end p-2">
                             <button type="button" onclick="openLink('https://ec.europa.eu/eurostat/cache/metadata/en/nrg_bal_esms.htm')" class="btn btn-primary min-with--nav Metadata" aria-label="Open metadata">${languageNameSpace.labels["POPMETA"]}</button>
                             <button type="button" onclick="openLink('https://ec.europa.eu/eurostat/databrowser/view/nrg_bal_c/default/table?lang=en')" class="btn btn-primary min-with--nav Dataset" aria-label="Open database">${languageNameSpace.labels["POPDB"]}</button>

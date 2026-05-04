@@ -1,5 +1,3 @@
-const log = console.log.bind(document);
-
 const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
 
 
@@ -18,7 +16,7 @@ const message = (/The ENTRADE tool is down since:     (.*)/);
 // code from http://papermashup.com/read-url-get-variables-withjavascript/
 function getUrlVars() {
 	const vars = {};
-	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+	window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
 		vars[key] = value;
 	});
 	return vars;
@@ -63,13 +61,13 @@ function getUrlVars() {
 // code from http://www.aspsnippets.com/Articles/Change-Browser-URL-without-reloading-refreshing-page-using-HTML5-in-JavaScript-and-jQuery.aspx
 function changeUrl(title, url) {
 	if (typeof (history.pushState) != "undefined") {
-		var obj = {
+		const obj = {
 			Title: title,
 			Url: url
 		};
 		history.pushState(obj, obj.Title, obj.Url);
 	} else {
-		alert(languageNameSpace.labels["MSG_BROWSER"]);
+		console.error(languageNameSpace.labels["MSG_BROWSER"]);
 	};
 };
 
@@ -328,17 +326,10 @@ function changeUrl(title, url) {
 
 function clearmapclose() {
 	  //clean lines
-	  var elem = document.querySelectorAll('.myClass').forEach(function (a) {
-		a.remove()
-	  });
+	  document.querySelectorAll('.myClass').forEach(a => { a.remove(); });
 	  //clean Markers
-	  var myMarkers = document.querySelectorAll('.leaflet-marker-icon').forEach(function (b) {
-		b.remove()
-	  }); 
-	 
-	  var shadow = document.querySelectorAll('.my-own-class').forEach(function (d) {
-		d.remove()
-	  });
+	  document.querySelectorAll('.leaflet-marker-icon').forEach(b => { b.remove(); });
+	  document.querySelectorAll('.my-own-class').forEach(d => { d.remove(); });
 
 	  const wtinfoEl = document.querySelector(".wtinfo");
 	  if (wtinfoEl && wtinfoEl.classList.contains("open")) {
@@ -742,7 +733,6 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 	const dataset = languageNameSpace.labels[REF.dataset];
 	const unit = languageNameSpace.labels[REF.unit];
 	const unitAbbr = languageNameSpace.labels['abr_'+REF.unit];
-	log('here')
 
 	let title = ""
 	let subtitle = ""
@@ -1223,7 +1213,6 @@ function observeAriaHidden() {
         ) {
           // Remove or correct the attribute
           target.removeAttribute("aria-hidden");
-          console.log("Corrected aria-hidden on:", target);
         }
       }
     });

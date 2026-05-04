@@ -150,7 +150,7 @@ class Navbar {
   }
 
   toggleDropdown() {
-    var dropdown = this.langSelection.nextElementSibling;
+    const dropdown = this.langSelection.nextElementSibling;
     dropdown.classList.toggle("visible");
 
     document.querySelector("#toggleLanguageBtn").focus();

@@ -20,9 +20,9 @@ L.Map.SmoothZoom = L.Handler.extend({
     this.isThrottling = true;
     this.setSmoothZoom(e);
 
-    setTimeout(function () {
+    setTimeout(() => {
       this.isThrottling = false;
-    }.bind(this), this.smoothZoomDelay);
+    }, this.smoothZoomDelay);
   },
 
   setSmoothZoom: function (e) {

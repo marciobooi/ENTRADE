@@ -66,7 +66,7 @@ const dataNameSpace = {
 		const value = dataNameSpace.ref.geo;
 		if (typeof value !== 'undefined' && value) {
 			for (const ref in dataNameSpace.ref) {		
-				url += (iref == 0) ? "?" : "&";
+				url += (iref === 0) ? "?" : "&";
 				url += ref + "=" + dataNameSpace.ref[ref].toString();
 				iref++;
 			};

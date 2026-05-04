@@ -27,7 +27,6 @@ fetch("data/data.json")
     setTimeout(function () {
       // Check if map and map._layers exist before accessing
       if (!map || !map._layers) {
-        console.warn('Map or map._layers not yet initialized, retrying...');
         fireOnStart(geo); // Retry if map not ready
         return;
       }
@@ -387,8 +386,6 @@ function countriesDataHandler(d) {
 
   const partnerIds = d.Dimension("partner").id;
 
-  console.log('[countriesDataHandler] values length', d.value.length);
-
   const MIN_LINE_VALUE = 0.5; // use 0.001 or 0.1 to avoid tiny lines if needed
 
   let partners = partnerIds.map((currentPartnerId, index) => {
@@ -405,9 +402,6 @@ function countriesDataHandler(d) {
     }
     return null;
   }).filter(partner => partner !== null);
-
-  console.log('[countriesDataHandler] filtered partners count', partners.length);
-  console.log('[countriesDataHandler] partner list', partners.map(p => [p[0], p[1]]));
 
   countryTotal = Math.floor(partners.reduce((acc, currentValue) => acc + currentValue[1], 0));
 
@@ -863,7 +857,6 @@ function removeFocusableFromHiddenMapPanes(root = document) {
     });
   } catch (e) {
     // fail silently; accessibility fix is best-effort
-    console.warn('removeFocusableFromHiddenMapPanes error', e);
   }
 }
 
