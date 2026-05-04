@@ -56,6 +56,85 @@ function buildInsightNarrative({
   ].filter(Boolean).join('; ') + '.';
 }
 
+function calculateMedian(values) {
+  if (!values.length) {
+    return null;
+  }
+
+  const sorted = [...values].sort((a, b) => a - b);
+  const middleIndex = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 === 1) {
+    return sorted[middleIndex];
+  }
+
+  return (sorted[middleIndex - 1] + sorted[middleIndex]) / 2;
+}
+
+function getRankChangeBadge(diff, hasPreviousYear, labels) {
+  if (!hasPreviousYear) {
+    return '<span class="insight-badge insight-rank-same">&mdash;</span>';
+  }
+
+  if (diff == null) {
+    return `<span class="insight-badge insight-rank-new">&#9733; ${labels['INS_NEW'] || 'new'}</span>`;
+  }
+
+  if (diff > 0) {
+    return `<span class="insight-badge insight-rank-up">&#9650;${diff}</span>`;
+  }
+
+  if (diff < 0) {
+    return `<span class="insight-badge insight-rank-down">&#9660;${Math.abs(diff)}</span>`;
+  }
+
+  return '<span class="insight-badge insight-rank-same">&mdash;</span>';
+}
+
+function buildHistorySparkline(entries, selectedYear, labels) {
+  if (entries.length < 2) {
+    return '';
+  }
+
+  const width = 320;
+  const height = 78;
+  const paddingX = 12;
+  const paddingY = 10;
+  const baselineY = height - paddingY;
+  const values = entries.map(entry => entry.total);
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const range = maxValue - minValue || 1;
+
+  const points = entries.map((entry, index) => {
+    const x = paddingX + (index / (entries.length - 1)) * (width - paddingX * 2);
+    const y = baselineY - ((entry.total - minValue) / range) * (height - paddingY * 2);
+
+    return {
+      year: entry.year,
+      x: Number(x.toFixed(1)),
+      y: Number(y.toFixed(1))
+    };
+  });
+
+  const selectedPoint = points.find(point => point.year === String(selectedYear)) || points[points.length - 1];
+  const linePoints = points.map(point => `${point.x},${point.y}`).join(' ');
+  const areaPoints = `${paddingX},${baselineY} ${linePoints} ${points[points.length - 1].x},${baselineY}`;
+
+  return `
+    <div class="insights-sparkline" role="img" aria-label="${labels['INS_HISTORY_TREND_ARIA'] || 'Historical trade trend'}">
+      <svg class="insights-sparkline__svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <polygon class="insights-sparkline__area" points="${areaPoints}"></polygon>
+        <polyline class="insights-sparkline__line" points="${linePoints}"></polyline>
+        <circle class="insights-sparkline__point" cx="${selectedPoint.x}" cy="${selectedPoint.y}" r="4"></circle>
+      </svg>
+      <div class="insights-sparkline__axis" aria-hidden="true">
+        <span>${entries[0].year}</span>
+        <span>${entries[entries.length - 1].year}</span>
+      </div>
+    </div>`;
+}
+
 function buildHistoricalYearSummaries(dataset, labels) {
   const partners = dataset?.Dimension('partner').id || [];
   const years = dataset?.Dimension('time').id || [];
@@ -123,7 +202,7 @@ async function createInsightsChart() {
     /* ------------------------------------------------------------------ */
     const selectedYear = parseInt(snapshot.year, 10);
     const prevYear = String(selectedYear - 1);
-    const historicalDataset = await chartApiCall({ historical: true });
+    const historicalDataset = await chartApiCall();
     const historicalEntries = buildHistoricalYearSummaries(historicalDataset, L)
       .filter(entry => parseInt(entry.year, 10) <= selectedYear);
     const prevSummary = historicalEntries.find(entry => entry.year === prevYear);
@@ -155,6 +234,12 @@ async function createInsightsChart() {
     const top3Share       = total > 0
       ? (partners.slice(0, 3).reduce((s, d) => s + d.y, 0) / total * 100)
       : 0;
+    const top5Share       = total > 0
+      ? (partners.slice(0, 5).reduce((s, d) => s + d.y, 0) / total * 100)
+      : 0;
+    const medianPartnerShare = calculateMedian(
+      partners.map(partner => total > 0 ? (partner.y / total * 100) : 0)
+    );
     const reportedPartners = partners.length;
 
     // Others share — only meaningful when an explicit Others row is present
@@ -263,8 +348,32 @@ async function createInsightsChart() {
       }
     }
 
+    const getPartnerKey = partner => partner.code || partner.name;
+    const prevByKey = new Map(
+      prevPartners.map((partner, index) => [
+        getPartnerKey(partner),
+        {
+          ...partner,
+          rank: index + 1,
+          share: prevTotal > 0 ? (partner.y / prevTotal * 100) : 0
+        }
+      ])
+    );
+    const currByKey = new Map(
+      partners.map((partner, index) => [
+        getPartnerKey(partner),
+        {
+          ...partner,
+          rank: index + 1,
+          share: total > 0 ? (partner.y / total * 100) : 0
+        }
+      ])
+    );
+
     let biggestShareGainer = null;
     let biggestShareLoser  = null;
+    let biggestAbsoluteGainer = null;
+    let biggestAbsoluteLoser = null;
     let newEntrants      = [];
     let droppedOut       = [];
     let rankMovements    = [];
@@ -274,36 +383,16 @@ async function createInsightsChart() {
     const hasPrev = prevPartners.length > 0;
 
     if (hasPrev) {
-      const getPartnerKey = partner => partner.code || partner.name;
-      const prevByKey   = new Map(
-        prevPartners.map((partner, index) => [
-          getPartnerKey(partner),
-          {
-            ...partner,
-            rank: index + 1,
-            share: prevTotal > 0 ? (partner.y / prevTotal * 100) : 0
-          }
-        ])
-      );
-      const currByKey = new Map(
-        partners.map((partner, index) => [
-          getPartnerKey(partner),
-          {
-            ...partner,
-            rank: index + 1,
-            share: total > 0 ? (partner.y / total * 100) : 0
-          }
-        ])
-      );
       const currNames = new Set(partners.map(d => d.name));
       const prevNames = new Set(prevPartners.map(d => d.name));
+      const allPartnerKeys = Array.from(new Set([...currByKey.keys(), ...prevByKey.keys()]));
 
       /* Partner churn (all visible partners) */
       churnNew  = partners.filter(d => !prevNames.has(d.name)).length;
       churnGone = prevPartners.filter(d => !currNames.has(d.name)).length;
 
       /* Biggest share movers — compare share change in percentage points */
-      const shareChanges = Array.from(new Set([...currByKey.keys(), ...prevByKey.keys()])).map(key => {
+      const shareChanges = allPartnerKeys.map(key => {
         const currentPartner = currByKey.get(key);
         const previousPartner = prevByKey.get(key);
 
@@ -320,6 +409,25 @@ async function createInsightsChart() {
         : null;
       biggestShareLoser = negativeChanges.length
         ? negativeChanges.reduce((best, partner) => partner.change < best.change ? partner : best)
+        : null;
+
+      const absoluteChanges = allPartnerKeys.map(key => {
+        const currentPartner = currByKey.get(key);
+        const previousPartner = prevByKey.get(key);
+
+        return {
+          key,
+          name: currentPartner?.name || previousPartner?.name || key,
+          change: (currentPartner?.y ?? 0) - (previousPartner?.y ?? 0)
+        };
+      });
+      const positiveAbsoluteChanges = absoluteChanges.filter(partner => partner.change > 0);
+      const negativeAbsoluteChanges = absoluteChanges.filter(partner => partner.change < 0);
+      biggestAbsoluteGainer = positiveAbsoluteChanges.length
+        ? positiveAbsoluteChanges.reduce((best, partner) => partner.change > best.change ? partner : best)
+        : null;
+      biggestAbsoluteLoser = negativeAbsoluteChanges.length
+        ? negativeAbsoluteChanges.reduce((best, partner) => partner.change < best.change ? partner : best)
         : null;
 
       /* Top-5 entrants / dropouts */
@@ -340,9 +448,29 @@ async function createInsightsChart() {
       });
     }
 
-    const hasMeaningfulRankChange = rankMovements.some(movement => movement.diff == null || movement.diff !== 0);
-    const hasChurn = churnNew > 0 || churnGone > 0;
+    const partnerRows = partners.map((partner, index) => {
+      const currentPartner = currByKey.get(getPartnerKey(partner));
+      const previousPartner = prevByKey.get(getPartnerKey(partner));
+
+      return {
+        rank: index + 1,
+        name: partner.name,
+        value: partner.y,
+        share: currentPartner?.share ?? 0,
+        shareDelta: hasPrev
+          ? (currentPartner?.share ?? 0) - (previousPartner?.share ?? 0)
+          : null,
+        rankDiff: hasPrev
+          ? (previousPartner ? previousPartner.rank - (index + 1) : null)
+          : null
+      };
+    });
+
+    const hasMeaningfulRankChange = hasPrev && rankMovements.some(movement => movement.diff == null || movement.diff !== 0);
     const hasLongRunHistory = historicalEntries.length >= 3;
+    const turnoverRate = hasPrev && (reportedPartners + prevPartners.length) > 0
+      ? ((churnNew + churnGone) / ((reportedPartners + prevPartners.length) / 2)) * 100
+      : null;
 
     /* ------------------------------------------------------------------ */
     /* 6. Formatting helpers                                               */
@@ -411,6 +539,10 @@ async function createInsightsChart() {
         ? 'insight-card--positive'
         : 'insight-card--negative';
 
+    const historySparklineHtml = hasLongRunHistory
+      ? buildHistorySparkline(historicalEntries, snapshot.year, L)
+      : '';
+
     /* ------------------------------------------------------------------ */
     /* 7. Narrative summary                                                */
     /* ------------------------------------------------------------------ */
@@ -424,6 +556,25 @@ async function createInsightsChart() {
       leadOverSecondPct, changePct, hhiDelta,
       biggestShareGainer, biggestShareLoser, L, ppLabel
     });
+    const headerMetaHtml = [
+      { label: L['INS_COUNTRY'] || 'Country', value: geoLabel },
+      { label: L['INS_PRODUCT'] || 'Product', value: productLabel },
+      { label: L['INS_YEAR'] || 'Year', value: snapshot.year },
+      { label: L['INS_UNIT'] || 'Unit', value: unitLabel }
+    ].map(item => `
+      <div class="insights-meta__item">
+        <span class="insights-meta__label">${item.label}</span>
+        <strong class="insights-meta__value">${item.value}</strong>
+      </div>`).join('');
+    const topProfileHtml = [
+      { label: L['INS_TOP1'] || 'Top 1', value: fmtPct(topPartnerShare) },
+      { label: L['INS_TOP3_SHORT'] || 'Top 3', value: fmtPct(top3Share) },
+      { label: L['INS_TOP5'] || 'Top 5', value: fmtPct(top5Share) }
+    ].map(item => `
+      <div class="insights-mini-profile__item">
+        <span class="insights-mini-profile__label">${item.label}</span>
+        <strong class="insights-mini-profile__value">${item.value}</strong>
+      </div>`).join('');
 
     /* ------------------------------------------------------------------ */
     /* 8. Build HTML sub-sections                                         */
@@ -431,25 +582,19 @@ async function createInsightsChart() {
 
     /* Rank movement pills */
     const rankMoveHtml = rankMovements.map(m => {
-      let badge;
-      if (m.diff == null)
-        badge = `<span class="insight-badge insight-rank-new">&#9733; ${L['INS_NEW'] || 'new'}</span>`;
-      else if (m.diff > 0)
-        badge = `<span class="insight-badge insight-rank-up">&#9650;${m.diff}</span>`;
-      else if (m.diff < 0)
-        badge = `<span class="insight-badge insight-rank-down">&#9660;${Math.abs(m.diff)}</span>`;
-      else
-        badge = '<span class="insight-badge insight-rank-same">&mdash;</span>';
+      const badge = getRankChangeBadge(m.diff, true, L);
       return `<span class="insight-rank-item"><span class="insight-rank-num">${m.rank}</span>${m.name}${badge}</span>`;
     }).join('');
 
     /* Rank table rows */
-    const rankTableHtml = partners.map((d, i) => `
+    const rankTableHtml = partnerRows.map(row => `
       <tr class="ecl-table__row">
-        <td class="ecl-table__cell">${i + 1}</td>
-        <td class="ecl-table__cell">${d.name}</td>
-        <td class="ecl-table__cell">${formatNumber(d.y)}${NBSP}${unitLabel}</td>
-        <td class="ecl-table__cell">${total > 0 ? (d.y / total * 100).toFixed(1) : 0}%</td>
+        <td class="ecl-table__cell">${row.rank}</td>
+        <td class="ecl-table__cell">${row.name}</td>
+        <td class="ecl-table__cell">${formatNumber(row.value)}${NBSP}${unitLabel}</td>
+        <td class="ecl-table__cell">${row.share.toFixed(1)}%</td>
+        <td class="ecl-table__cell">${fmtSignedPp(row.shareDelta)}</td>
+        <td class="ecl-table__cell">${getRankChangeBadge(row.rankDiff, hasPrev, L)}</td>
       </tr>`).join('');
 
     const changeClass = (changeTotal != null && changeTotal >= 0)
@@ -471,6 +616,10 @@ async function createInsightsChart() {
 
     panel.innerHTML = `
       <h2 class="insights-title" id="${titleId}">${getTitle()}</h2>
+
+      <div class="insights-meta" aria-label="${L['INS_META'] || 'Selection details'}">
+        ${headerMetaHtml}
+      </div>
 
       ${narrative
         ? `<p class="insights-summary">${narrative}</p>`
@@ -510,7 +659,7 @@ async function createInsightsChart() {
               <div class="insight-card__sub">${secondPartner ? `${L['INS_AHEAD_OF'] || 'ahead of'} ${secondPartner.name}` : '–'}</div>
             </div>
             <div class="insight-card">
-              <div class="insight-card__label">${L['INS_REPORTED'] || 'Partners with reported trade'}</div>
+              <div class="insight-card__label">${L['INS_ACTIVE_PARTNERS'] || 'Active partners'}</div>
               <div class="insight-card__value">${reportedPartners}</div>
             </div>
             ${hasMeaningfulEuNonEuSplit ? `
@@ -526,6 +675,10 @@ async function createInsightsChart() {
             </div>` : ''}
           </div>
 
+          <div class="insights-mini-profile" aria-label="${L['INS_TOP_PROFILE'] || 'Top partner concentration profile'}">
+            ${topProfileHtml}
+          </div>
+
           <div class="insights-rank-table-wrapper">
             <table class="ecl-table insights-rank-table"
                    aria-label="${L['INS_RANK_LIST'] || 'Partner ranking'}">
@@ -535,6 +688,8 @@ async function createInsightsChart() {
                   <th class="ecl-table__header" scope="col">${L['INS_PARTNER'] || 'Partner'}</th>
                   <th class="ecl-table__header" scope="col">${L['INS_VALUE'] || 'Value'}</th>
                   <th class="ecl-table__header" scope="col">${L['INS_SHARE'] || 'Share'}</th>
+                  <th class="ecl-table__header" scope="col">${L['INS_DELTA_SHARE'] || 'Δ share vs previous year'}</th>
+                  <th class="ecl-table__header" scope="col">${L['INS_RANK_CHANGE_COL'] || 'Rank change'}</th>
                 </tr>
               </thead>
               <tbody class="ecl-table__body">${rankTableHtml}</tbody>
@@ -567,6 +722,16 @@ async function createInsightsChart() {
                   <div class="insight-card__label">${L['INS_BIG_SHARE_LOSS'] || 'Biggest share loser'}</div>
                   <div class="insight-card__value">${biggestShareLoser ? biggestShareLoser.name : '\u2013'}</div>
                   <div class="insight-card__sub">${biggestShareLoser ? fmtSignedPp(biggestShareLoser.change) : (L['INS_NO_SHARE_LOSS'] || 'No partner lost share')}</div>
+                </div>
+                <div class="insight-card ${biggestAbsoluteGainer ? 'insight-card--positive' : ''}">
+                  <div class="insight-card__label">${L['INS_BIG_ABS_GAIN'] || 'Largest quantity gainer'}</div>
+                  <div class="insight-card__value">${biggestAbsoluteGainer ? biggestAbsoluteGainer.name : '\u2013'}</div>
+                  <div class="insight-card__sub">${biggestAbsoluteGainer ? fmtChg(biggestAbsoluteGainer.change) : (L['INS_NO_ABS_GAIN'] || 'No partner gained quantity')}</div>
+                </div>
+                <div class="insight-card ${biggestAbsoluteLoser ? 'insight-card--negative' : ''}">
+                  <div class="insight-card__label">${L['INS_BIG_ABS_LOSS'] || 'Largest quantity loser'}</div>
+                  <div class="insight-card__value">${biggestAbsoluteLoser ? biggestAbsoluteLoser.name : '\u2013'}</div>
+                  <div class="insight-card__sub">${biggestAbsoluteLoser ? fmtChg(biggestAbsoluteLoser.change) : (L['INS_NO_ABS_LOSS'] || 'No partner lost quantity')}</div>
                 </div>
                 ${hhiDelta != null ? `
                 <div class="insight-card ${concentrationDeltaClass}">
@@ -602,6 +767,12 @@ async function createInsightsChart() {
             <i class="fas fa-history" aria-hidden="true"></i>
             ${L['INS_HISTORY'] || 'Historical context'}
           </h3>
+
+          ${historySparklineHtml ? `
+          <div class="insights-history-trend">
+            <div class="insights-history-trend__title">${L['INS_HISTORY_TREND'] || 'Historical trend'}</div>
+            ${historySparklineHtml}
+          </div>` : ''}
 
           <div class="insights-cards">
                 <div class="insight-card">
@@ -652,7 +823,17 @@ async function createInsightsChart() {
               <div class="insight-card__value">${diversification}</div>
               <div class="insight-card__sub">${L['INS_EFF_PARTNERS_FULL'] || 'Equivalent to about'}&nbsp;${diversification}&nbsp;${L['INS_EFF_EQUAL'] || 'equally sized partners'}</div>
             </div>
-            ${hasPrev && hasChurn ? `
+            <div class="insight-card">
+              <div class="insight-card__label">${L['INS_MEDIAN_SHARE'] || 'Median partner share'}</div>
+              <div class="insight-card__value">${fmtPct(medianPartnerShare)}</div>
+              <div class="insight-card__sub">${L['INS_MEDIAN_SHARE_NOTE'] || 'Typical share across active partners'}</div>
+            </div>
+            ${hasPrev ? `
+            <div class="insight-card">
+              <div class="insight-card__label">${L['INS_TURNOVER_RATE'] || 'Supplier turnover rate'}</div>
+              <div class="insight-card__value">${fmtPct(turnoverRate)}</div>
+              <div class="insight-card__sub">${L['INS_TURNOVER_NOTE'] || 'Share of the active partner roster that changed vs previous year'}</div>
+            </div>
             <div class="insight-card">
               <div class="insight-card__label">${L['INS_CHURN_NEW'] || 'New partners'}&nbsp;${L['INS_VS_PREV'] || 'vs'}&nbsp;${prevYear}</div>
               <div class="insight-card__value">${churnNew}</div>

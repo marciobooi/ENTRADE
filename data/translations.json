@@ -2548,6 +2548,21 @@
     "FR": "Part du top 3",
     "DE": "Anteil Top 3"
   },
+  "INS_TOP1": {
+    "EN": "Top 1",
+    "FR": "Top 1",
+    "DE": "Top 1"
+  },
+  "INS_TOP5": {
+    "EN": "Top 5",
+    "FR": "Top 5",
+    "DE": "Top 5"
+  },
+  "INS_TOP_PROFILE": {
+    "EN": "Top partner concentration profile",
+    "FR": "Profil de concentration des principaux partenaires",
+    "DE": "Konzentrationsprofil der wichtigsten Partner"
+  },
   "INS_LEAD_OVER_2": {
     "EN": "Lead over #2",
     "FR": "Avance sur le n°2",
@@ -2612,6 +2627,26 @@
     "EN": "Biggest share loser",
     "FR": "Plus forte baisse de part",
     "DE": "Größter Anteilsverlierer"
+  },
+  "INS_BIG_ABS_GAIN": {
+    "EN": "Largest quantity gainer",
+    "FR": "Plus forte hausse en volume",
+    "DE": "Größter Mengengewinner"
+  },
+  "INS_BIG_ABS_LOSS": {
+    "EN": "Largest quantity loser",
+    "FR": "Plus forte baisse en volume",
+    "DE": "Größter Mengenverlierer"
+  },
+  "INS_NO_ABS_GAIN": {
+    "EN": "No partner gained quantity",
+    "FR": "Aucun partenaire n'a gagné en volume",
+    "DE": "Kein Partner gewann Menge"
+  },
+  "INS_NO_ABS_LOSS": {
+    "EN": "No partner lost quantity",
+    "FR": "Aucun partenaire n'a perdu en volume",
+    "DE": "Kein Partner verlor Menge"
   },
   "INS_NO_SHARE_GAIN": {
     "EN": "No partner gained share",
@@ -2738,10 +2773,50 @@
     "FR": "Partenaires avec échanges déclarés",
     "DE": "Partner mit gemeldeten Handelsdaten"
   },
+  "INS_ACTIVE_PARTNERS": {
+    "EN": "Active partners",
+    "FR": "Partenaires actifs",
+    "DE": "Aktive Partner"
+  },
+  "INS_META": {
+    "EN": "Selection details",
+    "FR": "Détails de la sélection",
+    "DE": "Auswahldetails"
+  },
+  "INS_COUNTRY": {
+    "EN": "Country",
+    "FR": "Pays",
+    "DE": "Land"
+  },
+  "INS_PRODUCT": {
+    "EN": "Product",
+    "FR": "Produit",
+    "DE": "Produkt"
+  },
+  "INS_YEAR": {
+    "EN": "Year",
+    "FR": "Année",
+    "DE": "Jahr"
+  },
+  "INS_UNIT": {
+    "EN": "Unit",
+    "FR": "Unité",
+    "DE": "Einheit"
+  },
   "INS_RANK_LIST": {
     "EN": "Partner ranking",
     "FR": "Classement des partenaires",
     "DE": "Partnerrangliste"
+  },
+  "INS_DELTA_SHARE": {
+    "EN": "Δ share vs previous year",
+    "FR": "Δ part vs année précédente",
+    "DE": "Δ Anteil ggü. Vorjahr"
+  },
+  "INS_RANK_CHANGE_COL": {
+    "EN": "Rank change",
+    "FR": "Évolution du rang",
+    "DE": "Rangänderung"
   },
   "INS_DATA_NOTE": {
     "EN": "Metrics are calculated using all available partner countries for the selected year.",
@@ -2763,6 +2838,26 @@
     "FR": "partenaires de taille égale",
     "DE": "gleichgroßen Partnern"
   },
+  "INS_MEDIAN_SHARE": {
+    "EN": "Median partner share",
+    "FR": "Part médiane des partenaires",
+    "DE": "Medianer Partneranteil"
+  },
+  "INS_MEDIAN_SHARE_NOTE": {
+    "EN": "Typical share across active partners",
+    "FR": "Part typique parmi les partenaires actifs",
+    "DE": "Typischer Anteil unter aktiven Partnern"
+  },
+  "INS_TURNOVER_RATE": {
+    "EN": "Supplier turnover rate",
+    "FR": "Taux de rotation des fournisseurs",
+    "DE": "Lieferantenumschlagsrate"
+  },
+  "INS_TURNOVER_NOTE": {
+    "EN": "Share of the active partner roster that changed vs previous year",
+    "FR": "Part du portefeuille de partenaires actifs qui a changé par rapport à l'année précédente",
+    "DE": "Anteil des aktiven Partnerbestands, der sich ggü. dem Vorjahr verändert hat"
+  },
   "INS_EU_NON_EU": {
     "EN": "EU vs non-EU share",
     "FR": "Part UE vs hors UE",
@@ -2782,6 +2877,16 @@
     "EN": "History span",
     "FR": "Période couverte",
     "DE": "Historische Spanne"
+  },
+  "INS_HISTORY_TREND": {
+    "EN": "Historical trend",
+    "FR": "Tendance historique",
+    "DE": "Historischer Trend"
+  },
+  "INS_HISTORY_TREND_ARIA": {
+    "EN": "Historical total trade trend",
+    "FR": "Tendance historique du commerce total",
+    "DE": "Historischer Trend des Gesamthandels"
   },
   "INS_HISTORY_YEARS": {
     "EN": "years with reported trade",
