@@ -67,15 +67,19 @@ h2 {
     border-radius: 50%;
     background-color: var(--tool-1) ;
     border: 2px solid var(--tool-1);
-    width: 2.5rem;
-    height: 2.5rem;
+    /* WCAG 2.5.5: touch targets must be at least 44×44 CSS px */
+    width: 2.75rem;   /* 44px at default 16px root */
+    height: 2.75rem;
+    min-width: 44px;
+    min-height: 44px;
     display: flex ;
     justify-content: center;
     align-items: center;
     font-size: 1.2em ;
     color: white;
     position: relative;
-    margin: .5rem;
+    /* Keep at least 8px gap between adjacent touch targets */
+    margin: 0.375rem;
 }
 .round-btn:hover {
     background-color: #fff ;
@@ -201,7 +205,8 @@ button#languageClsBtn {
 /* subnav section */
 
 .subNavBar {
-    max-height: 70px;
+    /* Increased to accommodate 44px buttons + margins (44 + 6 + 6 = 56px) */
+    max-height: 76px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -421,6 +426,8 @@ width: 100%;
 }
 
 
+
+
 /* footer */
 
 .wtfooter {
@@ -533,6 +540,13 @@ ul#footerCredits {
 .tooltip.visible {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Country-name hover tooltip – override the webtools 12px font-size.
+   The className 'entrade-country-tooltip' is set in the tooltip options in
+   countries.js so this selector is more specific than the webtools rule. */
+.leaflet-tooltip.entrade-country-tooltip {
+  font-size: 1rem !important; /* 16px */
 }
 
 /* If a tooltip contains a .pop-card, make the tooltip container transparent

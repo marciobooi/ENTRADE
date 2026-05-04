@@ -128,6 +128,8 @@ function renderMap() {
               options: {
                 direction: "top",
                 sticky: true,
+                // Custom class lets CSS beat the webtools 12px override
+                className: 'entrade-country-tooltip',
               },
             },
           },
@@ -244,9 +246,13 @@ function renderMap() {
               }
 
               // Apply a11y fixes to Leaflet SVG and tooltips
+              // role="group" (not "img") is required because the SVG contains
+              // focusable interactive child elements (paths with tabindex/role).
+              // Using role="img" would hide those children from the a11y tree
+              // and create a nested-interactive-controls violation.
               const mapSvg = mapContainer.querySelector('svg');
-              if (mapSvg && !mapSvg.hasAttribute('role')) {
-                mapSvg.setAttribute('role', 'img');
+              if (mapSvg) {
+                mapSvg.setAttribute('role', 'group');
               }
 
               document.querySelectorAll('[aria-describedby]').forEach((el) => {
@@ -528,7 +534,8 @@ function drawLines(sourceCountry, partners) {
       color: 'rgb(170 95 24)', // Set the color of the circle's border to transparent
       fillColor: 'rgb(170 95 24)', // Set the fill color of the circle
       fillOpacity: 1, // Set the opacity of the fill color
-      radius: radius // Set the radius of the circle in meters
+      radius: radius, // Set the radius of the circle in meters
+      _partnerCountry: partnerCountry // stored so zoom-redraw can recolor the country polygon
     }).addTo(map)
     .bindPopup(lineTooltip(partnerCountry, value, countryName), { className: 'pop-card-popup' })
     .on('mouseover', function (e) { this.openPopup(); })
@@ -601,6 +608,15 @@ function drawLines(sourceCountry, partners) {
         try { if (typeof l.redraw === 'function') l.redraw(); } catch (e) { /* ignore */ }
       });
       forceSvgOverflow();
+      // Re-apply EU country colours after Leaflet redraws paths on zoom/pan,
+      // which can reset inline styles set by clearMap() / styleCountry().
+      reapplyCountryColors();
+      // Re-apply partner-country colours on top of the EU baseline
+      markers.forEach(m => {
+        if (m && m.options && m.options._partnerCountry) {
+          styleCountry(m.options._partnerCountry);
+        }
+      });
     }, 120);
   }
 
@@ -756,20 +772,23 @@ function clearMarkers() {
   markers.length = 0;
 }
 
-function clearMap() {
-  document.querySelectorAll('path').forEach((element) => {    
-    element.style.fill = 'transparent';    
-  });
-
-  // Build a lookup map for defGeos labels to avoid repeated lookups
+// Reusable helper: apply correct fill colours to all country paths in one DOM pass.
+// EU countries → euCtr (blue), selected country → selectLayer (darker blue),
+// everything else → transparent.  Never leaves EU paths in a transparent state.
+function reapplyCountryColors() {
   const geoLabelMap = {};
   defGeos.forEach(key => { geoLabelMap[languageNameSpace.labels[key]] = key; });
   const selectedLabel = languageNameSpace.labels[REF.geo];
 
-  // Single pass over all labelled paths
+  // Paths without aria-label are curves / markers / UI paths — make transparent
+  document.querySelectorAll('path:not([aria-label])').forEach((element) => {
+    element.style.fill = 'transparent';
+  });
+
+  // Paths with aria-label are country polygons — set final colour in one pass
+  // (EU countries never pass through transparent, avoiding flash-of-white)
   document.querySelectorAll('path[aria-label]').forEach((element) => {
     const countryName = element.getAttribute('aria-label').trim();
-
     if (geoLabelMap[countryName]) {
       element.style.fill = euCtr;
       element.style.stroke = '#4b598b';
@@ -778,8 +797,19 @@ function clearMap() {
       element.style.fill = selectLayer;
       element.style.stroke = 'white';
       element.style.strokeWidth = '2px';
+    } else {
+      element.style.fill = 'transparent';
     }
   });
+}
+
+function clearMap() {
+  // Apply colours in a single pass — EU paths go straight to blue, never transparent
+  reapplyCountryColors();
+
+  // Build geoLabelMap for tooltip styling below
+  const geoLabelMap = {};
+  defGeos.forEach(key => { geoLabelMap[languageNameSpace.labels[key]] = key; });
 
   // Single pass over tooltips
   const tooltipElements = document.querySelectorAll('div.leaflet-tooltip.wtLabelFix.leaflet-zoom-animated.leaflet-tooltip-top');
