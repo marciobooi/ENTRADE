@@ -17,6 +17,44 @@ function exportIframe() {
 
     ECL.autoInit();
 
+    // Trap focus within the modal while it is open
+    trapFocusInModal(modal);
+
+}
+
+function trapFocusInModal(modal) {
+    const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    // Focus the first focusable element
+    const focusable = Array.from(modal.querySelectorAll(FOCUSABLE));
+    if (focusable.length) focusable[0].focus();
+
+    function handleTrap(e) {
+        if (e.key !== 'Tab') return;
+        const elements = Array.from(modal.querySelectorAll(FOCUSABLE));
+        if (!elements.length) return;
+        const first = elements[0];
+        const last = elements[elements.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else {
+            if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    }
+
+    modal.addEventListener('keydown', handleTrap);
+
+    // Clean up listener when modal closes
+    modal.addEventListener('close', function cleanup() {
+        modal.removeEventListener('keydown', handleTrap);
+        modal.removeEventListener('close', cleanup);
+    }, { once: true });
 }
 
 function closeModalUrl(params) {
