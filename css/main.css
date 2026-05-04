@@ -795,3 +795,153 @@ ul#footerCredits {
 #wt-button-print {
     display: none;
 }
+
+/* ═══════════════════════════════════════════
+   INSIGHTS PANEL
+   ═══════════════════════════════════════════ */
+
+.insights-panel {
+  padding: 1.25rem 1.5rem;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+
+.insights-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tool-1);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--tool-1);
+}
+
+.insights-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.insights-section {
+  background: #f5f7fc;
+  border-radius: 6px;
+  padding: 1rem 1.25rem 1.25rem;
+  border-left: 4px solid var(--tool-1);
+}
+
+.insights-section__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.insights-year-label {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #666;
+  margin-left: 0.4rem;
+}
+
+/* ── Metric cards ── */
+.insights-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.insight-card {
+  background: #fff;
+  border: 1px solid #dce3f0;
+  border-radius: 6px;
+  padding: 0.65rem 0.9rem;
+  min-width: 130px;
+  flex: 1 1 130px;
+  max-width: 210px;
+}
+
+.insight-card--positive {
+  border-left: 3px solid #28a745;
+}
+
+.insight-card--negative {
+  border-left: 3px solid #dc3545;
+}
+
+.insight-card__label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+.insight-card__value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--tool-1);
+  line-height: 1.2;
+}
+
+.insight-card__sub {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 0.2rem;
+}
+
+/* ── Rank table ── */
+.insights-rank-table-wrapper {
+  margin-top: 0.5rem;
+  overflow-x: auto;
+}
+
+.insights-rank-table {
+  width: 100%;
+  font-size: 0.83rem;
+}
+
+/* ── Rank movement pills ── */
+.insights-rank-movement {
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #dce3f0;
+}
+
+.insights-rank-movement__label {
+  font-size: 0.78rem;
+  margin-bottom: 0.4rem;
+}
+
+.insights-rank-movement__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.insight-rank-item {
+  font-size: 0.8rem;
+  background: #eef1fb;
+  padding: 0.18rem 0.55rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.insight-rank-up   { color: #28a745; font-weight: 700; }
+.insight-rank-down { color: #dc3545; font-weight: 700; }
+.insight-rank-same { color: #999; }
+.insight-rank-new  { color: #17a2b8; font-weight: 700; }
+
+.insight-stable  { color: #28a745; font-weight: 700; }
+.insight-changed { color: #dc3545; font-weight: 700; }
+
+.insights-no-prev {
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
+  margin: 0;
+}

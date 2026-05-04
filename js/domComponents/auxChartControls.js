@@ -21,7 +21,8 @@ class ChartControls {
 				  <div class="nav-item button px-1" id="toggleDepChart" role="none"></div>
 				  <div class="nav-item button px-1" id="togglePieChart" role="none"></div>
 				  <div class="nav-item button px-1" id="toggleLineChart" role="none"></div>
-				  <div class="nav-item button px-1" id="toggleTable" role="none" style="margin-right: 2rem;"></div>
+				  <div class="nav-item button px-1" id="toggleTable" role="none"></div>
+			  <div class="nav-item button px-1" id="toggleInsights" role="none" style="margin-right: 2rem;"></div>
 				  <div class="nav-item button px-1" id="printChart" role="none"></div>
 				  <div class="nav-item dropdown px-1" id="downloadChart" role="none"></div>
 				  <div class="nav-item button px-1" id="downloadExcel" role="none"></div>
@@ -47,6 +48,7 @@ class ChartControls {
 				<div class="nav-item button px-1" id="togglePieChart" role="none"></div>
 				<div class="nav-item button px-1" id="toggleLineChart" role="none"></div>
 				<div class="nav-item button px-1" id="toggleTable" role="none"></div>
+			<div class="nav-item button px-1" id="toggleInsights" role="none"></div>
 				<div class="nav-item button px-1" id="printChart" role="none"></div>
 				<div class="nav-item dropdown px-1" id="downloadChart" role="none"></div>
 				<div class="nav-item button px-1" id="downloadExcel" role="none"></div>
@@ -95,6 +97,7 @@ class ChartControls {
 		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadChart"], "false");
 		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadExcel"], "false");
 		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["embebedeChart"], "false");
+		const insightsChart = new Button("insightsChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["insightsChart"] || "Display insights", "insightsChart", "false");
 		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["closeChart"], "Close", "false");
 	
 
@@ -111,7 +114,9 @@ class ChartControls {
 		downloadChart.setInnerHtml('<i class="fas fa-download" aria-hidden="true"></i>');
 		downloadExcel.setInnerHtml('<i class="fas fa-file-excel" aria-hidden="true"></i>');
 		embebedeChart.setInnerHtml('<i class="fas fa-code" aria-hidden="true"></i>');
+		insightsChart.setInnerHtml('<i class="fas fa-lightbulb" aria-hidden="true"></i>');
 		closeChart.setInnerHtml('<i class="fas fa-times" aria-hidden="true"></i>');
+		
 	
 		// Set click handlers for each button
 		barChart.setClickHandler(async function() {
@@ -148,6 +153,11 @@ class ChartControls {
 		  await createTableChart();
 		  disableBtns();
 		});
+		insightsChart.setClickHandler(async function() {
+		  disableChatOptionsBtn(this.value);
+		  await createInsightsChart();
+		  disableBtns();
+		});
 		createprintChart.setClickHandler(function() {
 			printChart();
 		});
@@ -174,6 +184,7 @@ class ChartControls {
 			const downloadChartElement = downloadChart.createButton();
 			const downloadExcelElement = downloadExcel.createButton();
 			const embebedeChartElement = embebedeChart.createButton();
+			const insightsChartElement = insightsChart.createButton();
 			const closeChartElement = closeChart.createButton();
 
 		
@@ -183,6 +194,7 @@ class ChartControls {
 			document.getElementById("togglePieChart").appendChild(pieChartElement);
 			document.getElementById("toggleLineChart").appendChild(lineChartElement);
 			document.getElementById("toggleTable").appendChild(tableChartElement);
+			document.getElementById("toggleInsights").appendChild(insightsChartElement);
 			// document.getElementById("printChart").appendChild(printChartElement);
 			document.getElementById("downloadChart").appendChild(downloadChartElement);
 			document.getElementById("downloadExcel").appendChild(downloadExcelElement);
@@ -190,6 +202,7 @@ class ChartControls {
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
 			tableChart.setDisabled(true);
+			insightsChart.setDisabled(false);
 	}
   
 	removeFromDOM() {
@@ -215,7 +228,7 @@ class ChartControls {
   }
   
   function disableChatOptionsBtn(chartid) {
-	const charts = ["barChart", "pieChart", "lineChart", "tableChart", "depChart"];  
+	const charts = ["barChart", "pieChart", "lineChart", "tableChart", "depChart", "insightsChart"];  
 	charts.forEach(chart => {
 	  const element = document.getElementById(chart);
 	  if (element) {
@@ -230,7 +243,7 @@ class ChartControls {
   }
 
   function  disableBtns(chartid) {
-	const chartTypes = ["tableChart", "map"];
+	const chartTypes = ["tableChart", "map", "insightsChart"];
 	const btns = ["printBtn", "downloadBtn", "excelBtn", "embebedBtn"];
   
 	// Assuming REF.chartType is a string representing the chart type

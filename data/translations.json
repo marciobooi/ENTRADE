@@ -2506,5 +2506,181 @@
     "EN": "Menu",
     "FR": "Menu",
     "DE": "Menu"
+  },
+
+  "insightsChart": {
+    "EN": "Display insights",
+    "FR": "Afficher les analyses",
+    "DE": "Einblicke anzeigen"
+  },
+  "INS_CORE": {
+    "EN": "Core metrics",
+    "FR": "Métriques principales",
+    "DE": "Kernmetriken"
+  },
+  "INS_CHANGE": {
+    "EN": "Change metrics",
+    "FR": "Métriques d'évolution",
+    "DE": "Änderungsmetriken"
+  },
+  "INS_STRUCT": {
+    "EN": "Structural metrics",
+    "FR": "Métriques structurelles",
+    "DE": "Strukturelle Metriken"
+  },
+  "INS_TOTAL": {
+    "EN": "Total trade value",
+    "FR": "Valeur totale du commerce",
+    "DE": "Gesamthandelswert"
+  },
+  "INS_TOP_PARTNER": {
+    "EN": "Top partner",
+    "FR": "Premier partenaire",
+    "DE": "Wichtigster Partner"
+  },
+  "INS_TOP3": {
+    "EN": "Top 3 share",
+    "FR": "Part du top 3",
+    "DE": "Anteil Top 3"
+  },
+  "INS_VISIBLE": {
+    "EN": "Visible partners",
+    "FR": "Partenaires visibles",
+    "DE": "Sichtbare Partner"
+  },
+  "INS_OTHERS_SHARE": {
+    "EN": "Others share",
+    "FR": "Part des autres",
+    "DE": "Anteil Sonstige"
+  },
+  "INS_OF_TOTAL": {
+    "EN": "of total",
+    "FR": "du total",
+    "DE": "des Gesamtwerts"
+  },
+  "INS_PARTNER": {
+    "EN": "Partner",
+    "FR": "Partenaire",
+    "DE": "Partner"
+  },
+  "INS_VALUE": {
+    "EN": "Value",
+    "FR": "Valeur",
+    "DE": "Wert"
+  },
+  "INS_SHARE": {
+    "EN": "Share",
+    "FR": "Part",
+    "DE": "Anteil"
+  },
+  "INS_CHANGE_VS": {
+    "EN": "Change vs",
+    "FR": "Variation par rapport à",
+    "DE": "Veränderung ggü."
+  },
+  "INS_BIG_INC": {
+    "EN": "Biggest increase",
+    "FR": "Plus forte hausse",
+    "DE": "Größter Anstieg"
+  },
+  "INS_BIG_DEC": {
+    "EN": "Biggest decrease",
+    "FR": "Plus forte baisse",
+    "DE": "Größter Rückgang"
+  },
+  "INS_NEW_TOP5": {
+    "EN": "New top-5 entrant",
+    "FR": "Nouveau entrant top 5",
+    "DE": "Neuer Top-5-Einstieg"
+  },
+  "INS_DROPPED": {
+    "EN": "Dropped from top 5",
+    "FR": "Sorti du top 5",
+    "DE": "Aus Top 5 ausgeschieden"
+  },
+  "INS_RANK_MOVE": {
+    "EN": "Rank movement (top 5)",
+    "FR": "Mouvement de classement (top 5)",
+    "DE": "Rangveränderung (Top 5)"
+  },
+  "INS_HHI": {
+    "EN": "Concentration score (HHI)",
+    "FR": "Score de concentration (IHH)",
+    "DE": "Konzentrationsgrad (HHI)"
+  },
+  "INS_DIV": {
+    "EN": "Diversification score",
+    "FR": "Score de diversification",
+    "DE": "Diversifikationsgrad"
+  },
+  "INS_CHURN": {
+    "EN": "Partner churn",
+    "FR": "Rotation des partenaires",
+    "DE": "Partnerwechsel"
+  },
+  "INS_STABILITY": {
+    "EN": "Top partner stability",
+    "FR": "Stabilité du premier partenaire",
+    "DE": "Stabilität des Hauptpartners"
+  },
+  "INS_STABLE": {
+    "EN": "✓ Stable",
+    "FR": "✓ Stable",
+    "DE": "✓ Stabil"
+  },
+  "INS_CHANGED": {
+    "EN": "↕ Changed",
+    "FR": "↕ Changé",
+    "DE": "↕ Geändert"
+  },
+  "INS_CONC_LOW": {
+    "EN": "Low concentration",
+    "FR": "Faible concentration",
+    "DE": "Geringe Konzentration"
+  },
+  "INS_CONC_MOD": {
+    "EN": "Moderate concentration",
+    "FR": "Concentration modérée",
+    "DE": "Mittlere Konzentration"
+  },
+  "INS_CONC_HIGH": {
+    "EN": "High concentration",
+    "FR": "Forte concentration",
+    "DE": "Hohe Konzentration"
+  },
+  "INS_EFF_PARTNERS": {
+    "EN": "effective equal partners",
+    "FR": "partenaires équivalents",
+    "DE": "effektive gleichwertige Partner"
+  },
+  "INS_NO_PREV": {
+    "EN": "No previous year data available.",
+    "FR": "Aucune donnée pour l'année précédente.",
+    "DE": "Keine Daten für das Vorjahr verfügbar."
+  },
+  "INS_VS_PREV": {
+    "EN": "vs",
+    "FR": "par rapport à",
+    "DE": "ggü."
+  },
+  "INS_SAME_AS": {
+    "EN": "same #1 as",
+    "FR": "même n°1 qu'en",
+    "DE": "gleicher #1 wie"
+  },
+  "INS_NEW": {
+    "EN": "new",
+    "FR": "nouveau",
+    "DE": "neu"
+  },
+  "INS_IN": {
+    "EN": "in",
+    "FR": "entrant",
+    "DE": "eingetreten"
+  },
+  "INS_OUT": {
+    "EN": "out",
+    "FR": "sortant",
+    "DE": "ausgetreten"
   }
 }
