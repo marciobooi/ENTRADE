@@ -62,7 +62,6 @@ const dataNameSpace = {
 		const end = url.indexOf("?");
 		url = (end > 0) ? url.slice(0, end) : url.slice(0);
 		let iref = 0;
-		// console.log(dataNameSpace.ref)
 		const value = dataNameSpace.ref.geo;
 		if (typeof value !== 'undefined' && value) {
 			for (const ref in dataNameSpace.ref) {		
@@ -109,7 +108,6 @@ const dataNameSpace = {
 				REF.defaultUnit = codesDataset[dataNameSpace.dataset].defaultUnit;
 			}	
 		
-			// console.log("Dataset " + dataNameSpace.dataset);
 		},		
 	dataset: "",
 	

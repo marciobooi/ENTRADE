@@ -59,7 +59,7 @@ class SubNavbar {
                     }" value="Tutorial">${
                       languageNameSpace.labels["TUTORIAL"]
                     }</button>
-                    <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="openMeta()" aria-label="${
+                    <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="openMetadata()" aria-label="${
                       languageNameSpace.labels["METADATA"]
                     }" value="Metadata" >${
                       languageNameSpace.labels["METADATA"]
@@ -185,7 +185,7 @@ class SubNavbar {
                 </button>
                 <div class="ecl-dropdown-menu ecl-dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
                   <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="tutorial()" aria-label="${languageNameSpace.labels["TUTORIAL"]}" value="Tutorial">${languageNameSpace.labels["TUTORIAL"]}</button>
-                  <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="openMeta()" aria-label="${languageNameSpace.labels["METADATA"]}" value="Metadata" >${languageNameSpace.labels["METADATA"]}</button>
+                  <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="openMetadata()" aria-label="${languageNameSpace.labels["METADATA"]}" value="Metadata" >${languageNameSpace.labels["METADATA"]}</button>
                   <button class="ecl-dropdown-item ecl-link ecl-link--standalone"  onclick="mailContact()" aria-label="${languageNameSpace.labels["CONTACT"]}" value="Feedback">${languageNameSpace.labels["CONTACT"]}</button>
                 </div>
               </div> 

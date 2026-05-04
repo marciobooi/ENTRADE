@@ -1,272 +1,341 @@
-let isOpen = false;
-let driverObj = null;
 
-function setCookie(name, value, days = 30) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
 
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i].trim();
-        if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
+const TutorialTour = (() => {
+  const STORAGE_KEY = "tutorialSeen";
+  const STORAGE_VERSION = "v1";
+
+  const SELECTORS = {
+    focus150: "#focus150",
+    menuButton: "#menu",
+    chartOptionsMenu: "#chartOptionsMenu",
+    trade: "#containerTrade",
+    fuel: "#containerFuel",
+    siec: "#containerSiec",
+    year: "#containerYear",
+    unit: "#containerUnit",
+    switchBtn: "#switchBtn",
+    infoBtnChart: "#infoBtnChart",
+    embeddedBtn: "#embebedBtn",
+    languageBtn: "#toggleLanguageBtn",
+    shareChart: "#shareChart",
+    infoFallback: "button#INFO",
+    openDropdowns: ".ecl-dropdown-menu.show",
+    languageContainerVisible: ".ecl-site-header__language-container.visible"
+  };
+
+  let driverInstance = null;
+  let lastStepIndex = 0;
+  let previouslyFocusedElement = null;
+
+  function isOpen() {
+    return !!driverInstance;
+  }
+
+  function hasSeenTutorial() {
+    try {
+      return localStorage.getItem(STORAGE_KEY) === STORAGE_VERSION;
+    } catch {
+      return false;
     }
-    return null;
-}
+  }
 
-function checkAndShowTutorial() {
-    const tutorialCookie = getCookie("tutorialShown");
-    if (!tutorialCookie) {
-        setTimeout(() => {
-            tutorial();
-            setCookie("tutorialShown", "true", 30);
-        }, 600);
+  function markTutorialSeen() {
+    try {
+      localStorage.setItem(STORAGE_KEY, STORAGE_VERSION);
+    } catch {
+      // ignore storage errors
     }
-}
+  }
 
-function closeAllDropdowns() {
-    // Close ECL dropdown menus (info button, share button)
-    document.querySelectorAll(".ecl-dropdown-menu.show").forEach((menu) => {
-        menu.classList.remove("show");
-        const btn = menu.previousElementSibling;
-        if (btn) btn.setAttribute("aria-expanded", "false");
+  function qs(selector) {
+    return document.querySelector(selector);
+  }
+
+  function qsa(selector) {
+    return Array.from(document.querySelectorAll(selector));
+  }
+
+  function exists(selector) {
+    return !!qs(selector);
+  }
+
+  function closeAllDropdowns() {
+    qsa(SELECTORS.openDropdowns).forEach((menu) => {
+      menu.classList.remove("show");
+      const btn = menu.previousElementSibling;
+      if (btn) btn.setAttribute("aria-expanded", "false");
     });
 
-    // Close language dropdown
-    const langContainer = document.querySelector(".ecl-site-header__language-container.visible");
+    const langContainer = qs(SELECTORS.languageContainerVisible);
     if (langContainer) {
-        langContainer.classList.remove("visible");
-        const langBtn = document.querySelector("#toggleLanguageBtn");
-        if (langBtn) langBtn.setAttribute("aria-expanded", "false");
+      langContainer.classList.remove("visible");
+      const langBtn = qs(SELECTORS.languageBtn);
+      if (langBtn) langBtn.setAttribute("aria-expanded", "false");
     }
 
-    // Close chart options menu (absent toggleMenu class = open)
-    const chartOptionsMenu = document.querySelector("#chartOptionsMenu:not(.toggleMenu)");
-    if (chartOptionsMenu) {
-        chartOptionsMenu.classList.add("toggleMenu");
-        const menuBtn = document.querySelector("#menu");
-        if (menuBtn) menuBtn.classList.remove("menuOpen");
-    }
-}
+    closeChartMenu();
+  }
 
-function openChartMenu() {
-    const menu = document.querySelector("#chartOptionsMenu");
-    const btn = document.querySelector("#menu");
-    if (menu && menu.classList.contains("toggleMenu")) {
-        menu.classList.remove("toggleMenu");
-        if (btn) btn.classList.add("menuOpen");
+  function openChartMenu() {
+    const menu = qs(SELECTORS.chartOptionsMenu);
+    const btn = qs(SELECTORS.menuButton);
+    if (menu?.classList.contains("toggleMenu")) {
+      menu.classList.remove("toggleMenu");
+      btn?.classList.add("menuOpen");
+      btn?.setAttribute("aria-expanded", "true");
     }
-}
+  }
 
-function closeChartMenu() {
-    const menu = document.querySelector("#chartOptionsMenu");
-    const btn = document.querySelector("#menu");
+  function closeChartMenu() {
+    const menu = qs(SELECTORS.chartOptionsMenu);
+    const btn = qs(SELECTORS.menuButton);
     if (menu && !menu.classList.contains("toggleMenu")) {
-        menu.classList.add("toggleMenu");
-        if (btn) btn.classList.remove("menuOpen");
+      menu.classList.add("toggleMenu");
+      btn?.classList.remove("menuOpen");
+      btn?.setAttribute("aria-expanded", "false");
     }
-}
+  }
 
-function tutorial() {
+  function createStep({ element, title, description, onNextClick, onPrevClick, showButtons }) {
+    const step = {
+      popover: {
+        title,
+        description
+      }
+    };
+
+    if (showButtons) step.popover.showButtons = showButtons;
+    if (onNextClick) step.popover.onNextClick = onNextClick;
+    if (onPrevClick) step.popover.onPrevClick = onPrevClick;
+
+    // Only attach the element if it exists
+    if (element && exists(element)) {
+      step.element = element;
+    }
+
+    return step;
+  }
+
+  function buildSteps() {
+    const t = languageNameSpace.tutorial;
+    const l = languageNameSpace.labels;
+
+    return [
+      createStep({
+        title: t["START_TOUR_TITLE"],
+        description: t["START_TOUR_TEXT"],
+        showButtons: ["next", "close"]
+      }),
+
+      createStep({
+        element: SELECTORS.focus150,
+        title: t["STEP0_TITLE"],
+        description: t["STEP0_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.menuButton,
+        title: t["STEP1_TITLE"],
+        description: t["STEP1_TEXT"],
+        onNextClick: () => {
+          openChartMenu();
+          driverInstance?.moveNext();
+        }
+      }),
+
+      createStep({
+        element: SELECTORS.trade,
+        title: t["STEP2_TITLE"],
+        description: t["STEP2_TEXT"],
+        onPrevClick: () => {
+          closeChartMenu();
+          driverInstance?.movePrevious();
+        }
+      }),
+
+      createStep({
+        element: SELECTORS.fuel,
+        title: t["STEP3_TITLE"],
+        description: t["STEP3_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.siec,
+        title: t["STEP4_TITLE"],
+        description: t["STEP4_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.year,
+        title: t["STEP5_TITLE"],
+        description: t["STEP5_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.unit,
+        title: t["STEP6_TITLE"],
+        description: t["STEP6_TEXT"],
+        onNextClick: () => {
+          closeChartMenu();
+          driverInstance?.moveNext();
+        }
+      }),
+
+      createStep({
+        element: SELECTORS.switchBtn,
+        title: t["STEP7_TITLE"],
+        description: t["STEP7_TEXT"],
+        onPrevClick: () => {
+          openChartMenu();
+          driverInstance?.movePrevious();
+        }
+      }),
+
+      createStep({
+        element: SELECTORS.infoBtnChart,
+        title: t["STEP8_TITLE"],
+        description: t["STEP8_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.embeddedBtn,
+        title: t["STEP9_TITLE"],
+        description: t["STEP9_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.languageBtn,
+        title: t["STEP11_TITLE"],
+        description: t["STEP11_TEXT"]
+      }),
+
+      createStep({
+        element: SELECTORS.shareChart,
+        title: t["STEP12_TITLE"],
+        description: t["STEP12_TEXT"]
+      })
+    ];
+  }
+
+  function focusPreferredPopoverButton(popover, activeIndex) {
+    const goingBack = activeIndex < lastStepIndex;
+    lastStepIndex = activeIndex;
+
+    requestAnimationFrame(() => {
+      const preferred = goingBack ? popover.previousButton : popover.nextButton;
+      const fallback = goingBack ? popover.nextButton : popover.previousButton;
+
+      const buttonToFocus =
+        (preferred && !preferred.disabled && preferred.offsetParent !== null && preferred) ||
+        (fallback && !fallback.disabled && fallback.offsetParent !== null && fallback) ||
+        popover.closeButton;
+
+      buttonToFocus?.focus();
+    });
+  }
+
+  function start() {
+    if (isOpen()) return;
+
     closeAllDropdowns();
-    closeTutorial();
+    previouslyFocusedElement = document.activeElement;
 
     const { driver } = window.driver.js;
+    const steps = buildSteps();
 
-    const steps = [
-        {
-            popover: {
-                title: languageNameSpace.tutorial["START_TOUR_TITLE"],
-                description: languageNameSpace.tutorial["START_TOUR_TEXT"],
-                showButtons: ["next", "close"],
-            },
-        },
-                {
-            element: "#focus150",
-            popover: {
-                title: languageNameSpace.tutorial["STEP0_TITLE"],
-                description: languageNameSpace.tutorial["STEP0_TEXT"],
-            },
-        },
-        // Step 1 — menu button: clicking Next opens the chart options menu
-        {
-            element: "#menu",
-            popover: {
-                title: languageNameSpace.tutorial["STEP1_TITLE"],
-                description: languageNameSpace.tutorial["STEP1_TEXT"],
-                onNextClick: () => {
-                    openChartMenu();
-                    driverObj.moveNext();
-                },
-            },
-        },
-        // Steps 2-4 are inside the open chart options menu
-        {
-            element: "#containerTrade",
-            popover: {
-                title: languageNameSpace.tutorial["STEP2_TITLE"],
-                description: languageNameSpace.tutorial["STEP2_TEXT"],
-                // Going back from here closes the menu and returns to the menu button
-                onPrevClick: () => {
-                    closeChartMenu();
-                    driverObj.movePrevious();
-                },
-            },
-        },
-        {
-            element: "#containerFuel",
-            popover: {
-                title: languageNameSpace.tutorial["STEP3_TITLE"],
-                description: languageNameSpace.tutorial["STEP3_TEXT"],
-            },
-        },
-        {
-            element: "#containerSiec",
-            popover: {
-                title: languageNameSpace.tutorial["STEP4_TITLE"],
-                description: languageNameSpace.tutorial["STEP4_TEXT"],
-            },
-        },
-        {
-            element: "#containerYear",
-            popover: {
-                title: languageNameSpace.tutorial["STEP5_TITLE"],
-                description: languageNameSpace.tutorial["STEP5_TEXT"],
-            },
-        },
-        {
-            element: "#containerUnit",
-            popover: {
-                title: languageNameSpace.tutorial["STEP6_TITLE"],
-                description: languageNameSpace.tutorial["STEP6_TEXT"],
-                // Last menu step: clicking Next closes the menu before advancing
-                onNextClick: () => {
-                    closeChartMenu();
-                    driverObj.moveNext();
-                },
-            },
-        },
-        // Steps 5+ are outside the menu
-        {
-            element: "#switchBtn",
-            popover: {
-                title: languageNameSpace.tutorial["STEP7_TITLE"],
-                description: languageNameSpace.tutorial["STEP7_TEXT"],
-                // Going back re-opens the menu so the user returns to the last menu step
-                onPrevClick: () => {
-                    openChartMenu();
-                    driverObj.movePrevious();
-                },
-            },
-        },
-        {
-            element: "#infoBtnChart",
-            popover: {
-                title: languageNameSpace.tutorial["STEP8_TITLE"],
-                description: languageNameSpace.tutorial["STEP8_TEXT"],
-            },
-        },
-        {
-            element: "#embebedBtn",
-            popover: {
-                title: languageNameSpace.tutorial["STEP9_TITLE"],
-                description: languageNameSpace.tutorial["STEP9_TEXT"],
-            },
-        },
+    driverInstance = driver({
+      showProgress: false,
+      smoothScroll: false,
+      allowKeyboardControl: true,
+      popoverClass: "customTooltip",
+      nextBtnText: languageNameSpace.labels["tutNEXT"],
+      prevBtnText: languageNameSpace.labels["tutBACK"],
+      doneBtnText: languageNameSpace.labels["tutFINISH"],
+      steps,
 
-        
-        {
-            element: "#toggleLanguageBtn",
-            popover: {
-                title: languageNameSpace.tutorial["STEP11_TITLE"],
-                description: languageNameSpace.tutorial["STEP11_TEXT"],
-            },
-        },
-        {
-            element: "#shareChart",
-            popover: {
-                title: languageNameSpace.tutorial["STEP12_TITLE"],
-                description: languageNameSpace.tutorial["STEP13_TEXT"],
-            },
-        },
-    ];
+      onPopoverRender: (popover, { state }) => {
+        const idx = state.activeIndex ?? 0;
+        const titleId = `driver-title-${idx}`;
 
-    let _lastStepIndex = 0;
+        if (popover.title) {
+          popover.title.id = titleId;
+          popover.wrapper.setAttribute("aria-labelledby", titleId);
+        }
 
-    driverObj = driver({
-        showProgress: false,
-        smoothScroll: false,
-        allowKeyboardControl: true,
-        popoverClass: "customTooltip",
-        nextBtnText: languageNameSpace.labels['tutNEXT'],
-        prevBtnText: languageNameSpace.labels['tutBACK'],
-        doneBtnText: languageNameSpace.labels['tutFINISH'],
-        steps,
-        onPopoverRender: (popover, { state }) => {
-            // Set unique per-step id so aria-labelledby on the popover wrapper is accurate
-            const idx = state.activeIndex ?? 0;
-            const titleId = `driver-title-${idx}`;
-            if (popover.title) {
-                popover.title.id = titleId;
-                popover.wrapper.setAttribute('aria-labelledby', titleId);
-            }
+        focusPreferredPopoverButton(popover, idx);
+      },
 
-            // driver.js always focuses _[0] (the close button, first in DOM).
-            // Queue a rAF so it runs AFTER that focus theft and redirects to the
-            // correct navigation button based on travel direction.
-            const goingBack = idx < _lastStepIndex;
-            _lastStepIndex = idx;
-            requestAnimationFrame(() => {
-                const preferred = goingBack ? popover.previousButton : popover.nextButton;
-                const fallback  = goingBack ? popover.nextButton     : popover.previousButton;
-                const btn = (preferred && !preferred.disabled && preferred.offsetParent !== null)
-                    ? preferred
-                    : (fallback && !fallback.disabled && fallback.offsetParent !== null)
-                    ? fallback
-                    : popover.closeButton;
-                if (btn) btn.focus();
-            });
-        },
-        onDestroyed: () => {
-            closeChartMenu();
-            window.scrollTo(0, 0);
-            isOpen = false;
-            driverObj = null;
-            const infoBtn = document.querySelector("button#INFO");
-            if (infoBtn) infoBtn.focus();
-        },
+      onDestroyed: () => {
+        closeChartMenu();
+        window.scrollTo({ top: 0, behavior: "auto" });
+
+        const fallbackFocus = qs(SELECTORS.infoFallback);
+        const target =
+          previouslyFocusedElement instanceof HTMLElement
+            ? previouslyFocusedElement
+            : fallbackFocus;
+
+        driverInstance = null;
+        lastStepIndex = 0;
+
+        target?.focus?.();
+      }
     });
 
-    driverObj.drive();
-    isOpen = true;
-}
+    driverInstance.drive();
+  }
 
-function closeTutorial() {
-    if (driverObj) {
-        driverObj.destroy();
-        // driverObj is nulled out inside onDestroyed
-    }
-    isOpen = false;
-}
-
-function closeProcess(event) {
+  function stop(event) {
     if (event) event.preventDefault();
-    closeTutorial();
-}
+    driverInstance?.destroy();
+  }
 
-document.addEventListener("click", function (event) {
-    if (event.target && event.target.classList.contains("close")) {
-        closeProcess(event);
+  async function checkAndShow() {
+    if (hasSeenTutorial()) return;
+
+    // optional: wait until at least core elements exist
+    await waitForSelectors([SELECTORS.menuButton, SELECTORS.switchBtn], 2000);
+
+    if (!isOpen()) {
+      start();
+      markTutorialSeen();
     }
+  }
+
+  function waitForSelectors(selectors, timeout = 2000) {
+    return new Promise((resolve) => {
+      const ready = () => selectors.every((selector) => exists(selector));
+      if (ready()) return resolve(true);
+
+      const observer = new MutationObserver(() => {
+        if (ready()) {
+          observer.disconnect();
+          resolve(true);
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      setTimeout(() => {
+        observer.disconnect();
+        resolve(false);
+      }, timeout);
+    });
+  }
+
+  return {
+    start,
+    stop,
+    checkAndShow,
+    isOpen
+  };
+})();
+
+// Escape handler
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && TutorialTour.isOpen()) {
+    TutorialTour.stop(event);
+  }
 });
 
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" && isOpen) {
-        closeProcess(event);
-    }
-});
+window.tutorial = function () {  TutorialTour.start();};

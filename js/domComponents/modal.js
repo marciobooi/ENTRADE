@@ -11,7 +11,6 @@ class Modal {
           this.modal.setAttribute('role', 'dialog');
           this.modal.setAttribute('aria-modal', 'true');
           this.modal.setAttribute('data-bs-backdrop', 'static');
-          this.modal.setAttribute('aria-modal', 'true');
       
           this.create();
         }

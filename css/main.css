@@ -45,11 +45,11 @@ h2 {
     font-size: 1.2rem;
 }
 /* btns */
-.ecl-button--primary {
+/* .ecl-button--primary {
     background-color: white;
     border: 0 solid var(--eublue);
     color: var(--eublue)
-}
+} */
 
 .btnGroup {
     display: flex;
@@ -148,7 +148,6 @@ h2 {
     margin-bottom: 0;
     display: inline;
     padding-right: 1rem;
-    padding-left: 2rem;
     padding-left: 0;
     margin-left: 0;
     position: relative;
@@ -314,7 +313,6 @@ label[for="switchTop5"] {
 }
 
 .ecl-dropdown-item {
-    display: block;
 width: 100%;
     padding: .5rem;
     clear: both;
@@ -537,14 +535,8 @@ ul#footerCredits {
     color: var(--tool-1);
 }
 
-.tooltip.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Country-name hover tooltip – override the webtools 12px font-size.
-   The className 'entrade-country-tooltip' is set in the tooltip options in
-   countries.js so this selector is more specific than the webtools rule. */
+   /* The className 'entrade-country-tooltip' is set in the tooltip options in */
+   /* countries.js so this selector is more specific than the webtools rule. */ */
 .leaflet-tooltip.entrade-country-tooltip {
   font-size: 1rem !important; /* 16px */
 }
