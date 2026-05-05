@@ -802,7 +802,7 @@ ul#footerCredits {
 
 .insights-panel {
   padding: 1.25rem 1.5rem;
-  max-height: calc(100vh - 160px);
+  max-height: calc(90vh - 160px);
   overflow-y: auto;
 }
 
