@@ -1,25 +1,24 @@
-﻿
-{
+﻿{
 	"START_TOUR_TITLE": "Tutoriel",
-	"START_TOUR_TEXT": "Bienvenue dans le tutoriel de l'outil de visualisation du commerce de l'énergie d'Eurostat. Cette visite guidée vous montrera les principales façons d'interagir avec l'outil.",
+	"START_TOUR_TEXT": "Bienvenue dans le tutoriel de l'outil de visualisation des échanges d'énergie d'Eurostat. Cette visite guidée vous présentera les principales façons d'interagir avec l'outil.",
 	"STEP0_TITLE": "Vue de la carte",
-	"STEP0_TEXT": "La vue de la carte est la vue par défaut de l'outil. Elle montre les flux commerciaux d'énergie entre les pays. Cliquez sur un pays pour voir des informations détaillées sur son commerce de l'énergie.",
+	"STEP0_TEXT": "La vue de la carte est la vue par défaut de l'outil. Elle affiche les flux commerciaux d'énergie entre les pays. Cliquez sur un pays pour voir des informations détaillées sur son commerce de l'énergie.",
 	"STEP1_TITLE": "Menu",
 	"STEP1_TEXT": "L'outil contient un menu pour des fonctionnalités supplémentaires. Cliquez sur l'icône du menu pour personnaliser la vue de la carte. Cliquez sur suivant pour en savoir plus sur les options du menu.",
 	"STEP2_TITLE": "Sélectionner la fonctionnalité commerciale",
 	"STEP2_TEXT": "Utilisez cette option pour passer entre les importations et les exportations.",
-	"STEP3_TITLE": "Sélectionner le type de carburant",
-	"STEP3_TEXT": "Utilisez cette option pour passer entre différents types de carburant : charbon, gaz, pétrole, électricité/chaleur et biocarburants.",
-	"STEP4_TITLE": "Sélectionner le sous-type de carburant",
-	"STEP4_TEXT": "Utilisez cette option pour passer entre différents sous-types de carburant lorsque disponible.",
+	"STEP3_TITLE": "Sélectionnez le carburant",
+	"STEP3_TEXT": "Utilisez cette option pour passer entre différents types de carburant: charbon, gaz, pétrole, électricité/chaleur et biocarburants.",
+	"STEP4_TITLE": "Sélectionnez le produit",
+	"STEP4_TEXT": "Utilisez cette option pour passer d'un produit à l'autre lorsque disponible.",
 	"STEP5_TITLE": "Sélectionner l'année",
-	"STEP5_TEXT": "Utilisez cette option pour passer entre différentes années.",
+	"STEP5_TEXT": "Utilisez cette option pour passer d'une année à une autre.",
 	"STEP6_TITLE": "Sélectionner l'unité",
 	"STEP6_TEXT": "Utilisez cette option pour passer entre différentes unités lorsque disponible.",
 	"STEP7_TITLE": "Filtrer les fonctionnalités",
 	"STEP7_TEXT": "Utilisez cette option pour filtrer les pays, top 5, top 10, top 25 ou tous les pays.",
 	"STEP8_TITLE": "Définitions",
-	"STEP8_TEXT": "Chaque fois que vous voyez cette icône, cliquez dessus pour en savoir plus. L'outil de visualisation d'Eurostat pour le commerce de l'énergie est lié aux définitions, aux métadonnées et aux ensembles de données.",
+	"STEP8_TEXT": "Lorsque vous voyez cette icône, cliquez dessus pour en savoir plus. L'outil de visualisation du commerce de l'énergie est lié à des définitions, des métadonnées et des ensembles de données.",
 	"STEP9_TITLE": "Intégrer",
 	"STEP9_TEXT": "Utilisez cette option pour intégrer la visualisation dans votre site web.",
 	"STEP10_TITLE": "Partager",
@@ -27,5 +26,5 @@
 	"STEP11_TITLE": "Sélectionner la langue",
 	"STEP11_TEXT": "Utilisez cette option pour sélectionner le français, l'anglais ou l'allemand.",
 	"STEP12_TITLE": "C'est tout pour notre visite.",
-	"STEP13_TEXT": "Si vous trouvez cet outil de visualisation utile, veuillez montrer votre soutien en le partageant avec d'autres sur X, Facebook, email et LinkedIn. Merci !"
+	"STEP12_TEXT": "Si vous trouvez cet outil de visualisation utile, veuillez montrer votre soutien en le partageant avec d'autres sur X, Facebook, email et LinkedIn. Merci!"
 }

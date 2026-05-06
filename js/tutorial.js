@@ -5,7 +5,7 @@ const TutorialTour = (() => {
   const STORAGE_VERSION = "v1";
 
   const SELECTORS = {
-    focus150: "#focus150",
+    focus150: "#focus150" || "#focus182",
     menuButton: "#menu",
     chartOptionsMenu: "#chartOptionsMenu",
     trade: "#containerTrade",
@@ -22,6 +22,8 @@ const TutorialTour = (() => {
     openDropdowns: ".ecl-dropdown-menu.show",
     languageContainerVisible: ".ecl-site-header__language-container.visible"
   };
+
+
 
   let driverInstance = null;
   let lastStepIndex = 0;
