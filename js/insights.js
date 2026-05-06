@@ -819,7 +819,7 @@ async function createInsightsChart() {
         <td class="ecl-table__cell insights-rank-table__cell--numeric" data-label="${rankChangeLabel}">${getRankChangeBadge(row.rankDiff, hasPrev, L)}</td>
       </tr>`).join('');
     const rankMobileCardsHtml = partnerRows.map((row, index) => `
-      <article class="insights-rank-card${row.rank <= 3 ? ' insights-rank-card--top' : ''}"${hasCollapsedPartnerRows && index >= defaultVisiblePartnerRows ? ' data-insights-hidden-row="true" hidden' : ''}>
+      <article role="listitem" class="insights-rank-card${row.rank <= 3 ? ' insights-rank-card--top' : ''}"${hasCollapsedPartnerRows && index >= defaultVisiblePartnerRows ? ' data-insights-hidden-row="true" hidden' : ''}>
         <div class="insights-rank-card__header">
           <span class="insights-rank-card__rank">${rankLabel} ${row.rank}</span>
           <strong class="insights-rank-card__partner">${row.name}</strong>
@@ -943,7 +943,7 @@ async function createInsightsChart() {
               </thead>
               <tbody class="ecl-table__body">${rankTableHtml}</tbody>
             </table>
-            <div class="insights-rank-cards" aria-label="${L['INS_RANK_LIST'] || 'Partner ranking'}">
+            <div class="insights-rank-cards" role="list" aria-label="${L['INS_RANK_LIST'] || 'Partner ranking'}">
               ${rankMobileCardsHtml}
             </div>
             ${hasCollapsedPartnerRows ? `
@@ -1107,6 +1107,29 @@ async function createInsightsChart() {
     `;
 
     chartContainer.appendChild(panel);
+    const rankTableWrapper = panel.querySelector('.insights-rank-table-wrapper');
+    if (rankTableWrapper) {
+      rankTableWrapper.setAttribute('tabindex', '0');
+      rankTableWrapper.setAttribute('role', 'region');
+      rankTableWrapper.setAttribute('aria-label', L['INS_RANK_LIST'] || 'Partner ranking');
+
+      rankTableWrapper.addEventListener('keydown', event => {
+        // Allow keyboard users to horizontally scroll the ranking area.
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          return;
+        }
+
+        const canScrollHorizontally = rankTableWrapper.scrollWidth > rankTableWrapper.clientWidth;
+        if (!canScrollHorizontally) {
+          return;
+        }
+
+        event.preventDefault();
+        const scrollDelta = event.key === 'ArrowRight' ? 60 : -60;
+        rankTableWrapper.scrollLeft += scrollDelta;
+      });
+    }
+
     const rankTableToggle = panel.querySelector(`#${rankTableToggleId}`);
     if (rankTableToggle) {
       const hiddenRows = Array.from(panel.querySelectorAll('[data-insights-hidden-row="true"]'));

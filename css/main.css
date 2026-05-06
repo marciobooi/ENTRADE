@@ -960,6 +960,12 @@ ul#footerCredits {
   overflow-x: auto;
 }
 
+.insights-rank-table-wrapper:focus-visible {
+  outline: 3px solid var(--tool-1);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .insights-rank-table {
   width: 100%;
   font-size: 0.83rem;
@@ -1215,7 +1221,7 @@ ul#footerCredits {
 
 .insights-no-prev {
   font-size: 0.85rem;
-  color: #888;
+  color: #5f6674;
   font-style: italic;
   margin: 0;
 }
