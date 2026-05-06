@@ -52,7 +52,7 @@ const languageNameSpace = {
 		}
 	},
 
-	updatePageLabels() {
+	async updatePageLabels() {
 		const elementsId = ["#header-title-label"];
 	
 		elementsId.forEach(id => {
@@ -68,7 +68,7 @@ const languageNameSpace = {
 		});
 
 		removeComponents();
-		buildComponents();		
+		await buildComponents();		
 		
 
 		
@@ -95,10 +95,10 @@ const languageNameSpace = {
 		}
 
 		// Clean up any existing tooltips before re-initializing
-    cleanupTooltips();
+		cleanupTooltips();
 
-    getTitle();
-    enableTooltips();
+		getTitle();
+		enableTooltips();
 	},
 		
 	ChangeLanguage: function (val) {

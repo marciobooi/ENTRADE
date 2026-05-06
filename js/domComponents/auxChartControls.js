@@ -201,6 +201,11 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
+			// Chart action buttons are created dynamically, so tooltips must be rebound after insertion.
+			if (typeof enableTooltips === 'function') {
+				setTimeout(() => enableTooltips(), 0);
+			}
+
 			tableChart.setDisabled(true);
 			insightsChart.setDisabled(false);
 	}
