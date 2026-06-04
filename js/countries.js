@@ -13,44 +13,39 @@ fetch("data/data.json")
   .then(response => response.json())
   .then(data => {
     coords.push(data);
-    dataNameSpace.getRefURL()
+    dataNameSpace.getRefURL();
     renderMap();
     hideForIframe();
-    if (REF.geo !== "") {
-      fireOnStart(REF.geo)
-    }
   }).catch(error => console.error('Error loading coordination data:', error));
 
-  function fireOnStart(geo) {
-    let country = geo;
-    
-    setTimeout(function () {
-      // Check if map and map._layers exist before accessing
-      if (!map || !map._layers) {
-        fireOnStart(geo); // Retry if map not ready
+function fireOnStart(geo, retries = 20) {
+  if (!geo) return;
+
+  setTimeout(() => {
+    if (!map || !map._layers) {
+      if (retries > 0) {
+        fireOnStart(geo, retries - 1);
+      } else {
+        console.warn(`fireOnStart: map not ready for geo "${geo}".`);
+      }
+      return;
+    }
+
+    for (const layerId in map._layers) {
+      const layer = map._layers[layerId];
+
+      if (layer?.feature?.properties?.CNTR_ID === geo) {
+        loadCountryData(layer.feature.properties);
         return;
       }
-
-      for (const layerId in map._layers) {
-        if (map._layers.hasOwnProperty(layerId)) {
-            const layer = map._layers[layerId];
-    
-            // Check if the layer represents a GeoJSON feature
-            if (layer.feature && layer.feature.properties) {
-                const properties = layer.feature.properties;   
-
-                if (properties.CNTR_ID === REF.geo) {    
-                    loadCountryData(properties);   
-                    return
-                }
-            }
-        }
     }
-    }, 1000);
-  }
+
+    console.warn(`fireOnStart: country "${geo}" not found on map.`);
+  }, 500);
+}
 
 function renderMap() {
- 
+
   map = $wt.map.render({
     map: {
       scrollWheelZoom: true,
@@ -65,11 +60,11 @@ function renderMap() {
       continuousWorld: true,
       worldCopyJump: true,
       inertia: true,
-      smoothWheelZoom: true, 
+      smoothWheelZoom: true,
       smoothSensitivity: 2,
       smoothFactor: 1,
       language: REF.language,
-      background : ["positron_background"],
+      background: ["positron_background"],
       height: "100%",
       width: "100%",
       maxBounds: [
@@ -82,48 +77,35 @@ function renderMap() {
         data: ["ALL", "KS*0"],
         options: {
           events: {
-            click: function (layer) {    
+            click: async function (layer) {
+              const countryCode = layer.feature.properties.CNTR_ID;
 
-
-
-              if (defGeos.includes(layer.feature.properties.CNTR_ID)) {
-                // sync REF.trade with current trade selector value before loading data
+              if (defGeos.includes(countryCode)) {
                 const selectTradeElem = document.querySelector('#selectTrade');
+
                 if (selectTradeElem && selectTradeElem.value) {
                   REF.trade = selectTradeElem.value;
                 }
-                country = layer.feature.properties;
-                loadCountryData(country);              
 
-                document.querySelectorAll('path[aria-label]').forEach((element) => {
-                  const countryName = element.getAttribute('aria-label').trim();           
-                  if (countryName === languageNameSpace.labels[country]) {
-                    element.style.fill = partnersCtr;
-                    element.style.stroke = '#4b598b';
-                    element.style.strokeWidth = '2px';
-                  } else if (countryName === languageNameSpace.labels[REF.geo]) {
-                    element.style.fill = selectLayer;
-                    element.style.stroke = 'white';
-                    element.style.strokeWidth = '2px';
-                  }
-                });
-              }  
+                const country = layer.feature.properties;
 
-              dataNameSpace.setRefURL();
+                await loadCountryData(country);
+                dataNameSpace.setRefURL();
+              }
             },
             tooltip: {
               content: function (layer) {
                 const countryID = layer.properties.CNTR_ID;
-                let tooltipText = ""; 
-                if (countryID === "KS") { 
+                let tooltipText = "";
+                if (countryID === "KS") {
                   tooltipText = `<b>${languageNameSpace.labels["KS"]}</b>`;
                 } else {
-                  tooltipText =  "<b>{CNTR_NAME}</b>";
+                  tooltipText = "<b>{CNTR_NAME}</b>";
                 }
 
                 return tooltipText;
-                
-                
+
+
               },
               options: {
                 direction: "top",
@@ -150,133 +132,133 @@ function renderMap() {
   }).ready(function (mapInstance) {
     map = mapInstance; // Update the global map variable
 
-      setTimeout(() => {
-        map.eachLayer(function (layer) {
-          if (layer.feature && layer.feature.properties) {
-              const countryID = layer.feature.properties.CNTR_ID;
-      
-              if (countryID === "KS") {
-                  layer.setStyle({  
-                      fillColor: "#738ce5",  
-                      color: "#bcb5b5", // Border color
-                      weight: 1
-                  });
-              } else if (countryID === "RS") {
-                  layer.defaultOptions.style.fillColor= "#738ce5";      
-                  layer.defaultOptions.style.color= "#4b598b";    
-                  layer.defaultOptions.style.weight= "2";    
-                  layer.setStyle({  
-                    fillColor: "#738ce5",  
-                    color: "#4b598b", // Border color
-                    weight: 2
-                });              
-              } else {
-                  layer.setStyle({  
-                      color: "rgb(245, 245, 245)", // Border color
-                      weight: 1,
-                      opacity: 1,
-                      fillColor: "rgb(230, 230, 230)", // Fill color
-                      fillOpacity: 1
-                  });
-              }
+    setTimeout(() => {
+      map.eachLayer(function (layer) {
+        if (layer.feature && layer.feature.properties) {
+          const countryID = layer.feature.properties.CNTR_ID;
+
+          if (countryID === "KS") {
+            layer.setStyle({
+              fillColor: "#738ce5",
+              color: "#bcb5b5", // Border color
+              weight: 1
+            });
+          } else if (countryID === "RS") {
+            layer.defaultOptions.style.fillColor = "#738ce5";
+            layer.defaultOptions.style.color = "#4b598b";
+            layer.defaultOptions.style.weight = "2";
+            layer.setStyle({
+              fillColor: "#738ce5",
+              color: "#4b598b", // Border color
+              weight: 2
+            });
+          } else {
+            layer.setStyle({
+              color: "rgb(245, 245, 245)", // Border color
+              weight: 1,
+              opacity: 1,
+              fillColor: "rgb(230, 230, 230)", // Fill color
+              fillOpacity: 1
+            });
           }
+        }
       });
-          // Build label lookup once, then single pass over paths
-          const geoLabels = {};
-          defGeos.forEach(key => { geoLabels[languageNameSpace.labels[key]] = true; });
-          const selectedGeoLabel = languageNameSpace.labels[REF.geo];
+      // Build label lookup once, then single pass over paths
+      const geoLabels = {};
+      defGeos.forEach(key => { geoLabels[languageNameSpace.labels[key]] = true; });
+      const selectedGeoLabel = languageNameSpace.labels[REF.geo];
 
-          document.querySelectorAll('path[aria-label]').forEach((element) => {
-            const countryName = element.getAttribute('aria-label').trim();
-            // ensure a visible/title string for tooltips and assistive tech
-            if (!element.getAttribute('title')) {
-              element.setAttribute('title', countryName);
-            }
-            if (geoLabels[countryName]) {
-              element.style.fill = euCtr;
-              element.style.stroke = '#4b598b';
-              element.style.strokeWidth = '2px';
-            } else if (countryName === selectedGeoLabel) {
-              element.style.fill = selectLayer;
-              element.style.stroke = 'white';
-              element.style.strokeWidth = '2px';
-            }
-          });        
-            addClearToMenu()  
+      document.querySelectorAll('path[aria-label]').forEach((element) => {
+        const countryName = element.getAttribute('aria-label').trim();
+        // ensure a visible/title string for tooltips and assistive tech
+        if (!element.getAttribute('title')) {
+          element.setAttribute('title', countryName);
+        }
+        if (selectedGeoLabel && countryName === selectedGeoLabel) {
+          element.style.fill = selectLayer;
+          element.style.stroke = 'white';
+          element.style.strokeWidth = '2px';
+        } else if (geoLabels[countryName]) {
+          element.style.fill = euCtr;
+          element.style.stroke = '#4b598b';
+          element.style.strokeWidth = '2px';
+        }
+      });
+      addClearToMenu()
 
-            // Ensure that any focusable content inside aria-hidden map panes is neutralized
-            removeFocusableFromHiddenMapPanes();
+      // Ensure that any focusable content inside aria-hidden map panes is neutralized
+      removeFocusableFromHiddenMapPanes();
 
-            // Give the map a programmatic name and a short, screen-reader-only description
-            const mapContainer = document.querySelector('.wt-map-content') || document.querySelector('#map');
-            if (mapContainer) {
-              // role and accessible name
-              mapContainer.setAttribute('role', 'region');
-              const mapLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['header-title-label']) ? `${languageNameSpace.labels['header-title-label']} map` : 'Interactive map';
-              mapContainer.setAttribute('aria-label', mapLabel);
+      // Give the map a programmatic name and a short, screen-reader-only description
+      const mapContainer = document.querySelector('.wt-map-content') || document.querySelector('#map');
+      if (mapContainer) {
+        // role and accessible name
+        mapContainer.setAttribute('role', 'region');
+        const mapLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels['header-title-label']) ? `${languageNameSpace.labels['header-title-label']} map` : 'Interactive map';
+        mapContainer.setAttribute('aria-label', mapLabel);
 
-              // create (or reuse) a visually-hidden description for screen readers
-              if (!document.getElementById('mapDescription')) {
-                const desc = document.createElement('div');
-                desc.id = 'mapDescription';
-                desc.className = 'ecl-u-sr-only';
-                desc.textContent = `${mapLabel}. Use Tab to move through map routes and markers. Press Enter or Space to open details.`;
-                mapContainer.parentNode && mapContainer.parentNode.insertBefore(desc, mapContainer.nextSibling);
+        // create (or reuse) a visually-hidden description for screen readers
+        if (!document.getElementById('mapDescription')) {
+          const desc = document.createElement('div');
+          desc.id = 'mapDescription';
+          desc.className = 'ecl-u-sr-only';
+          desc.textContent = `${mapLabel}. Use Tab to move through map routes and markers. Press Enter or Space to open details.`;
+          mapContainer.parentNode && mapContainer.parentNode.insertBefore(desc, mapContainer.nextSibling);
+        }
+        mapContainer.setAttribute('aria-describedby', 'mapDescription');
+
+        // Observe the map container for aria-hidden changes and neutralize focusable nodes inside hidden panes
+        if (!mapContainer.__a11yObserverAttached) {
+          const observer = new MutationObserver((mutations) => {
+            let shouldRun = false;
+            for (const m of mutations) {
+              if (m.type === 'attributes' && m.attributeName === 'aria-hidden') {
+                shouldRun = true;
+                break;
               }
-              mapContainer.setAttribute('aria-describedby', 'mapDescription');
-
-              // Observe the map container for aria-hidden changes and neutralize focusable nodes inside hidden panes
-              if (!mapContainer.__a11yObserverAttached) {
-                const observer = new MutationObserver((mutations) => {
-                  let shouldRun = false;
-                  for (const m of mutations) {
-                    if (m.type === 'attributes' && m.attributeName === 'aria-hidden') {
-                      shouldRun = true;
-                      break;
-                    }
-                    if (m.type === 'childList') {
-                      shouldRun = true;
-                      break;
-                    }
-                  }
-                  if (shouldRun) removeFocusableFromHiddenMapPanes(mapContainer);
-                });
-                observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
-                mapContainer.__a11yObserverAttached = true;
+              if (m.type === 'childList') {
+                shouldRun = true;
+                break;
               }
-
-              // Apply a11y fixes to Leaflet SVG and tooltips
-              // role="group" (not "img") is required because the SVG contains
-              // focusable interactive child elements (paths with tabindex/role).
-              // Using role="img" would hide those children from the a11y tree
-              // and create a nested-interactive-controls violation.
-              const mapSvg = mapContainer.querySelector('svg');
-              if (mapSvg) {
-                mapSvg.setAttribute('role', 'group');
-              }
-
-              document.querySelectorAll('[aria-describedby]').forEach((el) => {
-                const describedId = el.getAttribute('aria-describedby');
-                if (describedId && !document.getElementById(describedId)) {
-                  el.removeAttribute('aria-describedby');
-                }
-              });
             }
+            if (shouldRun) removeFocusableFromHiddenMapPanes(mapContainer);
+          });
+          observer.observe(mapContainer, { attributes: true, attributeFilter: ['aria-hidden'], subtree: true, childList: true });
+          mapContainer.__a11yObserverAttached = true;
+        }
 
-            // Remove interactive attributes from non-clickable country paths.
-            // Webtools adds role="button" + tabindex="0" to every Leaflet path;
-            // non-defGeos paths (e.g. Russia) have huge bounding boxes that the
-            // browser counts as interactive neighbours, shrinking the safe
-            // touch-target space around nearby UI buttons to < 24 px (WCAG 2.5.8).
-            neutralizeNonInteractivePaths();
+        // Apply a11y fixes to Leaflet SVG and tooltips
+        // role="group" (not "img") is required because the SVG contains
+        // focusable interactive child elements (paths with tabindex/role).
+        // Using role="img" would hide those children from the a11y tree
+        // and create a nested-interactive-controls violation.
+        const mapSvg = mapContainer.querySelector('svg');
+        if (mapSvg) {
+          mapSvg.setAttribute('role', 'group');
+        }
 
-            // If a country was already selected before the language change,
-            // re-draw its trade lines now that the map is ready.
-            if (REF.geo) {
-              fireOnStart(REF.geo);
-            }
+        document.querySelectorAll('[aria-describedby]').forEach((el) => {
+          const describedId = el.getAttribute('aria-describedby');
+          if (describedId && !document.getElementById(describedId)) {
+            el.removeAttribute('aria-describedby');
+          }
+        });
+      }
 
-      }, 500);
+      // Remove interactive attributes from non-clickable country paths.
+      // Webtools adds role="button" + tabindex="0" to every Leaflet path;
+      // non-defGeos paths (e.g. Russia) have huge bounding boxes that the
+      // browser counts as interactive neighbours, shrinking the safe
+      // touch-target space around nearby UI buttons to < 24 px (WCAG 2.5.8).
+      neutralizeNonInteractivePaths();
+
+      // If a country was already selected before the language change,
+      // re-draw its trade lines now that the map is ready.
+      if (REF.geo) {
+        fireOnStart(REF.geo);
+      }
+
+    }, 500);
   });
 }
 
@@ -284,72 +266,68 @@ function renderMap() {
 
 
 function addClearToMenu() {
-  const icon = '<i class="fas fa-eraser"></i>';
   const clearLabel = (languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels['CLEAR'] || languageNameSpace.labels['btn7'])) ? (languageNameSpace.labels['CLEAR'] || languageNameSpace.labels['btn7']) : 'Clear map';
-  const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="${clearLabel}" type="button">
+  const mapMenu = document.querySelector(".wt-map-menu");
+  if (!mapMenu) return;
+
+  let clearBtn = document.querySelector("#wt-button-clear");
+
+  if (!clearBtn) {
+    const content = `<button class="wt-btn clear" name="clear" id="wt-button-clear" aria-label="${clearLabel}" type="button">
   <b class="wt-noconflict"></b>
   <span class="wt-noconflict">${clearLabel}</span>
 </button>`;
 
-  const mapMenu = document.querySelector(".wt-map-menu");
-  if (mapMenu) {
     mapMenu.insertAdjacentHTML('beforeend', content);
+    clearBtn = document.querySelector('#wt-button-clear');
   }
 
-  const clearBtn = document.querySelector("#wt-button-clear");
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      clearLines();
-      const countryInfo = document.querySelector('#countryInfo');
-      if (countryInfo) countryInfo.remove();
-      clearMap();
+  if (!clearBtn || clearBtn.__clearHandlerAttached) return;
 
-      document.querySelectorAll('path[aria-label]').forEach((element) => {
-        const countryName = element.getAttribute("aria-label").trim();
+  clearBtn.addEventListener('click', () => {
+    const countryInfo = document.querySelector('#countryInfo');
+    if (countryInfo) countryInfo.remove();
 
-        if (countryName === languageNameSpace.labels[REF.geo]) {
-          element.style.fill = "rgb(115, 140, 229)";
-          element.style.stroke = "rgb(75, 89, 139)";
-          element.style.strokeWidth = "2px";
-        }
-      });
-    });
-  }
+    clearMap();
+
+    REF.geo = '';
+    REF.chart = 'map';
+    dataNameSpace.setRefURL();
+  });
+
+  clearBtn.__clearHandlerAttached = true;
 }
 
 
-async function loadCountryData(country) {  
-  REF.dataset = REF.dataset;
+async function loadCountryData(country) {
   REF.geo = country.CNTR_ID;
-  REF.chart = "map";
+  REF.chart = 'map';
 
   // Clear any previous country selection before loading the new one.
   // This enforces single-country selection and prevents curves/markers accumulating.
   clearMap();
 
-  // Assuming chartApiCall returns an object with a 'value' property
-  let d = await chartApiCall();
-
-  let partners = countriesDataHandler(d);
+  const d = await chartApiCall();
+  const partners = countriesDataHandler(d);
 
   if (!partners.length) {
-    // Delegate to the shared popup helper (also calls clearMap and manages focus).
     showNoDataPopup();
-  } else {
-    countryInfo(country);
-    await drawLines(country, partners);
-    getTitle();
-    chartContainerStatus();
+    return;
+  }
 
-    // move keyboard focus to first curve line (if any) so Tab order begins with the lines
-    setTimeout(() => focusFirstMapCurve(), 120);
+  countryInfo(country);
+  await drawLines(country, partners);
+  getTitle();
+  chartContainerStatus();
 
-    if (isOpenChartContainer) {
-      const countryInfo = document.querySelector('#countryInfo');
-      if (countryInfo) countryInfo.remove();
-      removeChartOptions();
-      await openFactSheet();
-    }
+  // move keyboard focus to first curve line (if any) so Tab order begins with the lines
+  setTimeout(() => focusFirstMapCurve(), 120);
+
+  if (isOpenChartContainer) {
+    const countryInfo = document.querySelector('#countryInfo');
+    if (countryInfo) countryInfo.remove();
+    removeChartOptions();
+    await openFactSheet();
   }
 }
 
@@ -382,46 +360,52 @@ async function openFactSheet(country) {
 
 
 function countriesDataHandler(d) {
-
   if (d === null) {
-    return []; // Return an empty array if the input is null
+    return [];
   }
 
-  const partnerIds = d.Dimension("partner").id;
+  const partnerIds = d.Dimension('partner').id;
   const selectedYearValues = getPartnerValuesForYear(d, REF.year);
 
-  const MIN_LINE_VALUE = 0.5; // use 0.001 or 0.1 to avoid tiny lines if needed
+  const MIN_LINE_VALUE = 0.5;
 
-  let partners = partnerIds.map((currentPartnerId, index) => {
-    let raw = selectedYearValues[index];
-    if (raw === null || raw === undefined || raw === '' || raw <= 0) return null;
+  let partners = partnerIds
+    .map((currentPartnerId, index) => {
+      const raw = selectedYearValues[index];
+      const numericValue = Number(raw);
 
-    const numericValue = Number(raw);
-    if (
-      !excludedPartners.includes(currentPartnerId) &&
-      !isNaN(numericValue) &&
-      numericValue > MIN_LINE_VALUE
-    ) {
+      if (
+        raw === null ||
+        raw === undefined ||
+        raw === '' ||
+        !Number.isFinite(numericValue) ||
+        numericValue <= MIN_LINE_VALUE ||
+        excludedPartners.includes(currentPartnerId)
+      ) {
+        return null;
+      }
+
       return [currentPartnerId, numericValue];
-    }
-    return null;
-  }).filter(partner => partner !== null);
+    })
+    .filter(Boolean);
 
-  countryTotal = Math.floor(partners.reduce((acc, currentValue) => acc + currentValue[1], 0));
+  countryTotal = Math.floor(
+    partners.reduce((acc, currentValue) => acc + currentValue[1], 0)
+  );
 
 
-  if( REF.filter === "top5" ){
+  if (REF.filter === 'top5') {
     partners = getTopFive(partners);
   }
 
-   return partners;
+  return partners;
 }
 
 function countryInfo(country) {
   const countryInfoElem = document.querySelector('#countryInfo');
   if (countryInfoElem) countryInfoElem.remove();
-  
-  countryInfoContent = countryInfoMenu(country);
+
+  const countryInfoContent = countryInfoMenu(country);
   const mapElem = document.querySelector("#map");
   if (mapElem) {
     mapElem.insertAdjacentHTML('beforeend', countryInfoContent);
@@ -471,6 +455,8 @@ function debounce(callback, delay = 120) {
 }
 
 function registerMapHandler(eventName, handler) {
+  if (!map) return;
+
   map.on(eventName, handler);
 
   zoomHandlers.push({
@@ -596,7 +582,8 @@ function createPartnerCurve({
     outline: 'none',
     className: 'myClass',
     _partnerCountry: partnerCountry,
-    _value: value
+    _value: value,
+    _label: label
   })
     .bindTooltip(tooltipContent, {
       sticky: true,
@@ -625,13 +612,14 @@ function createPartnerMarker({
 }) {
   const zoom = map.getZoom();
 
-  const marker = L.circle(partnerCoords, {
+  const marker = L.circleMarker(partnerCoords, {
     color: 'rgb(170 95 24)',
     fillColor: 'rgb(170 95 24)',
     fillOpacity: 1,
     radius: calculateRadius(scale, value, zoom),
     _partnerCountry: partnerCountry,
-    _value: value
+    _value: value,
+    _label: label
   })
     .addTo(map)
     .bindPopup(tooltipContent, {
@@ -710,14 +698,28 @@ function drawLines(sourceCountry, partners) {
   function updateFeatureSizes() {
     const zoom = map.getZoom();
 
-    lines.forEach((line) => {
+    lines.forEach(line => {
       const weight = calculateWeight(scale, line.options._value, zoom);
       line.setStyle({ weight });
     });
 
-    markers.forEach((marker) => {
+    markers.forEach(marker => {
       const radius = calculateRadius(scale, marker.options._value, zoom);
       marker.setRadius(radius);
+    });
+  }
+
+  function reapplyMapFeatureAccessibility() {
+    lines.forEach(line => {
+      if (line?.options?._label) {
+        makeCurveAccessible(line, line.options._label);
+      }
+    });
+
+    markers.forEach(marker => {
+      if (marker?.options?._label) {
+        makeMarkerAccessible(marker, marker.options._label);
+      }
     });
   }
 
@@ -734,6 +736,7 @@ function drawLines(sourceCountry, partners) {
 
     forceSvgOverflow();
     reapplyCountryColors();
+    reapplyMapFeatureAccessibility();
 
     markers.forEach(marker => {
       const partnerCountry = marker?.options?._partnerCountry;
@@ -753,9 +756,6 @@ function drawLines(sourceCountry, partners) {
   registerMapHandler('zoomend', debouncedRedrawCurves);
   registerMapHandler('moveend', debouncedRedrawCurves);
 }
-
-
-
 
 function focusNextMapCurve(current) {
   const curves = Array.from(document.querySelectorAll('.map-curve'));
@@ -899,13 +899,35 @@ const zoomHandlers = [];
 
 // Function to clear lines
 function clearLines() {
-  lines.forEach(line => map.removeLayer(line));
+  if (!map) return;
+
+  lines.forEach(line => {
+    try {
+      if (line && map.hasLayer(line)) {
+        map.removeLayer(line);
+      }
+    } catch {
+      // ignore
+    }
+  });
+
   lines.length = 0;
 }
 
 // Function to clear markers
 function clearMarkers() {
-  markers.forEach(marker => map.removeLayer(marker));
+  if (!map) return;
+
+  markers.forEach(marker => {
+    try {
+      if (marker && map.hasLayer(marker)) {
+        map.removeLayer(marker);
+      }
+    } catch {
+      // ignore
+    }
+  });
+
   markers.length = 0;
 }
 
@@ -921,8 +943,8 @@ function neutralizeNonInteractivePaths() {
   // curve / marker paths which must remain focusable.
   document.querySelectorAll('path.leaflet-interactive').forEach(path => {
     if (path.classList.contains('map-curve') ||
-        path.classList.contains('map-marker') ||
-        path.classList.contains('marker')) return;
+      path.classList.contains('map-marker') ||
+      path.classList.contains('marker')) return;
 
     const label = (path.getAttribute('aria-label') || '').trim();
     if (!geoLabelSet.has(label)) {
@@ -993,6 +1015,22 @@ function clearMap() {
   });
 }
 
+function highlightClickedCountry(country) {
+  document.querySelectorAll('path[aria-label]').forEach(element => {
+    const countryName = element.getAttribute('aria-label')?.trim();
+
+    if (countryName === languageNameSpace.labels[country.CNTR_ID]) {
+      element.style.fill = partnersCtr;
+      element.style.stroke = '#4b598b';
+      element.style.strokeWidth = '2px';
+    } else if (countryName === languageNameSpace.labels[REF.geo]) {
+      element.style.fill = selectLayer;
+      element.style.stroke = 'white';
+      element.style.strokeWidth = '2px';
+    }
+  });
+}
+
 
 // Accessibility helper: ensure focusable elements inside aria-hidden map panes are not tabbable
 function removeFocusableFromHiddenMapPanes(root = document) {
@@ -1024,36 +1062,30 @@ function clearLinesAndMarkers() {
   clearMarkers();
 }
 
-
-
 function getCountryCoordinates(countryCode) {
-  const feature = coords[0].features.find(feature => feature.properties.CNTR_ID === countryCode);
-  if (feature) {
-    const coordinates = feature.geometry.coordinates;
-    // Swap the coordinates
-    const swappedCoordinates = [coordinates[1], coordinates[0]];
-    return swappedCoordinates;
-  } else {
-    console.error(`Coordinates not found for country code: ${countryCode}`);
+  const feature = coords?.[0]?.features?.find(feature => feature?.properties?.CNTR_ID === countryCode);
+  if (!feature?.geometry?.coordinates) {
+    console.warn(`Coordinates not found for country code: ${countryCode}`);
     return null;
   }
+
+  const coordinates = feature.geometry.coordinates;
+  return [coordinates[1], coordinates[0]];
 }
 
+function lineTooltip(partnerCountry, value, countryName) {
+  const labels = languageNameSpace?.labels || {};
+  const title = labels[REF.trade] || labels[REF.dataset] || '';
+  const labelFuel = labels[REF.fuel] || REF.fuel || '';
+  const unit = labels[`abr_${REF.unit}`] || REF.unit || '';
+  const partnerLabel = labels[partnerCountry] || partnerCountry;
+  const countryLabel = labels[countryName] || countryName;
+  const countryOne = REF.trade === 'imp' ? partnerLabel : countryLabel;
+  const countryTwo = REF.trade === 'imp' ? countryLabel : partnerLabel;
+  const countryValue = Number(value).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const icon = REF.fuel || 'solid';
 
-function lineTooltip(partnerCountry, value , countryNAme) {
-
-  // Use trade mode label (import/export) instead of static dataset label for tooltip header.
-  const title = languageNameSpace.labels[REF.trade] || languageNameSpace.labels[REF.dataset] || '';
-  const countryOne = REF.trade === "imp" ? languageNameSpace.labels[partnerCountry] : languageNameSpace.labels[countryNAme];
-  const countryTwo = REF.trade === "imp" ? languageNameSpace.labels[countryNAme] : languageNameSpace.labels[partnerCountry];
-  const orientation = REF.trade === "imp" ? "&#8592" : "&#8594";
-  const labelFuel = languageNameSpace.labels[REF.fuel] || '';
-  const countryValue = value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const unit = languageNameSpace.labels["abr_"+REF.unit]
-  const icon = REF.fuel
-  const flag = partnerCountry
-
-  const tooltipContent = `
+  return `
   <div class="pop-card pop-card--solid">
     <div class="pop-card__header">
       <div class="pop-card__icon-wrap">
@@ -1079,10 +1111,8 @@ function lineTooltip(partnerCountry, value , countryNAme) {
         <span class="pop-card__unit">${unit}</span>
       </div>
     </div>
-  </div>`
-  return tooltipContent  
+  </div>`;
 }
-
 
 function countryInfoMenu(country) {
   const countryContent = `
@@ -1101,10 +1131,7 @@ function countryInfoMenu(country) {
   return countryContent;
 }
 
-
-
 // function to set the PolylinesTickness of the polylines on the map acording to the values of the countries
-
 function createLeafletScaler(partners) {
   if (!partners?.length) return () => 0;
 
@@ -1171,11 +1198,6 @@ function poliColorChange() {
 
   return fuelColors[REF?.fuel] || 'rgba(204, 163, 0, 0.85)';
 }
-
-
-
-
-
 function chartContainerStatus() {
   const chartContainer = document.querySelector('#chartContainer');
   isOpenChartContainer = chartContainer && window.getComputedStyle(chartContainer).display !== 'none' ? true : false;
