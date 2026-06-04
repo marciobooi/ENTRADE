@@ -444,8 +444,8 @@ function drawLines(sourceCountry, partners) {
 
   clearLinesAndMarkers();
 
-  // Store radii so the single zoom handler can reference them
-  const markerRadii = [];
+  const scale = createLeafletScaler(partners);
+  const initialZoom = map.getZoom();
 
   partners.forEach(partner => {
     const partnerCountry = partner[0];
@@ -461,7 +461,7 @@ function drawLines(sourceCountry, partners) {
 
     const line = L.curve(["M", sourceCoords, "Q", curvePoint, partnerCoords], {
       color: poliColorChange(), // Set the desired line color
-      weight: calculateWeight(partners, value),
+      weight: calculateWeight(scale, value, initialZoom),
       opacity: 1,
       animate: 1500,
       lineCap: "round",
@@ -475,6 +475,7 @@ function drawLines(sourceCountry, partners) {
     }).on('mouseout', function (event) {
       this.closeTooltip();
     }).addTo(map);
+    line.options._value = value;
 
     // Make the underlying SVG path for the curve keyboard-focusable and accessible
     try {
@@ -508,15 +509,15 @@ function drawLines(sourceCountry, partners) {
       /* ignore — best-effort */
     }
 
-    const radius = calculateRadius(partners, value);
-    markerRadii.push(radius);
+    const radius = calculateRadius(scale, value, initialZoom);
 
     const marker = L.circle(partnerCoords, {
       color: 'rgb(170 95 24)', // Set the color of the circle's border to transparent
       fillColor: 'rgb(170 95 24)', // Set the fill color of the circle
       fillOpacity: 1, // Set the opacity of the fill color
       radius: radius, // Set the radius of the circle in meters
-      _partnerCountry: partnerCountry // stored so zoom-redraw can recolor the country polygon
+      _partnerCountry: partnerCountry, // stored so zoom-redraw can recolor the country polygon
+      _value: value
     }).addTo(map)
     .bindPopup(lineTooltip(partnerCountry, value, countryName), { className: 'pop-card-popup' })
     .on('mouseover', function (e) { this.openPopup(); })
@@ -549,17 +550,17 @@ function drawLines(sourceCountry, partners) {
     styleCountry(partnerCountry);
   });
 
-  // Single zoom handler for ALL markers (instead of one per marker)
-  function updateAllCircleSizes() {
-    const zoomLevel = map.getZoom();
-    const scale = Math.pow(2, 5 - zoomLevel);
+  function updateFeatureSizes() {
+    const zoom = map.getZoom();
 
-    // update circle marker radii only (fast, runs during zoom)
-    markers.forEach((m, i) => {
-      const r = markerRadii[i];
-      if (r !== undefined) {
-        m.setRadius(r * scale);
-      }
+    lines.forEach((line) => {
+      const weight = calculateWeight(scale, line.options._value, zoom);
+      line.setStyle({ weight });
+    });
+
+    markers.forEach((marker) => {
+      const radius = calculateRadius(scale, marker.options._value, zoom);
+      marker.setRadius(radius);
     });
   }
 
@@ -605,11 +606,12 @@ function drawLines(sourceCountry, partners) {
 
   // Apply overflow fix immediately after first draw
   forceSvgOverflow();
+  updateFeatureSizes();
 
-  map.on('zoom', updateAllCircleSizes);
+  map.on('zoomend', updateFeatureSizes);
   map.on('zoomend', debouncedRedrawCurves);
   map.on('moveend', debouncedRedrawCurves);
-  zoomHandlers.push(updateAllCircleSizes);
+  zoomHandlers.push(updateFeatureSizes);
   zoomHandlers.push(debouncedRedrawCurves);
 }
 
@@ -972,57 +974,74 @@ function countryInfoMenu(country) {
 
 
 // function to set the PolylinesTickness of the polylines on the map acording to the values of the countries
-function calculateWeight(partners, value) {
-	const values = partners.map(item => item[1]);
-  
-	const minValue = Math.min(...values);
-	const maxValue = Math.max(...values);
-	const maxWeight = 14;
-	const minWeight = 2;
-	const pixelLength = 2;
-  
-	if (minValue === maxValue) {
-	  return minWeight;
-	}
-  
-	const factor = (maxWeight - minWeight) / (maxValue - minValue);
-	const weight = Math.round((factor * value) + pixelLength);
-  if(weight > maxWeight) return maxWeight;
-	return weight;
-  }
-  
-  function calculateRadius(partners, value) {
-    const values = partners.map(item => item[1]);
-  
-    const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
-    const maxRadius = 35000;
-    const minRadius = 20000;
 
-    if (minValue === maxValue) {
-        return minRadius; // Corrected variable name from `minWeight` to `minRadius`
+function createLeafletScaler(partners) {
+  if (!partners?.length) return () => 0;
+
+  const values = partners.map(item => item[1]);
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  return function scale(value, outMin, outMax, mode = "sqrt") {
+    if (min === max) return outMin;
+
+    // Normalize
+    let normalized = (value - min) / (max - min);
+
+    // Apply perception-friendly scaling
+    if (mode === "sqrt") {
+      normalized = Math.sqrt(normalized); // good default for maps
+    } else if (mode === "log") {
+      normalized = Math.log(normalized * 9 + 1) / Math.log(10);
     }
 
-    const factor = (maxRadius - minRadius) / (maxValue - minValue);
-    let radius = Math.round(factor * (value - minValue) + minRadius); // Adjusted formula to start from minRadius
-    radius = Math.min(radius, maxRadius); // Ensuring radius doesn't exceed maxRadius
-    return radius;
+    const scaled = outMin + normalized * (outMax - outMin);
+
+    return Math.max(outMin, Math.min(outMax, scaled));
+  };
 }
 
-  function poliColorChange() {
-    const fuelColors = {
-      solid: 'rgba(128, 0, 0, 0.73)',
-      oil: 'rgba(20, 55, 90, 0.73)',
-      gas: 'rgba(250, 165, 25, 0.73)',
-      biofuels: 'rgba(95, 180, 65, 0.73)',
-      electricity: 'rgba(215, 60, 65, 0.73)',
-    };
-  
-    // return fuelColors[REF.fuel] || 'rgb(204 163 0 / 85%)';
-    return 'rgb(204 163 0)';
-  }
+function calculateWeight(scale, value, zoom) {
+  const BASE_MIN = 1.5;
+  const BASE_MAX = 10;
 
-  
+  // Adjust thickness based on zoom
+  const zoomFactor = Math.max(0.6, Math.min(1.8, zoom / 6));
+
+  const minWeight = BASE_MIN * zoomFactor;
+  const maxWeight = BASE_MAX * zoomFactor;
+
+  return scale(value, minWeight, maxWeight, "sqrt");
+}
+
+function calculateRadius(scale, value, zoom) {
+  const BASE_MIN = 5;
+  const BASE_MAX = 25;
+
+  const zoomFactor = Math.max(0.7, Math.min(2.0, zoom / 6));
+
+  const minRadius = BASE_MIN * zoomFactor;
+  const maxRadius = BASE_MAX * zoomFactor;
+
+  return scale(value, minRadius, maxRadius, "sqrt");
+}
+
+function poliColorChange() {
+  const fuelColors = {
+    solid: 'rgba(128, 0, 0, 0.75)',
+    oil: 'rgba(20, 55, 90, 0.75)',
+    gas: 'rgba(250, 165, 25, 0.75)',
+    biofuels: 'rgba(95, 180, 65, 0.75)',
+    electricity: 'rgba(215, 60, 65, 0.75)',
+  };
+
+  console.log('Selected fuel:', REF?.fuel);
+
+  return fuelColors[REF?.fuel] || 'rgba(204, 163, 0, 0.85)';
+}
+
+
 
 
 

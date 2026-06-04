@@ -49,9 +49,11 @@ async function populateYearsData() {
     const dropdownList = document.querySelector("#dropdown-years-list");
     const numberOfItems = dropdownList ? dropdownList.children.length : 0;
 
-    if (numberOfItems !== yearsArray.length) {
-      REF.year = yearsArray[yearsArray.length - 1];
-    }
+
+if (numberOfItems !== yearsArray.length && yearsArray.length > 0) {
+  REF.year = yearsArray.at(-1);
+}
+
   } catch (err) {
     console.warn("populateYearsData: Unable to compare dropdown list length.", err);
     // Not fatal—continue rendering.
