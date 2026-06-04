@@ -21,7 +21,7 @@ fetch("data/data.json")
 function fireOnStart(geo, retries = 20) {
   if (!geo) return;
 
-  setTimeout(() => {
+  setTimeout(async () => {
     if (!map || !map._layers) {
       if (retries > 0) {
         fireOnStart(geo, retries - 1);
@@ -35,7 +35,7 @@ function fireOnStart(geo, retries = 20) {
       const layer = map._layers[layerId];
 
       if (layer?.feature?.properties?.CNTR_ID === geo) {
-        loadCountryData(layer.feature.properties);
+        await loadCountryData(layer.feature.properties);
         return;
       }
     }
@@ -288,10 +288,10 @@ function addClearToMenu() {
     const countryInfo = document.querySelector('#countryInfo');
     if (countryInfo) countryInfo.remove();
 
-    clearMap();
-
     REF.geo = '';
     REF.chart = 'map';
+
+    clearMap();
     dataNameSpace.setRefURL();
   });
 
@@ -508,6 +508,8 @@ function makeCurveAccessible(line, label) {
     pathEl.setAttribute('aria-label', label);
     pathEl.setAttribute('title', label);
 
+    if (pathEl.__curveA11yAttached) return;
+
     pathEl.addEventListener('keydown', ev => {
       const key = ev.key;
 
@@ -531,6 +533,8 @@ function makeCurveAccessible(line, label) {
         focusPrevMapCurve(pathEl);
       }
     });
+
+    pathEl.__curveA11yAttached = true;
   } catch {
     // accessibility is best-effort
   }
@@ -548,12 +552,16 @@ function makeMarkerAccessible(marker, label) {
     pathEl.setAttribute('aria-label', label);
     pathEl.setAttribute('title', label);
 
+    if (pathEl.__markerA11yAttached) return;
+
     pathEl.addEventListener('keydown', ev => {
       if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
         ev.preventDefault();
         marker.openPopup();
       }
     });
+
+    pathEl.__markerA11yAttached = true;
   } catch {
     // accessibility is best-effort
   }
@@ -965,16 +973,28 @@ function reapplyCountryColors() {
   defGeos.forEach(key => { geoLabelMap[languageNameSpace.labels[key]] = key; });
   const selectedLabel = languageNameSpace.labels[REF.geo];
 
-  // Paths without aria-label are curves / markers / UI paths — make transparent
-  document.querySelectorAll('path:not([aria-label])').forEach((element) => {
+  document.querySelectorAll('.leaflet-overlay-pane path:not([aria-label])').forEach((element) => {
+    if (
+      element.classList.contains('map-curve') ||
+      element.classList.contains('map-marker') ||
+      element.classList.contains('marker')
+    ) {
+      return;
+    }
+
     element.style.fill = 'transparent';
   });
 
-  // Paths with aria-label are country polygons — set final colour in one pass
-  // (EU countries never pass through transparent, avoiding flash-of-white).
-  // Selected country is checked FIRST because it is also in defGeos; without
-  // priority it would always get euCtr instead of the darker selectLayer.
-  document.querySelectorAll('path[aria-label]').forEach((element) => {
+  // Only country polygon paths should be recolored here.
+  document.querySelectorAll('.leaflet-overlay-pane path[aria-label]').forEach((element) => {
+    if (
+      element.classList.contains('map-curve') ||
+      element.classList.contains('map-marker') ||
+      element.classList.contains('marker')
+    ) {
+      return;
+    }
+
     const countryName = element.getAttribute('aria-label').trim();
     if (selectedLabel && countryName === selectedLabel) {
       element.style.fill = selectLayer;
@@ -1011,22 +1031,6 @@ function clearMap() {
         element.style.setProperty('color', '#fff', 'important');
         break;
       }
-    }
-  });
-}
-
-function highlightClickedCountry(country) {
-  document.querySelectorAll('path[aria-label]').forEach(element => {
-    const countryName = element.getAttribute('aria-label')?.trim();
-
-    if (countryName === languageNameSpace.labels[country.CNTR_ID]) {
-      element.style.fill = partnersCtr;
-      element.style.stroke = '#4b598b';
-      element.style.strokeWidth = '2px';
-    } else if (countryName === languageNameSpace.labels[REF.geo]) {
-      element.style.fill = selectLayer;
-      element.style.stroke = 'white';
-      element.style.strokeWidth = '2px';
     }
   });
 }
