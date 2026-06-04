@@ -431,7 +431,222 @@ function countryInfo(country) {
 function closeInfo(params) {
   const countryInfoElem = document.querySelector('#countryInfo');
   if (countryInfoElem) countryInfoElem.remove();
-  clearLinesAndMarkers();
+  clearMap();
+}
+
+function isValidPartner(partner) {
+  if (!Array.isArray(partner) || partner.length < 2) {
+    return false;
+  }
+
+  const [partnerCountry, value] = partner;
+
+  return (
+    Boolean(partnerCountry) &&
+    typeof value === 'number' &&
+    Number.isFinite(value) &&
+    value > 0.000001
+  );
+}
+
+function createMapFeatureLabel(partnerCountry, value) {
+  const countryLabel = languageNameSpace?.labels?.[partnerCountry] || partnerCountry;
+  const unitLabel = languageNameSpace?.labels?.[`abr_${REF.unit}`] || REF.unit || '';
+
+  return `${countryLabel} — ${value} ${unitLabel}`;
+}
+
+function debounce(callback, delay = 120) {
+  let timer = null;
+
+  return function debouncedFunction(...args) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+      callback.apply(this, args);
+    }, delay);
+  };
+}
+
+function registerMapHandler(eventName, handler) {
+  map.on(eventName, handler);
+
+  zoomHandlers.push({
+    eventName,
+    handler
+  });
+}
+
+function clearZoomHandlers() {
+  if (!map || !Array.isArray(zoomHandlers)) return;
+
+  zoomHandlers.forEach(item => {
+    if (typeof item === 'function') {
+      map.off('zoomend', item);
+      map.off('moveend', item);
+    } else if (item?.eventName && item?.handler) {
+      map.off(item.eventName, item.handler);
+    }
+  });
+
+  zoomHandlers.length = 0;
+}
+
+function forceSvgOverflow() {
+  const pane = document.querySelector('.leaflet-overlay-pane');
+
+  if (pane) {
+    pane.querySelectorAll('svg').forEach(svg => {
+      svg.style.overflow = 'visible';
+    });
+
+    pane.querySelectorAll('g').forEach(group => {
+      group.removeAttribute('clip-path');
+    });
+  }
+
+  removeFocusableFromHiddenMapPanes();
+}
+
+function makeCurveAccessible(line, label) {
+  try {
+    const pathEl = line?._path;
+    if (!pathEl) return;
+
+    pathEl.classList.add('map-curve');
+    pathEl.setAttribute('tabindex', '0');
+    pathEl.setAttribute('focusable', 'true');
+    pathEl.setAttribute('role', 'link');
+    pathEl.setAttribute('aria-label', label);
+    pathEl.setAttribute('title', label);
+
+    pathEl.addEventListener('keydown', ev => {
+      const key = ev.key;
+
+      if (key === 'Enter' || key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
+        ev.preventDefault();
+
+        try {
+          line.openTooltip();
+        } catch {
+          // best-effort
+        }
+      }
+
+      if (key === 'ArrowRight' || ev.keyCode === 39) {
+        ev.preventDefault();
+        focusNextMapCurve(pathEl);
+      }
+
+      if (key === 'ArrowLeft' || ev.keyCode === 37) {
+        ev.preventDefault();
+        focusPrevMapCurve(pathEl);
+      }
+    });
+  } catch {
+    // accessibility is best-effort
+  }
+}
+
+function makeMarkerAccessible(marker, label) {
+  try {
+    const pathEl = marker?._path;
+    if (!pathEl) return;
+
+    pathEl.classList.add('map-marker', 'marker');
+    pathEl.setAttribute('tabindex', '0');
+    pathEl.setAttribute('focusable', 'true');
+    pathEl.setAttribute('role', 'button');
+    pathEl.setAttribute('aria-label', label);
+    pathEl.setAttribute('title', label);
+
+    pathEl.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
+        ev.preventDefault();
+        marker.openPopup();
+      }
+    });
+  } catch {
+    // accessibility is best-effort
+  }
+}
+
+function createPartnerCurve({
+  sourceCoords,
+  partnerCoords,
+  partnerCountry,
+  value,
+  tooltipContent,
+  label,
+  scale
+}) {
+  const zoom = map.getZoom();
+  const curvePoint = getMidpoint(sourceCoords, partnerCoords);
+
+  const line = L.curve(['M', sourceCoords, 'Q', curvePoint, partnerCoords], {
+    color: poliColorChange(),
+    weight: calculateWeight(scale, value, zoom),
+    opacity: 1,
+    animate: 1500,
+    lineCap: 'round',
+    smoothFactor: 1,
+    noClip: true,
+    outline: 'none',
+    className: 'myClass',
+    _partnerCountry: partnerCountry,
+    _value: value
+  })
+    .bindTooltip(tooltipContent, {
+      sticky: true,
+      opacity: 1
+    })
+    .on('mouseover', function () {
+      this.openTooltip();
+    })
+    .on('mouseout', function () {
+      this.closeTooltip();
+    })
+    .addTo(map);
+
+  makeCurveAccessible(line, label);
+
+  return line;
+}
+
+function createPartnerMarker({
+  partnerCoords,
+  partnerCountry,
+  value,
+  tooltipContent,
+  label,
+  scale
+}) {
+  const zoom = map.getZoom();
+
+  const marker = L.circle(partnerCoords, {
+    color: 'rgb(170 95 24)',
+    fillColor: 'rgb(170 95 24)',
+    fillOpacity: 1,
+    radius: calculateRadius(scale, value, zoom),
+    _partnerCountry: partnerCountry,
+    _value: value
+  })
+    .addTo(map)
+    .bindPopup(tooltipContent, {
+      className: 'pop-card-popup'
+    })
+    .on('mouseover', function () {
+      this.openPopup();
+    })
+    .on('mouseout', function () {
+      this.closePopup();
+    });
+
+  makeMarkerAccessible(marker, label);
+
+  return marker;
 }
 
 function drawLines(sourceCountry, partners) {
@@ -440,110 +655,52 @@ function drawLines(sourceCountry, partners) {
     return;
   }
 
+  if (!sourceCountry?.CENTROID || !Array.isArray(partners)) {
+    console.warn('drawLines: invalid source country or partners data.', {
+      sourceCountry,
+      partners
+    });
+    return;
+  }
+
   mapCenterCoords = sourceCountry;
 
   clearLinesAndMarkers();
 
-  const scale = createLeafletScaler(partners);
-  const initialZoom = map.getZoom();
+  const sourceCoords = sourceCountry.CENTROID;
+  const sourceCountryCode = sourceCountry.CNTR_ID;
+  const validPartners = partners.filter(isValidPartner);
+  const scale = createLeafletScaler(validPartners);
 
-  partners.forEach(partner => {
-    const partnerCountry = partner[0];
-    const value = partner[1];
-    if (typeof value !== 'number' || isNaN(value) || value <= 0.000001) {
-      return; // skip effectively zero / invalid partners
-    }
-    const sourceCoords = sourceCountry.CENTROID;
+  validPartners.forEach(([partnerCountry, value]) => {
     const partnerCoords = getCountryCoordinates(partnerCountry);
-    const countryName = sourceCountry.CNTR_ID;
 
-    const curvePoint = getMidpoint(sourceCoords, partnerCoords);    
-
-    const line = L.curve(["M", sourceCoords, "Q", curvePoint, partnerCoords], {
-      color: poliColorChange(), // Set the desired line color
-      weight: calculateWeight(scale, value, initialZoom),
-      opacity: 1,
-      animate: 1500,
-      lineCap: "round",
-      smoothFactor: 1,
-      noClip: true,
-      outline: "none",
-      className: "myClass",
-    }).on('mouseover', function (event) {
-      const tooltipContent = lineTooltip(partnerCountry, value, countryName);
-      this.bindTooltip(tooltipContent, { sticky: true, opacity: 1 }).openTooltip();
-    }).on('mouseout', function (event) {
-      this.closeTooltip();
-    }).addTo(map);
-    line.options._value = value;
-
-    // Make the underlying SVG path for the curve keyboard-focusable and accessible
-    try {
-      if (line._path) {
-        const pathEl = line._path;
-        pathEl.classList.add('map-curve');
-        pathEl.setAttribute('tabindex', '0');
-        pathEl.setAttribute('focusable', 'true');
-        pathEl.setAttribute('role', 'link');
-        const pathLabel = `${languageNameSpace.labels[partnerCountry]} — ${value} ${languageNameSpace.labels['abr_'+REF.unit]}`;
-        pathEl.setAttribute('aria-label', pathLabel);
-        if (!pathEl.getAttribute('title')) pathEl.setAttribute('title', pathLabel);
-
-        // Keyboard: Enter/Space opens tooltip; Arrow keys move between curves
-        pathEl.addEventListener('keydown', (ev) => {
-          if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
-            ev.preventDefault();
-            try { line.openTooltip(); } catch (e) {}
-          }
-          if (ev.key === 'ArrowRight' || ev.keyCode === 39) {
-            ev.preventDefault();
-            focusNextMapCurve(pathEl);
-          }
-          if (ev.key === 'ArrowLeft' || ev.keyCode === 37) {
-            ev.preventDefault();
-            focusPrevMapCurve(pathEl);
-          }
-        });
-      }
-    } catch (e) {
-      /* ignore — best-effort */
+    if (!partnerCoords) {
+      console.warn(`drawLines: missing coordinates for partner country "${partnerCountry}".`);
+      return;
     }
 
-    const radius = calculateRadius(scale, value, initialZoom);
+    const tooltipContent = lineTooltip(partnerCountry, value, sourceCountryCode);
+    const label = createMapFeatureLabel(partnerCountry, value);
 
-    const marker = L.circle(partnerCoords, {
-      color: 'rgb(170 95 24)', // Set the color of the circle's border to transparent
-      fillColor: 'rgb(170 95 24)', // Set the fill color of the circle
-      fillOpacity: 1, // Set the opacity of the fill color
-      radius: radius, // Set the radius of the circle in meters
-      _partnerCountry: partnerCountry, // stored so zoom-redraw can recolor the country polygon
-      _value: value
-    }).addTo(map)
-    .bindPopup(lineTooltip(partnerCountry, value, countryName), { className: 'pop-card-popup' })
-    .on('mouseover', function (e) { this.openPopup(); })
-    .on('mouseout', function (e) { this.closePopup(); });
+    const line = createPartnerCurve({
+      sourceCoords,
+      partnerCoords,
+      partnerCountry,
+      value,
+      tooltipContent,
+      label,
+      scale
+    });
 
-    // make the marker path keyboard-focusable
-    try {
-      if (marker._path) {
-        marker._path.setAttribute('tabindex', '0');
-        marker._path.setAttribute('role', 'button');
-        const markerLabel = `${languageNameSpace.labels[partnerCountry]} — ${value} ${languageNameSpace.labels['abr_'+REF.unit]}`;
-        marker._path.setAttribute('aria-label', markerLabel);
-        if (!marker._path.getAttribute('title')) marker._path.setAttribute('title', markerLabel);
-        marker._path.classList.add('map-marker');
-        marker._path.addEventListener('keydown', (ev) => {
-          if (ev.key === 'Enter' || ev.key === ' ' || ev.keyCode === 13 || ev.keyCode === 32) {
-            ev.preventDefault();
-            marker.openPopup();
-          }
-        });
-      }
-    } catch (e) {
-      /* best-effort */
-    }
-
-    marker._path.classList.add('marker');
+    const marker = createPartnerMarker({
+      partnerCoords,
+      partnerCountry,
+      value,
+      tooltipContent,
+      label,
+      scale
+    });
 
     lines.push(line);
     markers.push(marker);
@@ -564,55 +721,37 @@ function drawLines(sourceCountry, partners) {
     });
   }
 
-  // Force overflow:visible on every SVG in the overlay pane (prevents clipping)
-  function forceSvgOverflow() {
-    const pane = document.querySelector('.leaflet-overlay-pane');
-    if (pane) {
-      pane.querySelectorAll('svg').forEach(svg => {
-        svg.style.overflow = 'visible';
-      });
-      pane.querySelectorAll('g').forEach(g => {
-        g.removeAttribute('clip-path');
-      });
-    }
-
-    // Ensure that any content inside an aria-hidden pane is not focusable
-    // (addresses axe: "Ensure aria-hidden elements are not focusable nor contain focusable elements")
-    removeFocusableFromHiddenMapPanes();
-  }
-
-  // Debounced redraw on zoomend/moveend
-  let _redrawTimer = null;
-  function debouncedRedrawCurves() {
-    if (_redrawTimer) clearTimeout(_redrawTimer);
-    _redrawTimer = setTimeout(() => {
-      lines.forEach(l => {
-        try { if (typeof l.redraw === 'function') l.redraw(); } catch (e) { /* ignore */ }
-      });
-      forceSvgOverflow();
-      // Re-apply EU country colours after Leaflet redraws paths on zoom/pan,
-      // which can reset inline styles set by clearMap() / styleCountry().
-      reapplyCountryColors();
-      // Re-apply partner-country colours on top of the EU baseline
-      markers.forEach(m => {
-        if (m && m.options && m.options._partnerCountry) {
-          styleCountry(m.options._partnerCountry);
+  const debouncedRedrawCurves = debounce(() => {
+    lines.forEach(line => {
+      try {
+        if (typeof line.redraw === 'function') {
+          line.redraw();
         }
-      });
-      // Leaflet recreates path elements on zoom — re-neutralize non-interactive paths
-      neutralizeNonInteractivePaths();
-    }, 120);
-  }
+      } catch {
+        // best-effort redraw
+      }
+    });
 
-  // Apply overflow fix immediately after first draw
+    forceSvgOverflow();
+    reapplyCountryColors();
+
+    markers.forEach(marker => {
+      const partnerCountry = marker?.options?._partnerCountry;
+
+      if (partnerCountry) {
+        styleCountry(partnerCountry);
+      }
+    });
+
+    neutralizeNonInteractivePaths();
+  }, 120);
+
   forceSvgOverflow();
   updateFeatureSizes();
 
-  map.on('zoomend', updateFeatureSizes);
-  map.on('zoomend', debouncedRedrawCurves);
-  map.on('moveend', debouncedRedrawCurves);
-  zoomHandlers.push(updateFeatureSizes);
-  zoomHandlers.push(debouncedRedrawCurves);
+  registerMapHandler('zoomend', updateFeatureSizes);
+  registerMapHandler('zoomend', debouncedRedrawCurves);
+  registerMapHandler('moveend', debouncedRedrawCurves);
 }
 
 
@@ -764,16 +903,8 @@ function clearLines() {
   lines.length = 0;
 }
 
-// Function to clear markers and their zoom handlers
+// Function to clear markers
 function clearMarkers() {
-  // Remove all accumulated zoom/zoomend/moveend handlers
-  zoomHandlers.forEach(handler => {
-    map.off('zoom', handler);
-    map.off('zoomend', handler);
-    map.off('moveend', handler);
-  });
-  zoomHandlers.length = 0;
-
   markers.forEach(marker => map.removeLayer(marker));
   markers.length = 0;
 }
@@ -840,8 +971,7 @@ function reapplyCountryColors() {
 function clearMap() {
   // Remove all trade curves and circle markers (also empties the arrays and
   // detaches zoom handlers so they don't accumulate across selections).
-  clearLines();
-  clearMarkers();
+  clearLinesAndMarkers();
 
   // Apply colours in a single pass — EU paths go straight to blue, never transparent
   reapplyCountryColors();
@@ -889,9 +1019,9 @@ function removeFocusableFromHiddenMapPanes(root = document) {
 
 // Function to clear both lines and markers
 function clearLinesAndMarkers() {
+  clearZoomHandlers();
   clearLines();
   clearMarkers();
-  clearMap()
 }
 
 
@@ -905,7 +1035,7 @@ function getCountryCoordinates(countryCode) {
     return swappedCoordinates;
   } else {
     console.error(`Coordinates not found for country code: ${countryCode}`);
-    return [0, 0]; // Return a default value or handle accordingly
+    return null;
   }
 }
 
@@ -978,7 +1108,11 @@ function countryInfoMenu(country) {
 function createLeafletScaler(partners) {
   if (!partners?.length) return () => 0;
 
-  const values = partners.map(item => item[1]);
+  const values = partners
+    .map(item => item[1])
+    .filter(value => typeof value === 'number' && Number.isFinite(value));
+
+  if (!values.length) return () => 0;
 
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -986,12 +1120,12 @@ function createLeafletScaler(partners) {
   return function scale(value, outMin, outMax, mode = "sqrt") {
     if (min === max) return outMin;
 
-    // Normalize
     let normalized = (value - min) / (max - min);
 
-    // Apply perception-friendly scaling
+    normalized = Math.max(0, Math.min(1, normalized));
+
     if (mode === "sqrt") {
-      normalized = Math.sqrt(normalized); // good default for maps
+      normalized = Math.sqrt(normalized);
     } else if (mode === "log") {
       normalized = Math.log(normalized * 9 + 1) / Math.log(10);
     }
@@ -1006,13 +1140,12 @@ function calculateWeight(scale, value, zoom) {
   const BASE_MIN = 1.5;
   const BASE_MAX = 10;
 
-  // Adjust thickness based on zoom
   const zoomFactor = Math.max(0.6, Math.min(1.8, zoom / 6));
 
   const minWeight = BASE_MIN * zoomFactor;
   const maxWeight = BASE_MAX * zoomFactor;
 
-  return scale(value, minWeight, maxWeight, "sqrt");
+  return Math.round(scale(value, minWeight, maxWeight, "sqrt"));
 }
 
 function calculateRadius(scale, value, zoom) {
@@ -1024,7 +1157,7 @@ function calculateRadius(scale, value, zoom) {
   const minRadius = BASE_MIN * zoomFactor;
   const maxRadius = BASE_MAX * zoomFactor;
 
-  return scale(value, minRadius, maxRadius, "sqrt");
+  return Math.round(scale(value, minRadius, maxRadius, "sqrt"));
 }
 
 function poliColorChange() {
@@ -1035,8 +1168,6 @@ function poliColorChange() {
     biofuels: 'rgba(95, 180, 65, 0.75)',
     electricity: 'rgba(215, 60, 65, 0.75)',
   };
-
-  console.log('Selected fuel:', REF?.fuel);
 
   return fuelColors[REF?.fuel] || 'rgba(204, 163, 0, 0.85)';
 }
