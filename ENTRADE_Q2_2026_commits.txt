@@ -1,0 +1,91 @@
+﻿c24f464 | 2026-06-04 | marcio | feat: enhance accessibility and async handling in map functions; improve curve and marker accessibility
+8a47c0e | 2026-06-04 | marcio | feat: improve map data loading and accessibility; enhance error handling and streamline country selection logic
+01cd66d | 2026-06-04 | marcio | feat: enhance map functionality with accessibility improvements; add validation for partner data and optimize rendering logic
+7be028f | 2026-06-04 | marcio | feat: optimize line drawing and marker scaling in map visualization; enhance year selection logic in dropdown
+bf1abc3 | 2026-05-06 | marcio | feat: enhance accessibility for insights rank table; add keyboard navigation and focus styles
+72af1ff | 2026-05-06 | marcio | feat: enhance insights sparkline styles and improve button accessibility; update language handling for async operations
+09c3f9c | 2026-05-06 | marcio | fix: update tutorial text for clarity and consistency across languages
+a352c92 | 2026-05-05 | marcio | feat: adjust insights panel max-height for improved visibility
+8d18bc9 | 2026-05-04 | marcio | Add new translation keys and enhance insights functionality
+713c758 | 2026-05-04 | marcio | feat: enhance insights panel with new metrics, including median share and turnover rate, and improve historical trend visualization
+c89a924 | 2026-05-04 | marcio | Add new insights and historical context features
+dee9bc8 | 2026-05-04 | marcio | feat: enhance insights panel with new metrics, narrative summary, and accessibility improvements
+d413c6c | 2026-05-04 | marcio | feat: add insights panel with core, change, and structural metrics rendering
+d02c017 | 2026-05-04 | marcio | feat: add table chart title handling and update title rendering in createTableChart function
+5312b2f | 2026-05-04 | marcio | Update Sankey module to Highcharts JS v12.6.0 and fix author name
+742e708 | 2026-05-04 | marcio | refactor: clean up unused code and improve tutorial functionality
+6ae7969 | 2026-05-04 | marcio | fix: correct tutorial step numbering and update final message text
+0a88e1a | 2026-05-04 | marcio | feat: implement focus trapping in modal for improved accessibility
+6e39806 | 2026-05-04 | marcio | feat: enhance map rendering to redraw trade lines on language change and improve country styling
+186c577 | 2026-05-04 | marcio | feat: update tutorial content and structure across German, English, and French versions
+cd8b282 | 2026-05-04 | marcio | fix: hide print button in footer credits section
+80a00da | 2026-05-04 | marcio | feat: enhance tutorial with new steps and navigation functionality
+6da2f51 | 2026-05-04 | marcio | fix: update tutorial step description and adjust popover element for clarity
+03052e7 | 2026-05-04 | marcio | Add driver popover styles and functionality
+d1dd11e | 2026-05-04 | marcio | fix: replace var with const for better variable scoping and readability across multiple files
+4cf0bea | 2026-05-04 | marcio | Refactor code structure for improved readability and maintainability
+a6c1e93 | 2026-05-04 | marcio | fix: enforce single-country selection and improve no data handling in loadCountryData
+2fe8cb5 | 2026-05-04 | marcio | fix: enhance accessibility and usability for alert popups and modal controls
+518a95d | 2026-05-04 | marcio | fix: neutralize non-interactive country paths to improve touch-target accessibility
+ddaf278 | 2026-05-04 | marcio | fix: enhance touch target sizes and accessibility for map controls and tooltips
+56886c8 | 2026-05-04 | marcio | fix: improve data validation and filtering for country partners in loadCountryData and countriesDataHandler functions
+490841c | 2026-03-27 | marcio | fix: enhance accessibility attributes for modal and chart controls
+73075da | 2026-03-27 | marcio | fix: update control point calculation for map arcs using spherical midpoint and bearing adjustments
+3fe8a2b | 2026-03-27 | marcio | Refactor map label rendering: remove country code display logic and simplify label handling
+b38a52f | 2026-03-26 | marcio | fix: enhance country fill color handling and logging for missing IDs
+4d1ba2c | 2026-03-26 | marcio | Refactor code structure for improved readability and maintainability
+e0b711e | 2026-03-02 | marcio | feat: implement dynamic country code and name display based on zoom level
+fa2fc09 | 2026-03-02 | marcio | fix: ensure highcharts data table captions meet WCAG contrast standards
+4b25bac | 2026-02-19 | marcio | feat: update h2 styles for improved typography and readability
+8f11f93 | 2026-02-19 | marcio | fix: streamline title updates and improve language label initialization
+e97e628 | 2026-02-19 | marcio | feat: add no-data handling popups and visual fallbacks for charts and tables
+20e7d7b | 2026-02-19 | marcio | fix: correct svgArrow definition for consistent rendering in Singleselect class
+bdb5577 | 2026-02-19 | marcio | fix: update selector for single select components to use ecl-form-group for consistency
+dcfec5f | 2026-02-19 | marcio | feat: enhance responsive layout for header with adaptive grid and media queries
+fa60e23 | 2026-02-19 | marcio | feat: enhance keyboard accessibility for map curves and markers with focus styles and tooltips
+fb1c90d | 2026-02-19 | marcio | fix: improve empty response check in createPieChart function for better data validation
+c91c804 | 2026-02-17 | marcio | feat: enhance accessibility of Highcharts credits for keyboard users
+7f9ebf2 | 2026-02-17 | marcio | fix: update map container selector to use ID for consistency across files
+482227b | 2026-02-17 | marcio | feat: update chart credits to be language-aware and improve DOM handling in select components
+5aca674 | 2026-02-17 | marcio | feat: improve chart loading experience by adding loader visibility toggle
+384d643 | 2026-02-17 | marcio | Refactor code structure and remove redundant sections for improved readability and maintainability
+8a25b2e | 2026-02-16 | marcio | feat: enhance accessibility by populating chart titles with localized labels
+4b83f74 | 2026-02-13 | marcio | feat: enhance accessibility by ensuring form labels in chart options menu meet WCAG AAA contrast
+c00ef1b | 2026-02-13 | marcio | feat: enhance accessibility by ensuring active language label meets contrast requirements and improving button accessibility
+dd155af | 2026-02-13 | marcio | feat: enhance accessibility by ensuring screen-reader section uses an H2 for chart titles
+ce566f9 | 2026-02-13 | marcio | feat: enhance accessibility by adding semantic headers to table chart
+efb8dbc | 2026-02-13 | marcio | feat: enhance semantic structure by adding roles to header and main elements
+b345f48 | 2026-02-13 | marcio | feat: enhance accessibility by neutralizing focusable elements in aria-hidden map panes
+10933c6 | 2026-02-13 | marcio | feat: increase z-index for language close button to improve visibility
+5f374f2 | 2026-02-13 | marcio | feat: adjust factSheet position and enhance countryInfo handling in map interactions
+b297acf | 2026-02-13 | marcio | feat: enhance pop-card tooltip integration and styling for improved visibility and interaction
+77e73ae | 2026-02-13 | marcio | feat: update footer backdrop filter for enhanced visual clarity
+83aa9bb | 2026-02-13 | marcio | feat: enhance tooltip styling for pop-card integration, improve visibility and fallback support
+c403f8f | 2026-02-13 | marcio | feat: implement pop-card tooltip design for improved map interactivity and visual appeal
+4998f66 | 2026-02-13 | marcio | Add Leaflet.curve v0.9.2 plugin for enhanced path rendering
+7a8e613 | 2026-02-13 | marcio | feat: enhance SVG handling and smooth transitions for leaflet curves, improve zoom behavior and overflow management
+b62e077 | 2026-02-13 | marcio | feat: enhance tooltip functionality and styling, update fact sheet positioning for improved visibility
+9ebdaad | 2026-02-13 | marcio | feat: implement GLOBAN and CCK management, enhance tooltip system, and update language handling for improved user experience
+8953492 | 2026-02-13 | marcio | feat: update map menu styles and adjust navbar component for improved layout and functionality
+e4e79ae | 2026-02-12 | marcio | feat: add footer styles for improved layout and presentation
+c9c5b7c | 2026-02-12 | marcio | feat: add chart container section and adjust map height for improved layout
+512d8d8 | 2026-02-12 | marcio | feat: update chart container behavior and positioning for improved layout and responsiveness
+3c5c96a | 2026-02-12 | marcio | feat: implement fact sheet display and update chart container visibility for improved data presentation
+4e8c51b | 2026-02-12 | marcio | feat: enhance map menu styles with updated border color for improved visibility
+10f0643 | 2026-02-12 | marcio | feat: update modal close button style and enhance map zoom settings for improved user experience
+7f7624a | 2026-02-11 | marcio | feat: enhance map rendering and marker behavior with improved zoom handling and optimized label processing
+9dbeaca | 2026-02-11 | marcio | feat: improve dropdown menu styles and layout with enhanced hover effects and spacing adjustments
+600442d | 2026-02-11 | marcio | feat: enhance dropdown menu styles and functionality with improved positioning and item layout
+a35fc30 | 2026-02-11 | marcio | feat: enhance UI components with new styles and improved structure for dropdowns and buttons
+af6a5bd | 2026-02-11 | marcio | .
+337e1d9 | 2026-02-10 | marcio | fix: correct class names for responsive layout in subNavBarComponent
+6adcdf7 | 2026-02-10 | marcio | Refactor CSS and HTML structure for improved styling and component initialization
+6258bc6 | 2026-02-10 | marcio | Add custom styles for navbar, dropdowns, buttons, and forms; include responsive design and accessibility enhancements
+1f99b8e | 2026-02-10 | marcio | Remove deprecated tableInfo.js file and its associated functionality
+5277e88 | 2026-02-10 | marcio | Update Leaflet.curve to v0.9.2: Enhance bounds handling, improve performance, and clean up canvas rendering logic
+419a2cc | 2026-02-10 | marcio | fix: add check for map initialization before accessing layers in fireOnStart function
+8129287 | 2026-02-10 | marcio | Refactor dropdown components to use ECL classes for consistency
+8e4970d | 2026-02-10 | marcio | refactor: replace Bootstrap classes with ECL grid system and add ECL styles
+d8ba912 | 2026-02-10 | marcio | Refactor keyboard navigation logic and add null check for chart container in table creation
+54dba5c | 2026-02-09 | marcio | Refactor: Remove jQuery dependencies and modernize to ES2026
+b463df3 | 2026-02-09 | marcio | fix: update script source URL for webtools

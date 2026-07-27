@@ -92,7 +92,7 @@ class ChartControls {
 		const depChart = new Button("depChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["depChart"], "depChart", "false");
 		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["pieChart"], "pieChart", "true");
 		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["lineChart"], "lineChart", "false");
-		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["toggleTableBtn"], "tableChart", "false");
+		const tableChart = new Button("tableChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["tb-togle-table"] || languageNameSpace.labels["tableChart"] || "Display table", "tableChart", "false");
 		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["createprintChart"], "false");
 		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadChart"], "false");
 		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["downloadExcel"], "false");

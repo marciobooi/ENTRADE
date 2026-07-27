@@ -255,52 +255,205 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 
 
 
+		function getHighchartInstance(containerId = "chartContainer") {
+		  const container = typeof containerId === "string" ? document.getElementById(containerId) : containerId;
+		  if (!container) return null;
+
+		  if (typeof container.highcharts === "function") {
+		    return container.highcharts();
+		  }
+
+		  const chartIndex = container.getAttribute && container.getAttribute("data-highcharts-chart");
+		  if (chartIndex !== null && chartIndex !== undefined && window.Highcharts && window.Highcharts.charts && window.Highcharts.charts[chartIndex]) {
+		    return window.Highcharts.charts[chartIndex];
+		  }
+
+		  if (window.Highcharts && Array.isArray(window.Highcharts.charts)) {
+		    const match = window.Highcharts.charts.find(chart => chart && chart.renderTo && (chart.renderTo === container || chart.renderTo.id === containerId));
+		    if (match) return match;
+
+		    const activeCharts = window.Highcharts.charts.filter(c => c && c.renderTo && document.body.contains(c.container));
+		    if (activeCharts.length > 0) {
+		      return activeCharts[activeCharts.length - 1];
+		    }
+		  }
+
+		  return null;
+		}
+
 		function printChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().print();
+		  const chart = getHighchartInstance();
+		  if (chart && typeof chart.print === 'function') {
+		    chart.print();
 		  }
 		}
 		
-		function exportPngChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().exportChart();
+		function fallbackSvgDownload(svgString, filename) {
+		  const svgFilename = filename.replace(/\.png$/i, '.svg');
+		  const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+		  const url = URL.createObjectURL(blob);
+		  const a = document.createElement('a');
+		  a.href = url;
+		  a.download = svgFilename;
+		  document.body.appendChild(a);
+		  a.click();
+		  document.body.removeChild(a);
+		  setTimeout(() => URL.revokeObjectURL(url), 2000);
+		}
+
+		async function exportPngChart() { 
+		  const chart = getHighchartInstance();
+		  if (!chart) return;
+
+		  const filename = (chart.getFilename ? chart.getFilename() : 'chart') + '.png';
+		  const exportOptions = {
+		    sourceWidth: 1200,
+		    sourceHeight: 850
+		  };
+
+		  try {
+		    let svgString = chart.getSVG ? chart.getSVG(exportOptions) : null;
+		    if (!svgString) {
+		      const container = chart.container || document.getElementById('chartContainer');
+		      const svgEl = container ? container.querySelector('svg') : null;
+		      if (svgEl) {
+		        svgString = new XMLSerializer().serializeToString(svgEl);
+		      }
+		    }
+
+		    if (!svgString) {
+		      if (typeof chart.exportChart === 'function') {
+		        chart.exportChart({ type: 'image/png' });
+		      }
+		      return;
+		    }
+
+		    let cleanSvg = svgString.replace(/href="([^"]+)"/gi, (match, src) => {
+		      if (src.startsWith('data:') || src.startsWith('http://') || src.startsWith('https://')) {
+		        return match;
+		      }
+		      try {
+		        return `href="${new URL(src, window.location.href).href}"`;
+		      } catch (e) {
+		        return match;
+		      }
+		    });
+
+		    if (!cleanSvg.includes('xmlns=')) {
+		      cleanSvg = cleanSvg.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+		    }
+
+		    const width = 1200;
+		    const height = 850;
+
+		    const svgBlob = new Blob([cleanSvg], { type: 'image/svg+xml;charset=utf-8' });
+		    const url = URL.createObjectURL(svgBlob);
+		    const img = new Image();
+
+		    img.onload = function() {
+		      try {
+		        const canvas = document.createElement('canvas');
+		        canvas.width = width * 2;
+		        canvas.height = height * 2;
+		        const ctx = canvas.getContext('2d');
+		        ctx.fillStyle = '#ffffff';
+		        ctx.fillRect(0, 0, canvas.width, canvas.height);
+		        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+		        URL.revokeObjectURL(url);
+
+		        if (canvas.toBlob) {
+		          canvas.toBlob(function(blob) {
+		            if (!blob) {
+		              fallbackSvgDownload(svgString, filename);
+		              return;
+		            }
+		            const pngUrl = URL.createObjectURL(blob);
+		            const a = document.createElement('a');
+		            a.href = pngUrl;
+		            a.download = filename;
+		            document.body.appendChild(a);
+		            a.click();
+		            document.body.removeChild(a);
+		            setTimeout(() => URL.revokeObjectURL(pngUrl), 2000);
+		          }, 'image/png');
+		        } else {
+		          fallbackSvgDownload(svgString, filename);
+		        }
+		      } catch (e) {
+		        console.warn("Canvas export failed, downloading SVG:", e);
+		        fallbackSvgDownload(svgString, filename);
+		      }
+		    };
+
+		    img.onerror = function(err) {
+		      console.warn("Image conversion failed, downloading SVG:", err);
+		      URL.revokeObjectURL(url);
+		      fallbackSvgDownload(svgString, filename);
+		    };
+
+		    img.src = url;
+		  } catch (err) {
+		    console.error("exportPngChart error:", err);
+		    if (typeof chart.exportChart === 'function') {
+		      chart.exportChart({ type: 'image/png' });
+		    }
 		  }
 		}
 		
-		function exportJpegChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().exportChart({type: 'image/jpeg'});
+		async function exportJpegChart() { 
+		  const chart = getHighchartInstance();
+		  if (chart && typeof chart.exportChart === 'function') {
+		    await chart.exportChart({type: 'image/jpeg'});
 		  }
 		}
 		
-		function exportPdfChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().exportChart({type: 'application/pdf'});
+		async function exportPdfChart() { 
+		  const chart = getHighchartInstance();
+		  if (chart && typeof chart.exportChart === 'function') {
+		    await chart.exportChart({type: 'application/pdf'});
 		  }
 		}
 		
-		function exportSvgChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().exportChart({type: 'image/svg+xml'});
+		async function exportSvgChart() { 
+		  const chart = getHighchartInstance();
+		  if (chart && typeof chart.exportChart === 'function') {
+		    await chart.exportChart({type: 'image/svg+xml'});
 		  }
 		}
 		
 		function exportXlsChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().downloadXLS();
+		  const chart = getHighchartInstance();
+		  if (!chart) return;
+		  if (typeof chart.downloadXLS === 'function') {
+		    chart.downloadXLS();
+		  } else if (typeof chart.getCSV === 'function') {
+		    const csv = chart.getCSV(true);
+		    const blob = new Blob(["\uFEFF" + csv], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+		    const url = URL.createObjectURL(blob);
+		    const a = document.createElement('a');
+		    a.href = url;
+		    a.download = (chart.getFilename ? chart.getFilename() : 'chart') + '.xls';
+		    document.body.appendChild(a);
+		    a.click();
+		    document.body.removeChild(a);
 		  }
 		}
 		
 		function exportCsvChart() { 
-		  const container = document.getElementById("chartContainer");
-		  if (container && container.highcharts && container.highcharts()) {
-		    container.highcharts().downloadCSV();
+		  const chart = getHighchartInstance();
+		  if (!chart) return;
+		  if (typeof chart.downloadCSV === 'function') {
+		    chart.downloadCSV();
+		  } else if (typeof chart.getCSV === 'function') {
+		    const csv = chart.getCSV(true);
+		    const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+		    const url = URL.createObjectURL(blob);
+		    const a = document.createElement('a');
+		    a.href = url;
+		    a.download = (chart.getFilename ? chart.getFilename() : 'chart') + '.csv';
+		    document.body.appendChild(a);
+		    a.click();
+		    document.body.removeChild(a);
 		  }
 		}
 
@@ -859,7 +1012,6 @@ function credits() {
         aria-label="Eurostat dataset link: ${datasetURL}"
         title="${accessLabel}"
         style="cursor: pointer; fill: #0a328e; text-decoration: underline;"
-        onclick="window.open('${datasetURL}', '_blank')"
       >
         ${accessLabel}
       </tspan>

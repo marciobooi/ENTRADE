@@ -114,35 +114,42 @@ class Chart {
           enabled: true,
           allowHTML: true,
           sourceWidth: 1200,
-          sourceHeight: 800,
+          sourceHeight: 850,
           scale: 1,
           chartOptions: {
             subtitle: null,
-            credits:"",
+            credits: "",
             chart: {
-              marginTop: 100,
-              marginLeft: 100,
-              marginRight: 100,
+              marginTop: 80,
+              marginLeft: 80,
+              marginRight: 80,
+              marginBottom: 100,
               events: {
-                load: function () {                  
-                  this.renderer.image(
-                    'https://ec.europa.eu/eurostat/statistics-explained/images/0/09/Logo_RGB-POS.png', 
-                    1100, 
-                    750, 
-                    90, 
-                    50
-                  ).add();
+                load: function () {
+                  const chart = this;
+                  const logoWidth = 140;
+                  const logoHeight = 45;
+                  const x = chart.chartWidth - logoWidth - 20;
+                  const y = chart.chartHeight - logoHeight - 15;
+
+                  chart.renderer.image(
+                    'img/eurostat_logo.png',
+                    x,
+                    y,
+                    logoWidth,
+                    logoHeight
+                  ).attr({ zIndex: 100 }).add();
                 },
                 redraw: function () {
                   const chart = this;
                   const images = chart.container.getElementsByTagName('image');
                   if (images.length > 0) {
-                    images[0].setAttribute('x', chart.chartWidth - 100);
-                    images[0].setAttribute('y', chart.chartHeight - 40);
+                    images[0].setAttribute('x', chart.chartWidth - 160);
+                    images[0].setAttribute('y', chart.chartHeight - 60);
                   }
                 }
               }
-          } 
+            }
           },
                       
           buttons: {

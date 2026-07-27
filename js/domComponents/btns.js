@@ -2,10 +2,7 @@ class Button {
     constructor(id, classes, ariaLabel, value, otherAccessibilityParams) {
       this.id = id;
       this.classes = classes;
-      const resolvedLabel = (typeof ariaLabel === "string" && ariaLabel.trim() && ariaLabel.trim().toLowerCase() !== "undefined")
-        ? ariaLabel.trim()
-        : id;
-      this.ariaLabel = resolvedLabel;
+      this.ariaLabel = ariaLabel;
       this.value = value;
       this.otherAccessibilityParams = otherAccessibilityParams;
       this.clickHandler = null;
