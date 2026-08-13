@@ -97,14 +97,11 @@ h2 {
     padding: 0rem 1rem !important;
     background-color: #082B7A;
     background: linear-gradient(125deg, #082b7a 35%, #AFDFE9 75%, white 100%);
-    width: 100vw;
 }
 
 #es_app_header {
-    display: grid;
-    /* desktop-first: preserve original fixed column widths on large screens */
-    grid-template-columns: 720px 300px 215px 1fr;
-    gap: 1rem;
+display: grid;
+    grid-template-columns: auto 250px 300px 190px;
     min-height: 70px;
     padding: 0px;
     align-items: center;
