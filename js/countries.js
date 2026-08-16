@@ -217,9 +217,20 @@ function attachZoomScaling() {
   if (zoomGroup.__zoomScalingAttached) return;
   zoomGroup.__zoomScalingAttached = true;
 
-  // Watch the zoom group transform attribute for changes (D3 zoom writes here)
+  // Watch the zoom group transform attribute for changes (D3 zoom writes here
+  // on every drag mousemove/wheel tick, and animateMapToPosition writes it
+  // once per rAF step too) - coalesced to at most one rescale per animation
+  // frame instead of running the full querySelectorAll+loop synchronously on
+  // every single mutation, which was far more often than the screen repaints
+  // and was the source of visibly janky drag/click-select animation.
+  let rescaleScheduled = false;
   const observer = new MutationObserver(() => {
-    rescaleFlowLayer(getMapZoomK());
+    if (rescaleScheduled) return;
+    rescaleScheduled = true;
+    requestAnimationFrame(() => {
+      rescaleScheduled = false;
+      rescaleFlowLayer(getMapZoomK());
+    });
   });
 
   observer.observe(zoomGroup, { attributes: true, attributeFilter: ['transform'] });
@@ -354,17 +365,35 @@ function attachCountryNameTooltips() {
     document.body.appendChild(nameTooltip);
   }
 
+  // rAF-throttled: raw mousemove can fire 100+ times/sec (especially while
+  // dragging to pan, when it's competing with D3's own zoom mousemove
+  // handler on the same events), and positionTooltip's getBoundingClientRect
+  // call forces a synchronous layout flush - running that on every single
+  // event, on top of the pan transform update pending in the same tick, was
+  // the other half of the drag/click-select jank alongside the flow-layer
+  // rescale observer above. Coalescing to one update per animation frame
+  // keeps the tooltip just as responsive while cutting the forced-layout
+  // count to match the screen's actual repaint rate.
+  let pendingMouseEvent = null;
+  let mouseMoveScheduled = false;
   worldrg.addEventListener('mousemove', (event) => {
-    const path = event.target.closest('path');
-    const code = path ? getPathCountryCode(path) : null;
-    if (!code) {
-      nameTooltip.style.display = 'none';
-      return;
-    }
-    const labels = (languageNameSpace && languageNameSpace.labels) || {};
-    nameTooltip.textContent = labels[code] || code;
-    nameTooltip.style.display = 'block';
-    positionTooltip(nameTooltip, event.pageX + 15, event.pageY + 15);
+    pendingMouseEvent = event;
+    if (mouseMoveScheduled) return;
+    mouseMoveScheduled = true;
+    requestAnimationFrame(() => {
+      mouseMoveScheduled = false;
+      const e = pendingMouseEvent;
+      const path = e.target.closest('path');
+      const code = path ? getPathCountryCode(path) : null;
+      if (!code) {
+        nameTooltip.style.display = 'none';
+        return;
+      }
+      const labels = (languageNameSpace && languageNameSpace.labels) || {};
+      nameTooltip.textContent = labels[code] || code;
+      nameTooltip.style.display = 'block';
+      positionTooltip(nameTooltip, e.pageX + 15, e.pageY + 15);
+    });
   });
 
   worldrg.addEventListener('mouseleave', () => {
