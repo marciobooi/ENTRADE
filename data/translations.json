@@ -2451,6 +2451,76 @@
     "FR": "Effacer la carte",
     "DE": "Karte löschen"
   },
+  "MAP_HELP_BTN": {
+    "EN": "Map navigation help",
+    "FR": "Aide à la navigation sur la carte",
+    "DE": "Hilfe zur Kartennavigation"
+  },
+  "MAP_HELP_TITLE": {
+    "EN": "Map navigation",
+    "FR": "Navigation sur la carte",
+    "DE": "Kartennavigation"
+  },
+  "MAP_HELP_INTRO": {
+    "EN": "Explore the map using your mouse or keyboard.",
+    "FR": "Explorez la carte à l'aide de la souris ou du clavier.",
+    "DE": "Erkunden Sie die Karte mit der Maus oder der Tastatur."
+  },
+  "MAP_HELP_MOUSE_TITLE": {
+    "EN": "Mouse",
+    "FR": "Souris",
+    "DE": "Maus"
+  },
+  "MAP_HELP_MOUSE_1": {
+    "EN": "<span class=\"mapHelpIcon\"><i class=\"fas fa-mouse-pointer\" aria-hidden=\"true\"></i></span> Click a country to see its trade partners.",
+    "FR": "<span class=\"mapHelpIcon\"><i class=\"fas fa-mouse-pointer\" aria-hidden=\"true\"></i></span> Cliquez sur un pays pour voir ses partenaires commerciaux.",
+    "DE": "<span class=\"mapHelpIcon\"><i class=\"fas fa-mouse-pointer\" aria-hidden=\"true\"></i></span> Klicken Sie auf ein Land, um seine Handelspartner anzuzeigen."
+  },
+  "MAP_HELP_MOUSE_2": {
+    "EN": "<span class=\"mapHelpIcon\"><i class=\"fas fa-search-plus\" aria-hidden=\"true\"></i></span> Scroll to zoom in or out.",
+    "FR": "<span class=\"mapHelpIcon\"><i class=\"fas fa-search-plus\" aria-hidden=\"true\"></i></span> Faites défiler pour zoomer ou dézoomer.",
+    "DE": "<span class=\"mapHelpIcon\"><i class=\"fas fa-search-plus\" aria-hidden=\"true\"></i></span> Scrollen Sie, um heran- oder herauszuzoomen."
+  },
+  "MAP_HELP_MOUSE_3": {
+    "EN": "<span class=\"mapHelpIcon\"><i class=\"fas fa-arrows-alt\" aria-hidden=\"true\"></i></span> Drag the map to pan.",
+    "FR": "<span class=\"mapHelpIcon\"><i class=\"fas fa-arrows-alt\" aria-hidden=\"true\"></i></span> Faites glisser la carte pour la déplacer.",
+    "DE": "<span class=\"mapHelpIcon\"><i class=\"fas fa-arrows-alt\" aria-hidden=\"true\"></i></span> Ziehen Sie die Karte, um sie zu verschieben."
+  },
+  "MAP_HELP_MOUSE_4": {
+    "EN": "Use the <span class=\"mapHelpIcon\"><i class=\"fas fa-plus\" aria-hidden=\"true\"></i></span>/<span class=\"mapHelpIcon\"><i class=\"fas fa-minus\" aria-hidden=\"true\"></i></span> buttons to zoom, or <span class=\"mapHelpIcon\"><i class=\"fas fa-home\" aria-hidden=\"true\"></i></span> to reset the view.",
+    "FR": "Utilisez les boutons <span class=\"mapHelpIcon\"><i class=\"fas fa-plus\" aria-hidden=\"true\"></i></span>/<span class=\"mapHelpIcon\"><i class=\"fas fa-minus\" aria-hidden=\"true\"></i></span> pour zoomer, ou <span class=\"mapHelpIcon\"><i class=\"fas fa-home\" aria-hidden=\"true\"></i></span> pour réinitialiser la vue.",
+    "DE": "Verwenden Sie die Schaltflächen <span class=\"mapHelpIcon\"><i class=\"fas fa-plus\" aria-hidden=\"true\"></i></span>/<span class=\"mapHelpIcon\"><i class=\"fas fa-minus\" aria-hidden=\"true\"></i></span>, um zu zoomen, oder <span class=\"mapHelpIcon\"><i class=\"fas fa-home\" aria-hidden=\"true\"></i></span>, um die Ansicht zurückzusetzen."
+  },
+  "MAP_HELP_KEYBOARD_TITLE": {
+    "EN": "Keyboard",
+    "FR": "Clavier",
+    "DE": "Tastatur"
+  },
+  "MAP_HELP_KEYBOARD_1": {
+    "EN": "Press <kbd>Tab</kbd> to reach the map, then <kbd>Enter</kbd> to start.",
+    "FR": "Appuyez sur <kbd>Tab</kbd> pour atteindre la carte, puis sur <kbd>Entrée</kbd> pour commencer.",
+    "DE": "Drücken Sie <kbd>Tab</kbd>, um zur Karte zu gelangen, und dann <kbd>Enter</kbd>, um zu beginnen."
+  },
+  "MAP_HELP_KEYBOARD_2": {
+    "EN": "Use <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> to pan, and <kbd>+</kbd> or <kbd>−</kbd> to zoom.",
+    "FR": "Utilisez <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> pour vous déplacer, et <kbd>+</kbd> ou <kbd>−</kbd> pour zoomer.",
+    "DE": "Verwenden Sie <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> zum Verschieben und <kbd>+</kbd> oder <kbd>−</kbd> zum Zoomen."
+  },
+  "MAP_HELP_KEYBOARD_3": {
+    "EN": "Press <kbd>Tab</kbd> to move between countries, and <kbd>Enter</kbd> or <kbd>Space</kbd> to select one.",
+    "FR": "Appuyez sur <kbd>Tab</kbd> pour passer d'un pays à l'autre, et sur <kbd>Entrée</kbd> ou <kbd>Espace</kbd> pour en sélectionner un.",
+    "DE": "Drücken Sie <kbd>Tab</kbd>, um zwischen Ländern zu wechseln, und <kbd>Enter</kbd> oder <kbd>Leertaste</kbd>, um eines auszuwählen."
+  },
+  "MAP_HELP_KEYBOARD_4": {
+    "EN": "Press <kbd>Esc</kbd> to clear a selection, or press it again to leave the map.",
+    "FR": "Appuyez sur <kbd>Échap</kbd> pour effacer une sélection, ou appuyez à nouveau pour quitter la carte.",
+    "DE": "Drücken Sie <kbd>Esc</kbd>, um eine Auswahl zu löschen, oder erneut, um die Karte zu verlassen."
+  },
+  "MAP_HELP_CLOSE": {
+    "EN": "Close",
+    "FR": "Fermer",
+    "DE": "Schließen"
+  },
   "sharemodaltitle": {
     "EN": "Embed chart",
     "FR": "Intégrer le graphique",

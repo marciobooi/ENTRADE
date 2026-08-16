@@ -406,23 +406,6 @@ width: 100%;
   z-index: 10001;
 } 
 
-/* Smooth fade for leaflet.curve paths (class `myClass`) */
-.leaflet-overlay-pane path.myClass {
-  transition: opacity 220ms ease, stroke-opacity 220ms ease;
-  opacity: 1;
-}
-
-/* Prevent SVG clip-path from truncating long curves on zoom */
-.leaflet-overlay-pane svg {
-  overflow: visible !important;
-}
-.leaflet-overlay-pane svg > g {
-  clip-path: none !important;
-}
-
-
-
-
 /* footer */
 
 .wtfooter {
@@ -532,45 +515,292 @@ ul#footerCredits {
     color: var(--tool-1);
 }
 
-   /* The className 'entrade-country-tooltip' is set in the tooltip options in */
-   /* countries.js so this selector is more specific than the webtools rule. */ */
-.leaflet-tooltip.entrade-country-tooltip {
-  font-size: 1rem !important; /* 16px */
+/* #allContainer isn't wrapped in an .ecl-container, so the standard ECL grid's
+   row/col gutter compensation (row: -1rem margin, col: +1rem padding, meant to
+   cancel out against the container's own padding) doesn't cancel out here -
+   the row overflows the viewport by 2rem, which clipped the map toolbar docked
+   to its right edge. #map's own padding is already zeroed below; this removes
+   the other half so the row's box stops overflowing. */
+#allContainer > .ecl-row {
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+#map {
+  width: 100% !important;
+  /* Height is set dynamically by JS (getMapDimensions measures actual viewport offset).
+     We only set display/position/overflow here. */
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: #f7f9fb;
+  margin: 0 !important;
+  padding: 0 !important;
+  /* Ensure the map section doesn't collapse before JS runs */
+  min-height: 400px;
+}
+
+
+/* #mapSvg {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 580px !important;
+  display: block;
+} */
+
+/* #mapSvg is tabindex=0 (the map's single outer tab stop). A mouse click on
+   a country path can still land the browser's native focus ring on the SVG
+   root itself rather than the clicked path, which - being the whole map's
+   bounding box - renders as a large stray black rectangle. Same fix as the
+   country paths: only show it for keyboard/programmatic focus. */
+#mapSvg:focus {
+  outline: none;
+}
+#mapSvg:focus-visible {
+  outline: 3px solid #0b39a2;
+  outline-offset: -3px;
+}
+
+/* Smooth fill/stroke transition on all country paths */
+#mapSvg path:not(.map-curve):not(.em-sphere):not(.em-graticule) {
+  transition: fill 0.35s ease, stroke 0.25s ease, stroke-width 0.2s ease !important;
+}
+
+/* Map loading spinner overlay */
+#map-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(247, 249, 251, 0.55);
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+#map-loading-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.map-spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid rgba(115, 140, 229, 0.25);
+  border-top-color: #738ce5;
+  border-radius: 50%;
+  animation: map-spin 0.75s linear infinite;
+}
+@keyframes map-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hide or clean up default Robinson sphere border line */
+#em-sphere, .em-sphere, #em-graticule, .em-graticule {
+  stroke: transparent !important;
+  fill: transparent !important;
+}
+
+/* Boundary/halo layers must stay unfilled: their line geometry self-intersects
+   at border tripoints, and forcing a fill on them renders as spurious
+   triangular spikes across the map (see reapplyCountryColors in countries.js). */
+#em-worldbn, #em-worldbn-halo, .em-worldbn, .em-worldbn-halo, #em-kosovo-bn {
+  fill: none !important;
+}
+
+/* Keyboard focus indicator for selectable countries. Only :focus-visible
+   (keyboard/programmatic focus, not mouse clicks) and drop-shadow rather than
+   outline: SVG's `outline` draws around the element's rectangular bounding
+   box, not its actual shape, which for an irregular country reads as a large
+   stray rectangle. drop-shadow follows the rendered shape's alpha instead.
+   The plain :focus rule (unconditional, matches mouse clicks too) is what
+   actually suppresses the browser's native ring - :focus-visible only ever
+   matches keyboard/programmatic focus in the first place, so outline:none
+   scoped to just that selector never touched the mouse-click case at all. */
+#em-worldrg path:focus {
+  outline: none;
+}
+#em-worldrg path:focus-visible {
+  filter: drop-shadow(0 0 3px #0b39a2) drop-shadow(0 0 3px #0b39a2) drop-shadow(0 0 8px rgba(11, 57, 162, 0.8));
+}
+
+/* Completely hide eurostatmap internal default tooltip to prevent double popups */
+.em-tooltip,
+div.em-tooltip,
+#em-tooltip,
+[class*="em-tooltip"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* #countryInfo {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  z-index: 100;
+} */
+
+/* Right-edge vertical map toolbar: home / zoom in / zoom out / fullscreen / clear */
+.entrade-map-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 44px;
+  background-color: #0b39a2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 150;
+  box-shadow: -1px 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.entrade-map-toolbar__btn {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.05rem;
+  padding: 15px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.entrade-map-toolbar__btn:hover,
+.entrade-map-toolbar__btn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: none;
+}
+
+.entrade-map-toolbar__btn:active {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+#countryInfo .factBtn,
+#factSheet {
+  background-color: #0b39a2 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  padding: 8px 18px !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#countryInfo .factBtn:hover,
+#factSheet:hover {
+  background-color: #082b7a !important;
+  /* transform: translateY(-1px); */
+}
+
+#entradeMapTooltip {
+  position: absolute;
+  z-index: 10000;
+  display: none;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+/* Plain country-name label shown on hovering any country (see
+   attachCountryNameTooltips) - distinct from #entradeMapTooltip's richer
+   trade pop-card, which only applies to the selected country and its
+   partners. */
+#entradeCountryNameTooltip {
+  position: absolute;
+  z-index: 10000;
+  display: none;
+  pointer-events: none;
+  background: rgba(11, 33, 68, 0.92);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+/* Map navigation help modal (#mapHelpModal) body content */
+.mapHelpContent h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b39a2;
+  margin: 1.25rem 0 0.5rem;
+}
+.mapHelpContent h3:first-child {
+  margin-top: 0.25rem;
+}
+.mapHelpContent p {
+  margin-bottom: 0.5rem;
+}
+.mapHelpContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mapHelpContent li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e9eaeb;
+  line-height: 1.5;
+}
+.mapHelpContent li:last-child {
+  border-bottom: none;
+}
+.mapHelpContent kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0.15em 0.5em;
+  margin: 0 0.1em;
+  font-family: "Consolas", "Menlo", monospace;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: #262b38;
+  background: #f3f6fc;
+  border: 1px solid #c9d3e6;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Small icon badge referencing an actual toolbar button (+/-/home) or a
+   mouse action, matching the toolbar's own dark-blue styling so the
+   instruction visually maps to the real control the reader will see. */
+.mapHelpIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  margin: 0 0.15em;
+  background: #0b39a2;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 0.8em;
+  vertical-align: middle;
 }
 
 /* If a tooltip contains a .pop-card, make the tooltip container transparent
    and hide the tooltip arrow. Use :has() for modern browsers and provide a
    descendant fallback for environments without :has(). */
-.leaflet-tooltip:has(.pop-card),
+#entradeMapTooltip:has(.pop-card),
 .tooltip:has(.pop-card) {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  opacity: 1 !important;          /* override Leaflet default 0.9 */
+  opacity: 1 !important;
 }
-.leaflet-tooltip:has(.pop-card)::before,
 .tooltip:has(.pop-card)::before {
   display: none !important;
 }
 
-/* Override Leaflet popup wrapper styles when it contains a pop-card */
-.pop-card-popup .leaflet-popup-content-wrapper {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-}
-.pop-card-popup .leaflet-popup-content {
-  margin: 0 !important;
-  width: auto !important;
-}
-.pop-card-popup .leaflet-popup-tip-container {
-  display: none !important;
-}
 /* Fallback: ensure pop-card itself renders correctly when placed inside a tooltip */
-.leaflet-tooltip .pop-card,
 .tooltip .pop-card {
   background: var(--_bg) !important; /* keep pop-card styling */
   border: 1px solid var(--_border) !important;
@@ -1238,4 +1468,9 @@ ul#footerCredits {
     gap: 0.6rem;
     width: 100%;
   }
+}
+
+
+.em-zoom-buttons {
+  display: none !important;
 }

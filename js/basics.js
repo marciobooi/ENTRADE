@@ -74,38 +74,6 @@ function changeUrl(title, url) {
 
 
 
-function clearmapclose() {
-	  //clean lines
-	  document.querySelectorAll('.myClass').forEach(a => { a.remove(); });
-	  //clean Markers
-	  document.querySelectorAll('.leaflet-marker-icon').forEach(b => { b.remove(); });
-	  document.querySelectorAll('.my-own-class').forEach(d => { d.remove(); });
-
-	  const wtinfoEl = document.querySelector(".wtinfo");
-	  if (wtinfoEl && wtinfoEl.classList.contains("open")) {
-	    // close the modal
-	    wtinfoEl.classList.add("wtinfoshow");
-	    wtinfoEl.classList.remove("wtinfo");
-	  } else if (wtinfoEl) {
-	    wtinfoEl.classList.add("wtinfoshow");
-	    wtinfoEl.classList.remove("wtinfo");
-	  }
-
-	  // clean toggler modal btn          
-	  const toggleMenuEl = document.getElementById("toggleMenu");
-	  if (toggleMenuEl) {
-	    toggleMenuEl.remove();
-	  }
-	  
-	  const cleanEl = document.getElementById("clean");
-	  if (cleanEl) {
-	    cleanEl.remove();
-	  }
-	   
-	   
-}
-
-
 const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_OTH", "EX_SU_OTH", "NSP", "TOTAL"];
 
 	function addChartOptions() {
