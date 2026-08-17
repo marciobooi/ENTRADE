@@ -16,7 +16,7 @@
 // much empty Arctic ocean into frame and crops the Mediterranean/N. Africa
 // at the bottom on typical short/wide viewports. y=42 keeps Scandinavia in
 // frame while no longer cropping the south, checked at multiple aspect ratios.
-export const MAP_INITIAL_POSITION = { x: 14, y: 42, z: -0.0755 };
+export const MAP_INITIAL_POSITION = { x: 14, y: 50, z: -0.0755 };
 
 export let coords = []; // Global coords array - mutated via .push() only, safe to share as-is
 
