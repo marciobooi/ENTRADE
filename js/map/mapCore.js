@@ -122,6 +122,9 @@ function renderMap() {
           // The pre-build .position() call alone isn't enough to reliably land
           // on the intended view - only a post-build call (which drives the
           // actual zoom transform via setMapView) does, so re-assert it here.
+          if (map && map.__zoomBehavior) {
+            map.__zoomBehavior.translateExtent([[-Infinity, -Infinity], [Infinity, Infinity]]);
+          }
           if (typeof map.position === 'function') {
             map.position(MAP_INITIAL_POSITION);
           }

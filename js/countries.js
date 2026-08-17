@@ -139,6 +139,9 @@ function renderMap() {
           // The pre-build .position() call alone isn't enough to reliably land
           // on the intended view - only a post-build call (which drives the
           // actual zoom transform via setMapView) does, so re-assert it here.
+          if (map && map.__zoomBehavior) {
+            map.__zoomBehavior.translateExtent([[-Infinity, -Infinity], [Infinity, Infinity]]);
+          }
           if (typeof map.position === 'function') {
             map.position(MAP_INITIAL_POSITION);
           }
@@ -857,57 +860,16 @@ function animateMapToPosition(targetX, targetY, targetZ, durationMs = 700) {
 animateMapToPosition._token = 0;
 animateMapToPosition._liveState = null;
 
-/** Recenters on a single country with a gentle, fixed zoom-out - used when there's no partner set to fit (e.g. bringing an off-screen keyboard focus target into view). */
+/** Recenters on a single country while maintaining the initial overview coordinates. */
 function animateMapToCountry(lat, lng, durationMs = 700) {
-  animateMapToPosition(lng, lat, MAP_INITIAL_POSITION.z * 1.12, durationMs);
+  animateMapToPosition(MAP_INITIAL_POSITION.x, MAP_INITIAL_POSITION.y, MAP_INITIAL_POSITION.z, durationMs);
 }
 
 /**
- * Computes the {x,y,z} position that frames the source country and every
- * one of its partners together - not just the source with a fixed pull-back
- * - by projecting all of them, taking the bounding box in that projected
- * space, and picking the zoom level that fits it (with padding) in the
- * current map size. Falls back to null (caller should use animateMapToCountry
- * instead) if the projection isn't ready yet or there's nothing to fit.
+ * Returns MAP_INITIAL_POSITION to maintain constant map framing on click
  */
 function computeFitToPartnersPosition(sourceCoords, partners) {
-  if (!map || !map._projection || !map.__baseZ) return null;
-
-  const [sourceLat, sourceLng] = sourceCoords;
-  const sourceProjected = map._projection([sourceLng, sourceLat]);
-  if (!Array.isArray(sourceProjected) || !Number.isFinite(sourceProjected[0]) || !Number.isFinite(sourceProjected[1])) return null;
-  const [sourceX, sourceY] = sourceProjected;
-
-  const partnerProjected = partners
-    .map(([code]) => getCountryCoordinates(code))
-    .filter(Boolean)
-    .map(([lat, lng]) => map._projection([lng, lat]))
-    .filter(p => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]));
-  if (!partnerProjected.length) return null;
-
-  // The view is always centered on the SELECTED country itself (never a
-  // bbox average across it and its partners) - averaging pulled the center
-  // toward wherever partners happened to cluster, which could push the
-  // country the user just chose off toward an edge, or off-screen entirely,
-  // exactly when there's only one or two partners on one side of it (e.g.
-  // France with only Algeria as a top partner). The zoom level is what
-  // adapts, based on the farthest partner's distance from the source.
-  const maxDX = Math.max(...partnerProjected.map(([x]) => Math.abs(x - sourceX)));
-  const maxDY = Math.max(...partnerProjected.map(([, y]) => Math.abs(y - sourceY)));
-
-  const padding = 90; // px - room for markers, the pop-card tooltip and the toolbar
-  const availW = Math.max(50, (map.width_ || 800) - padding * 2);
-  const availH = Math.max(50, (map.height_ || 600) - padding * 2);
-
-  const defaultK = Math.abs(map.__baseZ / MAP_INITIAL_POSITION.z);
-  let k = Math.min(availW / Math.max(1, maxDX * 2), availH / Math.max(1, maxDY * 2));
-  // Never zoom in tighter than a ~2x bump over the default overview (a
-  // single very close partner shouldn't fill the whole screen) or out past
-  // the default itself (fitting distant partners shouldn't leave you more
-  // zoomed out than the app's own starting view).
-  k = Math.min(defaultK * 2.2, Math.max(defaultK, k));
-
-  return { x: sourceLng, y: sourceLat, z: map.__baseZ / k };
+  return { x: MAP_INITIAL_POSITION.x, y: MAP_INITIAL_POSITION.y, z: MAP_INITIAL_POSITION.z };
 }
 
 function calculateWeight(scale, value, zoom = 4) {
