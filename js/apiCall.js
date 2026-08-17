@@ -1,11 +1,7 @@
 const cache = {};
 
 function addToCache(query, d) {
-  if (!cache[query]) {
-    cache[query] = [];
-  }
-
-  cache[query].push(d);
+  cache[query] = d;
 }
 
 function getPartnerValuesForYear(dataset, year = REF.year) {
@@ -45,8 +41,8 @@ async function chartApiCall() {
     url += "&unit=" + REF.unit;
 
     // return cached Dataset if available
-    if (cache[url] && cache[url].length > 0) {
-      return cache[url][cache[url].length - 1];
+    if (cache[url]) {
+      return cache[url];
     }
 
     // async fetch JSON, parse and wrap with JSONstat
@@ -61,4 +57,4 @@ async function chartApiCall() {
     console.error("API call failed:", error);
     return null;
   }
-} 
+}

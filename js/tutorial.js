@@ -5,7 +5,7 @@ const TutorialTour = (() => {
   const STORAGE_VERSION = "v1";
 
   const SELECTORS = {
-    focus150: "#focus150" || "#focus182",
+    get focus150() { return exists("#focus150") ? "#focus150" : "#focus182"; },
     menuButton: "#menu",
     chartOptionsMenu: "#chartOptionsMenu",
     trade: "#containerTrade",

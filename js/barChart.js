@@ -4,38 +4,18 @@ async function barchartdata() {
   const d = await chartApiCall();
   const selectedYearValues = getPartnerValuesForYear(d, REF.year);
 
-  const indicator = d?.Dimension("partner").id || [];
+  const indicator = d?.Dimension("partner")?.id || [];
 
-  const data = indicator.map((indicator, index) => {
+  const rawData = indicator.map((partnerId, index) => {
     const value = Number(selectedYearValues[index]);
-    if (!excludedPartners.includes(indicator) && !isNaN(value) && value > 0) {
-      return { name: languageNameSpace.labels[indicator], y: value };
+    if (!excludedPartners.includes(partnerId) && !isNaN(value) && value > 0) {
+      return { name: languageNameSpace.labels[partnerId] || partnerId, y: value };
     }
     return null;
-  }).filter(partner => partner !== null);
+  }).filter(item => item !== null);
 
-  data.sort((a, b) => {
-    if (a.name === 'others') return 1; // "others" always comes last
-    if (b.name === 'others') return -1;
-    return b.y - a.y;
-  });
-
-  if (REF.filter === "top5") {  
-    const topCountries = data.slice(0, 5);
-    const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-
-    // Determine the final data to be used, only adding "OTH" if sumOfOthers is greater than 0
-    const finalData = sumOfOthers > 0 
-        ? topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers, color: 'red' }]) 
-        : topCountries;
-
-    // Add the final data to the bar chart series
-    barChartSeries.push(...finalData);
-} else {
-    // If the filter is not "top5", just use the original data
-    barChartSeries.push(...data);
-}
-
+  const finalSeries = buildTop5Series(rawData, languageNameSpace.labels["OTH"]);
+  barChartSeries.push(...finalSeries);
 }
 
 

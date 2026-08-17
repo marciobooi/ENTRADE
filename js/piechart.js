@@ -63,47 +63,25 @@ async function createPieChart() {
 }
 
 async function piechartdata() {
-   piedata = [];
+  piedata = [];
 
   const d = await chartApiCall();
-  const selectedYearValues = getPartnerValuesForYear(d, REF.year);
-
   if (d === null) {
     return []; 
   }
 
-  const indicator = d.Dimension("partner").id;
+  const selectedYearValues = getPartnerValuesForYear(d, REF.year);
+  const indicator = d.Dimension("partner")?.id || [];
 
   // Filter out excluded partners and values of 0 or less
-  const data = indicator.map((indicator, index) => {
+  const rawData = indicator.map((partnerId, index) => {
     const value = Number(selectedYearValues[index]);
-    if (!excludedPartners.includes(indicator) && !isNaN(value) && value > 0) {
-      return {name: languageNameSpace.labels[indicator], y: value};    
+    if (!excludedPartners.includes(partnerId) && !isNaN(value) && value > 0) {
+      return { name: languageNameSpace.labels[partnerId] || partnerId, y: value };    
     }
     return null;
-  }).filter(partner => partner !== null);
+  }).filter(item => item !== null);
 
-  if (REF.filter === "top5") {
-    // Sort by value (descending)
-    data.sort((a, b) => b.y - a.y);
-
-    // Get the top 5 countries
-    const topCountries = data.slice(0, 5);
-  
-    // Sum the values of the remaining countries
-    const sumOfOthers = data.slice(5).reduce((sum, item) => sum + item.y, 0);
-
-    // Only add "Others" if sumOfOthers is greater than 0
-    const finalData = sumOfOthers > 0 
-      ? topCountries.concat([{ name: languageNameSpace.labels["OTH"], y: sumOfOthers }]) 
-      : topCountries;
-
-    piedata.push(...finalData);
-  } else {
-    piedata.push(...data);
-  }
-
-  // Sort the final data again by value (descending)
-  piedata.sort((a, b) => b.y - a.y);
-
+  const finalSeries = buildTop5Series(rawData, languageNameSpace.labels["OTH"]);
+  piedata.push(...finalSeries);
 }

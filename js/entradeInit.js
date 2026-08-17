@@ -5,8 +5,6 @@ if (document.readyState === 'loading') {
 }
 
 async function initApp() {
-  // dataNameSpace.getRefURL();
-
   await languageNameSpace.initLanguage(REF.language);
 
   // Initialize GLOBAN after language is set
@@ -45,7 +43,6 @@ async function buildComponents() {
     { instance: new SubNavbar(), target: "#subnavbar-container" },
     { instance: new Footer(), target: '#componentFooter' },
     { instance: new Navbar(), target: "#navbar-container" },
-      // { instance: new FloatingChartControls(), target: '#componentFooter' },
   ];
 
   components.forEach(({ instance, target }) => {

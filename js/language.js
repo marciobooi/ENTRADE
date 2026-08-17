@@ -6,6 +6,13 @@ const languageNameSpace = {
 	
 	//selected language
 	languageSelected: '',
+	_listeners: [],
+
+	onLanguageChange: function (callback) {
+		if (typeof callback === 'function') {
+			this._listeners.push(callback);
+		}
+	},
 
 	//init of the labels for the language defined in the URL
 	initLanguage: async function (val, language = val) {
@@ -106,6 +113,15 @@ const languageNameSpace = {
 		languageNameSpace.initLanguage(REF.language);	
 		removeChartOptions();	
 		renderMap();
+
+		// Notify registered listeners (e.g., CCK, GLOBAN)
+		this._listeners.forEach((callback) => {
+			try {
+				callback(val);
+			} catch (err) {
+				console.error("Error in language listener:", err);
+			}
+		});
 		setTimeout(() => {
 			const homeBtn = document.querySelector("#wt-button-home > span");
 			if (homeBtn) homeBtn.textContent = languageNameSpace.labels["HOME"];

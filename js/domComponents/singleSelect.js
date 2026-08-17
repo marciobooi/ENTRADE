@@ -1,4 +1,3 @@
-
 class Singleselect {
     constructor(elementId, optionsArray, labelDescription, activeElement, textChange, changeCallback) {
         this.elementId = elementId;
@@ -7,41 +6,39 @@ class Singleselect {
         this.activeElement = activeElement;
         this.textChange = textChange;
         this.changeHandler = changeCallback;
-        this.svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 24 24" enable-background="new 0 0 24 24" focusable="false" aria-hidden="true" class="ecl-icon ecl-icon--s ecl-select__icon-shape ecl-icon--rotate-180"><path d="M18.2 17.147c.2.2.4.3.7.3.3 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-7.1-7.1c-.4-.4-1-.4-1.4 0l-7 7c-.3.4-.3 1 .1 1.4.4.4 1 .4 1.4 0l6.2-6.2 6.4 6.3z"></path></svg>'
+        this.svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 24 24" enable-background="new 0 0 24 24" focusable="false" aria-hidden="true" class="ecl-icon ecl-icon--s ecl-select__icon-shape ecl-icon--rotate-180"><path d="M18.2 17.147c.2.2.4.3.7.3.3 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-7.1-7.1c-.4-.4-1-.4-1.4 0l-7 7c-.3.4-.3 1 .1 1.4.4.4 1 .4 1.4 0l6.2-6.2 6.4 6.3z"></path></svg>';
     } 
 
     createSingleSelect() {    
-
         let optionsHTML = '';   
 
-       // Sort optionsArray
-       const sortedOptionsArray = this.optionsArray.sort((a, b) => {
-        const isNumberA = !isNaN(parseFloat(a));
-        const isNumberB = !isNaN(parseFloat(b));
-      
-        if (isNumberA && isNumberB) {
-          return 0; // Both are numbers, no need to sort
-        }
-      
-        const labelA = languageNameSpace.labels[a] !== undefined ? languageNameSpace.labels[a] : a;
-        const labelB = languageNameSpace.labels[b] !== undefined ? languageNameSpace.labels[b] : b;
-      
-        return labelA.localeCompare(labelB);
-      });
+        // Sort a copy of optionsArray to avoid mutating shared constant references
+        const sortedOptionsArray = [...this.optionsArray].sort((a, b) => {
+            const isNumberA = !isNaN(parseFloat(a));
+            const isNumberB = !isNaN(parseFloat(b));
+          
+            if (isNumberA && isNumberB) {
+                return 0; // Both are numbers, maintain ordering
+            }
+          
+            const labelA = languageNameSpace.labels[a] !== undefined ? languageNameSpace.labels[a] : a;
+            const labelB = languageNameSpace.labels[b] !== undefined ? languageNameSpace.labels[b] : b;
+          
+            return labelA.localeCompare(labelB);
+        });
 
-    // For other elementIds, create options based on the provided sorted optionsArray
-    optionsHTML = sortedOptionsArray.map(option => `
-        <option value="${option}" ${this.activeElement === option ? 'selected' : ''}>
-            ${languageNameSpace.labels[option] !== undefined ? languageNameSpace.labels[option] : option}
-        </option>
-    `).join('');
+        // Create options based on the sorted optionsArray
+        optionsHTML = sortedOptionsArray.map(option => `
+            <option value="${option}" ${this.activeElement === option ? 'selected' : ''}>
+                ${languageNameSpace.labels[option] !== undefined ? languageNameSpace.labels[option] : option}
+            </option>
+        `).join('');
 
-               
         const singleSelectHTML = /*html*/ `
         <div class="ecl-form-group" role="application">
-        <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
+            <label for="${this.elementId}" class="ecl-form-label">${this.labelDescription}</label>        
             <div class="ecl-select__container ecl-select__container--l">
-            <p class="sr-only">Your selection will automatically update the map</p>
+                <p class="sr-only">Your selection will automatically update the map</p>
                 <select class="ecl-select" id="${this.elementId}" name="country" required="">
                     ${optionsHTML}
                 </select>
@@ -50,7 +47,7 @@ class Singleselect {
                 </div>
             </div>
         </div>
-                `;
+        `;
 
         return singleSelectHTML;
     }
@@ -60,7 +57,7 @@ class Singleselect {
         const selectElement = document.getElementById(this.elementId);
         if (!labelElement || !selectElement) return;
 
-        // Change handler attached to the specific select element (prevents accumulating document-level listeners)
+        // Change handler attached to the specific select element
         if (!selectElement.dataset.changeListenerAttached) {
             selectElement.addEventListener('change', (event) => {
                 this.changeHandler && this.changeHandler(event.target.value);
@@ -68,8 +65,36 @@ class Singleselect {
             selectElement.dataset.changeListenerAttached = '1';
         }
 
-        selectElement.addEventListener('mouseenter', () => { labelElement.textContent = this.textChange });
-        selectElement.addEventListener('mouseleave', () => { labelElement.textContent = this.labelDescription });
+        selectElement.addEventListener('mouseenter', () => { labelElement.textContent = this.textChange; });
+        selectElement.addEventListener('mouseleave', () => { labelElement.textContent = this.labelDescription; });
+    }
+}
+
+/**
+ * Shared helper to render a SingleSelect component cleanly and remove existing instances
+ */
+function renderSingleSelect(containerSelector, elementId, optionsArray, labelDescription, activeElement, textChange, changeCallback) {
+    const target = document.querySelector(containerSelector);
+    if (!target) {
+        console.error(`${containerSelector} not found in DOM`);
+        return null;
     }
 
+    // Remove previous select component safely
+    document.getElementById(elementId)?.closest(".ecl-form-group")?.remove();
+    // Defensive cleanup — remove any stray duplicates
+    Array.from(target.querySelectorAll(`#${elementId}`)).forEach(el => el.closest('.ecl-form-group')?.remove());
+
+    const singleSelect = new Singleselect(
+        elementId,
+        optionsArray,
+        labelDescription,
+        activeElement,
+        textChange,
+        changeCallback
+    );
+
+    target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
+    singleSelect.attachEventListeners();
+    return singleSelect;
 }

@@ -45,23 +45,21 @@ async function createTableChart() {
   // Create tbody (table body) for data rows
   const tbody = document.createElement("tbody");
   tbody.classList.add("ecl-table__body");
-  table.appendChild(tbody);
+
+  const fragment = document.createDocumentFragment();
 
   // Iterate through the bar chart series data and populate the tbody
-  barChartSeries.forEach((dataPoint, index) => {
-    const row = tbody.insertRow(index);
+  barChartSeries.forEach((dataPoint) => {
+    const row = document.createElement("tr");
     row.classList.add("ecl-table__row");
 
-    const cell1 = row.insertCell(0);
-    const cell2 = row.insertCell(1);
+    const cell1 = document.createElement("td");
+    const cell2 = document.createElement("td");
     cell1.classList.add("ecl-table__cell");
     cell2.classList.add("ecl-table__cell");
 
-
-
     cell1.textContent = dataPoint.name;
     cell2.textContent = formatNumber(dataPoint.y);
-  
 
     // Add attributes for screen readers
     row.setAttribute("role", "row");
@@ -71,7 +69,14 @@ async function createTableChart() {
     // Add tabindex for keyboard focus
     row.setAttribute("tabindex", "0");
     row.addEventListener("keydown", (event) => handleRowKeyPress(event, row));
+
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    fragment.appendChild(row);
   });
+
+  tbody.appendChild(fragment);
+  table.appendChild(tbody);
 
   // Get the container element by ID
   if (chartContainer) {

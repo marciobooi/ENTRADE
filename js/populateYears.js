@@ -59,40 +59,18 @@ if (numberOfItems !== yearsArray.length && yearsArray.length > 0) {
     // Not fatal—continue rendering.
   }
 
-  // --- Render the select
-  const target = document.querySelector("#containerYear");
-  if (!target) {
-    console.error("populateYearsData: #containerYear not found in DOM");
-    return;
-  }
-
-  const elementId = "selectYear";
-  const labelDescription = languageNameSpace.labels["REFERENCE"];
-  const textChange = languageNameSpace.labels["MENU_YEAR"];
-  const activeElement = REF.year;
-
   // Render years in reverse (most recent first) without mutating the original array.
   const optionsArray = yearsArray.slice().reverse();
 
-  // Remove previous select widget safely
-  document.getElementById(elementId)
-    ?.closest(".ecl-form-group")
-    ?.remove();
-  // Defensive cleanup — remove any stray duplicates that may have been rendered previously
-  Array.from(target.querySelectorAll(`#${elementId}`)).forEach(el => el.closest('.ecl-form-group')?.remove());
-
-  // Create and mount new widget
-  const singleSelect = new Singleselect(
-    elementId,
+  renderSingleSelect(
+    "#containerYear",
+    "selectYear",
     optionsArray,
-    labelDescription,
-    activeElement,
-    textChange,
+    languageNameSpace.labels["REFERENCE"],
+    REF.year,
+    languageNameSpace.labels["MENU_YEAR"],
     handleYearSelection
   );
-
-  target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
-  singleSelect.attachEventListeners();
 
   // --- Callback
   function handleYearSelection(selectedValue) {

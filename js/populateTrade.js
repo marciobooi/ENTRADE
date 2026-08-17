@@ -1,37 +1,14 @@
 function populateTrade() {
-  const target = document.querySelector("#containerTrade");
-  if (!target) return console.error("containerTrade not found in DOM");
-
-  const elementId = "selectTrade";
-  const optionsArray = Object.keys(trade);
-  const labelDescription = languageNameSpace.labels["TRADE"];
-  const activeElement = REF.trade;
-  const textChange = languageNameSpace.labels["MENU_TRADE"];
-
-  // Remove old widget safely
-  document.getElementById(elementId)
-    ?.closest(".ecl-form-group")
-    ?.remove();
-  // Defensive cleanup — remove any stray duplicates that may have been rendered previously
-  Array.from(target.querySelectorAll(`#${elementId}`)).forEach(el => el.closest('.ecl-form-group')?.remove());
-
-    
-
-  // Build new select widget
-  const singleSelect = new Singleselect(
-    elementId,
-    optionsArray,
-    labelDescription,
-    activeElement,
-    textChange,
+  renderSingleSelect(
+    "#containerTrade",
+    "selectTrade",
+    Object.keys(trade),
+    languageNameSpace.labels["TRADE"],
+    REF.trade,
+    languageNameSpace.labels["MENU_TRADE"],
     handleTradeSelection
   );
 
-  // Render and mount new component
-  target.insertAdjacentHTML("beforeend", singleSelect.createSingleSelect());
-  singleSelect.attachEventListeners();
-
-  // Callback for selection
   function handleTradeSelection(selectedValue) {
     REF.trade = selectedValue;
 

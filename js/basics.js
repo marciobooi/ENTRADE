@@ -22,40 +22,31 @@ function getUrlVars() {
 	return vars;
 };
 
-//dialog box position object
-// var dialogBoxPosition = function (x, y) {
-// 	this.x = x;
-// 	this.y = y;
-// };
+// HTML escape helper to prevent XSS / reflected content
+function escapeHTML(str) {
+	if (str === null || str === undefined) return '';
+	return String(str)
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;');
+}
 
-//calculate the dialog box position to display it all the time inside the diagram wether for the extrem right and bottom nodes
-// function calculateDialogBoxPosition(x, y, width, height) {
-// 	var rightSpace = $(window).width() - x;
-// 	var bottomSpace = imgHeight - y;
-// 	var newX,
-// 		newY;
-
-// 	if (rightSpace < width) {
-// 		newX = x - width;
-// 		if (bottomSpace < height) {
-// 			newY = y - height;
-// 		} else {
-// 			newY = y - 20;
-// 		}
-// 	} else if (bottomSpace < height) {
-// 		newX = x;
-// 		newY = y - height;
-// 	} else {
-// 		newX = x;
-// 		newY = y;
-// 	}
-// 	return new dialogBoxPosition(newX, newY);
-// }
-
-// function closeDialogBox(box) {
-// 	box.close();
-// 	box.destroy();
-// }
+// Shared helper to build top 5 series + Others bucket for charts
+function buildTop5Series(data, otherLabel) {
+	const resolvedOther = otherLabel || (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels["OTH"]) || "Others";
+	const sorted = [...data].sort((a, b) => b.y - a.y);
+	if (REF.filter !== "top5") {
+		return sorted;
+	}
+	const top5 = sorted.slice(0, 5);
+	const sumOfOthers = sorted.slice(5).reduce((sum, item) => sum + item.y, 0);
+	if (sumOfOthers > 0) {
+		top5.push({ name: resolvedOther, y: sumOfOthers });
+	}
+	return top5;
+}
 
 // change URL by adding new item to history
 // code from http://www.aspsnippets.com/Articles/Change-Browser-URL-without-reloading-refreshing-page-using-HTML5-in-JavaScript-and-jQuery.aspx
@@ -155,7 +146,7 @@ function showNoDataPopup(message = languageNameSpace.labels['NODATA'], duration 
         <p style="display: inline-block; margin: 0;">${message}</p>
       </div>
       <div>
-        <button type="button" class="btn btn-outline-danger btn-sm" id="closeAlertPopup" aria-label="Close notification">
+        <button type="button" class="ecl-button ecl-button--secondary close-alert-btn" id="closeAlertPopup" aria-label="Close notification">
           <i class="fas fa-times" aria-hidden="true"></i>
         </button>
       </div>
@@ -480,14 +471,16 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 
 
   function getTitle() {
-	const geoLabel = languageNameSpace.labels[REF.geo];
-	const time = REF.year;
-	const dataset = languageNameSpace.labels[REF.dataset];
-	const unit = languageNameSpace.labels[REF.unit];
-	const unitAbbr = languageNameSpace.labels['abr_'+REF.unit];
+	const geoLabel = escapeHTML(languageNameSpace.labels[REF.geo] || REF.geo);
+	const time = escapeHTML(REF.year);
+	const dataset = escapeHTML(languageNameSpace.labels[REF.dataset] || REF.dataset);
+	const unit = escapeHTML(languageNameSpace.labels[REF.unit] || REF.unit);
+	const unitAbbr = escapeHTML(languageNameSpace.labels['abr_' + REF.unit] || REF.unit);
+	const siecLabel = escapeHTML(languageNameSpace.labels[REF.siec] || REF.siec);
+	const depTitle = escapeHTML(languageNameSpace.labels["DEPTITLE"] || "");
 
-	let title = ""
-	let subtitle = ""
+	let title = "";
+	let subtitle = "";
   
 	let chartTitle = "";
 	switch (REF.chart) {
@@ -502,8 +495,8 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 		subtitle = "";
 		break;
 	  case "depChart":
-		chartTitle = `${languageNameSpace.labels["DEPTITLE"]} ${languageNameSpace.labels[REF.siec]} - ${REF.year}`;
-		title = `${languageNameSpace.labels["DEPTITLE"]} ${languageNameSpace.labels[REF.siec]} - ${REF.year}`;
+		chartTitle = `${depTitle} ${siecLabel} - ${time}`;
+		title = `${depTitle} ${siecLabel} - ${time}`;
 		subtitle = "";
 		break;
 	  case "barChart":
@@ -522,18 +515,15 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
 		subtitle = "";
 		break;
 	  default:    	 	 
-	  chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}), ${time}`;
-	  title = `${dataset} - ${geoLabel} ${time}`;
-	  subtitle = "";   
+		chartTitle = `<strong>${geoLabel}</strong>, ${dataset} (${unitAbbr}), ${time}`;
+		title = `${dataset} - ${geoLabel} ${time}`;
+		subtitle = "";   
 	}
-
-
   
 	const titleElement = document.getElementById("title");
 	if (titleElement && REF.geo) {
 	  titleElement.innerHTML = title;
 	}
-
 	
 	const subtitleElement = document.getElementById("subtitle");
 	if (subtitleElement) {
@@ -966,9 +956,11 @@ function showNoDataInChartContainer(message = languageNameSpace.labels['NODATA']
  * when building chart options (Highcharts expects a simple string).
  */
 function credits() {
-  const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
-  const sourceLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels["EXPORT_FOOTER_TITLE"]) || "Source: Eurostat";
-  const accessLabel = (languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels.DB || languageNameSpace.labels["DB_LINK"])) || "Access to dataset";
+  const safeDataset = encodeURIComponent(REF.dataset || "");
+  const safeLang = encodeURIComponent((REF.language || "en").toLowerCase());
+  const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${safeDataset}/default/table?lang=${safeLang}`;
+  const sourceLabel = escapeHTML((languageNameSpace && languageNameSpace.labels && languageNameSpace.labels["EXPORT_FOOTER_TITLE"]) || "Source: Eurostat");
+  const accessLabel = escapeHTML((languageNameSpace && languageNameSpace.labels && (languageNameSpace.labels.DB || languageNameSpace.labels["DB_LINK"])) || "Access to dataset");
 
   // Return SVG-compatible credits text (no DOM access here).
   return `

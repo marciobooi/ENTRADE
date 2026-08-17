@@ -88,14 +88,6 @@ class Chart {
             align:'center',
           },   
         },
-        legend: {                
-          itemHiddenStyle: {
-            color: '#767676'
-          },
-          itemStyle: {
-            fontSize: '1rem',
-          }
-        },
         legend: this.legend,
         plotOptions: {
           column: this.columnOptions,
@@ -193,7 +185,7 @@ class Chart {
   // function that return empty chart for when is no data to display
   function nullishChart() {
     const chartOptions = {
-      containerId: "chart",
+      containerId: "chartContainer",
       type: null,
       title: null,
       subtitle: null,

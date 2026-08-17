@@ -5,21 +5,26 @@
 
 const globanManager = {
   initialized: false,
+  maxAttempts: 50,
 
   /**
    * Initialize the GLOBAN widget with the current language
    * This function should be called AFTER REF.language is set
    */
-  init: function() {
+  init: function(attempt = 0) {
     // Check if REF and language are available
     if (typeof REF === 'undefined' || !REF.language) {
-      setTimeout(() => this.init(), 100);
+      if (attempt < this.maxAttempts) {
+        setTimeout(() => this.init(attempt + 1), 100);
+      }
       return;
     }
 
-    // Wait for webtools to be available
+    // Wait for webtools to be available (capped at maxAttempts)
     if (typeof $wt === 'undefined' || !$wt.render) {
-      setTimeout(() => this.init(), 100);
+      if (attempt < this.maxAttempts) {
+        setTimeout(() => this.init(attempt + 1), 100);
+      }
       return;
     }
 
@@ -74,28 +79,17 @@ const globanManager = {
   }
 };
 
-/**
- * Hook into language change event
- * Override the original ChangeLanguage function to regenerate GLOBAN
- */
-const originalChangeLanguageFn = function() {
-  if (typeof languageNameSpace !== 'undefined' && languageNameSpace.ChangeLanguage) {
-    const originalChangeLanguage = languageNameSpace.ChangeLanguage;
-    
-    languageNameSpace.ChangeLanguage = function(val) {
-      // Call original language change function
-      originalChangeLanguage.call(this, val);
-      
-      // Regenerate GLOBAN with new language
-      globanManager.regenerate(val);
-    };
+// Hook into language changes via pub/sub subscriber
+function registerGlobanLanguageListener() {
+  if (typeof languageNameSpace !== 'undefined' && languageNameSpace.onLanguageChange) {
+    languageNameSpace.onLanguageChange((val) => globanManager.regenerate(val));
+  } else if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof languageNameSpace !== 'undefined' && languageNameSpace.onLanguageChange) {
+        languageNameSpace.onLanguageChange((val) => globanManager.regenerate(val));
+      }
+    });
   }
-};
-
-// Try to hook immediately if languageNameSpace is already available
-if (typeof languageNameSpace !== 'undefined') {
-  originalChangeLanguageFn();
-} else {
-  // Otherwise, hook when it becomes available
-  document.addEventListener('DOMContentLoaded', originalChangeLanguageFn);
 }
+
+registerGlobanLanguageListener();

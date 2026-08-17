@@ -7,39 +7,36 @@
 
 const cckManager = {
   initialized: true, // CCK is auto-initialized via HTML config
+  maxAttempts: 50,
 
   /**
    * Regenerate the CCK when language changes
    * This ensures the banner is updated in the new language
    * Uses $wt.cck.regenerate(params) with language parameter
    */
-  regenerate: function(lang) {
+  regenerate: function(lang, attempt = 0) {
     // Ensure language is lowercase
     const langLower = lang ? lang.toLowerCase() : 'en';
     
     // Set the document language
     document.documentElement.lang = langLower;
 
-    // Wait for webtools and CCK to be available
-    const tryRegenerate = () => {
-      if (typeof $wt === 'undefined' || !$wt.cck || !$wt.cck.regenerate) {
-        // Retry after a short delay
-        setTimeout(tryRegenerate, 100);
-        return;
+    // Wait for webtools and CCK to be available (capped at maxAttempts)
+    if (typeof $wt === 'undefined' || !$wt.cck || !$wt.cck.regenerate) {
+      if (attempt < this.maxAttempts) {
+        setTimeout(() => this.regenerate(lang, attempt + 1), 100);
       }
+      return;
+    }
 
-      try {
-        // Regenerate the CCK banner with the new language
-        $wt.cck.regenerate({
-          lang: langLower
-        });
-      } catch (error) {
-        console.error('[CCK] Error regenerating CCK:', error);
-      }
-    };
-
-    // Start trying to regenerate
-    tryRegenerate();
+    try {
+      // Regenerate the CCK banner with the new language
+      $wt.cck.regenerate({
+        lang: langLower
+      });
+    } catch (error) {
+      console.error('[CCK] Error regenerating CCK:', error);
+    }
   },
 
   /**
@@ -62,51 +59,28 @@ const cckManager = {
 };
 
 /**
- * Hook into language change event
- * Override the original ChangeLanguage function to regenerate CCK
- */
-const originalChangeCCKLanguageFn = function() {
-  if (typeof languageNameSpace !== 'undefined' && languageNameSpace.ChangeLanguage) {
-    const originalChangeLanguage = languageNameSpace.ChangeLanguage;
-    
-    languageNameSpace.ChangeLanguage = function(val) {
-      // Call original language change function
-      originalChangeLanguage.call(this, val);
-      
-      // Regenerate CCK with new language
-      cckManager.regenerate(val);
-    };
-  }
-};
-
-/**
  * Set up event listeners for CCK banner events
  */
 function setupCCKEventListeners() {
-  // Banner is displayed
   if (typeof window !== 'undefined') {
-    window.addEventListener('cck_banner_displayed', () => {
-    });
+    window.addEventListener('cck_banner_displayed', () => {});
+    window.addEventListener('cck_all_accepted', () => {});
+    window.addEventListener('cck_technical_accepted', () => {});
+  }
+}
 
-    // All cookies accepted
-    window.addEventListener('cck_all_accepted', () => {
-      // You can add tracking or other logic here
-    });
-
-    // Only technical/essential cookies accepted
-    window.addEventListener('cck_technical_accepted', () => {
-      // You can disable non-essential tracking here
+// Hook into language changes via pub/sub subscriber
+function registerCCKLanguageListener() {
+  if (typeof languageNameSpace !== 'undefined' && languageNameSpace.onLanguageChange) {
+    languageNameSpace.onLanguageChange((val) => cckManager.regenerate(val));
+  } else if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof languageNameSpace !== 'undefined' && languageNameSpace.onLanguageChange) {
+        languageNameSpace.onLanguageChange((val) => cckManager.regenerate(val));
+      }
     });
   }
 }
 
-// Try to hook immediately if languageNameSpace is already available
-if (typeof languageNameSpace !== 'undefined') {
-  originalChangeCCKLanguageFn();
-} else {
-  // Otherwise, hook when it becomes available
-  document.addEventListener('DOMContentLoaded', originalChangeCCKLanguageFn);
-}
-
-// Set up CCK event listeners
+registerCCKLanguageListener();
 setupCCKEventListeners();

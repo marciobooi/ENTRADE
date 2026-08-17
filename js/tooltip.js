@@ -50,13 +50,20 @@ class TooltipManager {
     }
     
     // Reset ESC listener flag
-    this.escListenerAdded = false;
+    if (this.escListenerAdded) {
+      document.removeEventListener('keydown', this.handleEscKey);
+      this.escListenerAdded = false;
+    }
     
-    // Clean up specific chart-related buttons
-    const buttonsToClean = document.querySelectorAll(".chartIcon, #auxChartControls button, #dataTableContainer button");
-    buttonsToClean.forEach(button => {
-      const newButton = button.cloneNode(true);
-      button.parentNode?.replaceChild(newButton, button);
+    // Remove tooltip event listeners from all buttons that were registered
+    document.querySelectorAll("button").forEach((button) => {
+      if (button._tooltipHandlers) {
+        button.removeEventListener("mouseenter", button._tooltipHandlers.showHandler);
+        button.removeEventListener("mouseleave", button._tooltipHandlers.hideHandler);
+        button.removeEventListener("focus", button._tooltipHandlers.focusHandler);
+        button.removeEventListener("blur", button._tooltipHandlers.blurHandler);
+        delete button._tooltipHandlers;
+      }
     });
   }
 

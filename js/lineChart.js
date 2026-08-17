@@ -51,18 +51,17 @@ async function createLineChart() {
 function linechartdata(d) {
   lineChartData = [];
 
-  const partners = d.Dimension('partner').id;
-  const years = d.Dimension('time').id;
+  const partners = d?.Dimension('partner')?.id || [];
+  const years = d?.Dimension('time')?.id || [];
 
   partners.forEach((partner, partnerIndex) => {
-    // Exclude partners based on the excludedPartners array, except for "NSP"
-    if (!excludedPartners.includes(partner) || partner !== "NSP") {
+    if (!excludedPartners.includes(partner)) {
       const data = years.map((year, yearIndex) => {
         return d.value[partnerIndex * years.length + yearIndex] || 0;
       });
 
       const allZeros = data.every(value => value === 0);
-      const partnerName = languageNameSpace.labels[partner];
+      const partnerName = languageNameSpace.labels[partner] || partner;
 
       if (!allZeros) {
         const lineObj = {
@@ -74,36 +73,33 @@ function linechartdata(d) {
     }
   });
 
+  if (REF.filter === "top5") {
+    // Calculate the total for each country
+    lineChartData.forEach((lineObj) => {
+      lineObj.total = lineObj.data.reduce((sum, value) => sum + value, 0);
+    });
 
+    // Sort lineChartData based on total values in descending order
+    lineChartData.sort((a, b) => b.total - a.total);
 
-  if(REF.filter === "top5") {
+    // Select the top 5 countries
+    const top5 = lineChartData.slice(0, 5);
+    const rest = lineChartData.slice(5);
 
-  // Calculate the total for each country
-  lineChartData.forEach((lineObj) => {
-    lineObj.total = lineObj.data.reduce((sum, value) => sum + value, 0);
-  });
+    // Sum values for countries in 'rest'
+    const restTotal = rest.reduce((sum, lineObj) => sum + lineObj.total, 0);
 
-  // Sort lineChartData based on total values in descending order
-  lineChartData.sort((a, b) => b.total - a.total);
-
-  // Select the top 5 countries
-  const top5 = lineChartData.slice(0, 5);
-  const rest = lineChartData.slice(5, lineChartData.length);
-
-  // Sum values for countries in 'rest'
-  const restTotal = rest.reduce((sum, lineObj) => sum + lineObj.total, 0);
-
-  // Create an 'others' category in lineChartData
-  lineChartData = top5;
-  lineChartData.push({
-    name: languageNameSpace.labels["OTH"],
-    data: years.map((year, yearIndex) => {
-      return rest.reduce((sum, lineObj) => sum + lineObj.data[yearIndex], 0);
-    }),
-    total: restTotal,
-  });
-} 
- 
+    lineChartData = top5;
+    if (restTotal > 0) {
+      lineChartData.push({
+        name: languageNameSpace.labels["OTH"] || "Others",
+        data: years.map((year, yearIndex) => {
+          return rest.reduce((sum, lineObj) => sum + (lineObj.data[yearIndex] || 0), 0);
+        }),
+        total: restTotal,
+      });
+    }
+  }
 }
 
 

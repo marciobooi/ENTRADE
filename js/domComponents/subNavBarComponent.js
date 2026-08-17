@@ -204,7 +204,7 @@ class SubNavbar {
 
             <div id="chartOptionsMenu" class="toggleMenu">
               <div class="close-button-container">
-                <button id="closeChartMenuBtn" class="btn btn-primary close-chart-menu-btn" aria-controls="chartOptionsMenu" aria-label="Close chart menu">
+                <button id="closeChartMenuBtn" class="ecl-button ecl-button--primary close-chart-menu-btn" aria-controls="chartOptionsMenu" aria-label="Close chart menu">
                 <span class="ecl-button__label sr-only" data-ecl-label="true">Close</span>
                 <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
@@ -340,19 +340,25 @@ class SubNavbar {
       });
     });
 
-    // Close dropdowns when clicking elsewhere
-    document.addEventListener("click", (e) => {
-      const menus = this.subNavbar.querySelectorAll(".ecl-dropdown-menu.show");
-      menus.forEach((menu) => {
-        const button = menu.previousElementSibling;
-        const isClickOnButton = button && button.contains(e.target);
-        const isClickOnMenu = menu.contains(e.target);
+    // Close dropdowns when clicking elsewhere (attach once at document level)
+    if (typeof document !== "undefined" && !document._subNavbarOutsideClickAttached) {
+      document._subNavbarOutsideClickAttached = true;
+      document.addEventListener("click", (e) => {
+        const menus = document.querySelectorAll(".ecl-dropdown-menu.show");
+        menus.forEach((menu) => {
+          const button = menu.previousElementSibling;
+          const isClickOnButton = button && button.contains(e.target);
+          const isClickOnMenu = menu.contains(e.target);
 
-        if (!isClickOnButton && !isClickOnMenu) {
-          menu.classList.remove("show");
-        }
+          if (!isClickOnButton && !isClickOnMenu) {
+            menu.classList.remove("show");
+            if (button) {
+              button.setAttribute("aria-expanded", "false");
+            }
+          }
+        });
       });
-    });
+    }
   }
 
   toggleChartOptionsMenu() {
