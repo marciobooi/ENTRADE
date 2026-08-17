@@ -16,17 +16,16 @@ export function attachZoomScaling() {
 
   function rescaleFlowLayer(k) {
     if (!k || isNaN(k) || k <= 0) return;
-
-    // Rescale arcs only: stroke-width stays a constant screen weight
-    // (representing trade volume consistently regardless of zoom level).
-    // Markers are intentionally NOT rescaled here - they're sized once at
-    // creation time and left to scale naturally with the map's own zoom
-    // transform, so they grow/shrink like any other geographic feature.
-    document.querySelectorAll('#entrade-flow-layer .map-curve').forEach(path => {
+    const tStart = performance.now();
+    const arcs = document.querySelectorAll('#entrade-flow-layer .map-curve');
+    arcs.forEach(path => {
       const baseW = parseFloat(path.dataset.baseWeight || path.getAttribute('stroke-width') || '3');
       if (!path.dataset.baseWeight) path.dataset.baseWeight = baseW;
       path.style.strokeWidth = `${baseW / k}px`;
     });
+    if (arcs.length > 0) {
+      console.log(`[ENTRADE Zoom] rescaleFlowLayer(k=${k.toFixed(3)}) updated ${arcs.length} arcs in ${(performance.now() - tStart).toFixed(2)}ms`);
+    }
   }
 
   // Apply now, then once more on the next frame: right after a fresh
@@ -52,7 +51,9 @@ export function attachZoomScaling() {
     rescaleScheduled = true;
     requestAnimationFrame(() => {
       rescaleScheduled = false;
-      rescaleFlowLayer(getMapZoomK());
+      const k = getMapZoomK();
+      console.log(`[ENTRADE Zoom] MutationObserver rAF tick: k=${k?.toFixed(3)} at ${performance.now().toFixed(2)}ms`);
+      rescaleFlowLayer(k);
     });
   });
 

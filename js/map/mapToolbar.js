@@ -54,14 +54,28 @@ export function buildMapToolbar() {
   });
 
   makeBtn('wt-button-zoomin', 'fa-plus', zoomInLabel, () => {
+    const t0 = performance.now();
+    console.log('[ENTRADE Zoom] Zoom In button clicked at', t0.toFixed(2), 'ms', { map, svg: map?.svg_, zoomBehavior: map?.__zoomBehavior });
     if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(200).call(map.__zoomBehavior.scaleBy, 1.6);
+      map.svg_.transition().duration(100)
+        .on('start', () => console.log('[ENTRADE Zoom] Zoom In transition start:', (performance.now() - t0).toFixed(2), 'ms after click'))
+        .on('end', () => console.log('[ENTRADE Zoom] Zoom In transition finished:', (performance.now() - t0).toFixed(2), 'ms total'))
+        .call(map.__zoomBehavior.scaleBy, 1.6);
+    } else {
+      console.warn('[ENTRADE Zoom] Zoom In skipped: map or zoomBehavior not ready');
     }
   });
 
   makeBtn('wt-button-zoomout', 'fa-minus', zoomOutLabel, () => {
+    const t0 = performance.now();
+    console.log('[ENTRADE Zoom] Zoom Out button clicked at', t0.toFixed(2), 'ms', { map, svg: map?.svg_, zoomBehavior: map?.__zoomBehavior });
     if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(200).call(map.__zoomBehavior.scaleBy, 1 / 1.6);
+      map.svg_.transition().duration(100)
+        .on('start', () => console.log('[ENTRADE Zoom] Zoom Out transition start:', (performance.now() - t0).toFixed(2), 'ms after click'))
+        .on('end', () => console.log('[ENTRADE Zoom] Zoom Out transition finished:', (performance.now() - t0).toFixed(2), 'ms total'))
+        .call(map.__zoomBehavior.scaleBy, 1 / 1.6);
+    } else {
+      console.warn('[ENTRADE Zoom] Zoom Out skipped: map or zoomBehavior not ready');
     }
   });
 

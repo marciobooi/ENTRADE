@@ -452,13 +452,13 @@ function buildMapToolbar() {
 
   makeBtn('wt-button-zoomin', 'fa-plus', zoomInLabel, () => {
     if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(200).call(map.__zoomBehavior.scaleBy, 1.6);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1.6);
     }
   });
 
   makeBtn('wt-button-zoomout', 'fa-minus', zoomOutLabel, () => {
     if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(200).call(map.__zoomBehavior.scaleBy, 1 / 1.6);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1 / 1.6);
     }
   });
 
@@ -1460,24 +1460,24 @@ function handlePanZoomKey(event) {
 
   switch (event.key) {
     case 'ArrowUp':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.translateBy, 0, step);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, 0, step);
       break;
     case 'ArrowDown':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.translateBy, 0, -step);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, 0, -step);
       break;
     case 'ArrowLeft':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.translateBy, step, 0);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, step, 0);
       break;
     case 'ArrowRight':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.translateBy, -step, 0);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, -step, 0);
       break;
     case '+':
     case '=':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.scaleBy, 1.4);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1.4);
       break;
     case '-':
     case '_':
-      map.svg_.transition().duration(180).call(map.__zoomBehavior.scaleBy, 1 / 1.4);
+      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1 / 1.4);
       break;
     default:
       return false;
