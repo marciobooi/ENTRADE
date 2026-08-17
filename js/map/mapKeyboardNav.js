@@ -8,7 +8,7 @@
  */
 import { map, activePartners } from './mapState.js';
 import { getPathCountryCode, getCountryCoordinates, getMapZoomK } from './mapUtils.js';
-import { animateMapToCountry } from './mapAnimation.js';
+import { animateMapToCountry, animateMapToPosition } from './mapAnimation.js';
 import { hideKeyboardTooltip, hideCountryNameTooltipForFocus, showKeyboardTooltip, showCountryNameTooltipForFocus } from './mapTooltips.js';
 import { clearMap } from './mapDrawing.js';
 import { selectCountryByCode } from './mapCountryData.js';
@@ -210,11 +210,15 @@ export function handlePanZoomKey(event) {
       break;
     case '+':
     case '=':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1.4);
+      // animateMapToPosition rather than zoomBehavior.scaleBy: see the same
+      // note on the toolbar's zoom buttons in mapToolbar.js - the real D3
+      // zoom transition dispatches a 'zoom' event on every tick that's
+      // extremely costly to restyle at .geo('WORLD') scale.
+      if (map.position_) animateMapToPosition(map.position_.x, map.position_.y, map.position_.z / 1.4, 250);
       break;
     case '-':
     case '_':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.scaleBy, 1 / 1.4);
+      if (map.position_) animateMapToPosition(map.position_.x, map.position_.y, map.position_.z * 1.4, 250);
       break;
     default:
       return false;

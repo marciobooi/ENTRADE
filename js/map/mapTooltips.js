@@ -105,6 +105,30 @@ export function attachCountryNameTooltips() {
   // to one update per animation frame keeps the tooltip just as responsive
   // while cutting the forced-layout count to match the screen's actual
   // repaint rate.
+  // Hover fill highlight. reapplyCountryColors (mapDrawing.js) sets each
+  // country's fill inline via style.setProperty(..., 'important') - an
+  // inline !important always wins over a stylesheet !important regardless
+  // of selector specificity, so a plain CSS :hover rule would never actually
+  // show through it. Overriding/restoring the same inline property here,
+  // piggybacked on the same rAF-throttled mousemove tracking used for the
+  // name tooltip, keeps it in sync with whatever color that path is
+  // "really" supposed to be (selected/partner/EU/other) once un-hovered.
+  const HOVER_FILL = 'rgb(81 94 138)';
+  let hoveredPath = null;
+  function setHoverFill(path) {
+    if (hoveredPath === path) return;
+    if (hoveredPath) {
+      const restore = hoveredPath.dataset.hoverOrigFill;
+      if (restore !== undefined) hoveredPath.style.setProperty('fill', restore, 'important');
+      delete hoveredPath.dataset.hoverOrigFill;
+    }
+    hoveredPath = path;
+    if (hoveredPath) {
+      hoveredPath.dataset.hoverOrigFill = hoveredPath.style.getPropertyValue('fill');
+      hoveredPath.style.setProperty('fill', HOVER_FILL, 'important');
+    }
+  }
+
   let pendingMouseEvent = null;
   let mouseMoveScheduled = false;
   worldrg.addEventListener('mousemove', (event) => {
@@ -116,6 +140,10 @@ export function attachCountryNameTooltips() {
       const e = pendingMouseEvent;
       const path = e.target.closest('path');
       const code = path ? getPathCountryCode(path) : null;
+      // Only the EU/reportable countries (defGeos) get the hover fill - non-EU
+      // partners (e.g. US, Russia, Qatar) still show the name tooltip below,
+      // just without the highlight.
+      setHoverFill(code && defGeos.includes(code) ? path : null);
       if (!code) {
         nameTooltip.style.display = 'none';
         return;
@@ -128,6 +156,7 @@ export function attachCountryNameTooltips() {
   });
 
   worldrg.addEventListener('mouseleave', () => {
+    setHoverFill(null);
     nameTooltip.style.display = 'none';
   });
 }

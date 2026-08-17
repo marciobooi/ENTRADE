@@ -88,6 +88,9 @@ export async function loadCountryData(country) {
     await openFactSheet();
   }
 }
+// Exposed for js/domComponents/subNavBarComponent.js's top5/all-partners
+// toggle, which calls this as an unguarded bare global.
+window.loadCountryData = loadCountryData;
 
 export function showMapSpinner() {
   const mapElem = document.querySelector('#map');

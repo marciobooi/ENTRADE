@@ -4,6 +4,7 @@
  * opens.
  */
 import { map, MAP_INITIAL_POSITION } from './mapState.js';
+import { animateMapToPosition } from './mapAnimation.js';
 import { clearMap } from './mapDrawing.js';
 import { announceToScreenReader } from './mapKeyboardNav.js';
 
@@ -53,29 +54,25 @@ export function buildMapToolbar() {
     }
   });
 
+  // Zoom in/out reuse animateMapToPosition (mapAnimation.js) rather than
+  // driving eurostat-map's real zoomBehavior through a D3 transition: that
+  // path dispatches a full 'zoom' event on every tick, which at .geo('WORLD')
+  // scale (~250 boundary paths - needed for non-EU partners like the US,
+  // Russia, Qatar) forces a browser style-recalculation costing well over a
+  // second per tick (confirmed via the DevTools Performance panel - the
+  // "Recalculate style" cost dwarfed actual script time, and the same
+  // eurostat-map code runs fine on their own Europe-only demo). animateMapToPosition
+  // sidesteps that by writing the transform directly for every frame but the
+  // last, matching the click/keyboard-select recenter animation.
   makeBtn('wt-button-zoomin', 'fa-plus', zoomInLabel, () => {
-    const t0 = performance.now();
-    console.log('[ENTRADE Zoom] Zoom In button clicked at', t0.toFixed(2), 'ms', { map, svg: map?.svg_, zoomBehavior: map?.__zoomBehavior });
-    if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(100)
-        .on('start', () => console.log('[ENTRADE Zoom] Zoom In transition start:', (performance.now() - t0).toFixed(2), 'ms after click'))
-        .on('end', () => console.log('[ENTRADE Zoom] Zoom In transition finished:', (performance.now() - t0).toFixed(2), 'ms total'))
-        .call(map.__zoomBehavior.scaleBy, 1.6);
-    } else {
-      console.warn('[ENTRADE Zoom] Zoom In skipped: map or zoomBehavior not ready');
+    if (map && map.position_) {
+      animateMapToPosition(map.position_.x, map.position_.y, map.position_.z / 1.6, 250);
     }
   });
 
   makeBtn('wt-button-zoomout', 'fa-minus', zoomOutLabel, () => {
-    const t0 = performance.now();
-    console.log('[ENTRADE Zoom] Zoom Out button clicked at', t0.toFixed(2), 'ms', { map, svg: map?.svg_, zoomBehavior: map?.__zoomBehavior });
-    if (map && map.svg_ && map.__zoomBehavior) {
-      map.svg_.transition().duration(100)
-        .on('start', () => console.log('[ENTRADE Zoom] Zoom Out transition start:', (performance.now() - t0).toFixed(2), 'ms after click'))
-        .on('end', () => console.log('[ENTRADE Zoom] Zoom Out transition finished:', (performance.now() - t0).toFixed(2), 'ms total'))
-        .call(map.__zoomBehavior.scaleBy, 1 / 1.6);
-    } else {
-      console.warn('[ENTRADE Zoom] Zoom Out skipped: map or zoomBehavior not ready');
+    if (map && map.position_) {
+      animateMapToPosition(map.position_.x, map.position_.y, map.position_.z * 1.6, 250);
     }
   });
 
@@ -114,6 +111,18 @@ export function buildMapToolbar() {
   });
 
   mapElem.appendChild(toolbar);
+
+  // Toolbar buttons are (re)created here every map.build() (initial load,
+  // window resize, etc.) - js/tooltip.js's enableTooltips() only scans for
+  // button[title]/[aria-label] at the moments language.js or
+  // auxChartControls.js happen to call it, neither of which is tied to this
+  // rebuild, so a toolbar rebuild silently drops any tooltip bindings the
+  // previous set of buttons had. Rebind every time, matching the same
+  // pattern auxChartControls.js already uses for its own dynamically
+  // created buttons.
+  if (typeof enableTooltips === 'function') {
+    enableTooltips();
+  }
 }
 
 /**

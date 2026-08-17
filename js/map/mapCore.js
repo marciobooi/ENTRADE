@@ -11,7 +11,7 @@ import { reapplyCountryColors, attachMapClickListeners, drawLines } from './mapD
 import { buildMapToolbar } from './mapToolbar.js';
 import { attachCountryNameTooltips } from './mapTooltips.js';
 import { setupMapAccessibility } from './mapKeyboardNav.js';
-import { attachZoomScaling } from './mapAnimation.js';
+import { attachZoomScaling, attachCustomWheelZoom, attachCustomDragPan } from './mapAnimation.js';
 import { loadCountryData } from './mapCountryData.js';
 
 let hasBuiltMapOnce = false;
@@ -134,6 +134,8 @@ function renderMap() {
           attachCountryNameTooltips();
           setupMapAccessibility();
           attachZoomScaling();
+          attachCustomWheelZoom();
+          attachCustomDragPan();
 
           if (!hasBuiltMapOnce) {
             hasBuiltMapOnce = true;
