@@ -565,6 +565,34 @@ body.em-dragging * {
   outline-offset: -3px;
 }
 
+/* "Press Enter to explore the map" watermark (js/map/mapKeyboardNav.js's
+   setupMapAccessibility adds the element). :has() rather than a sibling
+   combinator: #mapSvg isn't actually a direct child of #map (eurostat-map
+   wraps it in its own unnamed container div), so #mapSvg:focus-visible ~
+   #mapEnterHint never matched - #map:has(...) reaches into that nesting
+   regardless of depth. :focus-visible keeps this keyboard-only, never a
+   mouse click. */
+#mapEnterHint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 120;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: rgba(11, 57, 162, 0.55);
+}
+#map:has(#mapSvg:focus-visible) #mapEnterHint {
+  opacity: 1;
+}
+
 /* Smooth fill/stroke transition on all country paths */
 #mapSvg path:not(.map-curve):not(.em-sphere):not(.em-graticule) {
   transition: fill 0.35s ease, stroke 0.25s ease, stroke-width 0.2s ease !important;

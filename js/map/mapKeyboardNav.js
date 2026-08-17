@@ -354,6 +354,22 @@ export function setupMapAccessibility() {
     mapContainer.appendChild(liveRegion);
   }
 
+  // Visual "Press Enter to explore the map" watermark, shown only on
+  // keyboard focus (CSS :focus-visible in main.css, not mouse clicks) - a
+  // sighted keyboard user landing on the map's one outer tab stop otherwise
+  // has no visual cue that Enter is needed before Tab starts moving between
+  // countries. aria-hidden since screen-reader users already get the same
+  // information via mapSvg's own aria-label above; this would just double
+  // announce it. Must come AFTER mapSvg in the DOM for the sibling-combinator
+  // CSS rule (#mapSvg:focus-visible ~ #mapEnterHint) to match it.
+  if (!document.querySelector('#mapEnterHint')) {
+    const enterHint = document.createElement('div');
+    enterHint.id = 'mapEnterHint';
+    enterHint.setAttribute('aria-hidden', 'true');
+    enterHint.textContent = labels['MAP_ENTER_HINT'] || 'Press Enter to explore the map';
+    mapContainer.appendChild(enterHint);
+  }
+
   attachMapKeyboardNav(mapSvg);
   makeCountriesFocusable();
 }

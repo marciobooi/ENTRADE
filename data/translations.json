@@ -2496,6 +2496,11 @@
     "FR": "Clavier",
     "DE": "Tastatur"
   },
+  "MAP_ENTER_HINT": {
+    "EN": "Press Enter to explore the map",
+    "FR": "Appuyez sur Entrée pour explorer la carte",
+    "DE": "Drücken Sie die Eingabetaste, um die Karte zu erkunden"
+  },
   "MAP_HELP_KEYBOARD_1": {
     "EN": "Press <kbd>Tab</kbd> to reach the map, then <kbd>Enter</kbd> to start.",
     "FR": "Appuyez sur <kbd>Tab</kbd> pour atteindre la carte, puis sur <kbd>Entrée</kbd> pour commencer.",
