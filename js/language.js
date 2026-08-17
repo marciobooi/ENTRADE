@@ -33,11 +33,12 @@ const languageNameSpace = {
 			// Set the filtered language data to languageNameSpace.labels
 			languageNameSpace.labels = labels;
 		} catch (err) {
-			console.error(`Error with language: ${language}`, err);
-			error("initLanguage: No label found!");
-			//if language not found => set EN version by default
-			languageNameSpace.setLanguage("EN");
-			languageNameSpace.languageSelected = 'EN';
+			console.error(`initLanguage: no labels found for "${language}"`, err);
+			// Fall back to English once, rather than leaving labels empty -
+			// but only if EN itself isn't what just failed, to avoid looping.
+			if (language !== 'EN') {
+				return languageNameSpace.initLanguage('EN');
+			}
 		}
 
 		try {
@@ -45,8 +46,7 @@ const languageNameSpace = {
 			const tutorialData = await tutorialResponse.json();
 			languageNameSpace.tutorial = tutorialData;
 		} catch (err) {
-			console.error(`Error with language: ${language}`, err);
-			error("initLanguage: No data found for tutorial!");
+			console.error(`initLanguage: no tutorial data found for "${language}"`, err);
 		}
 		
 		// Set labels for the selected language when DOM is ready
@@ -75,11 +75,7 @@ const languageNameSpace = {
 		});
 
 		removeComponents();
-		await buildComponents();		
-		
-
-		
-		addCredits();
+		await buildComponents();
 
 		const footerCookies = document.getElementById("footer-cookies");
 		if (footerCookies) {
@@ -108,10 +104,20 @@ const languageNameSpace = {
 		enableTooltips();
 	},
 		
-	ChangeLanguage: function (val) {
+	ChangeLanguage: async function (val) {
 		REF.language = val;
-		languageNameSpace.initLanguage(REF.language);	
-		removeChartOptions();	
+		// Awaited: renderMap() rebuilds the map toolbar (buildMapToolbar,
+		// js/map/mapToolbar.js) reading languageNameSpace.labels at that exact
+		// moment - calling it before the translations fetch inside
+		// initLanguage() resolves meant the freshly-rebuilt toolbar's
+		// aria-labels/titles were read from the OLD language. The setTimeout
+		// block that used to run 700ms later tried to patch this after the
+		// fact via #wt-button-home > span selectors, but the current toolbar
+		// (mapToolbar.js's makeBtn) only ever renders a bare <i> icon - no
+		// <span> child exists, so those patches were silently no-ops even
+		// when the timing happened to work out.
+		await languageNameSpace.initLanguage(REF.language);
+		removeChartOptions();
 		renderMap();
 
 		// Notify registered listeners (e.g., CCK, GLOBAN)
@@ -122,51 +128,12 @@ const languageNameSpace = {
 				console.error("Error in language listener:", err);
 			}
 		});
-		setTimeout(() => {
-			const homeBtn = document.querySelector("#wt-button-home > span");
-			if (homeBtn) homeBtn.textContent = languageNameSpace.labels["HOME"];
 
-			const zoomoutBtn = document.querySelector("#wt-button-zoomout > span");
-			if (zoomoutBtn) zoomoutBtn.textContent = languageNameSpace.labels["ZOUT"];
-
-			const zoominBtn = document.querySelector("#wt-button-zoomin > span");
-			if (zoominBtn) zoominBtn.textContent = languageNameSpace.labels["ZIN"];
-
-			const fullscreenBtn = document.querySelector("#wt-button-fullscreen > span");
-			if (fullscreenBtn) fullscreenBtn.textContent = languageNameSpace.labels["FULL"];
-
-			const clearBtn = document.querySelector("#wt-button-clear > span");
-			if (clearBtn) clearBtn.textContent = languageNameSpace.labels["CLEAR"];
-
-			document.getElementById("wt-button-home")?.setAttribute("aria-label", languageNameSpace.labels["HOME"]);
-			document.getElementById("wt-button-zoomout")?.setAttribute("aria-label", languageNameSpace.labels["ZOUT"]);
-			document.getElementById("wt-button-zoomin")?.setAttribute("aria-label", languageNameSpace.labels["ZIN"]);
-			document.getElementById("wt-button-fullscreen")?.setAttribute("aria-label", languageNameSpace.labels["FULL"]);
-			document.getElementById("wt-button-clear")?.setAttribute("aria-label", languageNameSpace.labels["CLEAR"]);
-
-			euGlobanContainer();
-
-			document.documentElement.lang = REF.language.toLowerCase();
-
-		}, 700);
+		euGlobanContainer();
+		document.documentElement.lang = REF.language.toLowerCase();
 	}
 	
 
 
 };
-
-
-function addCredits() {	
-	setTimeout(() => {
-		document.querySelectorAll(".credits").forEach(el => el.remove());
-
-		const linksElement = document.getElementById("links");
-		if (linksElement && linksElement.textContent === "") {
-			linksElement.insertAdjacentHTML('beforeend', linksContent);
-		}
-
-		const footerInstance = new Footer();
-		footerInstance.addToDOM('.wtfooter');
-	}, 3000);
-}
 
