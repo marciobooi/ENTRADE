@@ -45,12 +45,22 @@ const dataNameSpace = {
 	},
 
 	// get global ref variables in URL
-	getRefURL: function () {		
+	getRefURL: function () {
 		const refURL = getUrlVars();
 		for (const ref in dataNameSpace.ref) {
 			if (typeof refURL[ref] === "undefined") continue;
 			dataNameSpace.ref[ref] = refURL[ref];
 		}
+
+		// Allowlist language: an invalid/unexpected value here (typo, garbage
+		// query param) used to reach Navbar's constructor unchecked, which
+		// does querySelector("#" + REF.language) and then unconditionally
+		// calls .classList.add on the result - a TypeError on null that
+		// aborted the rest of buildComponents(), including the trade/product/
+		// unit/year dropdowns. Same allowlist footerComponent.js already uses.
+		const ALLOWED_LANGS = ['EN', 'FR', 'DE'];
+		const upperLang = (dataNameSpace.ref.language || 'EN').toUpperCase();
+		dataNameSpace.ref.language = ALLOWED_LANGS.includes(upperLang) ? upperLang : 'EN';
 	},
 
 	dataset: ""

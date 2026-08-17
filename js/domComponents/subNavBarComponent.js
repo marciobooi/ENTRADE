@@ -190,7 +190,7 @@ class SubNavbar {
                 </div>
               </div> 
               <div class="nav-item button px-1" id="shareChart" aria-haspopup="menu">
-                <button id="shareBtn" title="share chart" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="share chart" onclick="">
+                <button id="shareBtn" title="share chart" type="button" class="ecl-button ecl-button--primary round-btn" aria-label="share chart" onclick="socialNameSpace.share()">
                   <i class="fas fa-share-alt" aria-hidden="true"></i>
                 </button>
               </div>
@@ -289,8 +289,12 @@ class SubNavbar {
           label.style.fontWeight =
             switchElement.value === "top5" ? "bold" : "inherit";
 
-          if (typeof country !== "undefined") {
-            loadCountryData(country);
+          // Redraw the map's flow arcs/markers with the new top5/all filter
+          // if a country is currently selected there (other chart types
+          // already pick REF.filter up on their own next render - only the
+          // map needs an explicit nudge since it isn't reactive to REF).
+          if (typeof loadCountryData === 'function' && REF.geo) {
+            loadCountryData({ CNTR_ID: REF.geo });
           }
         });
       }

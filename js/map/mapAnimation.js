@@ -57,17 +57,11 @@ export function attachZoomScaling() {
   });
 
   observer.observe(zoomGroup, { attributes: true, attributeFilter: ['transform'] });
-
-  // Also handle mouse wheel via capture to get current zoom k quickly
-  const mapSvg = document.querySelector('#mapSvg');
-  if (mapSvg && !mapSvg.__wheelScalingAttached) {
-    mapSvg.__wheelScalingAttached = true;
-    mapSvg.addEventListener('wheel', () => {
-      requestAnimationFrame(() => {
-        rescaleFlowLayer(getMapZoomK());
-      });
-    }, { passive: true });
-  }
+  // No separate wheel listener needed: attachCustomWheelZoom (below) writes
+  // the zoom group's transform attribute synchronously on every wheel tick,
+  // which the MutationObserver above already catches and rAF-coalesces -
+  // a dedicated wheel listener here would just run rescaleFlowLayer twice
+  // per frame during a wheel gesture for no benefit.
 }
 
 /**
@@ -233,6 +227,25 @@ function applyScreenTransform(svgNode, k, tx, ty) {
   map.position_.x = lng;
   map.position_.y = lat;
   map.position_.z = map.__baseZ / k;
+}
+
+/**
+ * Pans by a constant on-screen pixel distance regardless of zoom level -
+ * used by arrow-key panning (mapKeyboardNav.js), which previously drove
+ * eurostat-map's real zoomBehavior.translateBy through a live D3 transition,
+ * the one remaining camera-move path in that file still paying the
+ * multi-second .geo('WORLD') restyle cost every other interaction here was
+ * built to avoid (see attachCustomWheelZoom above).
+ */
+export function panByScreenPixels(dx, dy) {
+  const svgNode = map.svg_ && typeof map.svg_.node === 'function' ? map.svg_.node() : null;
+  const current = svgNode && (svgNode.__zoom || map.__lastTransform);
+  if (!svgNode || !current || !map.__baseZ || !map._projection || !map.position_) return;
+
+  animateMapToPosition._token++;
+  animateMapToPosition._liveState = null;
+
+  applyScreenTransform(svgNode, current.k, current.x + dx, current.y + dy);
 }
 
 /**

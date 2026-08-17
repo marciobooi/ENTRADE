@@ -95,8 +95,8 @@ const excludedPartners = ["AFR_OTH", "AME_OTH", "ASI_NME_OTH", "ASI_OTH", "EUR_O
 		// Reset flag so openFactSheet can be triggered again
 		isOpenChartContainer = false;
 
-		// Re-add the factSheet button if a country is still selected (lines on the map)
-		if (typeof lines !== 'undefined' && lines.length > 0 && typeof mapCenterCoords !== 'undefined' && mapCenterCoords) {
+		// Re-add the factSheet button if a country is still selected (has drawn flow lines)
+		if (typeof mapCenterCoords !== 'undefined' && mapCenterCoords) {
 		  // Remove stale countryInfo if present, then re-insert
 		  const existingInfo = document.getElementById('countryInfo');
 		  if (existingInfo) existingInfo.remove();

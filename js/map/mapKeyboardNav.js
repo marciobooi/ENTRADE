@@ -7,8 +7,8 @@
  * screen-reader users to explore each drawn flow arc/marker individually.
  */
 import { map, activePartners } from './mapState.js';
-import { getPathCountryCode, getCountryCoordinates, getMapZoomK } from './mapUtils.js';
-import { animateMapToCountry, animateMapToPosition } from './mapAnimation.js';
+import { getPathCountryCode, getCountryCoordinates } from './mapUtils.js';
+import { animateMapToCountry, animateMapToPosition, panByScreenPixels } from './mapAnimation.js';
 import { hideKeyboardTooltip, hideCountryNameTooltipForFocus, showKeyboardTooltip, showCountryNameTooltipForFocus } from './mapTooltips.js';
 import { clearMap } from './mapDrawing.js';
 import { selectCountryByCode } from './mapCountryData.js';
@@ -193,20 +193,20 @@ export function attachMapKeyboardNav(mapSvg) {
 /** Arrow keys pan, +/- zoom - mirrors Google Maps' keyboard controls. Shared regardless of trap state. */
 export function handlePanZoomKey(event) {
   if (!map || !map.svg_ || !map.__zoomBehavior) return false;
-  const step = 80 / getMapZoomK(); // constant on-screen distance regardless of zoom
+  const PAN_STEP_PX = 80; // constant on-screen distance regardless of zoom
 
   switch (event.key) {
     case 'ArrowUp':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, 0, step);
+      panByScreenPixels(0, PAN_STEP_PX);
       break;
     case 'ArrowDown':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, 0, -step);
+      panByScreenPixels(0, -PAN_STEP_PX);
       break;
     case 'ArrowLeft':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, step, 0);
+      panByScreenPixels(PAN_STEP_PX, 0);
       break;
     case 'ArrowRight':
-      map.svg_.transition().duration(100).call(map.__zoomBehavior.translateBy, -step, 0);
+      panByScreenPixels(-PAN_STEP_PX, 0);
       break;
     case '+':
     case '=':

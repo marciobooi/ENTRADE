@@ -171,15 +171,6 @@ class Chart {
       }); // end of chart object
       enableScreenREader()
     } // end of chart function
-
-    redrawChart() {
-      if (this.chart) {
-          this.chart.redraw();
-      } else {
-          // no chart yet
-      }
-  }
-    
   }
 
   // function that return empty chart for when is no data to display

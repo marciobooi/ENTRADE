@@ -28,6 +28,11 @@ export function setMap(m) {
 export let mapCenterCoords = null; // only mapDrawing.js's drawLines() reassigns this
 export function setMapCenterCoords(v) {
   mapCenterCoords = v;
+  // Also mirrored on window: js/basics.js's removeChartOptions() (a classic,
+  // non-module script) needs to read this to know whether to re-show the
+  // factSheet button for a still-selected country, and module-scope bindings
+  // are invisible to that script's own global scope.
+  window.mapCenterCoords = v;
 }
 
 export let activePartners = []; // written by mapCountryData.js and mapDrawing.js
