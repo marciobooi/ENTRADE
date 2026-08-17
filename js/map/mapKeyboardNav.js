@@ -86,7 +86,13 @@ export function mapKbdMove(delta) {
 }
 
 export function enterMapBrowseMode(preferredCode) {
-  const items = mapKbdEntries(defGeos);
+  const labels = languageNameSpace?.labels || {};
+  const sortedGeos = [...defGeos].sort((a, b) => {
+    const nameA = labels[a] || a;
+    const nameB = labels[b] || b;
+    return nameA.localeCompare(nameB, REF?.language || 'en');
+  });
+  const items = mapKbdEntries(sortedGeos);
   if (!items.length) return;
   mapKbd.active = true;
   const startIndex = preferredCode ? Math.max(0, items.findIndex(i => i.code === preferredCode)) : 0;
