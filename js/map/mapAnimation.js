@@ -208,20 +208,6 @@ export function computeFitToPartnersPosition(sourceCoords, partners) {
 }
 
 /**
- * Replaces D3-zoom's own mouse-wheel handling with a direct-transform-write
- * version, for the same reason as animateMapToPosition above: eurostat-map's
- * real zoom-event pipeline (which D3's built-in wheel gesture drives too)
- * triggers a multi-second style-recalculation freeze at .geo('WORLD') scale.
- * D3-zoom attaches its own wheel listener under the "wheel.zoom" namespace
- * when the behavior is bound via svg.call(zoomBehavior) (see the bundled
- * d3-zoom source) - removing just that namespaced listener disables D3's
- * wheel-driven zooming specifically, while leaving drag/touch/programmatic
- * zoom untouched, and this attaches a replacement that reproduces the same
- * "zoom toward the cursor" feel and the same delta/scale-extent formula D3
- * itself uses, so it doesn't feel different to use - it just writes the
- * transform directly instead of dispatching a 'zoom' event.
- */
-/**
  * Writes a screen-space {k,tx,ty} transform to the zoom group, D3's own
  * __zoom bookkeeping, eurostat-map's __lastTransform, and position_ (derived
  * back to geographic x/y/z) - the shared "apply a transform the cheap way"
@@ -249,6 +235,20 @@ function applyScreenTransform(svgNode, k, tx, ty) {
   map.position_.z = map.__baseZ / k;
 }
 
+/**
+ * Replaces D3-zoom's own mouse-wheel handling with a direct-transform-write
+ * version, for the same reason as animateMapToPosition above: eurostat-map's
+ * real zoom-event pipeline (which D3's built-in wheel gesture drives too)
+ * triggers a multi-second style-recalculation freeze at .geo('WORLD') scale.
+ * D3-zoom attaches its own wheel listener under the "wheel.zoom" namespace
+ * when the behavior is bound via svg.call(zoomBehavior) (see the bundled
+ * d3-zoom source) - removing just that namespaced listener disables D3's
+ * wheel-driven zooming specifically, while leaving drag/touch/programmatic
+ * zoom untouched, and this attaches a replacement that reproduces the same
+ * "zoom toward the cursor" feel and the same delta/scale-extent formula D3
+ * itself uses, so it doesn't feel different to use - it just writes the
+ * transform directly instead of dispatching a 'zoom' event.
+ */
 export function attachCustomWheelZoom() {
   const svgNode = map.svg_ && typeof map.svg_.node === 'function' ? map.svg_.node() : null;
   if (!svgNode || svgNode.__customWheelAttached || !map.__zoomBehavior) return;
@@ -337,7 +337,15 @@ export function attachCustomDragPan() {
     const onMouseMove = (moveEvent) => {
       const dx = moveEvent.clientX - startX;
       const dy = moveEvent.clientY - startY;
-      if (!moved && dx * dx + dy * dy > CLICK_DISTANCE_SQ) moved = true;
+      if (!moved && dx * dx + dy * dy > CLICK_DISTANCE_SQ) {
+        moved = true;
+        // Country paths set their own inline cursor:pointer (they're
+        // individually clickable) which would otherwise keep showing
+        // through for the rest of the drag depending on what's under the
+        // cursor - .em-dragging's !important rule (main.css) overrides it
+        // on every descendant uniformly for the gesture's duration.
+        document.body.classList.add('em-dragging');
+      }
       if (!moved) return;
       applyScreenTransform(svgNode, k, tx0 + dx, ty0 + dy);
     };
@@ -345,6 +353,7 @@ export function attachCustomDragPan() {
     const onMouseUp = () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', onMouseUp);
+      document.body.classList.remove('em-dragging');
       if (moved) {
         // Swallow the click the browser is about to dispatch on mouseup's
         // target - capture phase runs before attachMapClickListeners' own

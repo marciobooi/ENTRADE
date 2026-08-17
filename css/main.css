@@ -538,6 +538,21 @@ ul#footerCredits {
   min-height: 400px;
 }
 
+#mapSvg {
+  cursor: grab;
+}
+
+/* Applied to <body> for the duration of a map drag (see attachCustomDragPan
+   in js/map/mapAnimation.js). Needs !important + the descendant selector to
+   win over country paths' own inline cursor:pointer (they're individually
+   clickable, so they set that explicitly) - without it, the cursor would
+   keep flickering between grabbing and pointer depending on which country
+   is under the mouse mid-drag instead of staying consistent. */
+body.em-dragging,
+body.em-dragging * {
+  cursor: grabbing !important;
+}
+
 
 /* #mapSvg {
   width: 100% !important;
