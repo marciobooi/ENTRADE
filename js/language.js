@@ -117,8 +117,13 @@ const languageNameSpace = {
 		// <span> child exists, so those patches were silently no-ops even
 		// when the timing happened to work out.
 		await languageNameSpace.initLanguage(REF.language);
-		removeChartOptions();
-		renderMap();
+		if (isAccessibilityMode()) {
+			// keep the statement view; the tool (map, chart options) is not running
+			showAccessibilityView();
+		} else {
+			removeChartOptions();
+			renderMap();
+		}
 
 		// Notify registered listeners (e.g., CCK, GLOBAN)
 		this._listeners.forEach((callback) => {

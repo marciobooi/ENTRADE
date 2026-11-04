@@ -5,6 +5,11 @@ if (document.readyState === 'loading') {
 }
 
 async function initApp() {
+  // The map module normally reads the URL later; the statement needs the language now
+  if (isAccessibilityMode()) {
+    dataNameSpace.getRefURL();
+  }
+
   await languageNameSpace.initLanguage(REF.language);
 
   // Initialize GLOBAN after language is set
@@ -15,6 +20,13 @@ if (typeof globanManager !== 'undefined') {
 // Regenerate CCK with the current language
 if (typeof cckManager !== 'undefined') {
   cckManager.regenerate(REF.language);
+}
+
+if (isAccessibilityMode()) {
+  document.documentElement.lang = REF.language.toLowerCase();
+  ECL.autoInit();
+  showAccessibilityView();
+  return;               // do not start the tool
 }
 
 
@@ -39,17 +51,24 @@ if (typeof cckManager !== 'undefined') {
 }
 
 async function buildComponents() {
-  const components = [
-    { instance: new SubNavbar(), target: "#subnavbar-container" },
-    { instance: new Footer(), target: '#componentFooter' },
-    { instance: new Navbar(), target: "#navbar-container" },
-  ];
+  const components = isAccessibilityMode()
+    ? [
+        { instance: new Footer(), target: '#componentFooter' },
+        { instance: new Navbar(), target: "#navbar-container" },
+      ]
+    : [
+        { instance: new SubNavbar(), target: "#subnavbar-container" },
+        { instance: new Footer(), target: '#componentFooter' },
+        { instance: new Navbar(), target: "#navbar-container" },
+      ];
 
   components.forEach(({ instance, target }) => {
     instance.addToDOM(target);
   });
 
-  await populateDropdownData();
+  if (!isAccessibilityMode()) {
+    await populateDropdownData();
+  }
 }
 
 function removeComponents() {

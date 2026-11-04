@@ -293,6 +293,7 @@ const TutorialTour = (() => {
   }
 
   async function checkAndShow() {
+    if (isAccessibilityMode()) return;
     if (hasSeenTutorial()) return;
 
     // optional: wait until at least core elements exist

@@ -68,3 +68,19 @@ const dataNameSpace = {
 
 // global shortcut to reference setting
 const REF = dataNameSpace.ref;
+
+// entrade.html?accessibility shows the accessibility statement instead of the tool
+function isAccessibilityMode() {
+	return new URLSearchParams(window.location.search).has("accessibility");
+}
+
+function showAccessibilityView() {
+	// hide whatever the tool shows
+	document.querySelectorAll('#allContainer, #menuSwitch, #floatingMenu, #subnavbar-container')
+		.forEach(el => el.classList.add('ecl-u-d-none'));
+	const view = document.getElementById('accessibilityView');
+	if (view) view.classList.remove('ecl-u-d-none');
+	document.querySelectorAll('.a11y-back-link')
+		.forEach(a => a.setAttribute('href', `?language=${REF.language}`));
+	document.title = 'Accessibility statement - Energy trade flows - Eurostat';
+}

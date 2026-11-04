@@ -169,6 +169,8 @@ fetch("data/data.json")
     if (window.dataNameSpace && typeof dataNameSpace.getRefURL === 'function') {
       dataNameSpace.getRefURL();
     }
+    // Accessibility statement mode (?accessibility): the map is not shown
+    if (typeof isAccessibilityMode === 'function' && isAccessibilityMode()) return;
     renderMap();
     if (typeof hideForIframe === 'function') {
       hideForIframe();

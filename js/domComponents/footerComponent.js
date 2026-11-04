@@ -46,7 +46,7 @@ class Footer {
 
 
       <li class="ecl-site-footer__list-item">
-        <a id="footer-access" href="https://ec.europa.eu/eurostat/web/main/help/accessibility" target="_self" rel="noreferrer noopener" class="ecl-link ecl-link--standalone ecl-site-footer__link">
+        <a id="footer-access" href="?accessibility&language=${safeLang.toUpperCase()}" class="ecl-link ecl-link--standalone ecl-site-footer__link">
         ${languageNameSpace.labels["ACCESS"]}</a>
         </li>
   `;
