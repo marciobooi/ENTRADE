@@ -23,6 +23,7 @@ async function createLineChart() {
       subtitle: null,
       xAxis: { categories: years },
       yAxisFormat: "{value:.0f}",
+      yAxisTitle: languageNameSpace.labels[REF.unit],
       tooltipFormatter: tooltipFormatter,
       creditsText: credits(),
       creditsHref: `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`,
